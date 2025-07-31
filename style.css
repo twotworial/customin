@@ -8,16 +8,24 @@
 }
 
 body {
-  background: #ffffff;
+  background: var(--bg);
   font-family: 'Inter', Arial, sans-serif;
   margin: 0;
   min-height: 100vh;
   color: var(--text);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.main-wrapper {
+  width: 400px;
+  min-height: 100vh;
+  background: var(--bg);
 }
 
 .bio-card {
-  max-width: 400px;
-  margin: 0 auto;
+  width: 100%;
   background: var(--bg);
   border-radius: 22px;
   box-shadow: 0 6px 32px 0 rgba(12,12,12,0.09);
@@ -33,6 +41,15 @@ body {
   height: 110px;
   background: var(--accent);
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bio-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .bio-avatar {
@@ -47,28 +64,33 @@ body {
   transform: translateX(-50%);
   border: 4px solid #fff;
   box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-
+.bio-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 h1 {
   margin-top: 62px;
   margin-bottom: 8px;
   font-size: 20px;
   font-weight: 600;
 }
-
 .bio-desc {
   font-size: 16px;
   color: var(--subtext);
   margin: 0 20px 16px;
 }
-
 .bio-socials {
   display: flex;
   justify-content: center;
   gap: 16px;
   margin-bottom: 20px;
 }
-
 .bio-socials a {
   background: #fff;
   color: var(--accent);
@@ -80,14 +102,13 @@ h1 {
   align-items: center;
   justify-content: center;
   text-decoration: none;
+  font-size: 20px;
   transition: 0.2s;
 }
-
 .bio-socials a:hover {
   background: var(--accent);
   color: #fff;
 }
-
 .bio-links {
   display: flex;
   flex-direction: column;
@@ -95,73 +116,84 @@ h1 {
   margin-bottom: 16px;
   align-items: center;
 }
-
 .bio-link {
   display: flex;
   justify-content: space-between;
   align-items: center;
   background: #fff;
-  border-radius: 8px;
-  padding: 0 8px;
+  border-radius: 12px;
+  padding: 0 10px;
   height: 48px;
   width: 100%;
-  max-width: 310px;
+  max-width: 340px;
   text-decoration: none;
   box-shadow: 0 2px 12px rgba(0,0,0,0.1);
   border: 1px solid #f4f4f4;
   color: var(--text);
+  font-size: 16px;
+  gap: 8px;
   transition: 0.2s;
 }
-
 .bio-link:hover {
   background: var(--accent);
   color: #fff;
 }
+.bio-link .arrow {
+  margin-left: auto;
+}
 
+/* === GRID PRODUK NEMPEL TEPI, GAP TENGAH === */
 .produk-list {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  margin: 12px auto;
-  padding: 0 8px;
-  max-width: 400px;
+  gap: 8px;
+  margin: 12px;
+  padding: 0 10px;
 }
-
 .product-card {
   background: #fff;
-  border-radius: 8px;
+  border-radius: 12px;
   box-shadow: 0 4px 16px rgba(0,0,0,0.1);
   overflow: hidden;
   display: flex;
   flex-direction: column;
 }
-
-.product-img img {
+.product-img {
   width: 100%;
   aspect-ratio: 1 / 1;
-  object-fit: cover;
+  background: #f6f6f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-
+.product-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 .product-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   padding: 8px;
 }
-
 .product-title {
   font-size: 14px;
   margin-bottom: 8px;
+  flex: none;
 }
-
 .product-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-
 .product-price {
   color: var(--accent);
   font-size: 12px;
+  font-weight: 600;
 }
-
 .order-btn {
   background: #222;
   color: #fff;
@@ -169,26 +201,16 @@ h1 {
   padding: 6px 12px;
   text-decoration: none;
   font-size: 12px;
+  transition: 0.2s;
+  font-weight: 500;
 }
-
 .order-btn:hover {
   background: var(--accent);
 }
-
 footer {
   margin-top: 20px;
   color: #a7a7a7;
   font-size: 14px;
-}
-
-@media (max-width: 400px) {
-  .produk-list {
-    grid-template-columns: repeat(2, 1fr);
-    padding: 10px;
-  }
-
-  .bio-card {
-    border-radius: 0;
-    box-shadow: none;
-  }
+  text-align: center;
+  padding-bottom: 18px;
 }
