@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kontak Kami | Customin.co</title>
+  <meta name="description" content="Hubungi Customin.co untuk konsultasi, pemesanan, atau info legalitas. Respon cepat via WhatsApp, Email, atau Instagram.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="kontak.css"/>
+  <script src="https://code.iconify.design/3/3.1.1/iconify.min.js"></script>
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "Customin.co",
+      "alternateName": "PT JATI DESAIN SEJAHTERA",
+      "url": "https://customin.co/",
+      "logo": "https://customin.co/OG/avatar-customin-furniture-custom.svg",
+      "image": "https://cdn.jsdelivr.net/gh/twotworial/customin@main/OG/Cover-Furniture-Custom-by-Customin.webp",
+      "email": "hi@customin.co",
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "contactType": "customer service",
+          "email": "hi@customin.co",
+          "url": "https://wa.me/628888085772",
+          "availableLanguage": ["Indonesian"]
+        }
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Rt XII, Bantrung, Batealit",
+        "addressLocality": "Jepara Regency",
+        "addressRegion": "Central Java",
+        "postalCode": "59461",
+        "addressCountry": "ID"
+      }
+    }
+  }
+  </script>
+</head>
+<body>
+  <div class="main-wrapper">
+    <div class="kontak-card">
+      <div class="kontak-avatar">
+        <img src="OG/avatar-customin-furniture-custom.svg" alt="Logo Customin.co">
+      </div>
+      <h1>Kontak <span class="brand">Customin.co</span></h1>
+      <div class="kontak-desc">
+        Konsultasi & order furniture custom cepat.<br>
+        Bisa via WhatsApp, Email, atau form berikut.
+      </div>
+
+      <div class="kontak-socials">
+        <a href="https://instagram.com/customin.co" target="_blank" title="Instagram">
+          <span class="iconify" data-icon="mdi:instagram"></span>
+        </a>
+        <a href="https://wa.me/628888085772" target="_blank" title="WhatsApp">
+          <span class="iconify" data-icon="mdi:whatsapp"></span>
+        </a>
+        <a href="mailto:hi@customin.co" title="Email">
+          <span class="iconify" data-icon="mdi:email"></span>
+        </a>
+      </div>
+
+      <form id="wa-form" class="kontak-form" autocomplete="off">
+        <input type="text" name="name" placeholder="Nama Anda" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <textarea name="pesan" rows="3" placeholder="Pesan/Kebutuhan Anda" required></textarea>
+        <button type="submit" class="order-btn">Kirim ke WhatsApp</button>
+      </form>
+
+      <div class="kontak-legal">
+        <div class="judul-legal">Legalitas Perusahaan</div>
+        <ul>
+          <li><b>PT:</b> JATI DESAIN SEJAHTERA</li>
+          <li><b>NIB:</b> 0305240087774</li>
+          <li><b>NPWP:</b> 0202 6362 2151 6000</li>
+          <li><b>SK:</b> AHU-023861.AH.01.30.Tahun 2024</li>
+        </ul>
+      </div>
+    </div>
+    <footer>
+      &copy; 2025 Customin.co
+    </footer>
+  </div>
+
+  <script>
+  document.getElementById('wa-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    var waNumber = "628888085772";
+    var nama = encodeURIComponent(this.name.value.trim());
+    var email = encodeURIComponent(this.email.value.trim());
+    var pesan = encodeURIComponent(this.pesan.value.trim());
+    var waText = `Halo Customin.co,%0ANama: ${nama}%0AEmail: ${email}%0APesan: ${pesan}`;
+    var waURL = `https://wa.me/${waNumber}?text=${waText}`;
+    window.open(waURL, '_blank');
+  });
+  </script>
+</body>
+</html>
