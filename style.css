@@ -82,7 +82,7 @@ h1 {
 }
 .bio-desc {
   font-size: 16px;
-  color: var(--subtext);
+  color: #0c0c0c;
   margin: 0 20px 16px;
 }
 .bio-socials {
@@ -190,7 +190,7 @@ h1 {
   align-items: center;
 }
 .product-price {
-  color: var(--accent);
+  color: #BF4600;
   font-size: 12px;
   font-weight: 600;
 }
@@ -209,7 +209,7 @@ h1 {
 }
 footer {
   margin-top: 20px;
-  color: #a7a7a7;
+  color: #0c0c0c;
   font-size: 14px;
   text-align: center;
   padding-bottom: 18px;
