@@ -1,0 +1,181 @@
+:root {
+  --accent: #FF6002;
+  --bg: #fff;
+  --text: #0c0c0c;
+  --grey: #f6f6f6;
+  --subtext: #5c5c5c;
+}
+
+body {
+  background: var(--bg);
+  font-family: 'Inter', Arial, sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.main-wrapper {
+  width: 400px;
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+.kontak-card {
+  width: 100%;
+  background: var(--bg);
+  border-radius: 18px;
+  box-shadow: 0 6px 32px 0 rgba(12,12,12,0.08);
+  margin-top: 28px;
+  margin-bottom: 24px;
+  overflow: hidden;
+  text-align: center;
+  position: relative;
+  border: 1.5px solid #f3f3f3;
+  padding-bottom: 24px;
+  padding-top: 8px;
+}
+
+.kontak-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #fff;
+  overflow: hidden;
+  margin: 0 auto 16px auto;
+  border: 4px solid #fff;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.kontak-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+h1 {
+  margin-top: 2px;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.brand {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.kontak-desc {
+  color: var(--subtext);
+  margin: 0 22px 20px 22px;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.kontak-socials {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.kontak-socials a {
+  background: #fff;
+  color: var(--accent);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 22px;
+  transition: 0.2s;
+  border: 1.2px solid #f4f4f4;
+}
+.kontak-socials a:hover,
+.kontak-socials a:focus {
+  background: var(--accent);
+  color: #fff;
+}
+
+.kontak-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 22px 18px 22px;
+}
+.kontak-form input,
+.kontak-form textarea {
+  border: 1.2px solid #e3e3e3;
+  border-radius: 10px;
+  padding: 9px 12px;
+  font-size: 15px;
+  font-family: inherit;
+  background: #fafafa;
+  color: var(--text);
+  transition: border 0.18s;
+  resize: none;
+}
+.kontak-form input:focus,
+.kontak-form textarea:focus {
+  border-color: var(--accent);
+  outline: none;
+}
+
+.kontak-form button.order-btn {
+  background: #222;
+  color: #fff;
+  border-radius: 12px;
+  padding: 8px 0;
+  width: 100%;
+  height: 42px;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  transition: background 0.16s, color 0.16s;
+  cursor: pointer;
+}
+.kontak-form button.order-btn:hover,
+.kontak-form button.order-btn:focus {
+  background: var(--accent);
+  color: #fff;
+}
+
+.kontak-legal {
+  background: #fafafa;
+  border-radius: 12px;
+  padding: 13px 14px 9px 14px;
+  margin: 0 22px 10px 22px;
+  font-size: 13.8px;
+  color: var(--subtext);
+  box-shadow: 0 1px 8px rgba(12,12,12,0.03);
+  text-align: left;
+}
+.kontak-legal .judul-legal {
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.kontak-legal ul {
+  padding-left: 16px;
+  margin: 0;
+}
+
+footer {
+  margin-top: 16px;
+  color: #a7a7a7;
+  font-size: 14px;
+  text-align: center;
+  padding-bottom: 18px;
+  border: none;
+  background: none;
+}
