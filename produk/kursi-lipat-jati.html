@@ -81,12 +81,15 @@
     <div class="product-detail-modern">
       <!-- Header Navigasi -->
       <div class="pd-header">
-        <a href="../index.html" class="pd-icon-btn"><span class="iconify" data-icon="mdi:arrow-left"></span></a>
-        <span class="pd-header-title">Detail Produk</span>
-        <button class="pd-icon-btn" onclick="navigator.share ? shareProduct() : alert('Copy link: ' + window.location.href)">
-          <span class="iconify" data-icon="mdi:share-outline"></span>
-        </button>
-      </div>
+  <a href="../index.html" class="pd-icon-btn" aria-label="Kembali ke Beranda" title="Kembali ke Beranda">
+    <span class="iconify" data-icon="mdi:arrow-left"></span>
+  </a>
+  <span class="pd-header-title">Detail Produk</span>
+  <button class="pd-icon-btn" aria-label="Bagikan Produk" title="Bagikan Produk"
+    onclick="navigator.share ? shareProduct() : alert('Copy link: ' + window.location.href)">
+    <span class="iconify" data-icon="mdi:share-outline"></span>
+  </button>
+</div>
 
       <!-- Foto Produk 1:1 dengan padding -->
       <div class="pd-imgbox">
