@@ -88,7 +88,6 @@ body {
   display: block;
   background: var(--grey);
   transition: 0.25s;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12); /* shadow lembut */
 }
 .pd-gallery-thumbs {
   display: flex;
