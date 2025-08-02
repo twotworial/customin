@@ -214,3 +214,75 @@ footer {
   text-align: center;
   padding-bottom: 18px;
 }
+.floating-menu {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+.floating-btn {
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s;
+}
+.floating-btn:hover {
+  background: #e44d00;
+}
+
+.floating-popup {
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+  padding: 10px;
+  width: 200px;
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.floating-popup.show {
+  display: flex;
+  animation: fadeInUp 0.25s ease-out;
+}
+
+.floating-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  font-size: 14px;
+  color: #0c0c0c;
+  text-decoration: none;
+  border-radius: 10px;
+  transition: background 0.2s;
+}
+
+.floating-item:hover {
+  background: #f3f3f3;
+}
+
+@keyframes fadeInUp {
+  from {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
