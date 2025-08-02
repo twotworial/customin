@@ -173,14 +173,27 @@ h1 {
   color: #fff;
 }
 
-.about-section.legal ul {
-  padding-left: 18px;
-  font-size: 14px;
+.kontak-legal {
+  background: #fff;                     /* Ganti dari #fafafa ke putih */
+  border-radius: 12px;
+  padding: 14px 16px 10px 16px;
+  margin: 0 22px 10px 22px;
+  font-size: 13.8px;
   color: var(--subtext);
+  /* Shadow lebih tebal */
+  box-shadow: 0 4px 20px 0 rgba(12,12,12,0.13);
+  text-align: left;
+  border: 1.5px solid #f3f3f3;
 }
-.about-section.legal .brand {
+.kontak-legal .judul-legal {
+  color: var(--accent);
+  font-size: 13px;
   font-weight: 600;
-  font-size: 14px;
+  margin-bottom: 6px;
+}
+.kontak-legal ul {
+  padding-left: 16px;
+  margin: 0;
 }
 
 footer {
