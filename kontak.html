@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="kontak.css"/>
   <script src="https://code.iconify.design/3/3.1.1/iconify.min.js"></script>
+
   <!-- Structured Data -->
   <script type="application/ld+json">
   {
@@ -44,16 +45,18 @@
   </script>
 </head>
 <body>
-  <div class="main-wrapper">
-    <div class="kontak-card">
-  <div class="top-buttons">
-    <a href="/" class="nav-btn" title="Beranda">
+  <!-- Tombol navigasi kiri atas -->
+  <div class="nav-buttons">
+    <a href="/" class="nav-button" title="Beranda">
       <span class="iconify" data-icon="mdi:home-outline"></span>
     </a>
-    <a href="/keranjang" class="nav-btn" title="Keranjang">
+    <a href="/keranjang" class="nav-button" title="Keranjang">
       <span class="iconify" data-icon="mdi:cart-outline"></span>
     </a>
   </div>
+
+  <div class="main-wrapper">
+    <div class="kontak-card">
       <div class="kontak-avatar">
         <img src="OG/avatar-customin-furniture-custom.svg" alt="Logo Customin.co">
       </div>
@@ -98,16 +101,16 @@
   </div>
 
   <script>
-  document.getElementById('wa-form').addEventListener('submit', function(e){
-    e.preventDefault();
-    var waNumber = "628888085772";
-    var nama = encodeURIComponent(this.name.value.trim());
-    var email = encodeURIComponent(this.email.value.trim());
-    var pesan = encodeURIComponent(this.pesan.value.trim());
-    var waText = `Halo Customin.co,%0ANama: ${nama}%0AEmail: ${email}%0APesan: ${pesan}`;
-    var waURL = `https://wa.me/${waNumber}?text=${waText}`;
-    window.open(waURL, '_blank');
-  });
+    document.getElementById('wa-form').addEventListener('submit', function(e){
+      e.preventDefault();
+      var waNumber = "628888085772";
+      var nama = encodeURIComponent(this.name.value.trim());
+      var email = encodeURIComponent(this.email.value.trim());
+      var pesan = encodeURIComponent(this.pesan.value.trim());
+      var waText = `Halo Customin.co,%0ANama: ${nama}%0AEmail: ${email}%0APesan: ${pesan}`;
+      var waURL = `https://wa.me/${waNumber}?text=${waText}`;
+      window.open(waURL, '_blank');
+    });
   </script>
 </body>
 </html>
