@@ -216,14 +216,14 @@ footer {
 }
 .floating-menu {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: 18px;
+  right: 18px;
   z-index: 9999;
 }
 
 .floating-btn {
-  background: var(--accent);
-  color: white;
+  background: #ffffff;
+  color: var(--accent);
   border: none;
   border-radius: 50%;
   width: 56px;
@@ -233,11 +233,11 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-  transition: background 0.3s;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s, transform 0.2s;
 }
 .floating-btn:hover {
-  background: #e44d00;
+  transform: scale(1.05);
 }
 
 .floating-popup {
@@ -285,4 +285,5 @@ footer {
     opacity: 1;
   }
 }
+
 
