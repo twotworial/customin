@@ -38,6 +38,37 @@ body {
   padding-top: 8px;
 }
 
+/* Tombol Home & Cart */
+.top-buttons {
+  position: absolute;
+  top: 14px;
+  left: 20px;
+  right: 20px;
+  display: flex;
+  justify-content: space-between;
+  z-index: 3;
+}
+
+.nav-btn {
+  width: 42px;
+  height: 42px;
+  background: #fff;
+  color: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 22px;
+  border: 1.5px solid #f0f0f0;
+  transition: 0.2s;
+}
+.nav-btn:hover {
+  background: var(--accent);
+  color: white;
+}
+
 .kontak-avatar {
   width: 80px;
   height: 80px;
@@ -149,13 +180,12 @@ h1 {
 }
 
 .kontak-legal {
-  background: #fff;                     /* Ganti dari #fafafa ke putih */
+  background: #fff;
   border-radius: 12px;
   padding: 14px 16px 10px 16px;
   margin: 0 22px 10px 22px;
   font-size: 13.8px;
   color: var(--subtext);
-  /* Shadow lebih tebal */
   box-shadow: 0 4px 20px 0 rgba(12,12,12,0.13);
   text-align: left;
   border: 1.5px solid #f3f3f3;
@@ -180,35 +210,3 @@ footer {
   border: none;
   background: none;
 }
-.top-nav {
-  position: fixed;
-  top: 12px;
-  left: 12px;
-  right: 12px;
-  display: flex;
-  justify-content: space-between;
-  z-index: 10;
-}
-
-.nav-btn {
-  background: #fff;
-  color: var(--accent);
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  font-size: 24px;
-  border: 1.5px solid #f2f2f2;
-  transition: 0.2s;
-}
-
-.nav-btn:hover,
-.nav-btn:focus {
-  background: var(--accent);
-  color: #fff;
-}
-
