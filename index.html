@@ -133,44 +133,9 @@
       <footer>
         &copy; 2025 Customin.co
       </footer>
-      <!-- Floating Menu Button -->
-<div class="floating-menu">
-  <button class="floating-btn" onclick="toggleFloatingMenu()">
-    <span class="iconify" data-icon="mdi:menu"></span>
-  </button>
-  <div class="floating-popup" id="floatingPopup">
-    <a href="/" class="floating-item">
-      <span class="iconify" data-icon="mdi:home-outline"></span> Beranda
-    </a>
-    <a href="#produk" class="floating-item">
-      <span class="iconify" data-icon="mdi:sofa-single-outline"></span> Produk
-    </a>
-    <a href="/cart" class="floating-item">
-      <span class="iconify" data-icon="mdi:cart-outline"></span> Cart
-    </a>
-    <a href="/kontak.html" class="floating-item">
-      <span class="iconify" data-icon="mdi:email-outline"></span> Kontak
-    </a>
-    <a href="/about.html" class="floating-item">
-      <span class="iconify" data-icon="mdi:account-box-outline"></span> About
-    </a>
-  </div>
-</div>
     </div>
   </div>
-  <script>
-  function toggleFloatingMenu() {
-    document.getElementById('floatingPopup').classList.toggle('show');
-  }
-
-  document.addEventListener('click', function (e) {
-    const popup = document.getElementById('floatingPopup');
-    const button = document.querySelector('.floating-btn');
-    if (!popup.contains(e.target) && !button.contains(e.target)) {
-      popup.classList.remove('show');
-    }
-  });
-</script>
 </body>
 </html>
+
 
