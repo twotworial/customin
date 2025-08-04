@@ -12,20 +12,14 @@ body {
   font-family: 'Inter', Arial, sans-serif;
   margin: 0;
   color: var(--text);
-  /* Menerapkan flexbox untuk menengahkan konten di desktop */
   display: flex;
   justify-content: center;
   align-items: flex-start;
 }
 
-/* Default Styles untuk Desktop (lebar > 420px) */
+/* Default Styles untuk Desktop */
 .main-wrapper {
-  width: 400px;
-  background: var(--bg);
-  /* 👇 Perubahan untuk Sticky Footer */
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+  width: 400px; /* Lebar tetap untuk desktop */
 }
 
 .bio-card {
@@ -33,22 +27,20 @@ body {
   background: var(--bg);
   border-radius: 22px;
   box-shadow: 0 6px 32px 0 rgba(12,12,12,0.09);
-  margin: 24px; /* Memberi jarak di semua sisi untuk desktop */
+  margin: 24px 0; /* Memberi jarak ATAS dan BAWAH saja */
   text-align: center;
-  position: relative;
   border: 1.5px solid #f3f3f3;
-  /* 👇 Perubahan untuk Sticky Footer */
+  overflow: hidden; /* Mencegah konten keluar dari radius */
+  
+  /* 👇 Perbaikan untuk Sticky Footer */
   display: flex;
   flex-direction: column;
-  flex-grow: 1; /* Membuat .bio-card memanjang mengisi ruang kosong */
+  /* Mengatur tinggi minimal dikurangi margin atas & bawah */
+  min-height: calc(100vh - 48px); 
 }
 
-/* Media Query untuk Mobile (lebar <= 420px) */
+/* Media Query untuk Mobile */
 @media (max-width: 420px) {
-  body {
-    background: var(--bg);
-  }
-
   .main-wrapper {
     width: 100%;
   }
@@ -58,12 +50,11 @@ body {
     border-radius: 0;
     box-shadow: none;
     border: none;
-    min-height: 100vh; /* Pastikan tinggi minimal di mobile */
+    min-height: 100vh; /* Tinggi minimal penuh di mobile */
   }
 }
 
-/* --- Bagian lain dari CSS --- */
-/* (Kode CSS untuk banner, avatar, link, produk, dll. tetap sama) */
+/* --- Sisa dari kode CSS Anda tetap sama --- */
 .bio-banner {
   width: 100%;
   height: 110px;
@@ -235,7 +226,7 @@ h1 {
 footer {
   margin-top: auto; /* Mendorong footer ke bawah */
   padding: 24px;
-  color: #0c0c0c;
+  color: #a7a7a7;
   font-size: 14px;
   text-align: center;
 }
