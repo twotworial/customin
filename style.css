@@ -27,7 +27,7 @@ body {
   background: var(--bg);
   border-radius: 22px;
   box-shadow: 0 6px 32px 0 rgba(12,12,12,0.09);
-  margin: 24px 0; /* Memberi jarak ATAS dan BAWAH saja */
+  margin: 0px 0; /* Memberi jarak ATAS dan BAWAH saja */
   text-align: center;
   border: 1.5px solid #f3f3f3;
   overflow: hidden; /* Mencegah konten keluar dari radius */
@@ -230,3 +230,4 @@ footer {
   font-size: 14px;
   text-align: center;
 }
+
