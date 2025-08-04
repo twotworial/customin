@@ -35,8 +35,6 @@ body {
   /* 👇 Perbaikan untuk Sticky Footer */
   display: flex;
   flex-direction: column;
-  /* Mengatur tinggi minimal dikurangi margin atas & bawah */
-  min-height: calc(100vh - 48px); 
 }
 
 /* Media Query untuk Mobile */
@@ -230,4 +228,5 @@ footer {
   font-size: 14px;
   text-align: center;
 }
+
 
