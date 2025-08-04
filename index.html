@@ -18,6 +18,7 @@
   <link rel="icon" href="OG/favicon-customin-furniture-custom.ico" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="navigation.css">
   <script src="https://code.iconify.design/3/3.1.1/iconify.min.js"></script>
 
   <script type="application/ld+json">
@@ -133,5 +134,68 @@
       </footer>
     </div>
   </div>
+  <nav class="bottom-nav">
+        <a href="index.html" class="nav-item" title="Home">
+            <span class="iconify" data-icon="mdi:home-outline"></span>
+        </a>
+        
+        <div class="nav-item menu-button" id="menuButton" title="Menu">
+            <span class="iconify" data-icon="mdi:view-grid-outline"></span>
+            
+            <ul class="popup-menu" id="popupMenu">
+                <li class="popup-item">
+                    <a href="https://blog.customin.co">
+                        <span class="iconify" data-icon="ph:read-cv-logo-duotone"></span>
+                        <div class="text-content">
+                            <div class="title">Blog</div>
+                            <div class="subtitle">Baca artikel & inspirasi</div>
+                        </div>
+                    </a>
+                </li>
+                <li class="popup-item">
+                    <a href="#produk">
+                        <span class="iconify" data-icon="ph:rocket-launch-duotone"></span>
+                        <div class="text-content">
+                            <div class="title">Produk</div>
+                            <div class="subtitle">Lihat semua produk kami</div>
+                        </div>
+                    </a>
+                </li>
+                <li class="popup-item">
+                    <a href="#promo">
+                        <span class="iconify" data-icon="ph:confetti-duotone"></span>
+                        <div class="text-content">
+                            <div class="title">Promo</div>
+                            <div class="subtitle">Penawaran spesial terbaru</div>
+                        </div>
+                    </a>
+                </li>
+                <li class="popup-item">
+                    <a href="kontak.html">
+                        <span class="iconify" data-icon="ph:chats-teardrop-duotone"></span>
+                        <div class="text-content">
+                            <div class="title">Kontak</div>
+                            <div class="subtitle">Hubungi tim kami</div>
+                        </div>
+                    </a>
+                </li>
+                <li class="popup-item">
+                    <a href="about.html">
+                        <span class="iconify" data-icon="ph:address-book-duotone"></span>
+                        <div class="text-content">
+                            <div class="title">About</div>
+                            <div class="subtitle">Tentang perusahaan kami</div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <a href="#cart" class="nav-item" title="Keranjang">
+            <span class="iconify" data-icon="mdi:cart-outline"></span>
+        </a>
+    </nav>
+    <script src="script.js"></script>
 </body>
 </html>
+
