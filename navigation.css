@@ -1,0 +1,128 @@
+/* navigation.css */
+
+/* Memberi ruang di bawah agar konten tidak tertutup navigasi */
+body {
+    margin-bottom: 120px; 
+}
+
+.bottom-nav {
+    position: fixed;
+    bottom: 24px; /* Sedikit lebih tinggi */
+    left: 50%;
+    transform: translateX(-50%);
+    
+    /* 👇 PERUBAHAN UTAMA ADA DI SINI 👇 */
+    width: 90%; /* Lebar relatif terhadap layar */
+    max-width: 380px; /* Lebar maksimum agar sesuai dengan kartu di desktop */
+    box-sizing: border-box; /* Mencegah padding menambah lebar total */
+    justify-content: space-around; /* Menyebarkan ikon secara merata */
+    /* 👆 AKHIR PERUBAHAN UTAMA 👆 */
+
+    background-color: #ffffff;
+    border-radius: 35px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    display: flex;
+    align-items: center;
+    padding: 8px 12px; /* Menyesuaikan padding horizontal */
+    z-index: 1000;
+    /* Properti 'gap' tidak lagi diperlukan jika menggunakan 'justify-content' */
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 54px;
+    height: 54px;
+    color: #555;
+    border-radius: 50%;
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+    position: relative;
+    cursor: pointer;
+}
+
+.nav-item .iconify {
+    font-size: 26px;
+}
+
+/* Tombol Menu yang di tengah dibuat lebih menonjol */
+.nav-item.menu-button {
+    background-color: #2c2c2c;
+    color: #ffffff;
+}
+.nav-item.menu-button:hover {
+    background-color: #444;
+}
+
+.nav-item:not(.menu-button):hover {
+    background-color: #f1f1f1;
+}
+
+/* === Menu Pop-up (Tetap Sama) === */
+.popup-menu {
+    position: absolute;
+    bottom: calc(100% + 15px);
+    left: 50%;
+    width: 280px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    padding: 8px;
+    list-style: none;
+    margin: 0;
+    opacity: 0;
+    visibility: hidden;
+    transform-origin: bottom center;
+    transition: opacity 0.2s, visibility 0.2s, transform 0.2s;
+    transform: translateX(-50%) scale(0.95);
+}
+
+.popup-menu.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) scale(1);
+}
+
+.popup-menu::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #fff;
+}
+
+.popup-item a {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #1a1a1a;
+    transition: background-color 0.2s;
+}
+
+.popup-item a:hover {
+    background-color: #f5f5f5;
+}
+
+.popup-item .iconify {
+    font-size: 24px;
+    color: var(--accent, #FF6002); 
+}
+
+.popup-item .text-content .title {
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.popup-item .text-content .subtitle {
+    font-size: 13px;
+    color: #777;
+}
