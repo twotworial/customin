@@ -8,10 +8,9 @@
 }
 
 body {
-  background: #f6f6f6; /* Sedikit abu-abu untuk desktop agar card terlihat */
+  background: #f6f6f6;
   font-family: 'Inter', Arial, sans-serif;
   margin: 0;
-  min-height: 100vh;
   color: var(--text);
   /* Menerapkan flexbox untuk menengahkan konten di desktop */
   display: flex;
@@ -21,44 +20,50 @@ body {
 
 /* Default Styles untuk Desktop (lebar > 420px) */
 .main-wrapper {
-  width: 400px; /* Lebar tetap untuk tampilan desktop */
-  min-height: 100vh;
+  width: 400px;
   background: var(--bg);
+  /* 👇 Perubahan untuk Sticky Footer */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .bio-card {
   width: 100%;
   background: var(--bg);
-  border-radius: 22px; /* Diberi radius untuk efek kartu */
-  box-shadow: 0 6px 32px 0 rgba(12,12,12,0.09); /* Diberi shadow */
-  padding-bottom: 24px;
-  margin: 24px 0; /* Memberi jarak atas dan bawah di desktop */
-  overflow: hidden;
+  border-radius: 22px;
+  box-shadow: 0 6px 32px 0 rgba(12,12,12,0.09);
+  margin: 24px; /* Memberi jarak di semua sisi untuk desktop */
   text-align: center;
   position: relative;
   border: 1.5px solid #f3f3f3;
+  /* 👇 Perubahan untuk Sticky Footer */
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* Membuat .bio-card memanjang mengisi ruang kosong */
 }
 
 /* Media Query untuk Mobile (lebar <= 420px) */
 @media (max-width: 420px) {
   body {
-    background: var(--bg); /* Kembali putih di mobile */
+    background: var(--bg);
   }
 
   .main-wrapper {
-    width: 100%; /* Lebar penuh di mobile */
+    width: 100%;
   }
 
   .bio-card {
-    margin: 0; /* Hapus margin */
-    border-radius: 0; /* Hapus radius sudut */
-    box-shadow: none; /* Hapus shadow */
-    border: none; /* Hapus border */
-    min-height: 100vh;
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+    border: none;
+    min-height: 100vh; /* Pastikan tinggi minimal di mobile */
   }
 }
 
-/* --- Sisa dari kode CSS Anda tetap sama --- */
+/* --- Bagian lain dari CSS --- */
+/* (Kode CSS untuk banner, avatar, link, produk, dll. tetap sama) */
 .bio-banner {
   width: 100%;
   height: 110px;
@@ -228,9 +233,9 @@ h1 {
   background: var(--accent);
 }
 footer {
-  margin-top: 20px;
+  margin-top: auto; /* Mendorong footer ke bawah */
+  padding: 24px;
   color: #0c0c0c;
   font-size: 14px;
   text-align: center;
-  padding-bottom: 18px;
 }
