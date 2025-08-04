@@ -1,4 +1,3 @@
-/* style.css */
 :root {
   --accent: #FF6002;
   --bg: #ffffff;
@@ -9,16 +8,20 @@
 }
 
 body {
-  background: var(--bg);
+  background: #f6f6f6; /* Sedikit abu-abu untuk desktop agar card terlihat */
   font-family: 'Inter', Arial, sans-serif;
-  margin: 0; /* 👈 Ditambahkan: Menghapus margin default dari browser */
+  margin: 0;
   min-height: 100vh;
   color: var(--text);
-  /* display: flex; dan properti centering lainnya tidak lagi diperlukan jika wrapper sudah full-width */
+  /* Menerapkan flexbox untuk menengahkan konten di desktop */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
+/* Default Styles untuk Desktop (lebar > 420px) */
 .main-wrapper {
-  width: 100%; /* 👈 Diubah: Dari 400px menjadi 100% agar lebar penuh */
+  width: 400px; /* Lebar tetap untuk tampilan desktop */
   min-height: 100vh;
   background: var(--bg);
 }
@@ -26,18 +29,36 @@ body {
 .bio-card {
   width: 100%;
   background: var(--bg);
-  /* 👇 OPSI: Properti di bawah diubah untuk tampilan edge-to-edge yang lebih baik */
-  border-radius: 0; 
-  box-shadow: none;
-  border: none;
-  /* Properti lainnya tetap sama */
+  border-radius: 22px; /* Diberi radius untuk efek kartu */
+  box-shadow: 0 6px 32px 0 rgba(12,12,12,0.09); /* Diberi shadow */
   padding-bottom: 24px;
+  margin: 24px 0; /* Memberi jarak atas dan bawah di desktop */
   overflow: hidden;
   text-align: center;
   position: relative;
+  border: 1.5px solid #f3f3f3;
 }
 
-/* Sisa dari kode CSS Anda (bio-banner, avatar, dll.) tetap sama */
+/* Media Query untuk Mobile (lebar <= 420px) */
+@media (max-width: 420px) {
+  body {
+    background: var(--bg); /* Kembali putih di mobile */
+  }
+
+  .main-wrapper {
+    width: 100%; /* Lebar penuh di mobile */
+  }
+
+  .bio-card {
+    margin: 0; /* Hapus margin */
+    border-radius: 0; /* Hapus radius sudut */
+    box-shadow: none; /* Hapus shadow */
+    border: none; /* Hapus border */
+    min-height: 100vh;
+  }
+}
+
+/* --- Sisa dari kode CSS Anda tetap sama --- */
 .bio-banner {
   width: 100%;
   height: 110px;
