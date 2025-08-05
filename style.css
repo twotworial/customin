@@ -32,13 +32,13 @@ body {
   box-sizing: border-box;
 }
 
-/* === BAGIAN HEADER BARU (PROFILE CARD) === */
+/* === BAGIAN HEADER (PROFILE CARD) === */
 .profile-card {
     display: flex;
     align-items: center;
     text-align: left;
     gap: 16px;
-    background-color: #fff; /* Latar belakang putih */
+    background-color: #fff;
     border-radius: 18px;
     padding: 16px;
     box-shadow: 0 4px 16px rgba(0,0,0,0.07);
@@ -52,7 +52,7 @@ body {
     border-radius: 50%;
     background: var(--grey);
     overflow: hidden;
-    flex-shrink: 0; /* Mencegah avatar menyusut */
+    flex-shrink: 0;
 }
 
 .profile-avatar img {
@@ -73,8 +73,7 @@ body {
     margin: 0;
 }
 
-
-/* --- KONTEN LAINNYA --- */
+/* --- IKON SOSIAL --- */
 .bio-socials {
   display: flex;
   justify-content: center;
@@ -94,6 +93,7 @@ body {
   transform: scale(1.1);
 }
 
+/* --- TOMBOL LINK --- */
 .bio-links {
   display: flex;
   flex-direction: column;
@@ -113,9 +113,8 @@ body {
   color: var(--text);
   font-weight: 500;
   font-size: 16px;
-  gap: 8px;
-  transition: all 0.2s;
   border: 1px solid #f0f0f0;
+  transition: all 0.2s;
 }
 .bio-link:hover {
   background: var(--accent);
@@ -127,10 +126,11 @@ body {
   margin-left: auto;
 }
 
+/* --- GRID PRODUK (DIPERBAIKI) --- */
 .produk-list {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+  grid-template-columns: repeat(2, 1fr); /* 2 kolom sama besar */
+  gap: 16px; /* Jarak antar kartu */
   margin-bottom: 24px;
 }
 .product-card {
@@ -139,10 +139,56 @@ body {
   box-shadow: 0 4px 16px rgba(0,0,0,0.07);
   overflow: hidden;
   border: 1px solid #f0f0f0;
+  display: flex;
+  flex-direction: column;
 }
-
-/* ... (Sisa kode CSS untuk product-card tidak perlu diubah) ... */
-
+.product-img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: var(--grey);
+}
+.product-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.product-content {
+  padding: 12px;
+  text-align: left;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+.product-title {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  flex-grow: 1;
+}
+.product-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+}
+.product-price {
+  color: #BF4600;
+  font-size: 14px;
+  font-weight: 600;
+}
+.order-btn {
+  background: #222;
+  color: #fff;
+  border-radius: 10px;
+  padding: 6px 14px;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 500;
+  transition: 0.2s;
+}
+.order-btn:hover {
+  background: var(--accent);
+}
 
 /* --- RESPONSIVE UNTUK MOBILE --- */
 @media (max-width: 420px) {
