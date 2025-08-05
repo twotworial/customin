@@ -4,37 +4,35 @@
   --text: #0c0c0c;
   --grey: #f6f6f6;
   --subtext: #5c5c5c;
-  --radius: 26px;
+  --radius: 22px; /* Menyamakan radius */
 }
 
 body {
-  background: #f6f6f6;
+  background: var(--grey);
   font-family: 'Inter', Arial, sans-serif;
   margin: 0;
   color: var(--text);
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  /* Memberi ruang di bawah untuk navigasi sticky */
+  padding-bottom: 100px;
 }
 
 /* Default Styles untuk Desktop */
 .main-wrapper {
-  width: 400px; /* Lebar tetap untuk desktop */
+  width: 400px;
 }
 
 .bio-card {
   width: 100%;
   background: var(--bg);
-  border-radius: 22px;
+  border-radius: var(--radius);
   box-shadow: 0 6px 32px 0 rgba(12,12,12,0.09);
-  margin: 0px 0; /* Memberi jarak ATAS dan BAWAH saja */
+  margin: 24px 0;
   text-align: center;
   border: 1.5px solid #f3f3f3;
-  overflow: hidden; /* Mencegah konten keluar dari radius */
-  
-  /* 👇 Perbaikan untuk Sticky Footer */
-  display: flex;
-  flex-direction: column;
+  overflow: hidden;
 }
 
 /* Media Query untuk Mobile */
@@ -48,7 +46,7 @@ body {
     border-radius: 0;
     box-shadow: none;
     border: none;
-    min-height: 100vh; /* Tinggi minimal penuh di mobile */
+    min-height: 100vh;
   }
 }
 
@@ -57,16 +55,11 @@ body {
   width: 100%;
   height: 110px;
   background: var(--accent);
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 .bio-banner img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
 }
 .bio-avatar {
   width: 88px;
@@ -80,15 +73,11 @@ body {
   transform: translateX(-50%);
   border: 4px solid #fff;
   box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 .bio-avatar img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
 }
 h1 {
   margin-top: 62px;
@@ -129,7 +118,7 @@ h1 {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-bottom: 16px;
+  margin: 24px;
   align-items: center;
 }
 .bio-link {
@@ -160,31 +149,27 @@ h1 {
 .produk-list {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
-  margin: 12px;
-  padding: 0 10px;
+  gap: 12px; /* Sedikit lebih besar */
+  padding: 0 24px;
 }
 .product-card {
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.07);
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  border: 1px solid #f0f0f0;
 }
 .product-img {
   width: 100%;
   aspect-ratio: 1 / 1;
   background: #f6f6f6;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 .product-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
 }
 .product-content {
   flex: 1;
@@ -192,11 +177,11 @@ h1 {
   flex-direction: column;
   justify-content: space-between;
   padding: 8px;
+  text-align: left;
 }
 .product-title {
   font-size: 14px;
   margin-bottom: 8px;
-  flex: none;
 }
 .product-footer {
   display: flex;
@@ -221,12 +206,3 @@ h1 {
 .order-btn:hover {
   background: var(--accent);
 }
-footer {
-  margin-top: auto; /* Mendorong footer ke bawah */
-  padding: 24px;
-  color: #a7a7a7;
-  font-size: 14px;
-  text-align: center;
-}
-
-
