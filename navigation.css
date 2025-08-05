@@ -1,39 +1,41 @@
-/* navigation.css */
+/* navigation.css - Versi Menyatu dengan Kartu */
 
-/* Memberi ruang di bawah agar konten tidak tertutup navigasi */
+/* Hapus margin-bottom dari body karena navigasi tidak lagi fixed */
 body {
-    margin-bottom: 120px; 
+    margin-bottom: 0; 
 }
 
 .bottom-nav {
-    position: fixed;
-    bottom: 8px; /* Sedikit lebih tinggi */
-    left: 50%;
-    transform: translateX(-50%);
-    
-    /* 👇 PERUBAHAN UTAMA ADA DI SINI 👇 */
-    width: 90%; /* Lebar relatif terhadap layar */
-    max-width: 380px; /* Lebar maksimum agar sesuai dengan kartu di desktop */
-    box-sizing: border-box; /* Mencegah padding menambah lebar total */
-    justify-content: space-around; /* Menyebarkan ikon secara merata */
-    /* 👆 AKHIR PERUBAHAN UTAMA 👆 */
+    /* Menghapus semua properti posisi fixed */
+    /* position, bottom, left, transform, z-index, box-shadow DIHAPUS */
 
+    width: 100%;
+    margin-top: 24px; /* Jarak dari konten di atasnya */
+    padding: 4px 0; /* Padding vertikal */
+    border-top: 1.5px solid #f3f3f3; /* Garis pemisah */
     background-color: #ffffff;
-    border-radius: 35px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    
+    /* Mengatur radius agar menyatu dengan sudut bawah kartu induk */
+    border-radius: 0 0 22px 22px;
+    
     display: flex;
     align-items: center;
-    padding: 8px 8px; /* Menyesuaikan padding horizontal */
-    z-index: 1000;
-    /* Properti 'gap' tidak lagi diperlukan jika menggunakan 'justify-content' */
+    justify-content: space-around;
+}
+
+/* Tambahkan ini di dalam media query di style.css jika ada, atau di sini */
+@media (max-width: 420px) {
+    .bottom-nav {
+        border-radius: 0; /* Hapus radius di tampilan mobile edge-to-edge */
+    }
 }
 
 .nav-item {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 30px;
-    height: 30px;
+    width: 54px;
+    height: 54px;
     color: #555;
     border-radius: 50%;
     text-decoration: none;
@@ -43,10 +45,9 @@ body {
 }
 
 .nav-item .iconify {
-    font-size: 18px;
+    font-size: 26px;
 }
 
-/* Tombol Menu yang di tengah dibuat lebih menonjol */
 .nav-item.menu-button {
     background-color: #2c2c2c;
     color: #ffffff;
@@ -76,6 +77,7 @@ body {
     transform-origin: bottom center;
     transition: opacity 0.2s, visibility 0.2s, transform 0.2s;
     transform: translateX(-50%) scale(0.95);
+    z-index: 1001; /* Pastikan di atas konten lain */
 }
 
 .popup-menu.active {
