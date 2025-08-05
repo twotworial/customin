@@ -1,14 +1,14 @@
-/* navigation.css - Versi Sticky & Menyatu */
+/* navigation.css - Versi Sticky & Menyatu Final */
 
 .bottom-nav {
-    position: fixed; /* Selalu menempel di layar */
+    position: fixed;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
     z-index: 1000;
     
     width: 400px; /* Lebar disamakan dengan .main-wrapper */
-    background-color: #fff;
+    background-color: var(--bg, #ffffff);
     border: 1.5px solid #f3f3f3;
     border-top: none;
 
@@ -29,7 +29,7 @@
     }
 }
 
-/* --- Sisa kode untuk item dan pop-up tetap sama --- */
+/* --- Sisa kode untuk item dan pop-up --- */
 .nav-item {
     display: flex;
     align-items: center;
@@ -43,13 +43,88 @@
     position: relative;
     cursor: pointer;
 }
+
+.nav-item .iconify {
+    font-size: 26px;
+}
+
 .nav-item.menu-button {
     background-color: #2c2c2c;
     color: #ffffff;
 }
+
+.nav-item.menu-button:hover {
+    background-color: #444;
+}
+
+.nav-item:not(.menu-button):hover {
+    background-color: #f1f1f1;
+}
+
 .popup-menu {
     position: absolute;
     bottom: calc(100% + 15px);
     left: 50%;
-    /* (dan seterusnya...) */
+    width: 280px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    padding: 8px;
+    list-style: none;
+    margin: 0;
+    opacity: 0;
+    visibility: hidden;
+    transform-origin: bottom center;
+    transition: all 0.2s;
+    transform: translateX(-50%) scale(0.95);
+    z-index: 1001;
+}
+
+.popup-menu.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) scale(1);
+}
+
+.popup-menu::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #fff;
+}
+
+.popup-item a {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #1a1a1a;
+    transition: background-color 0.2s;
+}
+
+.popup-item a:hover {
+    background-color: #f5f5f5;
+}
+
+.popup-item .iconify {
+    font-size: 24px;
+    color: var(--accent, #FF6002); 
+}
+
+.popup-item .text-content .title {
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.popup-item .text-content .subtitle {
+    font-size: 13px;
+    color: #777;
 }
