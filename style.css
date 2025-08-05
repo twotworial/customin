@@ -11,13 +11,16 @@ body {
   font-family: 'Inter', Arial, sans-serif;
   margin: 0;
   color: var(--text);
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  /* Ruang di bawah untuk navigasi sticky */
+  padding-bottom: 100px;
 }
 
+/* Default Styles untuk Desktop */
 .main-wrapper {
   width: 400px;
+  /* 👇 METODE BARU: Menengahkan wrapper dengan margin auto 👇 */
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .bio-card {
@@ -28,12 +31,12 @@ body {
   text-align: center;
   border: 1.5px solid #f3f3f3;
   
-  /* 👇 PERUBAHAN UNTUK ILUSI MENYATU 👇 */
-  border-radius: var(--radius) var(--radius) 0 0; /* Sudut bawah tidak melengkung */
-  padding-bottom: 100px; /* Ruang agar konten tidak tertutup nav */
-  border-bottom: none; /* Hapus border bawah */
+  /* Sudut bawah tidak melengkung agar menyatu dengan nav */
+  border-radius: var(--radius) var(--radius) 0 0; 
+  border-bottom: none;
 }
 
+/* Media Query untuk Mobile */
 @media (max-width: 420px) {
   .main-wrapper {
     width: 100%;
@@ -42,8 +45,9 @@ body {
   .bio-card {
     margin: 0;
     border-radius: 0;
+    box-shadow: none;
+    border: none;
     min-height: 100vh;
-    padding-bottom: 100px;
   }
 }
 
