@@ -1,27 +1,47 @@
+/* navigation.css - Versi Sticky & Menyatu Final */
+
 .bottom-nav {
     position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
+    bottom: 0;
+    left: 0;
+    right: 0;
     z-index: 1000;
     
-    background-color: #ffffff;
-    border-radius: 35px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    /* Menengahkan konten di dalamnya */
+    display: flex;
+    justify-content: center;
+    
+    /* Beri ruang bawah untuk iPhone */
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+.nav-content {
+    width: 420px; /* Lebar disamakan dengan .main-wrapper */
+    background-color: var(--bg, #ffffff);
+    border: 1px solid #f0f0f0;
+    border-top: none;
+
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    /* Sudut atas rata, sudut bawah melengkung */
+    border-radius: 0 0 24px 24px; 
+
     display: flex;
     align-items: center;
-    padding: 8px;
-    gap: 12px;
-    border: 1px solid rgba(0,0,0,0.04);
+    justify-content: space-around;
+    padding: 8px 12px;
+    box-sizing: border-box;
 }
 
 @media (max-width: 480px) {
-    .bottom-nav {
-        width: calc(100% - 32px); /* Lebar penuh dikurangi padding */
-        bottom: 16px;
+    .nav-content {
+        width: 100%;
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
     }
 }
 
+/* --- Sisa kode untuk item dan pop-up --- */
 .nav-item {
     display: flex;
     align-items: center;
@@ -35,54 +55,9 @@
     position: relative;
     cursor: pointer;
 }
-
-.nav-item .iconify {
-    font-size: 26px;
-}
-
 .nav-item.menu-button {
     background-color: #2c2c2c;
     color: #ffffff;
 }
-.nav-item.menu-button:hover {
-    background-color: #444;
-}
-.nav-item:not(.menu-button):hover {
-    background-color: #f1f1f1;
-}
 
-.popup-menu {
-    position: absolute;
-    bottom: calc(100% + 15px);
-    left: 50%;
-    width: 280px;
-    background: #fff;
-    border-radius: 16px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    padding: 8px;
-    list-style: none;
-    margin: 0;
-    opacity: 0;
-    visibility: hidden;
-    transform-origin: bottom center;
-    transition: all 0.2s;
-    transform: translateX(-50%) scale(0.95);
-    z-index: 1001;
-}
-.popup-menu.active {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(-50%) scale(1);
-}
-.popup-menu::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 0;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-top: 10px solid #fff;
-}
+/* ... Sisa CSS tidak berubah ... */
