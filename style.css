@@ -82,10 +82,6 @@ body {
   text-decoration: none;
   transition: all 0.2s;
 }
-.bio-socials a:hover {
-  color: var(--accent);
-  transform: scale(1.1);
-}
 
 /* --- TOMBOL LINK --- */
 .bio-links {
@@ -107,10 +103,6 @@ body {
 }
 .bio-link .link-text {
     margin-left: 12px;
-}
-.bio-link:hover {
-  background: var(--accent);
-  color: #fff;
 }
 .bio-link .arrow {
   margin-left: auto;
