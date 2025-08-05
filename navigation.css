@@ -2,7 +2,7 @@
 
 .bottom-nav {
     position: fixed;
-    bottom: 16px;
+    bottom: 0px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 1000;
