@@ -10,10 +10,9 @@
     width: 400px; /* Lebar disamakan dengan .main-wrapper */
     background-color: #fff;
     border: 1.5px solid #f3f3f3;
-    border-top: none; /* Border atas dihapus agar menyatu */
+    border-top: none;
 
-    /* 👇 PERUBAHAN UNTUK ILUSI MENYATU 👇 */
-    box-shadow: 0 6px 32px 0 rgba(12,12,12,0.09); /* Shadow sama dengan kartu */
+    box-shadow: 0 6px 32px 0 rgba(12,12,12,0.09);
     border-radius: 0 0 22px 22px; /* Sudut atas tidak melengkung */
 
     display: flex;
