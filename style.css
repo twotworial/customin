@@ -11,16 +11,12 @@ body {
   font-family: 'Inter', Arial, sans-serif;
   margin: 0;
   color: var(--text);
-  /* Ruang di bawah untuk navigasi sticky */
-  padding-bottom: 100px;
 }
 
 /* Default Styles untuk Desktop */
 .main-wrapper {
   width: 400px;
-  /* 👇 METODE BARU: Menengahkan wrapper dengan margin auto 👇 */
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto; /* Cara paling andal untuk menengahkan */
 }
 
 .bio-card {
@@ -31,9 +27,11 @@ body {
   text-align: center;
   border: 1.5px solid #f3f3f3;
   
-  /* Sudut bawah tidak melengkung agar menyatu dengan nav */
+  /* Sudut bawah tidak melengkung agar menyatu dengan ilusi nav */
   border-radius: var(--radius) var(--radius) 0 0; 
-  border-bottom: none;
+  /* Beri ruang agar konten terakhir tidak tertutup nav */
+  padding-bottom: 24px; 
+  border-bottom: none; /* Hapus border bawah agar menyatu */
 }
 
 /* Media Query untuk Mobile */
@@ -51,7 +49,160 @@ body {
   }
 }
 
-/* --- Sisa dari kode CSS Anda tetap sama --- */
-.bio-banner, .bio-avatar, h1, .bio-desc, .bio-socials, .bio-links, .produk-list {
-    /* (Tidak ada perubahan di sini) */
+/* --- Sisa dari kode CSS Anda --- */
+.bio-banner {
+  width: 100%;
+  height: 110px;
+  background: var(--accent);
+  overflow: hidden;
+}
+.bio-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.bio-avatar {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: #fff;
+  overflow: hidden;
+  position: absolute;
+  left: 50%;
+  top: 66px;
+  transform: translateX(-50%);
+  border: 4px solid #fff;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+.bio-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+h1 {
+  margin-top: 62px;
+  margin-bottom: 8px;
+  font-size: 20px;
+  font-weight: 600;
+}
+.bio-desc {
+  font-size: 16px;
+  color: #0c0c0c;
+  margin: 0 20px 16px;
+}
+.bio-socials {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.bio-socials a {
+  background: #fff;
+  color: var(--accent);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.11);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 20px;
+  transition: 0.2s;
+}
+.bio-socials a:hover {
+  background: var(--accent);
+  color: #fff;
+}
+.bio-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 24px;
+  align-items: center;
+}
+.bio-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  border-radius: 12px;
+  padding: 0 10px;
+  height: 48px;
+  width: 100%;
+  max-width: 340px;
+  text-decoration: none;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+  border: 1px solid #f4f4f4;
+  color: var(--text);
+  font-size: 16px;
+  gap: 8px;
+  transition: 0.2s;
+}
+.bio-link:hover {
+  background: var(--accent);
+  color: #fff;
+}
+.bio-link .arrow {
+  margin-left: auto;
+}
+.produk-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  padding: 0 24px;
+}
+.product-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #f0f0f0;
+}
+.product-img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #f6f6f6;
+}
+.product-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.product-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 8px;
+  text-align: left;
+}
+.product-title {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+.product-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.product-price {
+  color: #BF4600;
+  font-size: 12px;
+  font-weight: 600;
+}
+.order-btn {
+  background: #222;
+  color: #fff;
+  border-radius: 12px;
+  padding: 6px 12px;
+  text-decoration: none;
+  font-size: 12px;
+  transition: 0.2s;
+  font-weight: 500;
+}
+.order-btn:hover {
+  background: var(--accent);
 }
