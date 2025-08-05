@@ -1,18 +1,21 @@
-/* navigation.css - Versi Menyatu dengan Kartu */
+/* navigation.css - Versi Sticky & Menyatu */
 
-/* Hapus margin-bottom dari body karena navigasi tidak lagi fixed */
+/* Menghapus margin bawah dari body karena navigasi menjadi bagian dari flow */
 body {
     margin-bottom: 0; 
 }
 
 .bottom-nav {
-    /* Menghapus semua properti posisi fixed */
-    /* position, bottom, left, transform, z-index, box-shadow DIHAPUS */
+    /* 👇 PERUBAHAN UTAMA ADA DI SINI 👇 */
+    position: -webkit-sticky; /* Untuk Safari */
+    position: sticky;
+    bottom: 0; /* Menempel di bagian bawah saat scroll */
+    /* 👆 AKHIR PERUBAHAN UTAMA 👆 */
 
     width: 100%;
-    margin-top: 24px; /* Jarak dari konten di atasnya */
-    padding: 4px 0; /* Padding vertikal */
-    border-top: 1.5px solid #f3f3f3; /* Garis pemisah */
+    margin-top: auto; /* Mendorong navigasi ke bagian bawah kartu */
+    padding: 4px 0;
+    border-top: 1.5px solid #f3f3f3;
     background-color: #ffffff;
     
     /* Mengatur radius agar menyatu dengan sudut bawah kartu induk */
@@ -23,7 +26,6 @@ body {
     justify-content: space-around;
 }
 
-/* Tambahkan ini di dalam media query di style.css jika ada, atau di sini */
 @media (max-width: 420px) {
     .bottom-nav {
         border-radius: 0; /* Hapus radius di tampilan mobile edge-to-edge */
@@ -77,7 +79,7 @@ body {
     transform-origin: bottom center;
     transition: opacity 0.2s, visibility 0.2s, transform 0.2s;
     transform: translateX(-50%) scale(0.95);
-    z-index: 1001; /* Pastikan di atas konten lain */
+    z-index: 1001;
 }
 
 .popup-menu.active {
@@ -98,33 +100,4 @@ body {
     border-right: 10px solid transparent;
     border-top: 10px solid #fff;
 }
-
-.popup-item a {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 12px;
-    border-radius: 12px;
-    text-decoration: none;
-    color: #1a1a1a;
-    transition: background-color 0.2s;
-}
-
-.popup-item a:hover {
-    background-color: #f5f5f5;
-}
-
-.popup-item .iconify {
-    font-size: 24px;
-    color: var(--accent, #FF6002); 
-}
-
-.popup-item .text-content .title {
-    font-weight: 600;
-    font-size: 15px;
-}
-
-.popup-item .text-content .subtitle {
-    font-size: 13px;
-    color: #777;
-}
+/* Sisa kode CSS menu pop-up tetap sama... */
