@@ -18,7 +18,7 @@ body {
 /* --- STRUKTUR UTAMA --- */
 .main-wrapper {
   max-width: 420px;
-  margin: 0 auto;
+  margin: 0 auto; /* Menengahkan konten di layar lebar */
   padding: 24px;
 }
 
@@ -82,6 +82,10 @@ body {
   text-decoration: none;
   transition: all 0.2s;
 }
+.bio-socials a:hover {
+  color: var(--accent);
+  transform: scale(1.1);
+}
 
 /* --- TOMBOL LINK --- */
 .bio-links {
@@ -104,6 +108,10 @@ body {
 .bio-link .link-text {
     margin-left: 12px;
 }
+.bio-link:hover {
+  background: var(--accent);
+  color: #fff;
+}
 .bio-link .arrow {
   margin-left: auto;
 }
@@ -121,6 +129,54 @@ body {
   box-shadow: 0 4px 16px rgba(0,0,0,0.05);
   overflow: hidden;
   border: 1px solid #f0f0f0;
+  display: flex;
+  flex-direction: column;
+}
+.product-img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+}
+.product-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.product-content {
+  padding: 12px;
+  text-align: left;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+.product-title {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  flex-grow: 1;
+}
+.product-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+}
+.product-price {
+  color: #BF4600;
+  font-size: 14px;
+  font-weight: 600;
+}
+.order-btn {
+  background: #222;
+  color: #fff;
+  border-radius: 10px;
+  padding: 6px 14px;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 500;
+  transition: 0.2s;
+}
+.order-btn:hover {
+  background: var(--accent);
 }
 
 /* --- RESPONSIVE UNTUK MOBILE --- */
@@ -179,5 +235,3 @@ body {
     background-color: #2c2c2c;
     color: #ffffff;
 }
-
-/* ... (Sisa style product-card & nav-item tidak berubah) ... */
