@@ -2,11 +2,11 @@
 
 .bottom-nav {
     position: fixed;
-    bottom: 0px;
+    bottom: 16px; /* Posisi diturunkan */
     left: 50%;
     transform: translateX(-50%);
     z-index: 1000;
-    
+
     width: 400px;
     background-color: var(--bg, #ffffff);
     border: 1.5px solid #f3f3f3;
@@ -26,16 +26,21 @@
     .bottom-nav {
         width: 100%;
         border-radius: 0;
+        bottom: 0; /* Rata dengan bawah di mobile */
+        border-left: none;
+        border-right: none;
+        border-bottom: none;
+        padding-bottom: calc(8px + env(safe-area-inset-bottom)); /* Untuk iPhone X dan sejenisnya */
     }
 }
 
-/* --- Item Navigasi Utama --- */
+/* --- Sisa kode untuk item dan pop-up --- */
 .nav-item {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 38px;
-    height: 38px;
+    width: 54px;
+    height: 54px;
     color: #555;
     border-radius: 50%;
     text-decoration: none;
@@ -45,7 +50,7 @@
 }
 
 .nav-item .iconify {
-    font-size: 22px;
+    font-size: 26px;
 }
 
 .nav-item.menu-button {
@@ -61,7 +66,6 @@
     background-color: #f1f1f1;
 }
 
-/* === Menu Pop-up === */
 .popup-menu {
     position: absolute;
     bottom: calc(100% + 15px);
@@ -100,7 +104,6 @@
     border-top: 10px solid #fff;
 }
 
-/* === Item di dalam Pop-up Menu === */
 .popup-item a {
     display: flex;
     align-items: center;
@@ -112,17 +115,21 @@
     transition: background-color 0.2s;
 }
 
-.popup-item a:hover,
-.popup-item a.active { /* Gaya untuk item yang aktif */
+.popup-item a:hover {
     background-color: #f5f5f5;
 }
 
 .popup-item .iconify {
-    font-size: 22px;
-    color: #333;
+    font-size: 24px;
+    color: var(--accent, #FF6002);
 }
 
-.popup-item .text-content {
-    font-weight: 500;
+.popup-item .text-content .title {
+    font-weight: 600;
     font-size: 15px;
+}
+
+.popup-item .text-content .subtitle {
+    font-size: 13px;
+    color: #777;
 }
