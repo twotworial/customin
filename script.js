@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         },
-        { rootMargin: '0px 0px 50px 0px' } // Opsi tambahan jika diperlukan
+        { rootMargin: '0px' } 
     );
 
     // Mulai amati elemen placeholder
