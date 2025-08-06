@@ -1,9 +1,30 @@
 document.addEventListener('DOMContentLoaded', function() {
-
+    const stickyNav = document.getElementById('sticky-nav');
+    const navPlaceholder = document.getElementById('nav-placeholder');
     const menuButton = document.getElementById('menuButton');
     const popupMenu = document.getElementById('popupMenu');
 
-    // Definisikan item-item menu di sini
+    // --- LOGIKA UNTUK MEMUNCULKAN NAVIGASI STICKY SAAT SCROLL ---
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach(entry => {
+                // Jika placeholder TIDAK terlihat di layar
+                if (!entry.isIntersecting) {
+                    stickyNav.classList.add('show');
+                } else {
+                    stickyNav.classList.remove('show');
+                }
+            });
+        },
+        { rootMargin: '0px 0px 50px 0px' } // Opsi tambahan jika diperlukan
+    );
+
+    // Mulai amati elemen placeholder
+    if (navPlaceholder) {
+        observer.observe(navPlaceholder);
+    }
+
+    // --- LOGIKA UNTUK MENU POP-UP ---
     const menuItems = [
         { label: 'Blog', icon: 'mdi:post-text-outline', url: 'https://blog.customin.co' },
         { label: 'Produk', icon: 'mdi:view-dashboard-outline', url: '/produk' },
@@ -11,7 +32,6 @@ document.addEventListener('DOMContentLoaded', function() {
         { label: 'About', icon: 'mdi:information-outline', url: 'about.html' }
     ];
 
-    // Buat daftar menu dari array
     const menuList = document.createElement('ul');
     menuItems.forEach(item => {
         const listItem = document.createElement('li');
@@ -25,13 +45,15 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     popupMenu.appendChild(menuList);
 
-    // Tampilkan/sembunyikan menu saat tombol tengah diklik
-    menuButton.addEventListener('click', function(event) {
-        event.stopPropagation();
-        popupMenu.classList.toggle('show');
-    });
+    // Event listener untuk tombol menu di navigasi sticky
+    if (menuButton) {
+        menuButton.addEventListener('click', function(event) {
+            event.stopPropagation();
+            popupMenu.classList.toggle('show');
+        });
+    }
 
-    // Sembunyikan menu saat mengklik di luar area menu
+    // Sembunyikan menu saat mengklik di luar
     window.addEventListener('click', function(event) {
         if (popupMenu.classList.contains('show')) {
             if (!popupMenu.contains(event.target) && !menuButton.contains(event.target)) {
@@ -39,5 +61,4 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
-
 });
