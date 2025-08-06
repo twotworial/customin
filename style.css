@@ -7,7 +7,7 @@
     --text: #0c0c0c;
     --grey: #f6f6f6;
     --radius: 24px;
-    --card-radius: 16px; /* Radius baru untuk kartu profil */
+    --card-radius: 16px;
 }
 
 html {
@@ -23,12 +23,13 @@ body {
 }
 
 /* =================================
+   --- PERUBAHAN ALIGNMENT DI SINI ---
    STRUKTUR UTAMA
    ================================= */
 .main-wrapper {
     max-width: 420px;
     margin: 0 auto;
-    padding: 24px; /* Beri padding agar kartu tidak menempel di tepi */
+    padding: 24px; /* Padding utama dari tepi layar */
 }
 
 .bio-card {
@@ -36,59 +37,57 @@ body {
     background: var(--bg);
     box-shadow: 0 8px 40px rgba(0,0,0,0.08);
     border-radius: var(--radius);
-    overflow: visible; /* Izinkan shadow terlihat */
     display: flex;
     flex-direction: column;
+    /* Padding ditambahkan di sini untuk semua konten di dalamnya */
+    padding: 24px;
+    box-sizing: border-box; /* Agar padding tidak menambah ukuran */
 }
 
 /* =================================
-   --- PERUBAHAN UTAMA DI SINI ---
-   HEADER PROFIL DENGAN GAYA BARU
+   HEADER PROFIL
    ================================= */
 .profile-card {
     display: flex;
     align-items: center;
     text-align: left;
     gap: 16px;
-    
-    /* Style baru seperti notifikasi */
     background-color: #ffffff;
     border-radius: var(--card-radius);
     padding: 16px;
-    margin: -12px -12px 12px -12px; /* Trik agar sedikit keluar dari parent */
-    position: relative;
-    z-index: 10;
+    /* Hapus margin negatif dan atur margin bawah */
+    margin: 0 0 24px 0; 
     box-shadow: 0 4px 12px rgba(0,0,0,0.07), 0 10px 30px rgba(0,0,0,0.08);
 }
 
 .profile-avatar {
-    width: 50px; /* Sedikit lebih kecil */
+    width: 50px;
     height: 50px;
     border-radius: 50%;
     overflow: hidden;
     flex-shrink: 0;
-    border: none; /* Hilangkan border */
+    border: none;
 }
-
+.profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
 .profile-info h1 {
-    font-size: 18px; /* Sedikit lebih kecil */
-    font-weight: 600; /* Bold */
+    font-size: 18px;
+    font-weight: 600;
     margin: 0 0 2px 0;
     color: #111;
 }
-
 .profile-info .profile-slug {
     font-size: 14px;
-    color: #666; /* Warna lebih soft */
+    color: #666;
     margin: 0;
 }
-/* ---------------------------------- */
-
 
 /* =================================
    KONTEN UTAMA
    ================================= */
-.card-content { padding: 0 24px 24px 24px; }
+/* Padding di sini dihapus karena sudah di-handle oleh .bio-card */
+.card-content { 
+    padding: 0; 
+}
 .bio-socials { display: flex; justify-content: center; gap: 20px; margin-bottom: 24px; padding-top: 24px; border-top: 1px solid var(--grey); }
 .bio-socials a { color: #333; font-size: 24px; text-decoration: none; transition: color 0.2s; }
 .bio-socials a:hover { color: var(--accent); }
@@ -186,9 +185,8 @@ body {
    ================================= */
 @media (max-width: 460px) {
     .main-wrapper { padding: 0; }
-    .bio-card { border-radius: 0; }
-    .profile-card { border-radius: 0; margin: 0; box-shadow: 0 4px 12px rgba(0,0,0,0.07); }
-    .bottom-nav .nav-content { border-radius: 0; }
-    .card-content { padding: 24px 16px; } /* Atur padding konten di mobile */
+    .bio-card, .bottom-nav .nav-content { border-radius: 0; }
+    .bio-card { padding: 16px; }
+    .profile-card { box-shadow: 0 4px 12px rgba(0,0,0,0.07); }
     body { padding-bottom: 90px; }
 }
