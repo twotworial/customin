@@ -1,39 +1,14 @@
-// Menunggu seluruh halaman (termasuk gambar) dimuat sebelum menjalankan script.
-// Ini untuk memastikan semua posisi elemen sudah final.
 window.addEventListener('load', function() {
 
     // --- Inisialisasi Elemen DOM ---
-    const stickyNav = document.getElementById('sticky-nav');
-    const navPlaceholder = document.getElementById('nav-placeholder');
     const menuButton = document.getElementById('menuButton');
     const popupMenu = document.getElementById('popupMenu');
 
-    // Pastikan semua elemen penting ditemukan sebelum melanjutkan
-    if (!stickyNav || !navPlaceholder || !menuButton || !popupMenu) {
-        console.error("Satu atau lebih elemen penting tidak ditemukan. Pastikan ID di HTML sudah benar.");
-        return; // Hentikan eksekusi jika elemen tidak ada
+    // Hentikan script jika elemen penting tidak ditemukan
+    if (!menuButton || !popupMenu) {
+        console.error("Tombol menu atau container pop-up tidak ditemukan.");
+        return;
     }
-
-    // =================================================================
-    // LOGIKA NAVIGASI STICKY (METODE BARU YANG LEBIH STABIL)
-    // =================================================================
-    
-    function handleScroll() {
-        // Dapatkan posisi 'placeholder' relatif terhadap viewport
-        const placeholderPosition = navPlaceholder.getBoundingClientRect();
-
-        // Jika bagian atas placeholder sudah melewati bagian bawah layar,
-        // artinya placeholder sudah tidak terlihat.
-        if (placeholderPosition.top < window.innerHeight) {
-            stickyNav.classList.add('show');
-        } else {
-            stickyNav.classList.remove('show');
-        }
-    }
-
-    // Tambahkan event listener ke window untuk mendeteksi scroll
-    window.addEventListener('scroll', handleScroll);
-
 
     // =================================================================
     // LOGIKA MENU POP-UP
