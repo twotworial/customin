@@ -1,18 +1,36 @@
 window.addEventListener('load', function() {
 
-    // --- Inisialisasi Elemen DOM ---
+    // =================================================================
+    // INISIALISASI SLIDER (BARU)
+    // =================================================================
+    const swiper = new Swiper(".main-slider", {
+        // Opsi untuk membuat slider berputar terus menerus
+        loop: true,
+        
+        // Opsi untuk slider berjalan otomatis
+        autoplay: {
+          delay: 3000, // Jeda 3 detik antar slide
+          disableOnInteraction: false, // Lanjut jalan walau di-swipe manual
+        },
+        
+        // Menambahkan navigasi titik-titik (pagination)
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true, // Titik bisa di-klik
+        },
+    });
+
+
+    // =================================================================
+    // LOGIKA MENU POP-UP (TETAP SAMA)
+    // =================================================================
     const menuButton = document.getElementById('menuButton');
     const popupMenu = document.getElementById('popupMenu');
 
-    // Hentikan script jika elemen penting tidak ditemukan
     if (!menuButton || !popupMenu) {
         console.error("Tombol menu atau container pop-up tidak ditemukan.");
         return;
     }
-
-    // =================================================================
-    // LOGIKA MENU POP-UP
-    // =================================================================
 
     const menuItems = [
         { label: 'Blog', icon: 'mdi:post-text-outline', url: 'https://blog.customin.co' },
@@ -34,7 +52,6 @@ window.addEventListener('load', function() {
     });
     popupMenu.appendChild(menuList);
 
-    // Fungsi untuk membuka/menutup menu
     function togglePopupMenu(event) {
         event.stopPropagation();
         popupMenu.classList.toggle('show');
@@ -42,7 +59,6 @@ window.addEventListener('load', function() {
 
     menuButton.addEventListener('click', togglePopupMenu);
 
-    // Fungsi untuk menutup menu saat klik di luar
     window.addEventListener('click', function() {
         if (popupMenu.classList.contains('show')) {
             popupMenu.classList.remove('show');
