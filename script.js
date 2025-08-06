@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-    // --- Inisialisasi Elemen ---
+    // --- Inisialisasi Elemen DOM ---
     const stickyNav = document.getElementById('sticky-nav');
     const navPlaceholder = document.getElementById('nav-placeholder');
     const menuButton = document.getElementById('menuButton');
@@ -8,33 +8,35 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // =================================================================
     // LOGIKA NAVIGASI STICKY
-    // Menggunakan Intersection Observer untuk efisiensi performa.
     // =================================================================
-    const observerCallback = (entries) => {
-        // 'entry' adalah navPlaceholder yang kita amati
-        const [entry] = entries;
-        // Jika placeholder TIDAK terlihat di layar (telah di-scroll)
-        if (!entry.isIntersecting) {
-            stickyNav.classList.add('show');
-        } else {
-            stickyNav.classList.remove('show');
-        }
-    };
-
-    const observer = new IntersectionObserver(observerCallback, {
-        root: null, // Menggunakan viewport sebagai area pengamatan
-        threshold: 0, // Memicu saat elemen mulai hilang
-    });
-
-    // Mulai amati elemen placeholder jika ada
+    
+    // Pastikan elemen ada sebelum menambahkan observer
     if (navPlaceholder) {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                const [entry] = entries;
+                // Jika placeholder TIDAK terlihat, tampilkan nav sticky
+                if (!entry.isIntersecting) {
+                    stickyNav.classList.add('show');
+                } else {
+                    stickyNav.classList.remove('show');
+                }
+            },
+            { 
+                root: null, // viewport
+                threshold: 0 // Memicu saat elemen mulai keluar dari pandangan
+            }
+        );
+        // Mulai amati placeholder
         observer.observe(navPlaceholder);
     }
 
+
     // =================================================================
     // LOGIKA MENU POP-UP
-    // Membuat menu secara dinamis dan mengelola visibilitasnya.
     // =================================================================
+
+    // Definisikan item menu dalam array agar mudah dikelola
     const menuItems = [
         { label: 'Blog', icon: 'mdi:post-text-outline', url: 'https://blog.customin.co' },
         { label: 'Produk', icon: 'mdi:view-dashboard-outline', url: '/produk' },
@@ -42,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
         { label: 'About', icon: 'mdi:information-outline', url: 'about.html' }
     ];
 
-    // Membuat elemen daftar menu dari array
+    // Buat elemen HTML untuk menu secara dinamis
     const menuList = document.createElement('ul');
     menuItems.forEach(item => {
         const listItem = document.createElement('li');
@@ -56,17 +58,18 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     popupMenu.appendChild(menuList);
 
-    // Event listener untuk membuka/menutup menu
+    // Fungsi untuk membuka/menutup menu
     const togglePopupMenu = (event) => {
-        event.stopPropagation(); // Mencegah event menyebar ke window
+        event.stopPropagation(); // Mencegah klik menyebar ke window
         popupMenu.classList.toggle('show');
     };
 
+    // Tambahkan event listener ke tombol menu jika ada
     if (menuButton) {
         menuButton.addEventListener('click', togglePopupMenu);
     }
 
-    // Event listener untuk menutup menu saat mengklik di luar
+    // Tambahkan event listener untuk menutup menu saat klik di luar
     window.addEventListener('click', () => {
         if (popupMenu.classList.contains('show')) {
             popupMenu.classList.remove('show');
