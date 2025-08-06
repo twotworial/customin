@@ -1,3 +1,6 @@
+/* =================================
+   VARIABEL & GAYA DASAR
+   ================================= */
 :root {
     --accent: #FF6002;
     --bg: #ffffff;
@@ -8,11 +11,14 @@
 
 body {
     background: var(--grey);
-    font-family: 'Inter', Arial, sans-serif;
+    font-family: 'Inter', sans-serif;
     margin: 0;
     color: var(--text);
 }
 
+/* =================================
+   STRUKTUR UTAMA
+   ================================= */
 .main-wrapper {
     max-width: 420px;
     margin: 0 auto;
@@ -22,14 +28,16 @@ body {
 .bio-card {
     width: 100%;
     background: var(--bg);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.08);
     border-radius: var(--radius);
-    box-sizing: border-box;
     overflow: hidden;
     display: flex;
     flex-direction: column;
 }
 
+/* =================================
+   HEADER PROFIL
+   ================================= */
 .profile-card {
     display: flex;
     align-items: center;
@@ -37,6 +45,7 @@ body {
     gap: 16px;
     padding: 24px;
 }
+
 .profile-avatar {
     width: 60px;
     height: 60px;
@@ -49,6 +58,9 @@ body {
 .profile-info h1 { font-size: 20px; font-weight: 700; margin: 0 0 4px 0; }
 .profile-info .profile-slug { font-size: 15px; color: #555; margin: 0; }
 
+/* =================================
+   KONTEN UTAMA
+   ================================= */
 .card-content {
     padding: 0 24px;
 }
@@ -60,7 +72,7 @@ body {
     padding-top: 24px;
     border-top: 1px solid var(--grey);
 }
-.bio-socials a { color: #333; font-size: 24px; text-decoration: none; transition: all 0.2s; }
+.bio-socials a { color: #333; font-size: 24px; text-decoration: none; transition: color 0.2s; }
 .bio-socials a:hover { color: var(--accent); }
 
 .bio-links { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
@@ -69,32 +81,32 @@ body {
 .bio-link .link-text { margin-left: 12px; }
 .bio-link .arrow { margin-left: auto; }
 
-.produk-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 24px; }
-.product-card { background: #fff; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.05); overflow: hidden; border: 1px solid #f0f0f0; display: flex; flex-direction: column; }
+/* =================================
+   DAFTAR PRODUK
+   ================================= */
+.produk-list { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+.product-card { background: #fff; border-radius: 12px; border: 1px solid #f0f0f0; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s; }
+.product-card:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.07); }
 .product-img { width: 100%; aspect-ratio: 1 / 1; }
 .product-img img { width: 100%; height: 100%; object-fit: cover; }
 .product-content { padding: 12px; text-align: left; flex-grow: 1; display: flex; flex-direction: column; }
-.product-title { font-size: 14px; font-weight: 500; margin-bottom: 8px; flex-grow: 1; }
+.product-title { font-size: 14px; font-weight: 600; margin: 0 0 8px 0; flex-grow: 1; }
 .product-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
-.product-price { color: #BF4600; font-size: 14px; font-weight: 600; }
-.order-btn { background: #222; color: #fff; border-radius: 10px; padding: 6px 14px; text-decoration: none; font-size: 12px; font-weight: 500; transition: 0.2s; }
+.product-price { color: var(--accent); font-size: 14px; font-weight: 600; }
+.order-btn { background: #222; color: #fff; border-radius: 8px; padding: 6px 14px; text-decoration: none; font-size: 12px; font-weight: 500; transition: background-color 0.2s; }
 .order-btn:hover { background: var(--accent); }
 
-/* --- PERUBAHAN UTAMA ADA DI SINI --- */
-
-/* FOOTER KARTU (Placeholder) */
+/* =================================
+   NAVIGASI (STATIC & STICKY)
+   ================================= */
 .card-footer {
+    display: flex;
+    justify-content: space-around;
     padding: 16px 24px;
     margin-top: auto;
     border-top: 1px solid var(--grey);
 }
-.bottom-nav-placeholder {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-}
 
-/* NAVIGASI STICKY (yang akan muncul) */
 .bottom-nav-sticky {
     position: fixed;
     bottom: 0;
@@ -103,39 +115,32 @@ body {
     z-index: 1001;
     display: flex;
     justify-content: center;
-    
-    /* Properti untuk menyembunyikan & animasi */
     opacity: 0;
     visibility: hidden;
     transform: translateY(100%);
     transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
 }
 
-/* CLASS .show UNTUK MEMUNCULKAN NAV STICKY */
 .bottom-nav-sticky.show {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
 }
 
-/* KONTEN DI DALAM NAV STICKY (untuk styling kartu) */
 .bottom-nav-sticky .nav-content {
     width: 100%;
-    max-width: 420px; /* Lebar sama dengan .main-wrapper */
+    max-width: 420px;
     background-color: var(--bg);
     border-top: 1px solid var(--grey);
-    box-shadow: 0 -5px 20px rgba(0,0,0,0.08);
-    
-    /* Sudut mengikuti kartu utama */
+    box-shadow: 0 -5px 25px rgba(0,0,0,0.08);
     border-radius: 0 0 var(--radius) var(--radius);
-    
     display: flex;
     justify-content: space-around;
     align-items: center;
     padding: 16px 24px;
 }
 
-/* STYLING UMUM UNTUK ITEM NAV */
+/* GAYA UMUM ITEM NAV */
 .nav-item {
     display: flex;
     align-items: center;
@@ -153,7 +158,7 @@ body {
 .nav-item:hover {
     background-color: #f0f0f0;
 }
-.nav-item.menu-button {
+.nav-item.menu-button, .menu-button-placeholder {
     background-color: #2c2c2c;
     color: #ffffff;
 }
@@ -161,10 +166,12 @@ body {
     background-color: #444;
 }
 
-/* MENU POP-UP (Posisi disesuaikan) */
+/* =================================
+   MENU POP-UP
+   ================================= */
 .popup-menu {
     position: fixed;
-    bottom: 100px; /* Posisi di atas nav sticky baru */
+    bottom: 100px;
     left: 50%;
     transform: translateX(-50%) translateY(20px);
     z-index: 1000;
@@ -176,11 +183,10 @@ body {
     box-sizing: border-box;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 .popup-menu.show {
     opacity: 1;
-    visibility: visible;
     transform: translateX(-50%) translateY(0);
 }
 .popup-menu ul { list-style: none; padding: 0; margin: 0; }
@@ -188,16 +194,17 @@ body {
 .popup-menu li a:hover { background-color: #f5f5f5; }
 .popup-menu .iconify { font-size: 22px; color: var(--accent); }
 
+/* =================================
+   RESPONSIVE DESIGN
+   ================================= */
 @media (max-width: 420px) {
     .main-wrapper {
         padding: 0;
     }
     .bio-card,
     .bottom-nav-sticky .nav-content {
-        border-radius: 0; /* Hapus radius di mobile */
+        border-radius: 0;
     }
-    .profile-card { padding: 16px; }
+    .profile-card, .card-footer { padding: 16px; }
     .card-content { padding: 0 16px; }
-    .card-footer { padding: 16px; }
-    .bio-socials { padding-top: 16px; }
 }
