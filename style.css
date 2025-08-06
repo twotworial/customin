@@ -8,6 +8,7 @@
     --grey: #f6f6f6;
     --radius: 24px;
     --card-radius: 16px;
+    --button-radius: 12px; /* Radius baru untuk tombol */
 }
 
 html {
@@ -19,17 +20,16 @@ body {
     font-family: 'Inter', sans-serif;
     margin: 0;
     color: var(--text);
-    padding-bottom: 120px; 
+    padding-bottom: 120px;
 }
 
 /* =================================
-   --- PERUBAHAN ALIGNMENT DI SINI ---
    STRUKTUR UTAMA
    ================================= */
 .main-wrapper {
     max-width: 420px;
     margin: 0 auto;
-    padding: 24px; /* Padding utama dari tepi layar */
+    padding: 24px;
 }
 
 .bio-card {
@@ -39,9 +39,8 @@ body {
     border-radius: var(--radius);
     display: flex;
     flex-direction: column;
-    /* Padding ditambahkan di sini untuk semua konten di dalamnya */
     padding: 24px;
-    box-sizing: border-box; /* Agar padding tidak menambah ukuran */
+    box-sizing: border-box;
 }
 
 /* =================================
@@ -55,8 +54,7 @@ body {
     background-color: #ffffff;
     border-radius: var(--card-radius);
     padding: 16px;
-    /* Hapus margin negatif dan atur margin bawah */
-    margin: 0 0 24px 0; 
+    margin: 0 0 24px 0;
     box-shadow: 0 4px 12px rgba(0,0,0,0.07), 0 10px 30px rgba(0,0,0,0.08);
 }
 
@@ -84,9 +82,8 @@ body {
 /* =================================
    KONTEN UTAMA
    ================================= */
-/* Padding di sini dihapus karena sudah di-handle oleh .bio-card */
-.card-content { 
-    padding: 0; 
+.card-content {
+    padding: 0;
 }
 .bio-socials { display: flex; justify-content: center; gap: 20px; margin-bottom: 24px; padding-top: 24px; border-top: 1px solid var(--grey); }
 .bio-socials a { color: #333; font-size: 24px; text-decoration: none; transition: color 0.2s; }
@@ -105,8 +102,28 @@ body {
 .product-title { font-size: 14px; font-weight: 600; margin: 0 0 8px 0; flex-grow: 1; }
 .product-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
 .product-price { color: var(--accent); font-size: 14px; font-weight: 600; }
-.order-btn { background: #222; color: #fff; border-radius: 8px; padding: 6px 14px; text-decoration: none; font-size: 12px; font-weight: 500; transition: background-color 0.2s; }
-.order-btn:hover { background: var(--accent); }
+
+/* =================================
+   --- PERUBAHAN TOMBOL ORDER ---
+   ================================= */
+.order-btn {
+    background-color: #fff; /* Latar belakang putih */
+    color: var(--text); /* Warna teks hitam */
+    border-radius: var(--button-radius); /* Radius sesuai */
+    padding: 6px 14px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+    transition: background-color 0.2s, box-shadow 0.2s;
+    border: 1px solid #ddd; /* Border tipis agar terlihat outlined */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Efek shadow tipis */
+}
+
+.order-btn:hover {
+    background-color: #f5f5f5; /* Efek hover sedikit abu-abu */
+    box-shadow: 0 3px 6px rgba(0,0,0,0.07); /* Shadow lebih tebal saat hover */
+}
+/* ------------------------------ */
 
 /* =================================
    NAVIGASI STICKY
