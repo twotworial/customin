@@ -9,6 +9,10 @@
   --radius:24px;
   --card-radius:16px;
   --button-radius:12px;
+
+  /* Posisi & tinggi nav sticky */
+  --nav-offset: 88px;   /* jarak NAV dari dasar layar (ubah sesuka kamu) */
+  --nav-height: 86px;   /* kira-kira tinggi total nav (untuk padding body) */
 }
 
 *,
@@ -18,16 +22,18 @@
 html{ background-color:var(--grey); }
 
 body{
-  background:var(--bg);
+  background-color:var(--bg);
   font-family:'Inter',sans-serif;
-  margin:0; color:var(--text);
-  padding-bottom:calc(120px + env(safe-area-inset-bottom)); /* ruang buat nav */
+  margin:0;
+  color:var(--text);
+  /* ruang ekstra supaya konten tidak ketutup nav */
+  padding-bottom:calc(var(--nav-offset) + var(--nav-height) + env(safe-area-inset-bottom));
   -webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
   -webkit-tap-highlight-color:transparent;
 }
 
-/* Fokus keyboard (a11y) */
+/* Fokus keyboard (A11y) */
 a:focus-visible, button:focus-visible,
 .nav-item:focus-visible, .order-btn:focus-visible,
 .popup-menu li a:focus-visible, .swiper-pagination-bullet:focus-visible{
@@ -40,10 +46,12 @@ a:focus-visible, button:focus-visible,
 .main-wrapper{ max-width:420px; margin:0 auto; padding:24px; }
 
 .bio-card{
-  width:100%; background:var(--bg);
+  width:100%;
+  background:var(--bg);
   box-shadow:0 8px 40px rgba(0,0,0,.08);
   border-radius:var(--radius);
-  display:flex; flex-direction:column; padding:24px;
+  display:flex; flex-direction:column;
+  padding:24px;
 }
 
 /* =================================
@@ -71,34 +79,55 @@ a:focus-visible, button:focus-visible,
    STYLE SLIDER GAMBAR
    ================================= */
 .main-slider{
-  width:100%; aspect-ratio:16/10; margin-bottom:24px;
-  border-radius:var(--card-radius); box-shadow:0 4px 10px rgba(0,0,0,.05);
-  border:1px solid #eee; overflow:hidden; position:relative;
+  width:100%;
+  aspect-ratio:16/10;
+  margin-bottom:24px;
+  border-radius:var(--card-radius);
+  box-shadow:0 4px 10px rgba(0,0,0,.05);
+  border:1px solid #eee;
+  overflow:hidden;
+  position:relative;
 
   /* Var untuk tap target bullet */
-  --bullet-touch-size:48px; --bullet-dot-size:10px; --bullet-gap:8px;
+  --bullet-touch-size:48px; /* min 48x48 biar lolos Lighthouse */
+  --bullet-dot-size:10px;   /* titik visual */
+  --bullet-gap:8px;         /* jarak antar bullet */
 }
 .main-slider .swiper-slide{ display:flex; justify-content:center; align-items:center; background:#fff; }
 .main-slider .swiper-slide a{ display:block; width:100%; height:100%; position:relative; z-index:1; }
 .main-slider .swiper-slide img{ display:block; width:100%; height:100%; object-fit:cover; }
 
-/* --- TAP TARGET BULLET (OPSI A) --- */
+/* --- PERBAIKAN TARGET SENTUH (OPSI A) --- */
 .main-slider .swiper-pagination{
-  bottom:12px !important; display:flex; justify-content:center; gap:var(--bullet-gap);
+  bottom:12px !important;
+  display:flex; justify-content:center; gap:var(--bullet-gap);
   pointer-events:auto; z-index:5;
 }
 .main-slider .swiper-pagination-bullet{
-  width:var(--bullet-touch-size); height:var(--bullet-touch-size);
-  background:transparent; opacity:1; position:relative; border-radius:999px;
-  margin:0 2px !important; -webkit-tap-highlight-color:transparent;
+  width:var(--bullet-touch-size);
+  height:var(--bullet-touch-size);
+  background:transparent;
+  opacity:1;
+  position:relative;
+  border-radius:999px;
+  margin:0 2px !important;
+  -webkit-tap-highlight-color:transparent;
 }
 .main-slider .swiper-pagination-bullet::before{
-  content:''; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  content:'';
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
   width:var(--bullet-dot-size); height:var(--bullet-dot-size); border-radius:50%;
-  background:rgba(255,255,255,.8); box-shadow:0 0 0 1px rgba(0,0,0,.08) inset; transition:background .2s, transform .2s;
+  background:rgba(255,255,255,.8);
+  box-shadow:0 0 0 1px rgba(0,0,0,.08) inset;
+  transition:background .2s, transform .2s;
 }
-.main-slider .swiper-pagination-bullet-active::before{ background:var(--accent); transform:translate(-50%,-50%) scale(1.15); }
-@media (max-width:360px){ .main-slider{ --bullet-touch-size:44px; --bullet-gap:6px; } }
+.main-slider .swiper-pagination-bullet-active::before{
+  background:var(--accent);
+  transform:translate(-50%,-50%) scale(1.15);
+}
+@media (max-width:360px){
+  .main-slider{ --bullet-touch-size:44px; --bullet-gap:6px; }
+}
 
 /* =================================
    KONTEN UTAMA
@@ -108,17 +137,22 @@ a:focus-visible, button:focus-visible,
 .bio-links{ display:flex; flex-direction:column; gap:16px; margin-bottom:24px; }
 .bio-link{
   display:flex; align-items:center; background:var(--bg); border-radius:var(--card-radius);
-  padding:14px 16px; text-decoration:none; color:var(--text); font-weight:500; font-size:16px;
-  border:1px solid #eee; box-shadow:0 4px 10px rgba(0,0,0,.05); transition:transform .2s, box-shadow .2s;
+  padding:14px 16px; text-decoration:none; color:var(--text);
+  font-weight:500; font-size:16px; border:1px solid #eee;
+  box-shadow:0 4px 10px rgba(0,0,0,.05);
+  transition:transform .2s, box-shadow .2s;
 }
 .bio-link:hover{ transform:translateY(-2px); box-shadow:0 6px 15px rgba(0,0,0,.08); }
 .bio-link .link-text{ margin-left:12px; }
 .bio-link .arrow{ margin-left:auto; color:#888; }
 
-.produk-list{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px; }
+.produk-list{
+  display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px;
+}
 .product-card{
   background:#fff; border-radius:12px; border:1px solid #f0f0f0; overflow:hidden;
-  display:flex; flex-direction:column; transition:transform .2s, box-shadow .2s;
+  display:flex; flex-direction:column;
+  transition:transform .2s, box-shadow .2s;
 }
 .product-card:hover{ transform:translateY(-4px); box-shadow:0 8px 20px rgba(0,0,0,.07); }
 .product-img{ width:100%; aspect-ratio:1/1; }
@@ -128,24 +162,26 @@ a:focus-visible, button:focus-visible,
 .product-footer{ display:flex; justify-content:space-between; align-items:center; margin-top:auto; }
 .product-price{ color:var(--accent); font-size:14px; font-weight:600; }
 .order-btn{
-  background:#fff; color:var(--text); border-radius:var(--button-radius); padding:6px 14px;
-  text-decoration:none; font-size:12px; font-weight:500; transition:background-color .2s, box-shadow .2s;
-  border:1px solid #ddd; box-shadow:0 2px 4px rgba(0,0,0,.05); cursor:pointer;
+  background:#fff; color:var(--text);
+  border-radius:var(--button-radius); padding:6px 14px;
+  text-decoration:none; font-size:12px; font-weight:500;
+  transition:background-color .2s, box-shadow .2s;
+  border:1px solid #ddd; box-shadow:0 2px 4px rgba(0,0,0,.05);
+  cursor:pointer;
 }
 .order-btn:hover{ background:#f5f5f5; box-shadow:0 3px 6px rgba(0,0,0,.07); }
 
 /* =================================
-   NAVIGASI STICKY — SERASI DENGAN CARD
+   NAVIGASI STICKY — “MOVE TO” AREA ATAS
    ================================= */
-/* Nav berbentuk card putih, radius & shadow sama seperti .bio-card.
-   Tanpa "jembatan" putih besar, jadi rapi & serasi dengan blok biru. */
 .bottom-nav{
   position:fixed;
   left:0; width:100%;
-  bottom:calc(12px + env(safe-area-inset-bottom)); /* sedikit melayang dari tepi bawah */
+  bottom:calc(var(--nav-offset) + env(safe-area-inset-bottom)); /* NAV dinaikkan */
   z-index:1001;
   display:flex; justify-content:center;
-  pointer-events:none; /* biar yang klik hanya isinya */
+  pointer-events:none; /* hanya isi nav yang menerima klik */
+  background:transparent;
 }
 .bottom-nav .nav-content{
   width:100%; max-width:420px;
@@ -154,11 +190,9 @@ a:focus-visible, button:focus-visible,
   border-radius:var(--radius);
   box-shadow:0 8px 40px rgba(0,0,0,.08);
   display:flex; justify-content:space-around; align-items:center;
-  padding:14px 24px;               /* ketinggian bar */
-  pointer-events:auto;             /* klik aktif */
+  padding:14px 24px;
+  pointer-events:auto;
 }
-
-/* Item */
 .nav-item{
   display:flex; align-items:center; justify-content:center;
   width:54px; height:54px; color:#555; font-size:24px;
@@ -173,7 +207,7 @@ a:focus-visible, button:focus-visible,
    MENU POP-UP
    ================================= */
 .popup-menu{
-  position:fixed; bottom:calc(100px + env(safe-area-inset-bottom)); left:50%; z-index:1002;
+  position:fixed; bottom:calc(var(--nav-offset) + var(--nav-height) + 14px); left:50%; z-index:1002;
   background:#fff; border-radius:16px; box-shadow:0 8px 25px rgba(0,0,0,.15);
   padding:8px; width:250px; box-sizing:border-box;
   opacity:0; visibility:hidden; transform:translateX(-50%) translateY(20px);
@@ -183,17 +217,19 @@ a:focus-visible, button:focus-visible,
 .popup-menu ul{ list-style:none; padding:0; margin:0; }
 .popup-menu li a{
   display:flex; align-items:center; padding:12px 16px; text-decoration:none;
-  color:#333; font-size:16px; font-weight:500; border-radius:12px; gap:16px; transition:background-color .2s;
+  color:#333; font-size:16px; font-weight:500; border-radius:12px; gap:16px;
+  transition:background-color .2s;
 }
 .popup-menu li a:hover{ background:#f5f5f5; }
 .popup-menu .iconify{ font-size:22px; color:var(--accent); }
 
 /* =================================
-   RESPONSIVE
+   RESPONSIVE DESIGN
    ================================= */
 @media (max-width:460px){
   .main-wrapper{ padding:0; }
   .bio-card{ border-radius:0; padding:16px; }
   .profile-card{ box-shadow:0 4px 12px rgba(0,0,0,.07); }
-  body{ padding-bottom:calc(90px + env(safe-area-inset-bottom)); }
+  /* naik-turunin posisi nav di layar kecil */
+  :root{ --nav-offset:72px; --nav-height:86px; }
 }
