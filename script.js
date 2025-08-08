@@ -1,68 +1,56 @@
-window.addEventListener('load', function() {
-
-    // =================================================================
-    // INISIALISASI SLIDER (BARU)
-    // =================================================================
-    const swiper = new Swiper(".main-slider", {
-        // Opsi untuk membuat slider berputar terus menerus
-        loop: true,
-        
-        // Opsi untuk slider berjalan otomatis
-        autoplay: {
-          delay: 3000, // Jeda 3 detik antar slide
-          disableOnInteraction: false, // Lanjut jalan walau di-swipe manual
-        },
-        
-        // Menambahkan navigasi titik-titik (pagination)
-        pagination: {
-          el: ".swiper-pagination",
-          clickable: true, // Titik bisa di-klik
-        },
+// script.js
+(() => {
+  /* -------------------------
+     1) SWIPER (autoplay + loop)
+     ------------------------- */
+  const sliderEl = document.querySelector('.main-slider');
+  if (sliderEl && window.Swiper) {
+    const paginationEl = sliderEl.querySelector('.swiper-pagination');
+    new Swiper(sliderEl, {
+      loop: true,
+      speed: 600,
+      autoplay: { delay: 3000, disableOnInteraction: false, pauseOnMouseEnter: true },
+      pagination: { el: paginationEl, clickable: true }
     });
+  }
 
+  /* -------------------------
+     2) POPUP MENU
+     ------------------------- */
+  const menuBtn = document.getElementById('menuButton');
+  const popup = document.getElementById('popupMenu');
 
-    // =================================================================
-    // LOGIKA MENU POP-UP (TETAP SAMA)
-    // =================================================================
-    const menuButton = document.getElementById('menuButton');
-    const popupMenu = document.getElementById('popupMenu');
+  // Isi menu (ubah sesuai kebutuhan)
+  if (popup) {
+    popup.innerHTML = `
+      <ul>
+        <li><a href="/kategori/kursi"><span class="iconify" data-icon="mdi:seat-outline"></span>Kategori Kursi</a></li>
+        <li><a href="/kategori/meja"><span class="iconify" data-icon="mdi:table-furniture"></span>Kategori Meja</a></li>
+        <li><a href="/promo"><span class="iconify" data-icon="mdi:tag-outline"></span>Promo</a></li>
+        <li><a href="/kontak.html"><span class="iconify" data-icon="mdi:phone-outline"></span>Kontak</a></li>
+      </ul>`;
+  }
 
-    if (!menuButton || !popupMenu) {
-        console.error("Tombol menu atau container pop-up tidak ditemukan.");
-        return;
-    }
+  function closePopup() {
+    if (!popup) return;
+    popup.classList.remove('show');
+    if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false');
+  }
 
-    const menuItems = [
-        { label: 'Blog', icon: 'mdi:post-text-outline', url: 'https://blog.customin.co' },
-        { label: 'Produk', icon: 'mdi:view-dashboard-outline', url: '/produk' },
-        { label: 'Promo', icon: 'mdi:ticket-percent-outline', url: '/promo' },
-        { label: 'About', icon: 'mdi:information-outline', url: 'about.html' }
-    ];
+  menuBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    popup?.classList.toggle('show');
+    menuBtn.setAttribute('aria-expanded', popup?.classList.contains('show') ? 'true' : 'false');
+  });
 
-    const menuList = document.createElement('ul');
-    menuItems.forEach(item => {
-        const listItem = document.createElement('li');
-        listItem.innerHTML = `
-            <a href="${item.url}">
-                <span class="iconify" data-icon="${item.icon}"></span>
-                <span>${item.label}</span>
-            </a>
-        `;
-        menuList.appendChild(listItem);
-    });
-    popupMenu.appendChild(menuList);
+  // Klik di luar, tutup
+  document.addEventListener('click', (e) => {
+    if (!popup?.classList.contains('show')) return;
+    if (!popup.contains(e.target) && !menuBtn?.contains(e.target)) closePopup();
+  });
 
-    function togglePopupMenu(event) {
-        event.stopPropagation();
-        popupMenu.classList.toggle('show');
-    }
-
-    menuButton.addEventListener('click', togglePopupMenu);
-
-    window.addEventListener('click', function() {
-        if (popupMenu.classList.contains('show')) {
-            popupMenu.classList.remove('show');
-        }
-    });
-
-});
+  // Esc untuk tutup
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closePopup();
+  });
+})();
