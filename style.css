@@ -11,7 +11,7 @@
   --button-radius:12px;
 
   /* nav di dalam card */
-  --fab-size:60px;          /* ukuran tombol tengah */
+  --fab-size:40px;          /* ukuran tombol tengah */
   --in-card-offset:10px;    /* jarak nav dari dasar viewport saat sticky */
 }
 
@@ -254,3 +254,4 @@ a:focus-visible, button:focus-visible,
   .profile-card{ box-shadow:0 4px 12px rgba(0,0,0,.07); }
   :root{ --fab-size:56px; }
 }
+
