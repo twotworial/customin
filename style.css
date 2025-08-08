@@ -68,7 +68,7 @@ body {
 .profile-socials a:hover { background-color: #333; transform: scale(1.1); }
 
 /* =================================
-   --- STYLE SLIDER GAMBAR (BARU) ---
+   STYLE SLIDER GAMBAR
    ================================= */
 .main-slider {
     width: 100%;
@@ -77,15 +77,15 @@ body {
     border-radius: var(--card-radius);
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     border: 1px solid #eee;
+    overflow: hidden;
+    position: relative;
 }
 
 .main-slider .swiper-slide {
-    text-align: center;
-    font-size: 18px;
-    background: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
+    background: #fff;
 }
 
 .main-slider .swiper-slide a {
@@ -101,15 +101,39 @@ body {
     object-fit: cover;
 }
 
+/* --- PERBAIKAN TARGET SENTUH DI SINI --- */
+.main-slider .swiper-pagination {
+    bottom: 12px !important;
+    /* Memberi ruang agar titik tidak tumpang tindih */
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+}
+
 .main-slider .swiper-pagination-bullet {
-    background-color: rgba(0, 0, 0, 0.4);
+    /* Ukuran diperbesar */
+    width: 10px;
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.7);
+    opacity: 1;
+    transition: background-color 0.2s;
+    /* Menambah area klik transparan di sekitar titik */
+    position: relative;
+}
+
+.main-slider .swiper-pagination-bullet::after {
+    content: '';
+    position: absolute;
+    left: -10px;
+    top: -10px;
+    right: -10px;
+    bottom: -10px;
 }
 
 .main-slider .swiper-pagination-bullet-active {
     background-color: var(--accent);
 }
-/* ---------------------------------- */
-
+/* ------------------------------------- */
 
 /* =================================
    KONTEN UTAMA
