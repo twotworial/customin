@@ -8,6 +8,7 @@
   <meta name="description" content="Pesan furniture custom sesuai kebutuhan & gaya Anda. Bahan premium, desain eksklusif, langsung dari pengrajin. Custom mudah di Customin.co!">
   <link rel="canonical" href="https://customin.co/" />
 
+  <!-- Open Graph -->
   <meta property="og:title" content="Furniture Custom Unik & Berkualitas | Customin.co" />
   <meta property="og:description" content="Pesan furniture custom sesuai kebutuhan & gaya Anda. Bahan premium, desain eksklusif, langsung dari pengrajin." />
   <meta property="og:url" content="https://customin.co/" />
@@ -17,6 +18,7 @@
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
 
+  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Furniture Custom Unik & Berkualitas | Customin.co" />
   <meta name="twitter:description" content="Pesan furniture custom sesuai kebutuhan & gaya Anda. Custom mudah di Customin.co!" />
@@ -28,7 +30,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
   <link rel="stylesheet" href="style.css"/>
 
-  <script src="https://code.iconify.design/3/3.1.1/iconify.min.js"></script>
+  <script src="https://code.iconify.design/3/3.1.1/iconify.min.js" defer></script>
 
   <!-- Schema -->
   <script type="application/ld+json">
@@ -76,6 +78,7 @@
   <div class="main-wrapper">
     <div class="bio-card">
 
+      <!-- Header / Profil -->
       <header class="profile-card">
         <div class="profile-main-info">
           <div class="profile-avatar">
@@ -86,15 +89,16 @@
             <p class="profile-slug">Jual Furniture Custom</p>
           </div>
         </div>
-        <div class="profile-socials">
-          <a href="https://instagram.com/customin_co" title="Instagram"><span class="iconify" data-icon="mdi:instagram"></span></a>
-          <a href="https://wa.me/628888085772" title="WhatsApp"><span class="iconify" data-icon="mdi:whatsapp"></span></a>
-          <a href="https://linkedin.com/company/custominco" title="LinkedIn"><span class="iconify" data-icon="mdi:linkedin"></span></a>
+        <div class="profile-socials" aria-label="Ikuti kami">
+          <a href="https://instagram.com/customin_co" title="Instagram" aria-label="Instagram"><span class="iconify" data-icon="mdi:instagram"></span></a>
+          <a href="https://wa.me/628888085772" title="WhatsApp" aria-label="WhatsApp"><span class="iconify" data-icon="mdi:whatsapp"></span></a>
+          <a href="https://linkedin.com/company/custominco" title="LinkedIn" aria-label="LinkedIn"><span class="iconify" data-icon="mdi:linkedin"></span></a>
         </div>
       </header>
 
       <main class="card-content">
 
+        <!-- Slider -->
         <div class="swiper main-slider">
           <div class="swiper-wrapper">
             <div class="swiper-slide">
@@ -119,6 +123,7 @@
           <div class="swiper-pagination"></div>
         </div>
 
+        <!-- CTA Blog -->
         <div class="bio-links">
           <a href="https://blog.customin.co" class="bio-link">
             <span class="iconify" data-icon="simple-icons:medium"></span>
@@ -127,6 +132,7 @@
           </a>
         </div>
 
+        <!-- Produk -->
         <div class="produk-list">
           <div class="product-card">
             <div class="product-img"><img src="produk/foto/kursi-lipat.webp" alt="Kursi Lipat Jati" loading="lazy" decoding="async"/></div>
@@ -150,6 +156,7 @@
           </div>
         </div>
 
+        <!-- Link About & Kontak -->
         <div class="bio-links">
           <a href="about.html" class="bio-link">
             <span class="iconify" data-icon="mdi:account-box-multiple"></span>
@@ -165,14 +172,14 @@
 
       </main>
 
-      <!-- NAVIGASI STICKY DI DALAM CARD (punya background/card) -->
+      <!-- NAVIGASI STICKY DI DALAM CARD -->
       <nav class="in-card-nav" aria-label="Navigasi utama">
         <div class="nav-content">
           <a href="/" class="nav-item" title="Home" aria-label="Home">
             <span class="iconify" data-icon="mdi:home-outline"></span>
           </a>
 
-          <button class="menu-button" id="menuButton" title="Menu" aria-label="Menu">
+          <button class="menu-button" id="menuButton" title="Menu" aria-label="Menu" aria-expanded="false">
             <span class="iconify" data-icon="mdi:view-grid-outline"></span>
           </button>
 
@@ -188,36 +195,8 @@
 
   <div class="popup-menu" id="popupMenu"></div>
 
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script>
-    // Swiper autoplay + loop
-    const swiper = new Swiper('.main-slider', {
-      loop: true,
-      speed: 600,
-      autoplay: { delay: 3000, disableOnInteraction: false, pauseOnMouseEnter: true },
-      pagination: { el: '.swiper-pagination', clickable: true }
-    });
-
-    // Popup Menu
-    const menuBtn = document.getElementById('menuButton');
-    const popup = document.getElementById('popupMenu');
-    if (menuBtn && popup) {
-      popup.innerHTML = `
-        <ul>
-          <li><a href="/kategori/kursi"><span class="iconify" data-icon="mdi:seat-outline"></span>Kategori Kursi</a></li>
-          <li><a href="/kategori/meja"><span class="iconify" data-icon="mdi:table-furniture"></span>Kategori Meja</a></li>
-          <li><a href="/promo"><span class="iconify" data-icon="mdi:tag-outline"></span>Promo</a></li>
-          <li><a href="/kontak.html"><span class="iconify" data-icon="mdi:phone-outline"></span>Kontak</a></li>
-        </ul>`;
-      menuBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        popup.classList.toggle('show');
-        menuBtn.setAttribute('aria-expanded', popup.classList.contains('show'));
-      });
-      document.addEventListener('click', (e) => {
-        if (!popup.contains(e.target)) popup.classList.remove('show');
-      });
-    }
-  </script>
+  <!-- JS (dipisah) -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
