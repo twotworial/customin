@@ -30,6 +30,7 @@
 
   <script src="https://code.iconify.design/3/3.1.1/iconify.min.js"></script>
 
+  <!-- Schema -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -78,7 +79,7 @@
       <header class="profile-card">
         <div class="profile-main-info">
           <div class="profile-avatar">
-            <img src="OG/avatar-customin-furniture-custom.svg" alt="Avatar Customin.co">
+            <img src="OG/avatar-customin-furniture-custom.svg" alt="Avatar Customin.co" width="50" height="50" decoding="async">
           </div>
           <div class="profile-info">
             <h1>Customin.co</h1>
@@ -98,17 +99,20 @@
           <div class="swiper-wrapper">
             <div class="swiper-slide">
               <a href="/produk/nama-produk-1">
-                <img src="image_fef486.jpg" alt="Meja Konsol Elegan">
-              </a>
-            </div>
-            <div class="swiper-slide">
-              <a href="/promo/diskon-agustus">
-                <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80" alt="Sofa Minimalis">
+                <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1200&q=80"
+                     alt="Sofa Minimalis" fetchpriority="high">
               </a>
             </div>
             <div class="swiper-slide">
               <a href="/kategori/kursi">
-                <img src="https://images.unsplash.com/photo-1592078615290-033ee584e267?w=600&q=80" alt="Kursi Kayu Modern">
+                <img src="https://images.unsplash.com/photo-1592078615290-033ee584e267?w=1200&q=80"
+                     alt="Kursi Kayu Modern" loading="lazy" decoding="async">
+              </a>
+            </div>
+            <div class="swiper-slide">
+              <a href="/promo/diskon-agustus">
+                <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=1200&q=80"
+                     alt="Lemari Kayu Mewah" loading="lazy" decoding="async">
               </a>
             </div>
           </div>
@@ -125,7 +129,7 @@
 
         <div class="produk-list">
           <div class="product-card">
-            <div class="product-img"><img src="produk/foto/kursi-lipat.webp" alt="Kursi Lipat Jati" /></div>
+            <div class="product-img"><img src="produk/foto/kursi-lipat.webp" alt="Kursi Lipat Jati" loading="lazy" decoding="async"/></div>
             <div class="product-content">
               <h2 class="product-title">Kursi Lipat Jati</h2>
               <div class="product-footer">
@@ -135,7 +139,7 @@
             </div>
           </div>
           <div class="product-card">
-            <div class="product-img"><img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?w=300&q=80" alt="Meja Kerja Minimalis" /></div>
+            <div class="product-img"><img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?w=600&q=80" alt="Meja Kerja Minimalis" loading="lazy" decoding="async"/></div>
             <div class="product-content">
               <h2 class="product-title">Meja Kerja Minimalis</h2>
               <div class="product-footer">
@@ -161,7 +165,7 @@
 
       </main>
 
-      <!-- NAVIGASI STICKY DI DALAM CARD -->
+      <!-- NAVIGASI STICKY DI DALAM CARD (punya background/card) -->
       <nav class="in-card-nav" aria-label="Navigasi utama">
         <div class="nav-content">
           <a href="/" class="nav-item" title="Home" aria-label="Home">
@@ -186,13 +190,15 @@
 
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script>
-    // Swiper
+    // Swiper autoplay + loop
     const swiper = new Swiper('.main-slider', {
       loop: true,
+      speed: 600,
+      autoplay: { delay: 3000, disableOnInteraction: false, pauseOnMouseEnter: true },
       pagination: { el: '.swiper-pagination', clickable: true }
     });
 
-    // Popup Menu sederhana
+    // Popup Menu
     const menuBtn = document.getElementById('menuButton');
     const popup = document.getElementById('popupMenu');
     if (menuBtn && popup) {
@@ -203,11 +209,13 @@
           <li><a href="/promo"><span class="iconify" data-icon="mdi:tag-outline"></span>Promo</a></li>
           <li><a href="/kontak.html"><span class="iconify" data-icon="mdi:phone-outline"></span>Kontak</a></li>
         </ul>`;
-      menuBtn.addEventListener('click', () => {
+      menuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
         popup.classList.toggle('show');
+        menuBtn.setAttribute('aria-expanded', popup.classList.contains('show'));
       });
       document.addEventListener('click', (e) => {
-        if (!popup.contains(e.target) && !menuBtn.contains(e.target)) popup.classList.remove('show');
+        if (!popup.contains(e.target)) popup.classList.remove('show');
       });
     }
   </script>
