@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tentang Kami | Customin.co</title>
   <meta name="description" content="Kenali Customin.co, pengrajin furniture custom premium yang didirikan oleh PT JATI DESAIN SEJAHTERA. Legalitas jelas, terpercaya, dan profesional.">
 
@@ -11,62 +11,39 @@
   <link rel="stylesheet" href="about.css" />
   <script src="https://code.iconify.design/3/3.1.1/iconify.min.js" defer></script>
 
-  <!-- Structured Data -->
+  <!-- Structured Data (ringkas) -->
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": ["AboutPage","WebPage"],
-    "name": "Tentang Customin.co",
-    "url": "https://customin.co/about.html",
-    "description": "Customin.co adalah pengrajin lokal spesialis furniture custom berkualitas premium. Didirikan oleh PT JATI DESAIN SEJAHTERA, legalitas jelas dan terpercaya.",
-    "mainEntity": {
-      "@type": "Organization",
-      "name": "PT JATI DESAIN SEJAHTERA",
-      "alternateName": "Customin.co",
-      "url": "https://customin.co/",
-      "logo": "https://customin.co/OG/avatar-customin-furniture-custom.svg",
-      "image": "https://cdn.jsdelivr.net/gh/twotworial/customin@main/OG/Cover-Furniture-Custom-by-Customin.webp",
-      "email": "hi@customin.co",
-      "contactPoint": [{
-        "@type": "ContactPoint",
-        "contactType": "customer service",
-        "email": "hi@customin.co",
-        "url": "https://wa.me/628888085772",
-        "availableLanguage": ["Indonesian","English"]
-      }],
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Rt XII, Bantrung, Batealit",
-        "addressLocality": "Jepara",
-        "addressRegion": "Central Java",
-        "postalCode": "59461",
-        "addressCountry": "ID"
-      },
-      "founder": [{ "@type": "Organization", "name": "PT JATI DESAIN SEJAHTERA" }],
-      "identifier": [
-        { "@type": "PropertyValue", "propertyID": "NIB", "value": "0305240087774" },
-        { "@type": "PropertyValue", "propertyID": "NPWP", "value": "0202 6362 2151 6000" },
-        { "@type": "PropertyValue", "propertyID": "SK Kemenkumham", "value": "AHU-023861.AH.01.30.Tahun 2024" }
-      ],
-      "sameAs": [
-        "https://instagram.com/customin_co",
-        "https://wa.me/628888085772",
-        "https://www.threads.net/@customin_co",
-        "https://linkedin.com/company/custominco",
-        "https://toco.id/store/suara-living",
-        "https://shopee.co.id/customin.co",
-        "https://blog.customin.co"
-      ]
+    "@context":"https://schema.org",
+    "@type":["AboutPage","WebPage"],
+    "name":"Tentang Customin.co",
+    "url":"https://customin.co/about.html",
+    "description":"Customin.co adalah pengrajin lokal spesialis furniture custom berkualitas premium. Didirikan oleh PT JATI DESAIN SEJAHTERA, legalitas jelas dan terpercaya.",
+    "mainEntity":{
+      "@type":"Organization",
+      "name":"PT JATI DESAIN SEJAHTERA",
+      "alternateName":"Customin.co",
+      "url":"https://customin.co/",
+      "logo":"https://customin.co/OG/avatar-customin-furniture-custom.svg",
+      "image":"https://cdn.jsdelivr.net/gh/twotworial/customin@main/OG/Cover-Furniture-Custom-by-Customin.webp",
+      "email":"hi@customin.co",
+      "address":{
+        "@type":"PostalAddress",
+        "streetAddress":"Rt XII, Bantrung, Batealit",
+        "addressLocality":"Jepara",
+        "addressRegion":"Central Java",
+        "postalCode":"59461",
+        "addressCountry":"ID"
+      }
     }
   }
   </script>
 </head>
 <body>
-
   <div class="main-wrapper">
-    <div class="about-card">
+    <div class="bio-card"><!-- sama nama class dengan index biar konsisten -->
 
-      <!-- HEADER: sama seperti index (profile-card) -->
+      <!-- HEADER: match index -->
       <header class="profile-card">
         <div class="profile-main-info">
           <div class="profile-avatar">
@@ -86,11 +63,9 @@
 
       <main class="card-content" id="main">
         <div class="about-desc">
-          <p>
-            <b>Customin.co</b> adalah pengrajin lokal spesialis furniture custom berkualitas premium,
+          <p><b>Customin.co</b> adalah pengrajin lokal spesialis furniture custom berkualitas premium,
             didirikan oleh <b>PT JATI DESAIN SEJAHTERA</b>. Sejak 2024, kami membantu
-            <b>200+ klien</b> (rumah, cafe, kantor, hotel, UMKM) mewujudkan interior impian mereka.
-          </p>
+            <b>200+ klien</b> (rumah, cafe, kantor, hotel, UMKM) mewujudkan interior impian mereka.</p>
         </div>
 
         <div class="about-section">
@@ -107,36 +82,33 @@
           </ul>
         </div>
 
-        <!-- Keunggulan pakai Iconify -->
+        <!-- Keunggulan pakai Iconify (serasi tone) -->
         <div class="about-section keunggulan">
           <h2>Kenapa Pilih Kami?</h2>
           <div class="keunggulan-list">
             <div class="keunggulan-item">
-              <div class="icon"><span class="iconify" data-icon="mdi:trophy-outline" aria-hidden="true"></span></div>
+              <div class="icon"><span class="iconify" data-icon="mdi:trophy-outline"></span></div>
               <div>
                 <div class="judul">Premium Quality</div>
                 <div class="deskripsi">Bahan & finishing terpilih, detail presisi, dan kuat bertahun-tahun.</div>
               </div>
             </div>
-
             <div class="keunggulan-item">
-              <div class="icon"><span class="iconify" data-icon="mdi:lightbulb-on-outline" aria-hidden="true"></span></div>
+              <div class="icon"><span class="iconify" data-icon="mdi:lightbulb-on-outline"></span></div>
               <div>
                 <div class="judul">Custom Sesuai Impian</div>
                 <div class="deskripsi">Bebas request ukuran, warna, bahan, dan model apa pun.</div>
               </div>
             </div>
-
             <div class="keunggulan-item">
-              <div class="icon"><span class="iconify" data-icon="mdi:link-variant" aria-hidden="true"></span></div>
+              <div class="icon"><span class="iconify" data-icon="mdi:link-variant"></span></div>
               <div>
                 <div class="judul">Langsung Dari Pengrajin</div>
                 <div class="deskripsi">Tanpa perantara — harga lebih jujur, proses lebih cepat.</div>
               </div>
             </div>
-
             <div class="keunggulan-item">
-              <div class="icon"><span class="iconify" data-icon="mdi:handshake-outline" aria-hidden="true"></span></div>
+              <div class="icon"><span class="iconify" data-icon="mdi:handshake-outline"></span></div>
               <div>
                 <div class="judul">Konsultasi & Support</div>
                 <div class="deskripsi">Bantuan desain & update progress produksi lewat WhatsApp.</div>
@@ -154,10 +126,9 @@
             <li><b>SK:</b> AHU-023861.AH.01.30.Tahun 2024</li>
           </ul>
         </div>
-
       </main>
 
-      <!-- NAV sticky di dalam card (tetap kelihatan saat scroll) -->
+      <!-- NAV sticky (sama gaya dengan index) -->
       <nav class="in-card-nav" aria-label="Navigasi utama">
         <div class="nav-content">
           <a href="/" class="nav-item" title="Home" aria-label="Home">
@@ -174,12 +145,10 @@
         </div>
       </nav>
 
-    </div><!-- /.about-card -->
+    </div><!-- /.bio-card -->
   </div><!-- /.main-wrapper -->
 
-  <!-- Popup menu (dipakai oleh script.js dari index) -->
   <div class="popup-menu" id="popupMenu"></div>
-
   <script src="script.js" defer></script>
 </body>
 </html>
