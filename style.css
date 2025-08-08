@@ -22,7 +22,8 @@ body {
   font-family: 'Inter', sans-serif;
   margin: 0;
   color: var(--text);
-  padding-bottom: 120px;
+  /* ruang untuk nav sticky + safe area */
+  padding-bottom: calc(120px + env(safe-area-inset-bottom));
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   -webkit-tap-highlight-color: transparent;
@@ -227,29 +228,51 @@ button:focus-visible,
 .order-btn:hover { background-color: #f5f5f5; box-shadow: 0 3px 6px rgba(0,0,0,0.07); }
 
 /* =================================
-   NAVIGASI STICKY
+   NAVIGASI STICKY — MERGED LOOK
    ================================= */
-.bottom-nav {
-  position: fixed; bottom: 0; left: 0; width: 100%; z-index: 1001;
+
+/* container menempel bawah + center */
+.bottom-nav{
+  position: fixed;
+  bottom: 0; left: 0; width: 100%;
+  z-index: 1001;
   display: flex; justify-content: center;
+  pointer-events: none; /* hanya isi nav yang menerima klik */
 }
-.bottom-nav .nav-content {
-  width: 100%; max-width: 420px; background-color: var(--bg);
-  border-top: 1px solid var(--grey);
-  box-shadow: 0 -5px 25px rgba(0,0,0,0.08);
-  border-radius: 0 0 var(--radius) var(--radius);
+
+.bottom-nav .nav-content{
+  width: 100%; max-width: 420px;
+  position: relative;
   display: flex; justify-content: space-around; align-items: center;
-  padding: 16px 24px; box-sizing: border-box;
+  padding: 16px 24px calc(16px + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+  pointer-events: auto; /* aktifkan klik untuk anak2nya */
 }
-.nav-item {
+
+/* “jembatan” agar terlihat menyatu dengan kartu di atas */
+.bottom-nav .nav-content::before{
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  top: -28px;                      /* tinggi jembatan, atur sesuai selera */
+  background: var(--bg);
+  border-top-left-radius: var(--radius);
+  border-top-right-radius: var(--radius);
+  box-shadow: 0 -5px 25px rgba(0,0,0,0.08);
+  border-top: 1px solid var(--grey);
+  z-index: 0;
+}
+
+.nav-item{
+  position: relative; z-index: 1;  /* di atas pseudo-element */
   display: flex; align-items: center; justify-content: center;
   width: 54px; height: 54px; color: #555; font-size: 24px;
-  border-radius: 50%; text-decoration: none; position: relative;
-  cursor: pointer; transition: background-color 0.2s;
+  border-radius: 50%; text-decoration: none; cursor: pointer;
+  transition: background-color 0.2s;
 }
-.nav-item:hover { background-color: #f0f0f0; }
-.menu-button { background-color: #2c2c2c; color: #ffffff; }
-.menu-button:hover { background-color: #444; }
+.nav-item:hover{ background-color: #f0f0f0; }
+.menu-button{ background-color: #2c2c2c; color: #ffffff; }
+.menu-button:hover{ background-color: #444; }
 
 /* =================================
    MENU POP-UP
@@ -278,8 +301,9 @@ button:focus-visible,
    ================================= */
 @media (max-width: 460px) {
   .main-wrapper { padding: 0; }
-  .bio-card, .bottom-nav .nav-content { border-radius: 0; }
+  /* hanya kartu yang diratakan, nav biarkan bulat agar efek nyatu tetap ada */
+  .bio-card { border-radius: 0; }
   .bio-card { padding: 16px; }
   .profile-card { box-shadow: 0 4px 12px rgba(0,0,0,0.07); }
-  body { padding-bottom: 90px; }
+  body { padding-bottom: calc(90px + env(safe-area-inset-bottom)); }
 }
