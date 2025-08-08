@@ -9,6 +9,7 @@
   --radius: 24px;
   --card-radius: 16px;
   --button-radius: 12px;
+  --nav-merge-height: 72px; /* ketinggian jembatan nav ke atas */
 }
 
 *,
@@ -228,16 +229,15 @@ button:focus-visible,
 .order-btn:hover { background-color: #f5f5f5; box-shadow: 0 3px 6px rgba(0,0,0,0.07); }
 
 /* =================================
-   NAVIGASI STICKY — MERGED LOOK
+   NAVIGASI STICKY — MERGED LOOK (v2)
    ================================= */
-
-/* container menempel bawah + center */
 .bottom-nav{
   position: fixed;
   bottom: 0; left: 0; width: 100%;
   z-index: 1001;
   display: flex; justify-content: center;
-  pointer-events: none; /* hanya isi nav yang menerima klik */
+  pointer-events: none; /* hanya isi nav yg menerima klik */
+  background: transparent;
 }
 
 .bottom-nav .nav-content{
@@ -246,15 +246,15 @@ button:focus-visible,
   display: flex; justify-content: space-around; align-items: center;
   padding: 16px 24px calc(16px + env(safe-area-inset-bottom));
   box-sizing: border-box;
-  pointer-events: auto; /* aktifkan klik untuk anak2nya */
+  pointer-events: auto;
 }
 
-/* “jembatan” agar terlihat menyatu dengan kartu di atas */
+/* jembatan putih agar menyatu dg blok di atas */
 .bottom-nav .nav-content::before{
   content: "";
   position: absolute;
   left: 0; right: 0; bottom: 0;
-  top: -28px;                      /* tinggi jembatan, atur sesuai selera */
+  top: calc(-1 * var(--nav-merge-height)); /* menutup area kosong di atas nav */
   background: var(--bg);
   border-top-left-radius: var(--radius);
   border-top-right-radius: var(--radius);
@@ -264,7 +264,7 @@ button:focus-visible,
 }
 
 .nav-item{
-  position: relative; z-index: 1;  /* di atas pseudo-element */
+  position: relative; z-index: 1;
   display: flex; align-items: center; justify-content: center;
   width: 54px; height: 54px; color: #555; font-size: 24px;
   border-radius: 50%; text-decoration: none; cursor: pointer;
@@ -301,9 +301,8 @@ button:focus-visible,
    ================================= */
 @media (max-width: 460px) {
   .main-wrapper { padding: 0; }
-  /* hanya kartu yang diratakan, nav biarkan bulat agar efek nyatu tetap ada */
-  .bio-card { border-radius: 0; }
-  .bio-card { padding: 16px; }
+  .bio-card { border-radius: 0; padding: 16px; }
   .profile-card { box-shadow: 0 4px 12px rgba(0,0,0,0.07); }
   body { padding-bottom: calc(90px + env(safe-area-inset-bottom)); }
+  :root { --nav-merge-height: 64px; } /* jembatan sedikit lebih pendek di layar kecil */
 }
