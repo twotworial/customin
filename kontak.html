@@ -2,81 +2,155 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kontak Kami | Customin.co</title>
   <meta name="description" content="Hubungi Customin.co untuk konsultasi, pemesanan, atau info legalitas. Respon cepat via WhatsApp, Email, atau Instagram.">
+
   <link rel="icon" href="OG/favicon-customin-furniture-custom.ico" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="kontak.css"/>
-  <script src="https://code.iconify.design/3/3.1.1/iconify.min.js"></script>
+  <script src="https://code.iconify.design/3/3.1.1/iconify.min.js" defer></script>
 </head>
 <body>
+
   <div class="main-wrapper">
-    <div class="kontak-card">
-      <!-- Tombol Home & Cart -->
-      <div class="top-buttons">
-        <a href="/" class="nav-btn" title="Beranda">
-          <span class="iconify" data-icon="mdi:home-outline"></span>
-        </a>
-        <a href="/keranjang" class="nav-btn" title="Keranjang">
-          <span class="iconify" data-icon="mdi:cart-outline"></span>
-        </a>
-      </div>
+    <div class="bio-card"><!-- sama class dengan index biar konsisten -->
 
-      <div class="kontak-avatar">
-        <img src="OG/avatar-customin-furniture-custom.svg" alt="Logo Customin.co">
-      </div>
-      <h1>Kontak <span class="brand">Customin.co</span></h1>
-      <div class="kontak-desc">
-        Konsultasi & order furniture custom cepat.<br>
-        Bisa via WhatsApp, Email, atau form berikut.
-      </div>
+      <!-- HEADER: match index/about -->
+      <header class="profile-card">
+        <div class="profile-main-info">
+          <div class="profile-avatar">
+            <img src="OG/avatar-customin-furniture-custom.svg" alt="Avatar Customin.co" width="50" height="50" decoding="async">
+          </div>
+          <div class="profile-info">
+            <h1>Customin.co</h1>
+            <p class="profile-slug">Jual Furniture Custom</p>
+          </div>
+        </div>
+        <div class="profile-socials" aria-label="Ikuti kami">
+          <a href="https://instagram.com/customin_co" title="Instagram" aria-label="Instagram"><span class="iconify" data-icon="mdi:instagram"></span></a>
+          <a href="https://wa.me/628888085772" title="WhatsApp" aria-label="WhatsApp"><span class="iconify" data-icon="mdi:whatsapp"></span></a>
+          <a href="https://linkedin.com/company/custominco" title="LinkedIn" aria-label="LinkedIn"><span class="iconify" data-icon="mdi:linkedin"></span></a>
+        </div>
+      </header>
 
-      <div class="kontak-socials">
-        <a href="https://instagram.com/customin.co" target="_blank" title="Instagram">
-          <span class="iconify" data-icon="mdi:instagram"></span>
-        </a>
-        <a href="https://wa.me/628888085772" target="_blank" title="WhatsApp">
-          <span class="iconify" data-icon="mdi:whatsapp"></span>
-        </a>
-        <a href="mailto:hi@customin.co" title="Email">
-          <span class="iconify" data-icon="mdi:email"></span>
-        </a>
-      </div>
+      <main class="card-content" id="main">
 
-      <form id="wa-form" class="kontak-form" autocomplete="off">
-        <input type="text" name="name" placeholder="Nama Anda" required>
-        <input type="email" name="email" placeholder="Email" required>
-        <textarea name="pesan" rows="3" placeholder="Pesan/Kebutuhan Anda" required></textarea>
-        <button type="submit" class="order-btn">Kirim ke WhatsApp</button>
-      </form>
+        <section class="kontak-intro">
+          <h2>Konsultasi & Order</h2>
+          <p>Kami siap bantu diskusi desain, estimasi biaya, dan jadwal produksi. Kirim pesan cepat via WhatsApp atau isi form di bawah ini.</p>
+        </section>
 
-      <div class="kontak-legal">
-        <div class="judul-legal">Legalitas Perusahaan</div>
-        <ul>
-          <li><b>PT:</b> JATI DESAIN SEJAHTERA</li>
-          <li><b>NIB:</b> 0305240087774</li>
-          <li><b>NPWP:</b> 0202 6362 2151 6000</li>
-          <li><b>SK:</b> AHU-023861.AH.01.30.Tahun 2024</li>
-        </ul>
-      </div>
-    </div>
-    <footer>
-      &copy; 2025 Customin.co
-    </footer>
-  </div>
+        <section class="kontak-cta">
+          <a class="cta-pill" href="https://wa.me/628888085772" target="_blank" rel="noopener" aria-label="Chat WhatsApp">
+            <span class="iconify" data-icon="mdi:whatsapp"></span>
+            WhatsApp Langsung
+          </a>
+          <a class="cta-pill" href="mailto:hi@customin.co" aria-label="Kirim email">
+            <span class="iconify" data-icon="mdi:email-outline"></span>
+            Email
+          </a>
+          <a class="cta-pill" href="https://instagram.com/customin_co" target="_blank" rel="noopener" aria-label="DM Instagram">
+            <span class="iconify" data-icon="mdi:instagram"></span>
+            DM Instagram
+          </a>
+        </section>
 
+        <section class="kontak-form-wrap" aria-labelledby="form-title">
+          <h2 id="form-title">Form Cepat (Kirim ke WA)</h2>
+
+          <form id="wa-form" class="kontak-form" autocomplete="off">
+            <label>
+              <span>Nama</span>
+              <input type="text" name="name" placeholder="Nama Anda" required>
+            </label>
+
+            <label>
+              <span>Email</span>
+              <input type="email" name="email" placeholder="email@contoh.com" required>
+            </label>
+
+            <label>
+              <span>Pesan/Kebutuhan</span>
+              <textarea name="pesan" rows="3" placeholder="Ceritakan kebutuhan Anda…" required></textarea>
+            </label>
+
+            <button type="submit" class="order-btn">Kirim ke WhatsApp</button>
+          </form>
+        </section>
+
+        <section class="kontak-legal">
+          <div class="judul-legal">Legalitas Perusahaan</div>
+          <ul>
+            <li><b>PT:</b> JATI DESAIN SEJAHTERA</li>
+            <li><b>NIB:</b> 0305240087774</li>
+            <li><b>NPWP:</b> 0202 6362 2151 6000</li>
+            <li><b>SK:</b> AHU-023861.AH.01.30.Tahun 2024</li>
+          </ul>
+        </section>
+
+      </main>
+
+      <!-- NAV sticky di dalam card (gaya sama) -->
+      <nav class="in-card-nav" aria-label="Navigasi utama">
+        <div class="nav-content">
+          <a href="/" class="nav-item" title="Home" aria-label="Home">
+            <span class="iconify" data-icon="mdi:home-outline"></span>
+          </a>
+
+          <button type="button" class="menu-button" id="menuButton" aria-controls="popupMenu" aria-expanded="false" aria-label="Menu">
+            <span class="iconify" data-icon="mdi:view-grid-outline"></span>
+          </button>
+
+          <a href="/keranjang" class="nav-item" title="Keranjang" aria-label="Keranjang">
+            <span class="iconify" data-icon="mdi:cart-outline"></span>
+          </a>
+        </div>
+      </nav>
+
+    </div><!-- /.bio-card -->
+  </div><!-- /.main-wrapper -->
+
+  <!-- Popup menu (shared dengan index/about, di-handle script.js) -->
+  <div class="popup-menu" id="popupMenu"></div>
+
+  <!-- Script WA form + popup menu shared -->
   <script>
+    // Kirim ke WhatsApp
     document.getElementById('wa-form').addEventListener('submit', function(e){
       e.preventDefault();
-      var waNumber = "628888085772";
-      var nama = encodeURIComponent(this.name.value.trim());
-      var email = encodeURIComponent(this.email.value.trim());
-      var pesan = encodeURIComponent(this.pesan.value.trim());
-      var waText = `Halo Customin.co,%0ANama: ${nama}%0AEmail: ${email}%0APesan: ${pesan}`;
-      var waURL = `https://wa.me/${waNumber}?text=${waText}`;
+      const waNumber = "628888085772";
+      const nama  = encodeURIComponent(this.name.value.trim());
+      const email = encodeURIComponent(this.email.value.trim());
+      const pesan = encodeURIComponent(this.pesan.value.trim());
+      const waText = `Halo Customin.co,%0A%0ANama: ${nama}%0AEmail: ${email}%0APesan: ${pesan}`;
+      const waURL  = `https://wa.me/${waNumber}?text=${waText}`;
       window.open(waURL, '_blank');
     });
+
+    // Popup menu (sama persis seperti index/about, minimal supaya jalan tanpa script.js terpisah)
+    (function(){
+      const menuBtn = document.getElementById('menuButton');
+      const popup   = document.getElementById('popupMenu');
+      if (!menuBtn || !popup) return;
+
+      popup.innerHTML = `
+        <ul>
+          <li><a href="/kategori/kursi"><span class="iconify" data-icon="mdi:seat-outline"></span>Kategori Kursi</a></li>
+          <li><a href="/kategori/meja"><span class="iconify" data-icon="mdi:table-furniture"></span>Kategori Meja</a></li>
+          <li><a href="/promo"><span class="iconify" data-icon="mdi:tag-outline"></span>Promo</a></li>
+          <li><a href="/kontak.html"><span class="iconify" data-icon="mdi:phone-outline"></span>Kontak</a></li>
+        </ul>`;
+
+      menuBtn.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        popup.classList.toggle('show');
+        menuBtn.setAttribute('aria-expanded', popup.classList.contains('show'));
+      });
+      document.addEventListener('click', (e)=>{
+        if (!popup.contains(e.target)) popup.classList.remove('show');
+      });
+    })();
   </script>
 </body>
 </html>
