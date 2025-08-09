@@ -1,294 +1,257 @@
-:root {
-  --accent: #FF6002;
-  --bg: #ffffff;
-  --text: #0c0c0c;
-  --grey: #f6f6f6;
-  --subtext: #5c5c5c;
-  --radius: 26px;
+/* =================================
+   VARIABEL & DASAR — match index/about
+   ================================= */
+:root{
+  --accent:#FF6002;
+  --bg:#ffffff;
+  --text:#0c0c0c;
+  --grey:#f6f6f6;
+  --subtext:#5c5c5c;
+  --radius:24px;
+  --card-radius:16px;
+  --button-radius:12px;
 }
 
-body {
-  background: var(--bg);
-  font-family: 'Inter', Arial, sans-serif;
-  margin: 0;
-  min-height: 100vh;
-  color: var(--text);
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
+*,
+*::before,
+*::after{ box-sizing:border-box; }
+
+html{ background:var(--grey); }
+
+body{
+  background:var(--bg);
+  font-family:'Inter', Arial, sans-serif;
+  margin:0;
+  min-height:100vh;
+  color:var(--text);
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  -webkit-tap-highlight-color:transparent;
 }
 
-.main-wrapper {
-  width: 400px;
-  min-height: 100vh;
-  background: var(--bg);
-  padding-left: 0;
-  padding-right: 0;
+/* Fokus keyboard yang jelas */
+a:focus-visible,
+button:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:2px;
+  border-radius:12px;
 }
 
-.product-detail-modern {
-  width: 100%;
-  background: var(--bg);
-  border-radius: var(--radius);
-  box-shadow: 0 6px 32px 0 rgba(12,12,12,0.09);
-  margin: 22px 0 30px 0;
-  overflow: hidden;
-  position: relative;
-  border: 1.5px solid #f3f3f3;
-  display: flex;
-  flex-direction: column;
+/* =================================
+   LAYOUT WRAPPER — match index/about
+   ================================= */
+.main-wrapper{
+  width:100%;
+  max-width:420px;
+  min-height:100vh;
+  background:var(--bg);
+  padding:24px;
 }
 
-.pd-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 18px 18px 10px 18px;
-  background: var(--bg);
-  position: sticky; top: 0; z-index: 10;
+@media (max-width:460px){
+  .main-wrapper{ padding:16px 0 8px; }
 }
-.pd-header-title {
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--text);
-  letter-spacing: 0.2px;
-}
-.pd-icon-btn {
-  background: #fff;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex; align-items: center; justify-content: center;
-  border: 1.3px solid #f4f4f4;
-  color: var(--accent);
-  font-size: 21px;
-  cursor: pointer;
-  transition: background 0.14s, color 0.16s, border 0.13s;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-}
-.pd-icon-btn:hover { background: var(--accent); color:#fff; }
 
-/* FOTO PRODUK 1:1, ADA CELAH KANAN-KIRI */
-.pd-imgbox {
-  width: 100%;
-  box-sizing: border-box;
-  padding-left: 18px;
-  padding-right: 18px;
-  padding-top: 0;
-  padding-bottom: 0;
-  background: transparent;
-  margin-top: 0;
-  margin-bottom: 12px;
+/* =================================
+   KARTU UTAMA PRODUK — seragam dgn .bio-card
+   ================================= */
+.product-detail-modern{
+  width:100%;
+  background:var(--bg);
+  border-radius:var(--radius);
+  box-shadow:0 8px 40px rgba(0,0,0,.08);
+  margin:0 0 24px 0;
+  overflow:hidden;
+  position:relative;
+  border:1px solid #f3f3f3;
+  display:flex;
+  flex-direction:column;
 }
-.pd-imgbox img {
-  width: 100%;
-  aspect-ratio: 1/1;
-  border-radius: 18px;
-  object-fit: contain;
-  display: block;
-  background: var(--grey);
-  transition: 0.25s;
+
+/* =================================
+   HEADER (back/title/share) — selaras komponen card
+   ================================= */
+.pd-header{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 16px;
+  background:#fff;
+  position:sticky; top:0; z-index:5;
+  box-shadow:0 4px 12px rgba(0,0,0,.04);
+  border-bottom:1px solid #f2f2f2;
 }
-.pd-gallery-thumbs {
-  display: flex;
-  gap: 10px;
-  justify-content: flex-start;
-  padding: 0 18px 10px 18px;
-  margin-bottom: 0;
+.pd-header-title{
+  font-size:16px; font-weight:600; color:#111; letter-spacing:.2px;
 }
-.pd-gallery-thumbs .thumb {
-  background: #fff;
-  border: 2px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 0;
-  width: 54px;
-  height: 54px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: border .18s;
-  box-shadow: 0 1px 6px rgba(0,0,0,.07);
+.pd-icon-btn{
+  background:#fff;
+  border-radius:50%;
+  width:40px; height:40px;
+  display:flex; align-items:center; justify-content:center;
+  border:1px solid #eee;
+  color:#555;
+  font-size:22px;
+  cursor:pointer;
+  transition:background .18s, color .18s, border .18s, transform .12s;
+  box-shadow:0 2px 8px rgba(0,0,0,.06);
 }
+.pd-icon-btn:hover{ background:#f6f6f6; }
+.pd-icon-btn:active{ transform:scale(.98); }
+
+/* =================================
+   GALERI — padding & radius seragam
+   ================================= */
+.pd-imgbox{
+  width:100%;
+  padding:16px;
+  background:transparent;
+}
+.pd-imgbox img{
+  width:100%;
+  aspect-ratio:1/1;
+  border-radius:var(--card-radius);
+  object-fit:cover;
+  display:block;
+  background:var(--grey);
+  box-shadow:0 4px 10px rgba(0,0,0,.05);
+}
+
+.pd-gallery-thumbs{
+  display:flex; gap:10px; justify-content:flex-start;
+  padding:0 16px 8px 16px;
+}
+.pd-gallery-thumbs .thumb{
+  background:#fff;
+  border:2px solid #eaeaea;
+  border-radius:10px;
+  width:56px; height:56px;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer;
+  transition:border .18s, transform .12s, box-shadow .18s;
+  box-shadow:0 2px 8px rgba(0,0,0,.06);
+}
+.pd-gallery-thumbs .thumb:hover{ transform:translateY(-1px); }
 .pd-gallery-thumbs .thumb.active,
-.pd-gallery-thumbs .thumb:focus-visible {
-  border: 2.5px solid var(--accent);
-  outline: none;
+.pd-gallery-thumbs .thumb:focus-visible{
+  border:2.5px solid var(--accent);
+  outline:none;
 }
-.pd-gallery-thumbs .thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 6px;
-  pointer-events: none;
-  display: block;
+.pd-gallery-thumbs .thumb img{
+  width:100%; height:100%; object-fit:cover; border-radius:8px; display:block;
 }
 
-.pd-info {
-  padding: 0 20px 4px 20px;
-}
-.pd-info-main {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  margin-bottom: 8px;
-}
-.pd-title {
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--text);
-}
-.pd-subtitle {
-  color: var(--subtext);
-  font-size: 14px;
-  margin-top: 2px;
-  font-weight: 500;
-}
-.pd-price {
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--accent);
-  margin-left: 14px;
-}
-.pd-rating {
-  font-size: 14px;
-  color: var(--text);
-  margin-bottom: 4px;
-  display: flex;
-  align-items: center;
-  gap: 7px;
-}
-.pd-rating .iconify { font-size: 16px; }
-.pd-rating-count { color: var(--subtext); font-size: 13px; margin-left: 2px; }
+/* =================================
+   INFO PRODUK — tipografi & warna match
+   ================================= */
+.pd-info{ padding:0 16px 6px 16px; }
 
-.pd-tabs {
-  display: flex;
-  justify-content: flex-start;
-  gap: 0;
-  margin: 14px 0 0 0;
-  padding-left: 20px;
-  border-bottom: 1.5px solid #f1f1f1;
+.pd-info-main{
+  display:flex; align-items:flex-end; justify-content:space-between;
+  margin-bottom:6px;
 }
-.pd-tab {
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--subtext);
-  background: transparent;
-  border: none;
-  outline: none;
-  padding: 12px 18px 8px 0;
-  margin-right: 7px;
-  cursor: pointer;
-  transition: color 0.16s, border 0.18s;
-  border-bottom: 2.5px solid transparent;
+.pd-title{ font-size:18px; font-weight:700; color:#111; }
+.pd-subtitle{ color:#666; font-size:14px; margin-top:2px; font-weight:500; }
+.pd-price{ font-size:18px; font-weight:700; color:var(--accent); margin-left:12px; }
+
+.pd-rating{
+  font-size:14px; color:var(--text);
+  margin-bottom:4px; display:flex; align-items:center; gap:6px;
 }
-.pd-tab.active {
-  color: var(--accent);
-  border-bottom: 2.5px solid var(--accent);
+.pd-rating .iconify{ font-size:16px; color:#FFD700; }
+.pd-rating-count{ color:var(--subtext); font-size:13px; }
+
+/* =================================
+   TABS — garis & aksen sama
+   ================================= */
+.pd-tabs{
+  display:flex; gap:0; margin:10px 0 0 0;
+  padding-left:16px;
+  border-bottom:1px solid #f1f1f1;
 }
-.pd-tab-content {
-  padding: 13px 20px 8px 20px;
+.pd-tab{
+  font-size:15px; font-weight:600; color:#777;
+  background:transparent; border:none; outline:none;
+  padding:12px 16px 10px 0; margin-right:8px;
+  cursor:pointer;
+  border-bottom:2.5px solid transparent;
+  transition:color .18s, border-color .18s;
 }
-.pd-tab-panel { display: none; font-size: 14.2px; color: var(--text);}
-.pd-tab-panel.active { display: block; }
-.pd-detail-list {
-  padding-left: 0;
-  margin: 0;
-  list-style: none;
-}
-.pd-detail-list li {
-  margin-bottom: 7px;
-  font-size: 14px;
-  color: var(--text);
+.pd-tab.active{
+  color:var(--accent);
+  border-bottom-color:var(--accent);
 }
 
-.pd-order-desc {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-.pd-order-section {
-  margin-bottom: 0;
-}
-.pd-order-section b {
-  color: var(--accent);
-  font-weight: 600;
-  font-size: 15px;
-}
+.pd-tab-content{ padding:12px 16px 4px 16px; }
+.pd-tab-panel{ display:none; font-size:14.2px; color:var(--text); line-height:1.6; }
+.pd-tab-panel.active{ display:block; }
+.pd-detail-list{ list-style:none; padding:0; margin:0; }
+.pd-detail-list li{ margin-bottom:7px; font-size:14px; }
+
+/* Pemesanan section */
+.pd-order-desc{ display:flex; flex-direction:column; gap:14px; }
+.pd-order-section b{ color:var(--accent); font-weight:600; font-size:15px; }
 .pd-order-section ul,
-.pd-order-section ol {
-  margin: 6px 0 0 18px;
-  font-size: 14px;
-  color: var(--text);
-}
-.pd-order-section li {
-  margin-bottom: 5px;
+.pd-order-section ol{ margin:6px 0 0 18px; font-size:14px; color:var(--text); }
+.pd-order-section li{ margin-bottom:5px; }
+
+/* =================================
+   BOTTOM STICKY BAR — seragam gaya nav in-card
+   ================================= */
+.pd-bottombar{
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+  padding:14px 16px;
+  border-top:1px solid #f1f1f1;
+  background:#fff;
+  position:sticky; bottom:0; left:0; right:0;
+  border-bottom-left-radius:var(--radius);
+  border-bottom-right-radius:var(--radius);
+  z-index:5;
+  box-shadow:0 -6px 22px rgba(0,0,0,.08);
 }
 
-/* BOTTOM BAR */
-.pd-bottombar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 13px 20px 14px 20px;
-  border-top: 1.5px solid #f1f1f1;
-  margin-top: 15px;
-  background: #fff;
-  position: sticky; bottom: 0; left: 0; right: 0;
-  border-bottom-left-radius: var(--radius);
-  border-bottom-right-radius: var(--radius);
-  z-index: 10;
+.pd-qtybox{
+  display:flex; align-items:center; gap:8px;
+  background:#f6f6f6;
+  border-radius:12px;
+  padding:7px 12px;
+  border:1px solid #eee;
 }
-.pd-qtybox {
-  display: flex; align-items: center; gap: 8px;
-  background: #f7f7f7;
-  border-radius: 12px;
-  padding: 7px 14px;
+.qty-btn{
+  width:30px; height:30px; border-radius:50%;
+  background:#ededed; border:none; color:#222;
+  font-size:16px; font-weight:700; cursor:pointer;
+  transition:background .15s, color .15s, transform .12s;
 }
-.qty-btn {
-  width: 29px;
-  height: 29px;
-  border-radius: 50%;
-  background: #ededed;
-  border: none;
-  color: var(--text);
-  font-size: 16px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background 0.15s;
+.qty-btn:hover{ background:var(--accent); color:#fff; }
+.qty-btn:active{ transform:scale(.98); }
+.qty-value{
+  min-width:24px; text-align:center; font-size:15px; font-weight:700; color:#111;
 }
-.qty-btn:hover { background: var(--accent); color:#fff; }
-.qty-value {
-  min-width: 23px;
-  text-align: center;
-  font-size: 15.2px;
-  font-weight: 600;
-  color: var(--text);
-}
-.pd-addcart-btn {
-  background: var(--accent);
-  color: #fff;
-  border-radius: 16px;
-  padding: 12px 32px;
-  font-size: 16px;
-  font-weight: 600;
-  text-decoration: none;
-  border: none;
-  transition: background 0.18s;
-  box-shadow: 0 2px 10px rgba(255,96,2,0.07);
-  cursor: pointer;
-}
-.pd-addcart-btn:hover { background: #d84900; }
 
-footer {
-  margin-top: 20px;
-  color: var(--subtext);
-  font-size: 14px;
-  text-align: center;
-  padding-bottom: 18px;
+.pd-addcart-btn{
+  background:var(--accent); color:#fff;
+  border-radius:16px;
+  padding:12px 24px;
+  font-size:15px; font-weight:700;
+  text-decoration:none; border:none; cursor:pointer;
+  transition:filter .18s, transform .12s, box-shadow .18s;
+  box-shadow:0 2px 10px rgba(255,96,2,.10);
 }
-@media (max-width: 420px) {
-  .main-wrapper { width: 100vw; padding-left: 0; padding-right: 0; }
-  .product-detail-modern { border-radius: 0; box-shadow: none; }
+.pd-addcart-btn:hover{ filter:brightness(0.95); }
+.pd-addcart-btn:active{ transform:translateY(1px); }
+
+/* =================================
+   FOOTER — disamakan: tidak ditampilkan
+   ================================= */
+footer{ display:none; }
+
+/* =================================
+   RESPONSIVE
+   ================================= */
+@media (max-width:420px){
+  .main-wrapper{ width:100vw; }
+  .product-detail-modern{ border-radius:0; box-shadow:none; }
+  .pd-bottombar{ border-radius:0; }
 }
