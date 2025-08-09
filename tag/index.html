@@ -6,9 +6,15 @@
   <title>Tag | Customin.co</title>
   <meta name="description" content="Jelajahi produk berdasarkan tag: Minimalis, Jati Solid, Outdoor, Natural.">
   <link rel="icon" href="/OG/favicon-customin-furniture-custom.ico" />
+
+  <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/katalog.css" />
   <script src="https://code.iconify.design/3/3.1.1/iconify.min.js" defer></script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/katalog.css" />
+  <!-- Cart styles (badge + drawer) -->
+  <link rel="stylesheet" href="/assets/cart.css" />
 </head>
 <body>
   <div class="main-wrapper">
@@ -34,31 +40,48 @@
         </div>
       </main>
 
+      <!-- NAV (Home | Menu | Cart) -->
       <nav class="in-card-nav" aria-label="Navigasi utama">
         <div class="nav-content">
-          <a href="/" class="nav-item" title="Home"><span class="iconify" data-icon="mdi:home-outline"></span></a>
-          <button type="button" class="menu-button" id="menuButton" aria-controls="popupMenu" aria-expanded="false">
+          <a href="/" class="nav-item" title="Home" aria-label="Home">
+            <span class="iconify" data-icon="mdi:home-outline"></span>
+          </a>
+
+          <button type="button" class="menu-button" id="menuButton" aria-controls="popupMenu" aria-expanded="false" aria-label="Menu">
             <span class="iconify" data-icon="mdi:view-grid-outline"></span>
           </button>
-          <a href="/produk/" class="nav-item" title="Produk"><span class="iconify" data-icon="mdi:view-grid-plus-outline"></span></a>
+
+          <!-- Tombol Cart dengan badge + hook js-cart-btn -->
+          <a href="/keranjang" class="nav-item js-cart-btn" title="Keranjang" aria-label="Keranjang">
+            <span class="iconify" data-icon="mdi:cart-outline"></span>
+            <span class="cart-badge" data-cart-count>0</span>
+          </a>
         </div>
       </nav>
 
     </div>
   </div>
 
+  <!-- Popup menu -->
   <div class="popup-menu" id="popupMenu"></div>
+
+  <!-- Cart core (sinkron dengan halaman lain) -->
+  <script src="/assets/cart.js" defer></script>
+
   <script>
-    const m=document.getElementById('menuButton'), p=document.getElementById('popupMenu');
-    if(m&&p){
-      p.innerHTML=`<ul>
-        <li><a href="/produk/"><span class="iconify" data-icon="mdi:view-grid-plus-outline"></span>Semua Produk</a></li>
-        <li><a href="/kategori/"><span class="iconify" data-icon="mdi:shape-outline"></span>Kategori</a></li>
-        <li><a href="/kontak.html"><span class="iconify" data-icon="mdi:phone-outline"></span>Kontak</a></li>
-      </ul>`;
-      m.addEventListener('click',e=>{e.stopPropagation();p.classList.toggle('show');m.setAttribute('aria-expanded',p.classList.contains('show'))});
-      document.addEventListener('click',e=>{if(!p.contains(e.target)) p.classList.remove('show')});
-    }
+    // Popup menu
+    (function(){
+      const m=document.getElementById('menuButton'), p=document.getElementById('popupMenu');
+      if(m&&p){
+        p.innerHTML=`<ul>
+          <li><a href="/produk/"><span class="iconify" data-icon="mdi:view-grid-plus-outline"></span>Semua Produk</a></li>
+          <li><a href="/kategori/"><span class="iconify" data-icon="mdi:shape-outline"></span>Kategori</a></li>
+          <li><a href="/kontak.html"><span class="iconify" data-icon="mdi:phone-outline"></span>Kontak</a></li>
+        </ul>`;
+        m.addEventListener('click',e=>{e.stopPropagation();p.classList.toggle('show');m.setAttribute('aria-expanded',p.classList.contains('show'))});
+        document.addEventListener('click',e=>{if(!p.contains(e.target)) p.classList.remove('show')});
+      }
+    })();
   </script>
 </body>
 </html>
