@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Kategori | Customin.co</title>
-  <meta name="description" content="Jelajahi kategori produk: kursi, meja, lemari, rak, dan lainnya.">
+  <meta name="description" content="Jelajahi kategori produk: Kursi, Meja, Lemari, dan Rak.">
   <link rel="icon" href="/OG/favicon-customin-furniture-custom.ico" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/katalog.css" />
@@ -14,41 +14,30 @@
   <div class="main-wrapper">
     <div class="bio-card">
 
-      <header class="profile-card">
-        <div class="profile-main-info">
-          <div class="profile-avatar">
-            <img src="/OG/avatar-customin-furniture-custom.svg" alt="Avatar Customin.co" width="50" height="50">
-          </div>
-          <div class="profile-info">
-            <h1>Customin.co</h1>
-            <p class="profile-slug">Jual Furniture Custom</p>
-          </div>
-        </div>
-        <div class="profile-socials">
-          <a href="https://instagram.com/customin_co" title="Instagram"><span class="iconify" data-icon="mdi:instagram"></span></a>
-          <a href="https://wa.me/628888085772" title="WhatsApp"><span class="iconify" data-icon="mdi:whatsapp"></span></a>
-          <a href="https://linkedin.com/company/custominco" title="LinkedIn"><span class="iconify" data-icon="mdi:linkedin"></span></a>
-        </div>
+      <header class="page-head">
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li class="sep" aria-hidden="true">›</li>
+            <li aria-current="page">Kategori</li>
+          </ol>
+        </nav>
+        <h1 class="page-title">Kategori Produk</h1>
       </header>
 
       <main class="card-content" id="main">
-        <h2 class="section-title">Kategori Produk</h2>
         <div class="kategori-grid">
           <a class="kategori-card" href="/produk/?kategori=Kursi">
-            <span class="iconify" data-icon="mdi:seat-outline"></span>
-            <div>Kursi</div>
+            <span class="iconify" data-icon="mdi:seat-outline"></span><div>Kursi</div>
           </a>
           <a class="kategori-card" href="/produk/?kategori=Meja">
-            <span class="iconify" data-icon="mdi:table-furniture"></span>
-            <div>Meja</div>
+            <span class="iconify" data-icon="mdi:table-furniture"></span><div>Meja</div>
           </a>
           <a class="kategori-card" href="/produk/?kategori=Lemari">
-            <span class="iconify" data-icon="mdi:wardrobe-outline"></span>
-            <div>Lemari</div>
+            <span class="iconify" data-icon="mdi:wardrobe-outline"></span><div>Lemari</div>
           </a>
           <a class="kategori-card" href="/produk/?kategori=Rak">
-            <span class="iconify" data-icon="mdi:bookshelf"></span>
-            <div>Rak</div>
+            <span class="iconify" data-icon="mdi:bookshelf"></span><div>Rak</div>
           </a>
         </div>
       </main>
@@ -57,7 +46,7 @@
         <div class="nav-content">
           <a href="/" class="nav-item" title="Home"><span class="iconify" data-icon="mdi:home-outline"></span></a>
           <button type="button" class="menu-button" id="menuButton"><span class="iconify" data-icon="mdi:view-grid-outline"></span></button>
-          <a href="/keranjang" class="nav-item" title="Keranjang"><span class="iconify" data-icon="mdi:cart-outline"></span></a>
+          <a href="/produk/" class="nav-item" title="Produk"><span class="iconify" data-icon="mdi:view-grid-plus-outline"></span></a>
         </div>
       </nav>
 
