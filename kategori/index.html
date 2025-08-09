@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kategori | Customin.co</title>
+  <meta name="description" content="Jelajahi kategori produk: kursi, meja, lemari, rak, dan lainnya.">
+  <link rel="icon" href="/OG/favicon-customin-furniture-custom.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/katalog.css" />
+  <script src="https://code.iconify.design/3/3.1.1/iconify.min.js" defer></script>
+</head>
+<body>
+  <div class="main-wrapper">
+    <div class="bio-card">
+
+      <header class="profile-card">
+        <div class="profile-main-info">
+          <div class="profile-avatar">
+            <img src="/OG/avatar-customin-furniture-custom.svg" alt="Avatar Customin.co" width="50" height="50">
+          </div>
+          <div class="profile-info">
+            <h1>Customin.co</h1>
+            <p class="profile-slug">Jual Furniture Custom</p>
+          </div>
+        </div>
+        <div class="profile-socials">
+          <a href="https://instagram.com/customin_co" title="Instagram"><span class="iconify" data-icon="mdi:instagram"></span></a>
+          <a href="https://wa.me/628888085772" title="WhatsApp"><span class="iconify" data-icon="mdi:whatsapp"></span></a>
+          <a href="https://linkedin.com/company/custominco" title="LinkedIn"><span class="iconify" data-icon="mdi:linkedin"></span></a>
+        </div>
+      </header>
+
+      <main class="card-content" id="main">
+        <h2 class="section-title">Kategori Produk</h2>
+        <div class="kategori-grid">
+          <a class="kategori-card" href="/produk/?kategori=Kursi">
+            <span class="iconify" data-icon="mdi:seat-outline"></span>
+            <div>Kursi</div>
+          </a>
+          <a class="kategori-card" href="/produk/?kategori=Meja">
+            <span class="iconify" data-icon="mdi:table-furniture"></span>
+            <div>Meja</div>
+          </a>
+          <a class="kategori-card" href="/produk/?kategori=Lemari">
+            <span class="iconify" data-icon="mdi:wardrobe-outline"></span>
+            <div>Lemari</div>
+          </a>
+          <a class="kategori-card" href="/produk/?kategori=Rak">
+            <span class="iconify" data-icon="mdi:bookshelf"></span>
+            <div>Rak</div>
+          </a>
+        </div>
+      </main>
+
+      <nav class="in-card-nav" aria-label="Navigasi utama">
+        <div class="nav-content">
+          <a href="/" class="nav-item" title="Home"><span class="iconify" data-icon="mdi:home-outline"></span></a>
+          <button type="button" class="menu-button" id="menuButton"><span class="iconify" data-icon="mdi:view-grid-outline"></span></button>
+          <a href="/keranjang" class="nav-item" title="Keranjang"><span class="iconify" data-icon="mdi:cart-outline"></span></a>
+        </div>
+      </nav>
+
+    </div>
+  </div>
+
+  <div class="popup-menu" id="popupMenu"></div>
+  <script>
+    const btn=document.getElementById('menuButton'), pop=document.getElementById('popupMenu');
+    if(btn&&pop){
+      pop.innerHTML=`<ul>
+        <li><a href="/produk/"><span class="iconify" data-icon="mdi:view-grid-plus-outline"></span>Semua Produk</a></li>
+        <li><a href="/tag/"><span class="iconify" data-icon="mdi:tag-outline"></span>Semua Tag</a></li>
+        <li><a href="/kontak.html"><span class="iconify" data-icon="mdi:phone-outline"></span>Kontak</a></li>
+      </ul>`;
+      btn.addEventListener('click',e=>{e.stopPropagation();pop.classList.toggle('show')});
+      document.addEventListener('click',e=>{if(!pop.contains(e.target)) pop.classList.remove('show')});
+    }
+  </script>
+</body>
+</html>
