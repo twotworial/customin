@@ -133,7 +133,7 @@
         </div>
       </div>
 
-      <!-- BOTTOM BAR -->
+      <!-- BOTTOM BAR (Qty + WA) -->
       <div class="pd-bottombar">
         <div class="pd-qtybox">
           <button class="qty-btn" type="button" aria-label="Kurangi">-</button>
@@ -145,6 +145,25 @@
       </div>
     </div>
   </div>
+
+  <!-- NAV BAWAH (floating, selaras dengan halaman lain) -->
+  <nav class="in-card-nav" aria-label="Navigasi utama">
+    <div class="nav-content">
+      <a href="/" class="nav-item" title="Home" aria-label="Home">
+        <span class="iconify" data-icon="mdi:home-outline"></span>
+      </a>
+
+      <button class="menu-fab" id="menuButton" title="Menu" aria-label="Menu">
+        <span class="iconify" data-icon="mdi:view-grid-outline"></span>
+      </button>
+
+      <a href="/keranjang" class="nav-item" title="Keranjang" aria-label="Keranjang">
+        <span class="iconify" data-icon="mdi:cart-outline"></span>
+      </a>
+    </div>
+  </nav>
+
+  <div class="popup-menu" id="popupMenu"></div>
 
   <script>
     // Tabs
@@ -193,6 +212,28 @@
         if(e.key==="Enter"||e.key===" ") btn.click();
       });
     });
+
+    // Popup menu untuk tombol tengah
+    const menuBtn = document.getElementById('menuButton');
+    const popup = document.getElementById('popupMenu');
+    if (menuBtn && popup) {
+      popup.innerHTML = `
+        <ul>
+          <li><a href="/produk/"><span class="iconify" data-icon="mdi:view-grid-plus-outline"></span> Semua Produk</a></li>
+          <li><a href="/produk/?kategori=Kursi"><span class="iconify" data-icon="mdi:seat-outline"></span> Kategori Kursi</a></li>
+          <li><a href="/produk/?kategori=Meja"><span class="iconify" data-icon="mdi:table-furniture"></span> Kategori Meja</a></li>
+          <li><a href="/promo"><span class="iconify" data-icon="mdi:tag-outline"></span> Promo</a></li>
+          <li><a href="/kontak.html"><span class="iconify" data-icon="mdi:phone-outline"></span> Kontak</a></li>
+        </ul>`;
+      menuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        popup.classList.toggle('show');
+        menuBtn.setAttribute('aria-expanded', popup.classList.contains('show'));
+      });
+      document.addEventListener('click', (e) => {
+        if (!popup.contains(e.target)) popup.classList.remove('show');
+      });
+    }
   </script>
 </body>
 </html>
