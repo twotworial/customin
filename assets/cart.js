@@ -1,8 +1,9 @@
+/* assets/cart.js – keranjang + badge + WA checkout + hook tombol Order */
 (function(){
   const STORAGE_KEY = 'customin_cart_v1';
 
   const fmtIDR = n => new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(n);
-  const parseIDR = s => Number(String(s).replace(/[^0-9]/g,'')||0);
+  const parseIDR = s => Number(String(s||'').replace(/[^0-9]/g,'')||0);
 
   const Cart = {
     _subscribers: [],
@@ -18,15 +19,16 @@
       const count = this.count();
       document.querySelectorAll('[data-cart-count]').forEach(el=>{
         el.textContent = count;
-        el.closest('.js-cart-btn, .mini-nav-btn, a, button')?.classList.toggle('has-items', count>0);
+        el.closest('.js-cart-btn, .mini-nav-btn, .nav-item, a, button')
+          ?.classList.toggle('has-items', count>0);
       });
       this._subscribers.forEach(fn=>fn(this.items()));
     },
     subscribe(fn){ this._subscribers.push(fn); fn(this.items()); },
 
     items(){ return this._load(); },
-    count(){ return this._load().reduce((a,b)=>a+b.qty,0); },
-    total(){ return this._load().reduce((a,b)=>a + b.qty*b.price, 0); },
+    count(){ return this._load().reduce((a,b)=>a+(b.qty||0),0); },
+    total(){ return this._load().reduce((a,b)=>a + (b.qty||0)*(b.price||0), 0); },
 
     add(item){
       const items = this._load();
@@ -48,6 +50,7 @@
       this._emit();
     },
 
+    // biar bisa dipakai di bridge internal
     formatToNumber: parseIDR,
 
     open(){ ensureDrawer(); render(); showDrawer(true); },
@@ -61,13 +64,12 @@
       window.open(url,'_blank');
     }
   };
-
-  // expose
   window.Cart = Cart;
 
-  // ---------- Drawer Rendering ----------
+  // ---------- Drawer ----------
   function ensureDrawer(){
     if(document.getElementById('cartDrawer')) return;
+
     const overlay = document.createElement('div');
     overlay.id='cartDrawerOverlay';
     overlay.addEventListener('click', ()=>Cart.close());
@@ -140,26 +142,76 @@
         const cur = Number(row.querySelector('.ci-val').textContent);
         Cart.update(id, cur+1); render();
       });
-      // Klik harga untuk hapus (opsional cepat)
-      row.querySelector('.ci-price').addEventListener('dblclick', ()=>{ Cart.remove(id); render(); });
+      // Hapus cepat: double click harga
+      row.querySelector('.ci-price').addEventListener('dblclick', ()=>{
+        Cart.remove(id); render();
+      });
     });
   }
 
-  // ---------- Bootstrap behaviors ----------
-  // Toggle dari semua tombol keranjang
+  // ---------- Tombol global (ikon cart) ----------
   function bindGlobalButtons(){
     document.querySelectorAll('.js-cart-btn').forEach(btn=>{
-      btn.addEventListener('click', (e)=>{ e.preventDefault(); ensureDrawer(); render(); showDrawer(true); });
+      btn.addEventListener('click', (e)=>{
+        e.preventDefault();
+        ensureDrawer(); render(); showDrawer(true);
+      });
     });
   }
 
-  // Update badge setiap ada perubahan
-  Cart.subscribe(()=>{ /* badge sudah dihandle di _emit */ });
+  // ---------- ADD-TO-CART dari tombol "Order" ----------
+  const toNumber = t => Cart.formatToNumber ? Cart.formatToNumber(t) : parseIDR(t);
 
-  // Init
+  function addFromCard(btn){
+    const card  = btn.closest('.product-card');
+    if(!card) return;
+    const name  = (card.querySelector('.product-title')?.textContent || 'Produk').trim();
+    const price = toNumber(card.querySelector('.product-price')?.textContent || '0');
+    const img   = card.querySelector('.product-img img')?.getAttribute('src') || '';
+    const id    = (name+'|'+price).toLowerCase().replace(/[^a-z0-9]+/g,'-');
+    Cart.add({ id, name, price, image: img, qty: 1 });
+  }
+
+  function addFromDetail(btn){
+    const name  = (document.querySelector('.pd-title')?.textContent || 'Produk').trim();
+    const price = toNumber(document.querySelector('.pd-price')?.textContent || '0');
+
+    // Qty dari .qty-value (span) atau <input name="qty">
+    const qtyEl = document.querySelector('.qty-value') || document.querySelector('input[name="qty"]');
+    const qty   = Number(qtyEl?.textContent || qtyEl?.value || 1) || 1;
+
+    const img   = document.getElementById('mainProductImg')?.getAttribute('src') || '';
+    const id    = (name+'|'+price).toLowerCase().replace(/[^a-z0-9]+/g,'-');
+    Cart.add({ id, name, price, image: img, qty });
+  }
+
+  function bindOrderButtons(){
+    // Listing (kartu produk)
+    document.querySelectorAll('.product-card .order-btn').forEach(btn=>{
+      btn.addEventListener('click', (e)=>{
+        e.preventDefault();
+        addFromCard(btn);
+        ensureDrawer(); render(); showDrawer(true);
+      });
+    });
+
+    // Detail produk (pakai selector yang ada di halaman detail kamu)
+    document.querySelectorAll('.pd-addcart-btn, .pd .order-btn').forEach(btn=>{
+      btn.addEventListener('click', (e)=>{
+        e.preventDefault();
+        addFromDetail(btn);
+        ensureDrawer(); render(); showDrawer(true);
+      });
+    });
+  }
+
+  // ---------- Bootstrap ----------
+  Cart.subscribe(()=>{ /* badge dihandle di _emit */ });
+
   document.addEventListener('DOMContentLoaded', ()=>{
     bindGlobalButtons();
+    bindOrderButtons();     // penting!
     ensureDrawer();
-    Cart._emit(); // refresh badge saat load
+    Cart._emit();           // refresh badge di awal
   });
 })();
