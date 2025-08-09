@@ -5,9 +5,6 @@
   --grey:#f6f6f6;
   --subtext:#5c5c5c;
   --radius:26px;
-
-  /* posisi nav relatif terhadap bar WhatsApp */
-  --nav-offset: 110px; /* naikin/turunin jika perlu */
 }
 
 *,
@@ -52,6 +49,7 @@ body{
   box-shadow:0 2px 8px rgba(0,0,0,.06);
 }
 .pd-icon-btn:hover{ background:var(--accent); color:#fff; }
+
 .pd-crumbs{ min-width:0; text-align:center; justify-self:center; }
 .pd-crumbs ol{
   margin:0; padding:0; list-style:none;
@@ -114,82 +112,39 @@ body{
 .pd-detail-list{ padding-left:0; margin:0; list-style:none; }
 .pd-detail-list li{ margin-bottom:7px; }
 
-/* Bottom bar (qty + WA) */
+/* Bottom bar – dengan mini navigasi */
 .pd-bottombar{
-  display:flex; align-items:center; justify-content:space-between; gap:10px;
+  display:grid;
+  grid-template-columns: 44px 1fr auto 44px; /* Home | qty | WA | Cart */
+  align-items:center; gap:10px;
   padding:12px 14px 14px; border-top:1.5px solid #f1f1f1; margin-top:14px; background:#fff;
-  position:sticky; bottom:0; left:0; right:0; z-index:9; border-bottom-left-radius:var(--radius); border-bottom-right-radius:var(--radius);
+  position:sticky; bottom:0; left:0; right:0; z-index:30;
+  border-bottom-left-radius:var(--radius); border-bottom-right-radius:var(--radius);
 }
-.pd-qtybox{ display:flex; align-items:center; gap:8px; background:#f7f7f7; border-radius:12px; padding:7px 14px; }
+.mini-nav-btn{
+  width:44px; height:44px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background:#fff; color:#555; border:1px solid #eee;
+  font-size:22px; text-decoration:none;
+  box-shadow:0 2px 8px rgba(0,0,0,.06);
+  transition:background .2s;
+}
+.mini-nav-btn:hover{ background:#f5f5f5; }
+
+.pd-qtybox{ display:flex; align-items:center; gap:8px; background:#f7f7f7; border-radius:12px; padding:7px 14px; justify-self:start; }
 .qty-btn{ width:29px; height:29px; border-radius:50%; background:#ededed; border:none; color:var(--text); font-size:16px; font-weight:700; cursor:pointer; transition:background .15s; }
 .qty-btn:hover{ background:var(--accent); color:#fff; }
 .qty-value{ min-width:23px; text-align:center; font-size:15.2px; font-weight:600; color:var(--text); }
+
 .pd-addcart-btn{
-  background:var(--accent); color:#fff; border-radius:16px; padding:12px 28px; font-size:16px; font-weight:700;
+  background:var(--accent); color:#fff; border-radius:16px; padding:12px 24px; font-size:16px; font-weight:700;
   text-decoration:none; border:none; transition:background .18s; box-shadow:0 2px 10px rgba(255,96,2,.07); cursor:pointer;
+  justify-self:end;
 }
 .pd-addcart-btn:hover{ background:#d84900; }
-
-/* ========== NAV BAWAH (floating) ========== */
-.in-card-nav{
-  position: fixed;
-  left: 0; width: 100%;
-  bottom: calc(var(--nav-offset) + env(safe-area-inset-bottom));
-  z-index: 30;
-  display: flex; justify-content: center;
-  pointer-events: none; /* biar klik hanya di isi nav */
-}
-.in-card-nav .nav-content{
-  width: 100%; max-width: 420px;
-  background: #fff;
-  border: 1px solid #eee;
-  border-radius: 18px;
-  box-shadow: 0 10px 34px rgba(0,0,0,.12);
-  padding: 12px 26px;
-  display: flex; justify-content: space-between; align-items: center; gap: 16px;
-  pointer-events: auto;
-}
-.nav-item{
-  width: 44px; height: 44px; border-radius: 50%;
-  background: #fff; color: #555; border: 1px solid #eee;
-  display:flex; align-items:center; justify-content:center;
-  font-size: 24px; text-decoration: none;
-  box-shadow: 0 2px 8px rgba(0,0,0,.06);
-  transition: background .2s;
-}
-.nav-item:hover{ background:#f5f5f5; }
-.menu-fab{
-  width: 56px; height: 56px; border-radius: 50%;
-  background: #111; color: #fff; border: none;
-  display:flex; align-items:center; justify-content:center;
-  font-size: 26px; cursor: pointer;
-  box-shadow: 0 8px 18px rgba(0,0,0,.18);
-}
-
-/* Popup menu */
-.popup-menu{
-  position: fixed;
-  left: 50%;
-  bottom: calc(var(--nav-offset) + 90px + env(safe-area-inset-bottom));
-  transform: translateX(-50%);
-  width: 260px; background: #fff; border: 1px solid #eee;
-  border-radius: 16px; box-shadow: 0 12px 30px rgba(0,0,0,.16);
-  padding: 8px; opacity: 0; visibility: hidden;
-  transition: opacity .25s ease, transform .25s ease, visibility .25s;
-}
-.popup-menu.show{ opacity:1; visibility:visible; transform: translateX(-50%) translateY(-4px); }
-.popup-menu ul{ margin:0; padding:0; list-style:none; }
-.popup-menu li a{
-  display:flex; align-items:center; gap:12px;
-  padding: 12px 12px; border-radius: 12px;
-  font-size: 15px; color:#222; text-decoration:none;
-}
-.popup-menu li a:hover{ background:#f7f7f7; }
-.popup-menu .iconify{ font-size:20px; color: var(--accent); }
 
 /* Responsif kecil */
 @media (max-width:420px){
   .main-wrapper{ width:100vw; }
   .product-detail-modern{ border-radius:0; box-shadow:none; }
-  :root{ --nav-offset: 104px; } /* sedikit lebih rapat di layar kecil */
 }
