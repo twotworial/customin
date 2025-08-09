@@ -1,0 +1,12 @@
+# robots.txt — Customin.co
+# Izinkan crawling situs, blokir halaman error, dan cantumkan sitemap.
+
+User-agent: *
+Allow: /
+# Jangan index laman 404 kalau sampai terakses langsung
+Disallow: /404.html
+# (Opsional) kurangi duplikat URL dengan parameter tracking
+Disallow: /*?*utm_*
+Disallow: /*?*fbclid=*
+
+Sitemap: https://customin.co/sitemap.xml
