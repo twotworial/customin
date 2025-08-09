@@ -2,233 +2,194 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Kursi Lipat Jati | Customin.co</title>
-  <meta name="description" content="Kursi Lipat Kayu Jati, desain minimalis dan kokoh, mudah disimpan & praktis. Lihat deskripsi, detail, dan pemesanan produk di Customin .co .">
-  <link rel="canonical" href="https://customin.co/produk/kursi-lipat-jati">
-  <!-- Open Graph -->
-  <meta property="og:type" content="product" />
-  <meta property="og:title" content="Kursi Lipat Jati | Customin.co" />
-  <meta property="og:description" content="Kursi Lipat Kayu Jati, desain minimalis dan kokoh, mudah disimpan & praktis. Lihat deskripsi, detail, dan pemesanan produk di Customin .co ." />
-  <meta property="og:image" content="produk/foto/kursi-lipat.webp" />
-  <meta property="og:url" content="https://customin.co/produk/kursi-lipat-jati" />
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Kursi Lipat Jati | Customin.co" />
-  <meta name="twitter:description" content="Kursi Lipat Kayu Jati, desain minimalis dan kokoh, mudah disimpan & praktis. Lihat deskripsi, detail, dan pemesanan produk di Customin .co ." />
-  <meta name="twitter:image" content="https://customin.co/produk/foto/kursi-lipat.webp" />
-  <link rel="icon" href="OG/favicon-customin-furniture-custom.ico" />
+  <meta name="description" content="Kursi Lipat Kayu Jati, desain minimalis dan kokoh, mudah disimpan & praktis.">
+  <link rel="icon" href="/OG/favicon-customin-furniture-custom.ico" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="produk.css">
-  <script src="https://code.iconify.design/3/3.1.1/iconify.min.js"></script>
+  <link rel="stylesheet" href="/produk/produk.css">
+  <script src="https://code.iconify.design/3/3.1.1/iconify.min.js" defer></script>
 
-  <!-- Structured Data: Product -->
+  <!-- Product + Breadcrumb JSON-LD (opsional) -->
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "name": "Kursi Lipat Jati",
-    "image": [
-      "https://customin.co/produk/foto/kursi-lipat.webp"
-    ],
-    "description": "Kursi Lipat Kayu Jati, desain minimalis dan kokoh, mudah disimpan & praktis. Lihat deskripsi, detail, dan pemesanan produk di Customin .co .",
-    "sku": "CK0001",
-    "brand": {
-      "@type": "Brand",
-      "name": "Customin.co"
-    },
-    "offers": {
-      "@type": "Offer",
-      "url": "https://customin.co/produk/kursi-lipat-jati",
-      "priceCurrency": "IDR",
-      "price": "183000",
-      "itemCondition": "https://schema.org/NewCondition",
-      "availability": "https://schema.org/InStock"
-    },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "5",
-      "reviewCount": "110"
-    }
-  }
-  </script>
-  <!-- Structured Data: Breadcrumb -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [{
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Beranda",
-      "item": "https://customin.co/"
-    },{
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Produk",
-      "item": "https://customin.co/produk"
-    },{
-      "@type": "ListItem",
-      "position": 3,
-      "name": "Kursi Lipat Jati",
-      "item": "https://customin.co/produk/kursi-lipat-jati"
-    }]
+    "@context":"https://schema.org",
+    "@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Beranda","item":"https://customin.co/"},
+      {"@type":"ListItem","position":2,"name":"Produk","item":"https://customin.co/produk/"},
+      {"@type":"ListItem","position":3,"name":"Kursi Lipat Jati","item":"https://customin.co/produk/kursi-lipat-jati.html"}
+    ]
   }
   </script>
 </head>
 <body>
   <div class="main-wrapper">
     <div class="product-detail-modern">
-      <!-- Header Navigasi -->
-      <div class="pd-header">
-  <a href="../index.html" class="pd-icon-btn" aria-label="Kembali ke Beranda" title="Kembali ke Beranda">
-    <span class="iconify" data-icon="mdi:arrow-left"></span>
-  </a>
-  <span class="pd-header-title">Detail Produk</span>
-  <button class="pd-icon-btn" aria-label="Bagikan Produk" title="Bagikan Produk"
-    onclick="navigator.share ? shareProduct() : alert('Copy link: ' + window.location.href)">
-    <span class="iconify" data-icon="mdi:share-outline"></span>
-  </button>
-</div>
 
-      <!-- Foto Produk 1:1 dengan padding -->
-      <!-- Bagian Galeri Produk -->
-<div class="pd-imgbox">
-  <img id="mainProductImg" src="foto/kursi-lipat.webp"
-    alt="Kursi Lipat Jati" />
-</div>
-<div class="pd-gallery-thumbs">
-  <button class="thumb active" aria-label="Lihat gambar 1">
-    <img src="foto/kursi-lipat.webp" alt="Kursi Lipat Jati foto 1">
-  </button>
-  <button class="thumb" aria-label="Lihat gambar 2">
-    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600&q=80" alt="Kursi Lipat Jati foto 2">
-  </button>
-  <button class="thumb" aria-label="Lihat gambar 3">
-    <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=600&q=80" alt="Kursi Lipat Jati foto 3">
-  </button>
-  <button class="thumb" aria-label="Lihat gambar 4">
-    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" alt="Kursi Lipat Jati foto 4">
-  </button>
-</div>
-      <!-- Info Produk -->
+      <!-- HEADER: back + BREADCRUMB + share -->
+      <div class="pd-header">
+        <a href="/produk/" class="pd-icon-btn" aria-label="Kembali ke Produk" title="Kembali ke Produk">
+          <span class="iconify" data-icon="mdi:arrow-left"></span>
+        </a>
+
+        <nav class="pd-crumbs" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li class="sep" aria-hidden="true">›</li>
+            <li><a href="/produk/">Produk</a></li>
+            <li class="sep" aria-hidden="true">›</li>
+            <li aria-current="page" class="current">Kursi Lipat Jati</li>
+          </ol>
+        </nav>
+
+        <button class="pd-icon-btn" aria-label="Bagikan Produk" title="Bagikan Produk"
+          onclick="navigator.share ? shareProduct() : alert('Copy link: '+location.href)">
+          <span class="iconify" data-icon="mdi:share-outline"></span>
+        </button>
+      </div>
+
+      <!-- GALERI -->
+      <div class="pd-imgbox">
+        <img id="mainProductImg" src="/produk/foto/kursi-lipat.webp" alt="Kursi Lipat Jati">
+      </div>
+      <div class="pd-gallery-thumbs">
+        <button class="thumb active" aria-label="Lihat gambar 1">
+          <img src="/produk/foto/kursi-lipat.webp" alt="Kursi Lipat Jati foto 1">
+        </button>
+        <button class="thumb" aria-label="Lihat gambar 2">
+          <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600&q=80" alt="Kursi Lipat Jati foto 2">
+        </button>
+        <button class="thumb" aria-label="Lihat gambar 3">
+          <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=600&q=80" alt="Kursi Lipat Jati foto 3">
+        </button>
+        <button class="thumb" aria-label="Lihat gambar 4">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" alt="Kursi Lipat Jati foto 4">
+        </button>
+      </div>
+
+      <!-- INFO PRODUK -->
       <div class="pd-info">
         <div class="pd-info-main">
           <div>
             <div class="pd-title">Kursi Lipat Jati</div>
-            <div class="pd-subtitle">Finishing Natural</div>
+
+            <!-- CHIP KATEGORI (ganti Finishing Natural) -->
+            <a class="pd-chip pd-cat" href="/produk/?kategori=Kursi" title="Lihat kategori Kursi">
+              <span class="iconify" data-icon="mdi:seat-outline"></span>
+              Kursi
+            </a>
           </div>
           <div class="pd-price">Rp 183.000</div>
         </div>
+
         <div class="pd-rating">
           <span class="iconify" data-icon="mdi:star" style="color:#FFD700"></span>
           5 <span class="pd-rating-count">(110 reviews)</span>
         </div>
       </div>
 
-      <!-- Tabs -->
+      <!-- TABS -->
       <div class="pd-tabs" role="tablist">
         <button class="pd-tab active" role="tab" aria-selected="true">Deskripsi</button>
         <button class="pd-tab" role="tab" aria-selected="false">Detail</button>
         <button class="pd-tab" role="tab" aria-selected="false">Pemesanan</button>
       </div>
+
       <div class="pd-tab-content">
         <div class="pd-tab-panel active" role="tabpanel">
-          <b>Kursi Lipat Jati</b> ini dirancang khusus untuk cafe, restoran, hingga resort yang membutuhkan solusi duduk yang praktis tanpa mengorbankan estetika. Dibuat dari kayu jati solid berkualitas, kursi ini tidak hanya kokoh, tetapi juga tampil elegan dengan berbagai pilihan finishing yang bisa disesuaikan.
+          <b>Kursi Lipat Jati</b> ini dirancang khusus untuk cafe, restoran, hingga resort yang membutuhkan solusi duduk yang praktis tanpa mengorbankan estetika. Dibuat dari kayu jati solid berkualitas—kokoh, tahan lama, dan tampil elegan. Finishing bisa disesuaikan.
         </div>
+
         <div class="pd-tab-panel" role="tabpanel">
           <ul class="pd-detail-list">
-            <li><b>Berat:</b> 7Kg</li>
-            <li><b>Ukuran:</b> 47 cm x 60 cm x 90 cm</li>
-            <li><b>Finishing:</b> Natural</li>
+            <li><b>Berat:</b> 7 Kg</li>
+            <li><b>Ukuran:</b> 47 cm × 60 cm × 90 cm</li>
+            <li><b>Finishing default:</b> Natural (custom sesuai request)</li>
           </ul>
         </div>
+
         <div class="pd-tab-panel" role="tabpanel">
           <div class="pd-order-desc">
             <div class="pd-order-section">
               <b>Cara Pesan</b>
               <ol>
-                <li>Pilih jumlah produk di bawah.</li>
-                <li>Klik tombol <b>Pesan via WhatsApp</b>.</li>
-                <li>Isi data & konfirmasi pembayaran ke admin.</li>
+                <li>Pilih jumlah di bawah.</li>
+                <li>Klik <b>Pesan via WhatsApp</b>.</li>
+                <li>Isi data & konfirmasi ke admin.</li>
               </ol>
             </div>
             <div class="pd-order-section">
               <b>Return Policy</b>
               <ul>
                 <li>Return diterima jika produk rusak/tidak sesuai pesanan.</li>
-                <li>Konfirmasi maksimal 2x24 jam setelah barang diterima.</li>
-                <li>Detail lengkap cek di <a href="https://customin.co/return" target="_blank" style="color:var(--accent);font-weight:500;">halaman return</a>.</li>
+                <li>Konfirmasi maksimal 2×24 jam setelah barang diterima.</li>
               </ul>
             </div>
           </div>
         </div>
       </div>
-      <!-- Sticky Add to Cart Bar -->
+
+      <!-- BOTTOM BAR -->
       <div class="pd-bottombar">
         <div class="pd-qtybox">
           <button class="qty-btn" type="button" aria-label="Kurangi">-</button>
           <span class="qty-value">1</span>
           <button class="qty-btn" type="button" aria-label="Tambah">+</button>
         </div>
-        <a href="https://wa.me/628888085772?text=Halo%20Customin.co%2C%20saya%20mau%20order%20Kursi%20Lipat%20Jati%20sebanyak%201%20pcs" target="_blank" class="pd-addcart-btn" rel="nofollow">Pesan via WhatsApp</a>
+        <a href="https://wa.me/628888085772?text=Halo%20Customin.co%2C%20saya%20mau%20order%20Kursi%20Lipat%20Jati%20sebanyak%201%20pcs"
+           target="_blank" class="pd-addcart-btn" rel="nofollow">Pesan via WhatsApp</a>
       </div>
     </div>
-    <footer>&copy; 2025 Customin.co</footer>
   </div>
+
   <script>
-  // Tab switching
-  document.querySelectorAll('.pd-tab').forEach((tab, idx) => {
-    tab.onclick = function(){
-      document.querySelectorAll('.pd-tab').forEach((t,i)=>{
-        t.classList.toggle('active',i===idx);
-        t.setAttribute('aria-selected', i===idx ? 'true':'false');
-      });
-      document.querySelectorAll('.pd-tab-panel').forEach((p,i)=>p.classList.toggle('active',i===idx));
-    }
-  });
-  // Qty button
-  const qtyVal = document.querySelector('.qty-value');
-  document.querySelectorAll('.qty-btn').forEach(btn=>{
-    btn.onclick = ()=>{
-      let v = parseInt(qtyVal.textContent);
-      if(btn.textContent === '-' && v>1) v--;
-      if(btn.textContent === '+') v++;
-      qtyVal.textContent = v;
-      // update link WhatsApp
-      let addcart = document.querySelector('.pd-addcart-btn');
-      let base = 'https://wa.me/628888085772?text=Halo%20Customin.co%2C%20saya%20mau%20order%20Kursi%20Lipat%20Jati%20sebanyak%20'+v+'%20pcs';
-      addcart.setAttribute('href', base);
-    }
-  });
-  // Share button (Web Share API)
-  function shareProduct() {
-    navigator.share({
-      title: document.title,
-      text: "Cek produk Kursi Lipat Jati di Customin.co",
-      url: window.location.href
-    });
-  }
-  </script>
-  <script>
-  // Galeri Produk: Ganti gambar utama saat klik thumbnail
-  document.querySelectorAll('.pd-gallery-thumbs .thumb').forEach((btn, idx, arr) => {
-    btn.addEventListener('click', function() {
-      // Ganti gambar utama
-      document.getElementById('mainProductImg').src = btn.querySelector('img').src;
-      document.getElementById('mainProductImg').alt = btn.querySelector('img').alt;
-      // Set active class
-      arr.forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');
-    });
-    // Keyboard support
-    btn.addEventListener('keydown', function(e){
-      if(e.key === "Enter" || e.key === " "){
-        btn.click();
+    // Tabs
+    document.querySelectorAll('.pd-tab').forEach((tab, idx) => {
+      tab.onclick = function(){
+        document.querySelectorAll('.pd-tab').forEach((t,i)=>{
+          t.classList.toggle('active',i===idx);
+          t.setAttribute('aria-selected', i===idx ? 'true':'false');
+        });
+        document.querySelectorAll('.pd-tab-panel').forEach((p,i)=>p.classList.toggle('active',i===idx));
       }
     });
-  });
-</script>
+
+    // Qty + WA link
+    const qtyVal = document.querySelector('.qty-value');
+    document.querySelectorAll('.qty-btn').forEach(btn=>{
+      btn.onclick = ()=>{
+        let v = parseInt(qtyVal.textContent);
+        if(btn.textContent==='-' && v>1) v--;
+        if(btn.textContent==='+') v++;
+        qtyVal.textContent=v;
+        const btnWa = document.querySelector('.pd-addcart-btn');
+        btnWa.href = `https://wa.me/628888085772?text=Halo%20Customin.co%2C%20saya%20mau%20order%20Kursi%20Lipat%20Jati%20sebanyak%20${v}%20pcs`;
+      }
+    });
+
+    // Share
+    function shareProduct(){
+      navigator.share({
+        title: document.title,
+        text: "Cek produk Kursi Lipat Jati di Customin.co",
+        url: location.href
+      });
+    }
+
+    // Galeri thumb
+    document.querySelectorAll('.pd-gallery-thumbs .thumb').forEach((btn, idx, arr) => {
+      btn.addEventListener('click', function() {
+        const img = btn.querySelector('img');
+        const main = document.getElementById('mainProductImg');
+        main.src = img.src; main.alt = img.alt;
+        arr.forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+      btn.addEventListener('keydown', e=>{
+        if(e.key==="Enter"||e.key===" ") btn.click();
+      });
+    });
+  </script>
 </body>
 </html>
-
