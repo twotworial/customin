@@ -34,7 +34,7 @@ body{
 }
 
 /* =================================
-   HEADER PROFILE (copy gaya index/about)
+   HEADER PROFILE (match index/about)
    ================================= */
 .profile-card{
   display:grid;
@@ -153,7 +153,7 @@ body{
 }
 .menu-button:hover{ filter:brightness(1.05); }
 
-/* Popup menu (dipakai script inline di HTML) */
+/* Popup menu */
 .popup-menu{
   position:fixed; bottom:calc(var(--in-card-offset) + var(--fab-size) + 20px);
   left:50%; transform:translateX(-50%); z-index:1100;
