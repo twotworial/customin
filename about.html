@@ -8,7 +8,12 @@
 
   <link rel="icon" href="OG/favicon-customin-furniture-custom.ico" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
   <link rel="stylesheet" href="about.css" />
+  <!-- Cart styles (badge + drawer) -->
+  <link rel="stylesheet" href="assets/cart.css" />
+
   <script src="https://code.iconify.design/3/3.1.1/iconify.min.js" defer></script>
 
   <!-- Structured Data (ringkas) -->
@@ -128,7 +133,7 @@
         </div>
       </main>
 
-      <!-- NAV sticky (sama gaya dengan index) -->
+      <!-- NAV sticky (seragam dengan index + badge cart) -->
       <nav class="in-card-nav" aria-label="Navigasi utama">
         <div class="nav-content">
           <a href="/" class="nav-item" title="Home" aria-label="Home">
@@ -139,8 +144,10 @@
             <span class="iconify" data-icon="mdi:view-grid-outline"></span>
           </button>
 
-          <a href="/keranjang" class="nav-item" title="Keranjang" aria-label="Keranjang">
+          <!-- Cart pakai hook .js-cart-btn + badge -->
+          <a href="/keranjang" class="nav-item js-cart-btn" title="Keranjang" aria-label="Keranjang">
             <span class="iconify" data-icon="mdi:cart-outline"></span>
+            <span class="cart-badge" data-cart-count>0</span>
           </a>
         </div>
       </nav>
@@ -149,6 +156,11 @@
   </div><!-- /.main-wrapper -->
 
   <div class="popup-menu" id="popupMenu"></div>
+
+  <!-- JS -->
+  <!-- cart logic (badge + drawer) -->
+  <script src="assets/cart.js" defer></script>
+  <!-- menu & interaksi umum -->
   <script src="script.js" defer></script>
 </body>
 </html>
