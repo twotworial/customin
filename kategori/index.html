@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Kategori | Customin.co</title>
   <meta name="description" content="Jelajahi kategori produk: Kursi, Meja, Lemari, dan Rak.">
   <link rel="icon" href="/OG/favicon-customin-furniture-custom.ico" />
@@ -45,7 +45,9 @@
       <nav class="in-card-nav" aria-label="Navigasi utama">
         <div class="nav-content">
           <a href="/" class="nav-item" title="Home"><span class="iconify" data-icon="mdi:home-outline"></span></a>
-          <button type="button" class="menu-button" id="menuButton"><span class="iconify" data-icon="mdi:view-grid-outline"></span></button>
+          <button type="button" class="menu-button" id="menuButton" aria-controls="popupMenu" aria-expanded="false">
+            <span class="iconify" data-icon="mdi:view-grid-outline"></span>
+          </button>
           <a href="/produk/" class="nav-item" title="Produk"><span class="iconify" data-icon="mdi:view-grid-plus-outline"></span></a>
         </div>
       </nav>
@@ -62,7 +64,7 @@
         <li><a href="/tag/"><span class="iconify" data-icon="mdi:tag-outline"></span>Semua Tag</a></li>
         <li><a href="/kontak.html"><span class="iconify" data-icon="mdi:phone-outline"></span>Kontak</a></li>
       </ul>`;
-      btn.addEventListener('click',e=>{e.stopPropagation();pop.classList.toggle('show')});
+      btn.addEventListener('click',e=>{e.stopPropagation();pop.classList.toggle('show');btn.setAttribute('aria-expanded',pop.classList.contains('show'))});
       document.addEventListener('click',e=>{if(!pop.contains(e.target)) pop.classList.remove('show')});
     }
   </script>
