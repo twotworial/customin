@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Produk | Customin.co</title>
+  <meta name="description" content="Katalog produk furniture custom: kursi, meja, lemari, rak, dan lainnya. Pesan sesuai ukuran & bahan.">
+  <link rel="icon" href="/OG/favicon-customin-furniture-custom.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/katalog.css" />
+  <script src="https://code.iconify.design/3/3.1.1/iconify.min.js" defer></script>
+</head>
+<body>
+  <div class="main-wrapper">
+    <div class="bio-card">
+
+      <!-- Header sama dengan index -->
+      <header class="profile-card">
+        <div class="profile-main-info">
+          <div class="profile-avatar">
+            <img src="/OG/avatar-customin-furniture-custom.svg" alt="Avatar Customin.co" width="50" height="50" decoding="async">
+          </div>
+          <div class="profile-info">
+            <h1>Customin.co</h1>
+            <p class="profile-slug">Jual Furniture Custom</p>
+          </div>
+        </div>
+        <div class="profile-socials" aria-label="Ikuti kami">
+          <a href="https://instagram.com/customin_co" title="Instagram"><span class="iconify" data-icon="mdi:instagram"></span></a>
+          <a href="https://wa.me/628888085772" title="WhatsApp"><span class="iconify" data-icon="mdi:whatsapp"></span></a>
+          <a href="https://linkedin.com/company/custominco" title="LinkedIn"><span class="iconify" data-icon="mdi:linkedin"></span></a>
+        </div>
+      </header>
+
+      <main class="card-content" id="main">
+        <!-- Filter bar -->
+        <section class="filters">
+          <div class="search-wrap">
+            <span class="iconify" data-icon="mdi:magnify"></span>
+            <input id="q" type="search" placeholder="Cari produk… (mis. kursi, meja)" autocomplete="off">
+          </div>
+
+          <div class="chip-scroll">
+            <div class="chip-group" aria-label="Kategori">
+              <button class="chip chip-category is-active" data-filter="kategori:*">Semua</button>
+              <button class="chip chip-category" data-filter="kategori:Kursi">Kursi</button>
+              <button class="chip chip-category" data-filter="kategori:Meja">Meja</button>
+              <button class="chip chip-category" data-filter="kategori:Lemari">Lemari</button>
+              <button class="chip chip-category" data-filter="kategori:Rak">Rak</button>
+            </div>
+            <div class="chip-group" aria-label="Tag">
+              <button class="chip chip-tag" data-filter="tag:Minimalis">#Minimalis</button>
+              <button class="chip chip-tag" data-filter="tag:Jati Solid">#JatiSolid</button>
+              <button class="chip chip-tag" data-filter="tag:Outdoor">#Outdoor</button>
+              <button class="chip chip-tag" data-filter="tag:Natural">#Natural</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Grid produk -->
+        <section class="produk-grid" id="grid">
+          <!-- 1 -->
+          <article class="product-card" data-kategori="Kursi" data-tags="Minimalis,Jati Solid,Natural">
+            <a class="product-img" href="/produk/kursi-lipat-jati.html">
+              <img src="/produk/foto/kursi-lipat.webp" alt="Kursi Lipat Jati">
+              <span class="badge">Baru</span>
+            </a>
+            <div class="product-content">
+              <h2 class="product-title"><a href="/produk/kursi-lipat-jati.html">Kursi Lipat Jati</a></h2>
+              <div class="product-footer">
+                <div class="product-price">Rp 183.000</div>
+                <a href="/produk/kursi-lipat-jati.html" class="order-btn">Detail</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 2 -->
+          <article class="product-card" data-kategori="Meja" data-tags="Minimalis,Natural">
+            <a class="product-img" href="#">
+              <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?w=600&q=80" alt="Meja Kerja Minimalis">
+            </a>
+            <div class="product-content">
+              <h2 class="product-title"><a href="#">Meja Kerja Minimalis</a></h2>
+              <div class="product-footer">
+                <div class="product-price">Rp 1.250.000</div>
+                <a href="#" class="order-btn">Detail</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 3 -->
+          <article class="product-card" data-kategori="Lemari" data-tags="Jati Solid,Natural">
+            <a class="product-img" href="#">
+              <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=600&q=80" alt="Lemari Pakaian Jati">
+              <span class="badge badge-sale">Promo</span>
+            </a>
+            <div class="product-content">
+              <h2 class="product-title"><a href="#">Lemari Pakaian Jati</a></h2>
+              <div class="product-footer">
+                <div class="product-price">Rp 3.800.000</div>
+                <a href="#" class="order-btn">Detail</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 4 -->
+          <article class="product-card" data-kategori="Rak" data-tags="Minimalis,Natural">
+            <a class="product-img" href="#">
+              <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=600&q=80" alt="Rak Buku Minimalis">
+            </a>
+            <div class="product-content">
+              <h2 class="product-title"><a href="#">Rak Buku Minimalis</a></h2>
+              <div class="product-footer">
+                <div class="product-price">Rp 690.000</div>
+                <a href="#" class="order-btn">Detail</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 5 -->
+          <article class="product-card" data-kategori="Kursi" data-tags="Outdoor,Jati Solid">
+            <a class="product-img" href="#">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" alt="Kursi Teras Outdoor">
+            </a>
+            <div class="product-content">
+              <h2 class="product-title"><a href="#">Kursi Teras Outdoor</a></h2>
+              <div class="product-footer">
+                <div class="product-price">Rp 480.000</div>
+                <a href="#" class="order-btn">Detail</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 6 -->
+          <article class="product-card" data-kategori="Meja" data-tags="Minimalis,Natural">
+            <a class="product-img" href="#">
+              <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80" alt="Meja Konsol Kayu">
+            </a>
+            <div class="product-content">
+              <h2 class="product-title"><a href="#">Meja Konsol Kayu</a></h2>
+              <div class="product-footer">
+                <div class="product-price">Rp 1.450.000</div>
+                <a href="#" class="order-btn">Detail</a>
+              </div>
+            </div>
+          </article>
+        </section>
+      </main>
+
+      <!-- NAV sticky di dalam card -->
+      <nav class="in-card-nav" aria-label="Navigasi utama">
+        <div class="nav-content">
+          <a href="/" class="nav-item" title="Home" aria-label="Home"><span class="iconify" data-icon="mdi:home-outline"></span></a>
+          <button type="button" class="menu-button" id="menuButton" aria-controls="popupMenu" aria-expanded="false" aria-label="Menu">
+            <span class="iconify" data-icon="mdi:view-grid-outline"></span>
+          </button>
+          <a href="/keranjang" class="nav-item" title="Keranjang" aria-label="Keranjang"><span class="iconify" data-icon="mdi:cart-outline"></span></a>
+        </div>
+      </nav>
+
+    </div>
+  </div>
+
+  <div class="popup-menu" id="popupMenu"></div>
+
+  <script>
+    // Popup menu minimal (biar jalan tanpa file lain)
+    (function(){
+      const btn=document.getElementById('menuButton'), pop=document.getElementById('popupMenu');
+      if(!btn||!pop) return;
+      pop.innerHTML=`<ul>
+        <li><a href="/kategori/index.html"><span class="iconify" data-icon="mdi:shape-outline"></span>Kategori</a></li>
+        <li><a href="/tag/index.html"><span class="iconify" data-icon="mdi:tag-outline"></span>Tag</a></li>
+        <li><a href="/kontak.html"><span class="iconify" data-icon="mdi:phone-outline"></span>Kontak</a></li>
+      </ul>`;
+      btn.addEventListener('click',e=>{e.stopPropagation();pop.classList.toggle('show');btn.setAttribute('aria-expanded',pop.classList.contains('show'))});
+      document.addEventListener('click',e=>{if(!pop.contains(e.target)) pop.classList.remove('show')});
+    })();
+
+    // Filter: search + kategori + tag (OR untuk tag, AND dengan kategori)
+    (function(){
+      const q=document.getElementById('q');
+      const chipsCat=[...document.querySelectorAll('.chip-category')];
+      const chipsTag=[...document.querySelectorAll('.chip-tag')];
+      const cards=[...document.querySelectorAll('.product-card')];
+
+      // preselect via URL (?q=&kategori=&tag=)
+      const params=new URLSearchParams(location.search);
+      if(params.get('q')) q.value=params.get('q');
+      const presetCat=params.get('kategori');
+      const presetTag=params.getAll('tag');
+      if(presetCat){
+        chipsCat.forEach(c=>c.classList.remove('is-active'));
+        const target=document.querySelector(`.chip-category[data-filter="kategori:${presetCat}"]`);
+        (target||document.querySelector('.chip-category[data-filter="kategori:*"]')).classList.add('is-active');
+      }
+      if(presetTag.length){
+        chipsTag.forEach(t=>{ if(presetTag.includes(t.dataset.filter.split(':')[1])) t.classList.add('is-active') });
+      }
+
+      const apply=()=>{
+        const keyword=q.value.trim().toLowerCase();
+        const activeCat=(document.querySelector('.chip-category.is-active')?.dataset.filter||'kategori:*').split(':')[1];
+        const activeTags=chipsTag.filter(t=>t.classList.contains('is-active')).map(t=>t.dataset.filter.split(':')[1]);
+
+        cards.forEach(card=>{
+          const title=card.querySelector('.product-title')?.innerText.toLowerCase()||'';
+          const cat=card.dataset.kategori||'';
+          const tags=(card.dataset.tags||'').split(',').map(s=>s.trim());
+
+          const matchQ = !keyword || title.includes(keyword);
+          const matchCat = activeCat==='*' || cat===activeCat;
+          const matchTag = activeTags.length===0 || activeTags.some(t=>tags.includes(t));
+
+          card.style.display = (matchQ && matchCat && matchTag) ? '' : 'none';
+        });
+      };
+
+      q.addEventListener('input',apply);
+      chipsCat.forEach(c=>c.addEventListener('click',()=>{
+        chipsCat.forEach(x=>x.classList.remove('is-active')); c.classList.add('is-active'); apply();
+      }));
+      chipsTag.forEach(t=>t.addEventListener('click',()=>{
+        t.classList.toggle('is-active'); apply();
+      }));
+      apply();
+    })();
+  </script>
+</body>
+</html>
