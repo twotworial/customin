@@ -8,15 +8,22 @@
 
   <link rel="icon" href="OG/favicon-customin-furniture-custom.ico" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Styles halaman -->
   <link rel="stylesheet" href="kontak.css"/>
+
+  <!-- Styles & JS cart (badge + drawer) -->
+  <link rel="stylesheet" href="assets/cart.css" />
+
+  <!-- Iconify -->
   <script src="https://code.iconify.design/3/3.1.1/iconify.min.js" defer></script>
 </head>
 <body>
 
   <div class="main-wrapper">
-    <div class="bio-card"><!-- sama class dengan index biar konsisten -->
+    <div class="bio-card"><!-- biar konsisten dengan index/about -->
 
-      <!-- HEADER: match index/about -->
+      <!-- HEADER -->
       <header class="profile-card">
         <div class="profile-main-info">
           <div class="profile-avatar">
@@ -91,7 +98,7 @@
 
       </main>
 
-      <!-- NAV sticky di dalam card (gaya sama) -->
+      <!-- NAV sticky di dalam card + badge cart -->
       <nav class="in-card-nav" aria-label="Navigasi utama">
         <div class="nav-content">
           <a href="/" class="nav-item" title="Home" aria-label="Home">
@@ -102,8 +109,10 @@
             <span class="iconify" data-icon="mdi:view-grid-outline"></span>
           </button>
 
-          <a href="/keranjang" class="nav-item" title="Keranjang" aria-label="Keranjang">
+          <!-- Cart pakai hook .js-cart-btn + badge -->
+          <a href="/keranjang" class="nav-item js-cart-btn" title="Keranjang" aria-label="Keranjang">
             <span class="iconify" data-icon="mdi:cart-outline"></span>
+            <span class="cart-badge" data-cart-count>0</span>
           </a>
         </div>
       </nav>
@@ -111,10 +120,10 @@
     </div><!-- /.bio-card -->
   </div><!-- /.main-wrapper -->
 
-  <!-- Popup menu (shared dengan index/about, di-handle script.js) -->
+  <!-- Popup menu (shared) -->
   <div class="popup-menu" id="popupMenu"></div>
 
-  <!-- Script WA form + popup menu shared -->
+  <!-- Script WA form + popup menu -->
   <script>
     // Kirim ke WhatsApp
     document.getElementById('wa-form').addEventListener('submit', function(e){
@@ -128,7 +137,7 @@
       window.open(waURL, '_blank');
     });
 
-    // Popup menu (sama persis seperti index/about, minimal supaya jalan tanpa script.js terpisah)
+    // Popup menu minimal
     (function(){
       const menuBtn = document.getElementById('menuButton');
       const popup   = document.getElementById('popupMenu');
@@ -152,5 +161,8 @@
       });
     })();
   </script>
+
+  <!-- Cart logic (pakai file kamu sendiri) -->
+  <script src="assets/cart.js" defer></script>
 </body>
 </html>
