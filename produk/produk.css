@@ -26,24 +26,34 @@ body{
   border:1.5px solid #f3f3f3; display:flex; flex-direction:column;
 }
 
-/* Header: back + breadcrumb + share */
+/* ========== HEADER CARD ========== */
 .pd-header{
-  display:flex; align-items:center; gap:10px; padding:12px 12px;
-  background:var(--bg); position:sticky; top:0; z-index:10;
+  position: sticky; top: 0; z-index: 20;
+  padding: 10px 12px;
+  background: linear-gradient(#ffffff, #ffffff00);
+}
+.pd-bar{
+  display: grid;
+  grid-template-columns: 44px 1fr 44px; /* back | crumbs | share */
+  align-items: center; gap: 8px;
+  background:#fff; border:1px solid #eee; border-radius:16px;
+  box-shadow:0 6px 22px rgba(0,0,0,.08);
+  padding: 6px;
 }
 .pd-icon-btn{
-  background:#fff; border-radius:50%; width:40px; height:40px;
+  width: 40px; height: 40px; border-radius: 50%;
   display:flex; align-items:center; justify-content:center;
   border:1.3px solid #f4f4f4; color:var(--accent); font-size:21px;
-  cursor:pointer; transition:background .14s, color .16s, border .13s;
-  box-shadow:0 2px 10px rgba(0,0,0,.08);
+  background:#fff; cursor:pointer;
+  transition: background .14s, color .16s, border .13s;
+  box-shadow:0 2px 8px rgba(0,0,0,.06);
 }
 .pd-icon-btn:hover{ background:var(--accent); color:#fff; }
-
-.pd-crumbs{ flex:1; min-width:0; }
+.pd-crumbs{ min-width:0; text-align:center; justify-self:center; }
 .pd-crumbs ol{
-  margin:0; padding:0; list-style:none; display:flex; align-items:center; gap:6px;
-  color:#7a7a7a; font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  margin:0; padding:0; list-style:none;
+  display:inline-flex; align-items:center; gap:6px; color:#7a7a7a; font-size:12px;
+  max-width:100%; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
 }
 .pd-crumbs a{ color:#7a7a7a; text-decoration:none; }
 .pd-crumbs a:hover{ color:#111; text-decoration:underline; }
