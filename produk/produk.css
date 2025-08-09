@@ -120,6 +120,7 @@ body{
   padding:12px 14px 14px; border-top:1.5px solid #f1f1f1; margin-top:14px; background:#fff;
   position:sticky; bottom:0; left:0; right:0; z-index:30;
   border-bottom-left-radius:var(--radius); border-bottom-right-radius:var(--radius);
+  overflow: visible;
 }
 .mini-nav-btn{
   width:44px; height:44px; border-radius:50%;
