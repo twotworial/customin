@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="/produk/produk.css">
   <script src="https://code.iconify.design/3/3.1.1/iconify.min.js" defer></script>
 
-  <!-- Product + Breadcrumb JSON-LD (opsional) -->
+  <!-- JSON-LD breadcrumb (opsional) -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -27,26 +27,28 @@
   <div class="main-wrapper">
     <div class="product-detail-modern">
 
-      <!-- HEADER: back + BREADCRUMB + share -->
+      <!-- HEADER: Back + Breadcrumb (center) + Share dalam 1 card -->
       <div class="pd-header">
-        <a href="/produk/" class="pd-icon-btn" aria-label="Kembali ke Produk" title="Kembali ke Produk">
-          <span class="iconify" data-icon="mdi:arrow-left"></span>
-        </a>
+        <div class="pd-bar">
+          <a href="/produk/" class="pd-icon-btn" aria-label="Kembali ke Produk" title="Kembali ke Produk">
+            <span class="iconify" data-icon="mdi:arrow-left"></span>
+          </a>
 
-        <nav class="pd-crumbs" aria-label="Breadcrumb">
-          <ol>
-            <li><a href="/">Home</a></li>
-            <li class="sep" aria-hidden="true">›</li>
-            <li><a href="/produk/">Produk</a></li>
-            <li class="sep" aria-hidden="true">›</li>
-            <li aria-current="page" class="current">Kursi Lipat Jati</li>
-          </ol>
-        </nav>
+          <nav class="pd-crumbs" aria-label="Breadcrumb">
+            <ol>
+              <li><a href="/">Home</a></li>
+              <li class="sep" aria-hidden="true">›</li>
+              <li><a href="/produk/">Produk</a></li>
+              <li class="sep" aria-hidden="true">›</li>
+              <li aria-current="page" class="current">Kursi Lipat Jati</li>
+            </ol>
+          </nav>
 
-        <button class="pd-icon-btn" aria-label="Bagikan Produk" title="Bagikan Produk"
-          onclick="navigator.share ? shareProduct() : alert('Copy link: '+location.href)">
-          <span class="iconify" data-icon="mdi:share-outline"></span>
-        </button>
+          <button class="pd-icon-btn" aria-label="Bagikan Produk" title="Bagikan Produk"
+            onclick="navigator.share ? shareProduct() : alert('Copy link: '+location.href)">
+            <span class="iconify" data-icon="mdi:share-outline"></span>
+          </button>
+        </div>
       </div>
 
       <!-- GALERI -->
@@ -74,7 +76,7 @@
           <div>
             <div class="pd-title">Kursi Lipat Jati</div>
 
-            <!-- CHIP KATEGORI (ganti Finishing Natural) -->
+            <!-- CHIP KATEGORI -->
             <a class="pd-chip pd-cat" href="/produk/?kategori=Kursi" title="Lihat kategori Kursi">
               <span class="iconify" data-icon="mdi:seat-outline"></span>
               Kursi
@@ -98,7 +100,8 @@
 
       <div class="pd-tab-content">
         <div class="pd-tab-panel active" role="tabpanel">
-          <b>Kursi Lipat Jati</b> ini dirancang khusus untuk cafe, restoran, hingga resort yang membutuhkan solusi duduk yang praktis tanpa mengorbankan estetika. Dibuat dari kayu jati solid berkualitas—kokoh, tahan lama, dan tampil elegan. Finishing bisa disesuaikan.
+          <b>Kursi Lipat Jati</b> ini dirancang untuk kebutuhan duduk yang praktis tanpa mengorbankan estetika.
+          Dibuat dari jati solid berkualitas—kokoh, tahan lama, dan tampil elegan. Finishing dapat disesuaikan.
         </div>
 
         <div class="pd-tab-panel" role="tabpanel">
