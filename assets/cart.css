@@ -1,14 +1,28 @@
-/* ====== Badge angka di ikon cart ====== */
-.cart-badge{
-  position:absolute;
-  top:-6px; right:-6px;
-  min-width:18px; height:18px;
-  border-radius:10px;
-  background:#ff3b30; color:#fff;
-  font-size:11px; line-height:18px; text-align:center;
-  padding:0 5px; display:none;
+/* ====== Badge angka di ikon cart – nempel di tombol ====== */
+.mini-nav-btn,
+.js-cart-btn,
+.nav-item {
+  position: relative;        /* parent harus positioned */
 }
-.has-items .cart-badge{ display:inline-block; }
+
+/* badge */
+.cart-badge{
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 10px;
+  background: #ff3b30;
+  color: #fff;
+  font-size: 11px;
+  line-height: 18px;
+  text-align: center;
+  display: none;             /* tampil jika ada .has-items di parent */
+  box-shadow: 0 0 0 2px #fff; /* ring putih biar jelas */
+}
+.has-items .cart-badge { display: inline-block; }
 
 /* ====== Drawer Keranjang (bottom sheet) ====== */
 #cartDrawerOverlay{
