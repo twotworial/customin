@@ -7,28 +7,30 @@
   <meta name="description" content="Katalog produk furniture custom: kursi, meja, lemari, rak, dan lainnya.">
   <link rel="icon" href="/OG/favicon-customin-furniture-custom.ico" />
 
-  <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="https://code.iconify.design/3/3.1.1/iconify.min.js" defer></script>
 
-  <!-- Styles -->
   <link rel="stylesheet" href="/katalog.css" />
   <link rel="stylesheet" href="/assets/cart.css" />
 
-  <!-- Tambahan kecil biar 2 tombol (Add + Detail) rapi -->
+  <!-- Fix foto 1:1 + footer tombol -->
   <style>
-    .product-footer { gap: 8px; }
-    .product-footer .cta-group { display: inline-flex; gap: 8px; }
-    .product-footer .order-btn { white-space: nowrap; }
-    /* Badge cart di nav (kalau belum ada di katalog.css) */
-    .nav-item { position: relative; }
+    .product-img{ position:relative; display:block; width:100%; aspect-ratio:1/1; }
+    .product-img::before{ content:""; display:block; padding-top:100%; }
+    .product-img img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
+
+    .product-footer{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
+    .product-price{ color:var(--accent); font-weight:700; font-size:14px; flex:1 1 auto; min-width:0; }
+    .product-footer .cta-group{ display:flex; gap:8px; flex:0 0 auto; white-space:nowrap; }
+    .order-btn{ display:inline-flex; align-items:center; justify-content:center; height:34px; padding:0 12px; border:1px solid #ddd; border-radius:12px; background:#fff; font-size:12px; font-weight:600; text-decoration:none; box-shadow:0 2px 4px rgba(0,0,0,.05); cursor:pointer; }
+    .order-btn:active{ transform:translateY(1px); }
+    .nav-item{ position:relative; }
   </style>
 </head>
 <body>
   <div class="main-wrapper">
     <div class="bio-card">
 
-      <!-- Header -->
       <header class="page-head">
         <nav class="crumbs" aria-label="Breadcrumb">
           <ol>
@@ -88,10 +90,10 @@
                 <div class="product-price">Rp 183.000</div>
                 <div class="cta-group">
                   <button type="button" class="order-btn add-to-cart"
-                    data-id="SKU-KURSI-LIPAT"
-                    data-name="Kursi Lipat Jati"
-                    data-price="183000"
-                    data-image="/produk/foto/kursi-lipat.webp">+ Keranjang</button>
+                          data-id="SKU-KURSI-LIPAT"
+                          data-name="Kursi Lipat Jati"
+                          data-price="183000"
+                          data-image="/produk/foto/kursi-lipat.webp">+ Keranjang</button>
                   <a href="/produk/kursi-lipat-jati.html" class="order-btn">Detail</a>
                 </div>
               </div>
@@ -109,10 +111,10 @@
                 <div class="product-price">Rp 1.250.000</div>
                 <div class="cta-group">
                   <button type="button" class="order-btn add-to-cart"
-                    data-id="SKU-MEJA-KERJA-01"
-                    data-name="Meja Kerja Minimalis"
-                    data-price="1250000"
-                    data-image="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?w=600&q=80">+ Keranjang</button>
+                          data-id="SKU-MEJA-KERJA-01"
+                          data-name="Meja Kerja Minimalis"
+                          data-price="1250000"
+                          data-image="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?w=600&q=80">+ Keranjang</button>
                   <a href="#" class="order-btn">Detail</a>
                 </div>
               </div>
@@ -131,10 +133,10 @@
                 <div class="product-price">Rp 3.800.000</div>
                 <div class="cta-group">
                   <button type="button" class="order-btn add-to-cart"
-                    data-id="SKU-LEMARI-JATI-01"
-                    data-name="Lemari Pakaian Jati"
-                    data-price="3800000"
-                    data-image="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=600&q=80">+ Keranjang</button>
+                          data-id="SKU-LEMARI-JATI-01"
+                          data-name="Lemari Pakaian Jati"
+                          data-price="3800000"
+                          data-image="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=600&q=80">+ Keranjang</button>
                   <a href="#" class="order-btn">Detail</a>
                 </div>
               </div>
@@ -152,10 +154,10 @@
                 <div class="product-price">Rp 690.000</div>
                 <div class="cta-group">
                   <button type="button" class="order-btn add-to-cart"
-                    data-id="SKU-RAK-BUKU-01"
-                    data-name="Rak Buku Minimalis"
-                    data-price="690000"
-                    data-image="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=600&q=80">+ Keranjang</button>
+                          data-id="SKU-RAK-BUKU-01"
+                          data-name="Rak Buku Minimalis"
+                          data-price="690000"
+                          data-image="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=600&q=80">+ Keranjang</button>
                   <a href="#" class="order-btn">Detail</a>
                 </div>
               </div>
@@ -173,10 +175,10 @@
                 <div class="product-price">Rp 480.000</div>
                 <div class="cta-group">
                   <button type="button" class="order-btn add-to-cart"
-                    data-id="SKU-KURSI-OUTDOOR-01"
-                    data-name="Kursi Teras Outdoor"
-                    data-price="480000"
-                    data-image="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80">+ Keranjang</button>
+                          data-id="SKU-KURSI-OUTDOOR-01"
+                          data-name="Kursi Teras Outdoor"
+                          data-price="480000"
+                          data-image="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80">+ Keranjang</button>
                   <a href="#" class="order-btn">Detail</a>
                 </div>
               </div>
@@ -194,10 +196,10 @@
                 <div class="product-price">Rp 1.450.000</div>
                 <div class="cta-group">
                   <button type="button" class="order-btn add-to-cart"
-                    data-id="SKU-MEJA-KONSOL-01"
-                    data-name="Meja Konsol Kayu"
-                    data-price="1450000"
-                    data-image="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80">+ Keranjang</button>
+                          data-id="SKU-MEJA-KONSOL-01"
+                          data-name="Meja Konsol Kayu"
+                          data-price="1450000"
+                          data-image="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80">+ Keranjang</button>
                   <a href="#" class="order-btn">Detail</a>
                 </div>
               </div>
@@ -209,15 +211,8 @@
       <!-- NAV -->
       <nav class="in-card-nav" aria-label="Navigasi utama">
         <div class="nav-content">
-          <a href="/" class="nav-item" title="Home" aria-label="Home">
-            <span class="iconify" data-icon="mdi:home-outline"></span>
-          </a>
-
-          <button type="button" class="menu-button" id="menuButton" aria-controls="popupMenu" aria-expanded="false" aria-label="Menu">
-            <span class="iconify" data-icon="mdi:view-grid-outline"></span>
-          </button>
-
-          <!-- Cart pakai hook + badge -->
+          <a href="/" class="nav-item" title="Home" aria-label="Home"><span class="iconify" data-icon="mdi:home-outline"></span></a>
+          <button type="button" class="menu-button" id="menuButton" aria-controls="popupMenu" aria-expanded="false" aria-label="Menu"><span class="iconify" data-icon="mdi:view-grid-outline"></span></button>
           <a href="/keranjang" class="nav-item js-cart-btn" title="Keranjang" aria-label="Keranjang">
             <span class="iconify" data-icon="mdi:cart-outline"></span>
             <span class="cart-badge" data-cart-count>0</span>
@@ -228,10 +223,8 @@
     </div>
   </div>
 
-  <!-- Popup menu -->
   <div class="popup-menu" id="popupMenu"></div>
 
-  <!-- Cart core -->
   <script src="/assets/cart.js" defer></script>
 
   <script>
@@ -298,28 +291,6 @@
       tag.addEventListener('change',apply);
       apply();
     })();
-
-    // ===== Add-to-cart universal (pakai assets/cart.js) =====
-    document.addEventListener('click', (e)=>{
-      const btn = e.target.closest('.add-to-cart');
-      if (!btn) return;
-      e.preventDefault();
-
-      const item = {
-        id:    btn.dataset.id,
-        name:  btn.dataset.name,
-        price: Number(btn.dataset.price||0),
-        image: btn.dataset.image || '',
-        qty:   Number(btn.dataset.qty||1)
-      };
-
-      if (window.Cart && item.id && item.name) {
-        Cart.add(item);
-        Cart.open(); // buka drawer langsung
-      } else {
-        console.warn('Cart belum siap atau data item kurang lengkap.', item);
-      }
-    });
   </script>
 </body>
 </html>
