@@ -1,26 +1,19 @@
-/* assets/cart.js – keranjang + badge + WA checkout + hook tombol Order */
+/* assets/cart.js – keranjang + badge + WA checkout + hook tombol Add */
 (function(){
   const STORAGE_KEY = 'customin_cart_v1';
 
-  const fmtIDR = n => new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(n);
+  const fmtIDR  = n => new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(n);
   const parseIDR = s => Number(String(s||'').replace(/[^0-9]/g,'')||0);
 
   const Cart = {
     _subscribers: [],
-    _load(){
-      try{ return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
-      catch{ return []; }
-    },
-    _save(items){
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
-      this._emit();
-    },
+    _load(){ try{ return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); } catch{ return []; } },
+    _save(items){ localStorage.setItem(STORAGE_KEY, JSON.stringify(items)); this._emit(); },
     _emit(){
       const count = this.count();
       document.querySelectorAll('[data-cart-count]').forEach(el=>{
         el.textContent = count;
-        el.closest('.js-cart-btn, .mini-nav-btn, .nav-item, a, button')
-          ?.classList.toggle('has-items', count>0);
+        el.closest('.js-cart-btn, .mini-nav-btn, .nav-item, a, button')?.classList.toggle('has-items', count>0);
       });
       this._subscribers.forEach(fn=>fn(this.items()));
     },
@@ -33,7 +26,7 @@
     add(item){
       const items = this._load();
       const idx = items.findIndex(i => i.id === item.id);
-      if(idx>-1){ items[idx].qty += item.qty||1; }
+      if(idx>-1){ items[idx].qty += (item.qty||1); }
       else { items.push({...item, qty:item.qty||1}); }
       this._save(items);
     },
@@ -41,16 +34,9 @@
       const items = this._load().map(i => i.id===id ? {...i, qty:Math.max(1, qty)} : i);
       this._save(items);
     },
-    remove(id){
-      const items = this._load().filter(i=>i.id!==id);
-      this._save(items);
-    },
-    clear(){
-      localStorage.removeItem(STORAGE_KEY);
-      this._emit();
-    },
+    remove(id){ this._save(this._load().filter(i=>i.id!==id)); },
+    clear(){ localStorage.removeItem(STORAGE_KEY); this._emit(); },
 
-    // biar bisa dipakai di bridge internal
     formatToNumber: parseIDR,
 
     open(){ ensureDrawer(); render(); showDrawer(true); },
@@ -60,8 +46,7 @@
       if(!items.length) return;
       const lines = items.map(i=>`• ${i.name} x${i.qty} — ${fmtIDR(i.qty*i.price)}`);
       const text = `Halo Customin.co,%0ASaya ingin order:%0A${lines.join('%0A')}%0A%0ATotal: ${fmtIDR(this.total())}%0A%0AAlamat: %0AMetode Bayar: `;
-      const url = `https://wa.me/628888085772?text=${text}`;
-      window.open(url,'_blank');
+      window.open(`https://wa.me/628888085772?text=${text}`,'_blank');
     }
   };
   window.Cart = Cart;
@@ -80,15 +65,12 @@
     box.innerHTML = `
       <div class="cart-head">
         <h3>Keranjang</h3>
-        <button class="cart-close" aria-label="Tutup">
-          <span class="iconify" data-icon="mdi:close"></span>
-        </button>
+        <button class="cart-close" aria-label="Tutup"><span class="iconify" data-icon="mdi:close"></span></button>
       </div>
       <div class="cart-body" id="cartBody"></div>
       <div class="cart-foot">
         <div class="cart-total">
-          <span>Total</span>
-          <strong id="cartTotal">Rp 0</strong>
+          <span>Total</span><strong id="cartTotal">Rp 0</strong>
         </div>
         <div class="cart-actions">
           <button class="btn" id="clearCart">Hapus Semua</button>
@@ -135,59 +117,54 @@
     body.querySelectorAll('.cart-item').forEach(row=>{
       const id = row.dataset.id;
       row.querySelector('.ci-dec').addEventListener('click', ()=>{
-        const cur = Number(row.querySelector('.ci-val').textContent); 
+        const cur = Number(row.querySelector('.ci-val').textContent);
         Cart.update(id, Math.max(1, cur-1)); render();
       });
       row.querySelector('.ci-inc').addEventListener('click', ()=>{
         const cur = Number(row.querySelector('.ci-val').textContent);
         Cart.update(id, cur+1); render();
       });
-      // Hapus cepat: double click harga
-      row.querySelector('.ci-price').addEventListener('dblclick', ()=>{
-        Cart.remove(id); render();
-      });
+      row.querySelector('.ci-price').addEventListener('dblclick', ()=>{ Cart.remove(id); render(); });
     });
   }
 
-  // ---------- Tombol global (ikon cart) ----------
+  // ---------- Ikon cart (open drawer) ----------
   function bindGlobalButtons(){
     document.querySelectorAll('.js-cart-btn').forEach(btn=>{
-      btn.addEventListener('click', (e)=>{
-        e.preventDefault();
-        ensureDrawer(); render(); showDrawer(true);
-      });
+      if(btn.dataset.cartBound) return;
+      btn.dataset.cartBound = '1';
+      btn.addEventListener('click', (e)=>{ e.preventDefault(); ensureDrawer(); render(); showDrawer(true); });
     });
   }
 
-  // ---------- ADD-TO-CART dari tombol "Order" ----------
+  // ---------- Add-to-cart ----------
   const toNumber = t => Cart.formatToNumber ? Cart.formatToNumber(t) : parseIDR(t);
 
   function addFromCard(btn){
-    const card  = btn.closest('.product-card');
-    if(!card) return;
+    const card  = btn.closest('.product-card'); if(!card) return;
     const name  = (card.querySelector('.product-title')?.textContent || 'Produk').trim();
     const price = toNumber(card.querySelector('.product-price')?.textContent || '0');
     const img   = card.querySelector('.product-img img')?.getAttribute('src') || '';
-    const id    = (name+'|'+price).toLowerCase().replace(/[^a-z0-9]+/g,'-');
-    Cart.add({ id, name, price, image: img, qty: 1 });
+    const id    = (btn.dataset.id || (name+'|'+price)).toLowerCase().replace(/[^a-z0-9]+/g,'-');
+    const qty   = Number(btn.dataset.qty || 1) || 1;
+    Cart.add({ id, name, price, image: img, qty });
   }
 
   function addFromDetail(btn){
     const name  = (document.querySelector('.pd-title')?.textContent || 'Produk').trim();
     const price = toNumber(document.querySelector('.pd-price')?.textContent || '0');
-
-    // Qty dari .qty-value (span) atau <input name="qty">
     const qtyEl = document.querySelector('.qty-value') || document.querySelector('input[name="qty"]');
     const qty   = Number(qtyEl?.textContent || qtyEl?.value || 1) || 1;
-
     const img   = document.getElementById('mainProductImg')?.getAttribute('src') || '';
-    const id    = (name+'|'+price).toLowerCase().replace(/[^a-z0-9]+/g,'-');
+    const id    = (btn.dataset.id || (name+'|'+price)).toLowerCase().replace(/[^a-z0-9]+/g,'-');
     Cart.add({ id, name, price, image: img, qty });
   }
 
   function bindOrderButtons(){
-    // Listing (kartu produk)
-    document.querySelectorAll('.product-card .order-btn').forEach(btn=>{
+    // HANYA tombol .add-to-cart (bukan semua .order-btn)
+    document.querySelectorAll('.add-to-cart').forEach(btn=>{
+      if(btn.dataset.cartBound) return;
+      btn.dataset.cartBound = '1';
       btn.addEventListener('click', (e)=>{
         e.preventDefault();
         addFromCard(btn);
@@ -195,8 +172,10 @@
       });
     });
 
-    // Detail produk (pakai selector yang ada di halaman detail kamu)
-    document.querySelectorAll('.pd-addcart-btn, .pd .order-btn').forEach(btn=>{
+    // Halaman detail (opsional)
+    document.querySelectorAll('.pd-addcart-btn').forEach(btn=>{
+      if(btn.dataset.cartBound) return;
+      btn.dataset.cartBound = '1';
       btn.addEventListener('click', (e)=>{
         e.preventDefault();
         addFromDetail(btn);
@@ -208,10 +187,12 @@
   // ---------- Bootstrap ----------
   Cart.subscribe(()=>{ /* badge dihandle di _emit */ });
 
-  document.addEventListener('DOMContentLoaded', ()=>{
+  function boot(){
     bindGlobalButtons();
-    bindOrderButtons();     // penting!
+    bindOrderButtons();
     ensureDrawer();
-    Cart._emit();           // refresh badge di awal
-  });
+    Cart._emit();
+  }
+  if(document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', boot); }
+  else { boot(); }
 })();
