@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Cara Merawat Sofa Kain agar Tidak Cepat Pudar | Customin.co</title>
+  <meta name="description" content="Langkah sederhana agar warna sofa tetap segar dan serat kain tidak getas.">
+  <link rel="canonical" href="https://customin.co/blog/cara-merawat-sofa.html">
+  <meta name="theme-color" content="#FF6002">
+  <meta property="og:title" content="Cara Merawat Sofa Kain agar Tidak Cepat Pudar">
+  <meta property="og:description" content="Langkah sederhana agar warna sofa tetap segar dan serat kain tidak getas.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://customin.co/blog/cara-merawat-sofa.html">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1200&q=80">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/blog/assets/blog.css">
+  <script src="https://code.iconify.design/3/3.1.1/iconify.min.js" defer></script>
+</head>
+<body>
+  <div class="main-wrapper">
+    <div class="bio-card">
+      <main class="card-content">
+
+        <header class="post-header" role="navigation" aria-label="Breadcrumb">
+          <button class="pill-btn" id="btnBack" title="Kembali"><span class="iconify" data-icon="mdi:arrow-left"></span></button>
+          <nav class="crumb">
+            <a href="/">Home</a> <span aria-hidden="true">›</span>
+            <a href="/blog/">Blog</a> <span aria-hidden="true">›</span>
+            <strong>Sofa</strong>
+          </nav>
+          <button class="pill-btn" id="btnShare" title="Bagikan"><span class="iconify" data-icon="mdi:share-variant"></span></button>
+        </header>
+
+        <h1 class="post-title">Cara Merawat Sofa Kain agar Tidak Cepat Pudar</h1>
+        <div class="post-meta"><time datetime="2025-06-18">18 Jun 2025</time><span aria-hidden="true">•</span><span>5 menit baca</span></div>
+        <div class="tag-row" style="margin-top:8px"><span class="chip">Perawatan</span><span class="chip">Sofa</span></div>
+
+        <figure class="cover">
+          <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1600&q=80" alt="Kursi hitam latar biru">
+        </figure>
+
+        <article class="post-content">
+          <h2>1. Vakum rutin</h2>
+          <p>Vakum mingguan mencegah debu menumpuk di serat kain yang memicu pudar.</p>
+          <h2>2. Hindari sinar UV langsung</h2>
+          <p>Gunakan tirai/UV film. Sinar matahari adalah penyebab utama warna pudar.</p>
+          <h2>3. Gunakan kain microfiber</h2>
+          <p>Untuk spot cleaning gunakan kain microfiber dan sabun lembut, jangan digosok terlalu keras.</p>
+        </article>
+
+        <section class="related">
+          <h3>Pos terkait</h3>
+          <a class="post-card" href="/blog/panduan-kayu-jati.html">
+            <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=1200&q=80" alt="Sofa hijau">
+            <div class="body">
+              <div class="title">Panduan Memilih Kayu Jati untuk Furniture Custom</div>
+              <div class="blog-meta"><time datetime="2025-07-02">2 Jul 2025</time><span aria-hidden="true">•</span><span>6 menit baca</span></div>
+            </div>
+          </a>
+        </section>
+
+        <section class="comments">
+          <h3>Komentar</h3>
+          <button class="pill-btn" id="loadDisqus"><span class="iconify" data-icon="mdi:message-text-outline"></span> &nbsp;Tampilkan komentar</button>
+          <div id="disqus_thread" style="margin-top:12px;"></div>
+        </section>
+
+      </main>
+
+      <nav class="in-card-nav" aria-label="Navigasi utama">
+        <div class="nav-content">
+          <a href="/" class="nav-item" title="Home" aria-label="Home"><span class="iconify" data-icon="mdi:home-outline"></span></a>
+          <button class="menu-button" id="menuButton" title="Menu" aria-label="Menu" aria-expanded="false"><span class="iconify" data-icon="mdi:view-grid-outline"></span></button>
+          <a href="/keranjang" class="nav-item js-cart-btn" title="Keranjang" aria-label="Keranjang"><span class="iconify" data-icon="mdi:cart-outline"></span><span class="cart-badge" data-cart-count>0</span></a>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <div class="popup-menu" id="popupMenu"></div>
+
+  <script>
+  document.getElementById('btnBack')?.addEventListener('click', ()=>{ if (document.referrer) history.back(); else location.href='/blog/'; });
+  document.getElementById('btnShare')?.addEventListener('click', async ()=>{
+    const data={title:document.title,text:'Baca di Customin.co',url:location.href};
+    try{ if(navigator.share) await navigator.share(data); else { await navigator.clipboard.writeText(location.href); alert('Link disalin.'); } }catch(e){}
+  });
+
+  (function(){
+    const menuBtn=document.getElementById('menuButton'); const popup=document.getElementById('popupMenu');
+    if (popup){ popup.innerHTML = `
+      <ul>
+        <li><a href="/kategori/kursi"><span class="iconify" data-icon="mdi:seat-outline"></span>Kategori Kursi</a></li>
+        <li><a href="/kategori/meja"><span class="iconify" data-icon="mdi:table-furniture"></span>Kategori Meja</a></li>
+        <li><a href="/promo"><span class="iconify" data-icon="mdi:tag-outline"></span>Promo</a></li>
+        <li><a href="/kontak.html"><span class="iconify" data-icon="mdi:phone-outline"></span>Kontak</a></li>
+      </ul>`;}
+    function closePopup(){ popup?.classList.remove('show'); menuBtn?.setAttribute('aria-expanded','false'); }
+    menuBtn?.addEventListener('click',(e)=>{ e.stopPropagation(); popup?.classList.toggle('show'); menuBtn?.setAttribute('aria-expanded', popup?.classList.contains('show')?'true':'false'); },{passive:true});
+    document.addEventListener('click',(e)=>{ if(!popup?.classList.contains('show')) return; if(!popup.contains(e.target)&&!menuBtn?.contains(e.target)) closePopup(); },{passive:true});
+    document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closePopup(); });
+  })();
+
+  (function(){ const el=document.querySelector('[data-cart-count]'); const num=Number(localStorage.getItem('CART_COUNT')||0); if(el) el.textContent=num; })();
+
+  document.getElementById('loadDisqus')?.addEventListener('click', ()=>{
+    const SHORTNAME='GANTI_SHORTNAME_DISQUS_KAMU';
+    if (!SHORTNAME || SHORTNAME.startsWith('GANTI')) { alert('Masukkan Disqus shortname dulu di source.'); return; }
+    const d=document,s=d.createElement('script'); s.src='https://'+SHORTNAME+'.disqus.com/embed.js'; s.setAttribute('data-timestamp',Date.now().toString()); (d.head||d.body).appendChild(s);
+    document.getElementById('loadDisqus').disabled=true;
+  });
+  </script>
+</body>
+</html>
