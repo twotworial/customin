@@ -1,157 +1,183 @@
-<!-- /blog/panduan-kayu-jati.html — header card + nav bawah fix + related + Disqus -->
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Panduan Memilih Kayu Jati untuk Furniture Custom | Customin.co</title>
   <meta name="description" content="Kenali grade jati, kadar air, pola serat, finishing, dan anggaran agar mebel awet puluhan tahun.">
-  <link rel="canonical" href="https://customin.co/blog/panduan-kayu-jati.html"/>
+  <link rel="canonical" href="https://customin.co/blog/panduan-kayu-jati.html">
+  <meta name="theme-color" content="#FF6002">
 
+  <!-- OG/Twitter -->
   <meta property="og:type" content="article">
   <meta property="og:title" content="Panduan Memilih Kayu Jati untuk Furniture Custom">
   <meta property="og:description" content="Kenali grade jati, kadar air, pola serat, finishing, dan anggaran.">
-  <meta property="og:image" content="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=1200&q=80">
   <meta property="og:url" content="https://customin.co/blog/panduan-kayu-jati.html">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=1200&q=80">
   <meta name="twitter:card" content="summary_large_image">
 
+  <!-- Fonts + Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&display=swap" rel="stylesheet">
   <script defer src="https://code.iconify.design/3/3.1.1/iconify.min.js"></script>
 
+  <!-- Core styles dari site -->
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/assets/cart.css">
+
+  <!-- Post tweaks -->
   <style>
-    :root{--content:480px;--border:#eee;--muted:#6b7280;--shadow:0 10px 28px rgba(0,0,0,.08);--radius:18px;--accent:#F97316}
-    html{background:#f6f7f9} body{margin:0;background:#fff;color:#0b0b0b;font:16px/1.55 Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial}
-    .container{max-width:var(--content);margin:0 auto;padding:12px 12px 120px}
-
-    .header-card{background:#fff;border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow);padding:10px 12px;display:flex;align-items:center;gap:10px;position:sticky;top:8px;z-index:5}
-    .header-card .btn{width:42px;height:42px;border-radius:999px;border:1px solid var(--border);display:grid;place-items:center;background:#fff}
-    .breadcrumb{color:var(--muted);font-size:14px}
-    .title{font-size:26px;line-height:1.15;margin:10px 0 6px;font-weight:900}
-    .meta{color:var(--muted);display:flex;gap:10px}
-    .chips{display:flex;gap:8px;margin-top:8px}
-    .chip{background:#111827;color:#fff;border-radius:999px;padding:6px 10px;font-size:12px;font-weight:700}
-    .cover{margin:12px 0;border-radius:16px;overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow)}
-    .cover img{width:100%;aspect-ratio:16/9;object-fit:cover}
-
-    .toc{background:#fff;border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);padding:12px 14px;margin:8px 0 16px}
-    .toc h3{margin:0 0 8px} .toc a{color:#111}
-    article h2{font-size:20px;margin-top:18px}
-    article img{border-radius:12px}
-
-    .related{margin-top:24px}
-    .related h3{margin:0 0 10px}
-    .post-card{background:#fff;border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);overflow:hidden;margin-bottom:12px}
-    .post-card img{aspect-ratio:16/9;object-fit:cover;width:100%}
+    .post-header{
+      position:sticky;top:6px;z-index:5;
+      background:#fff;border:1px solid #eee;border-radius:999px;box-shadow:0 10px 28px rgba(0,0,0,.08);
+      padding:8px 10px;margin-bottom:10px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px
+    }
+    .pill-btn{width:42px;height:42px;border-radius:999px;border:1px solid #eee;background:#fff;display:grid;place-items:center}
+    .crumb{font-size:14px;color:#6b7280;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .crumb a{color:#374151;text-decoration:none}
+    .post-title{font:900 26px/1.15 Inter;margin:12px 0 6px}
+    .post-meta{color:#6b7280;display:flex;gap:10px}
+    .tag-row{display:flex;gap:8px;margin-top:8px}
+    .chip{background:#111827;color:#fff;border-radius:999px;padding:6px 10px;font:700 12px/1 Inter}
+    .cover{margin:12px 0;border:1px solid #eee;border-radius:16px;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.06)}
+    .cover img{width:100%;display:block;aspect-ratio:16/9;object-fit:cover}
+    .toc{background:#fff;border:1px solid #eee;border-radius:16px;box-shadow:0 4px 14px rgba(0,0,0,.06);padding:12px 14px;margin:8px 0 16px}
+    .toc h3{margin:0 0 8px}
+    .related h3{margin:8px 0 10px}
+    .post-card{background:#fff;border:1px solid #eee;border-radius:16px;box-shadow:0 4px 12px rgba(0,0,0,.05);overflow:hidden;margin-bottom:12px}
+    .post-card img{width:100%;aspect-ratio:16/9;object-fit:cover}
     .post-card .body{padding:12px 14px}
-    .post-card .title{font-size:18px;margin:4px 0}
-
-    .comments{margin-top:22px}
-    .disqus-wrap{background:#fff;border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);padding:14px}
+    .post-card .title{font:800 18px/1.25 Inter;margin:4px 0}
+    .disqus-box{background:#fff;border:1px solid #eee;border-radius:16px;box-shadow:0 4px 14px rgba(0,0,0,.06);padding:14px}
     .btn-primary{display:inline-flex;align-items:center;gap:8px;background:#111827;color:#fff;border:none;border-radius:12px;padding:10px 14px;cursor:pointer}
-
-    /* Bottom nav – lebar = container, selalu center */
-    .bottom-nav{position:fixed;left:50%;transform:translateX(-50%);bottom:8px;width:min(var(--content), calc(100% - 16px));z-index:10}
-    .bottom-nav .wrap{background:#fff;border:1px solid var(--border);border-radius:20px;box-shadow:0 16px 40px rgba(0,0,0,.14);
-      display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:center;padding:10px 16px}
-    .nav-item{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;color:#444}
-    .menu-btn{width:54px;height:54px;border-radius:999px;background:#111827;color:#fff;display:grid;place-items:center;border:6px solid #fff;box-shadow:0 10px 26px rgba(0,0,0,.18)}
-    .cart{position:relative}
-    .badge{position:absolute;right:-3px;top:-2px;min-width:18px;height:18px;border-radius:999px;background:var(--accent);color:#fff;font-size:11px;display:grid;place-items:center;font-weight:800;padding:0 5px}
   </style>
 </head>
 <body>
-  <main class="container">
-    <!-- Header card: back & share -->
-    <div class="header-card" role="region" aria-label="Navigasi artikel">
-      <button class="btn" id="btnBack" aria-label="Kembali"><span class="iconify" data-icon="mdi:arrow-left"></span></button>
-      <div style="flex:1"><nav class="breadcrumb" aria-label="Breadcrumb">Home › Blog › <strong>Panduan Kayu Jati</strong></nav></div>
-      <button class="btn" id="btnShare" aria-label="Bagikan"><span class="iconify" data-icon="mdi:share-variant"></span></button>
+  <div class="main-wrapper">
+    <div class="bio-card">
+      <main class="card-content">
+
+        <!-- Header pos: back + breadcrumbs + share -->
+        <div class="post-header" role="region" aria-label="Navigasi pos">
+          <button class="pill-btn" id="btnBack" aria-label="Kembali"><span class="iconify" data-icon="mdi:arrow-left"></span></button>
+          <nav class="crumb" aria-label="Breadcrumb">
+            <a href="/">Home</a> › <a href="/blog/">Blog</a> › <strong id="crumbCurrent">Panduan Kayu Jati</strong>
+          </nav>
+          <button class="pill-btn" id="btnShare" aria-label="Bagikan"><span class="iconify" data-icon="mdi:share-variant"></span></button>
+        </div>
+
+        <h1 class="post-title">Panduan Memilih Kayu Jati untuk Furniture Custom</h1>
+        <div class="post-meta"><span>2 Jul 2025</span><span>•</span><span>6 menit baca</span></div>
+        <div class="tag-row"><span class="chip">Panduan</span><span class="chip">Bahan</span></div>
+        <div class="cover">
+          <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=1200&q=80" alt="">
+        </div>
+
+        <section class="toc" aria-label="Daftar isi">
+          <h3>Daftar isi</h3>
+          <ol>
+            <li><a href="#grade">Pahami grade kayu jati</a></li>
+            <li><a href="#kadar-air">Cek kadar air (MC)</a></li>
+            <li><a href="#serat">Lihat pola serat & cacat</a></li>
+            <li><a href="#finishing">Sesuaikan finishing</a></li>
+            <li><a href="#budget">Sesuaikan anggaran</a></li>
+          </ol>
+        </section>
+
+        <article>
+          <h2 id="grade">1. Pahami grade kayu jati</h2>
+          <p>Pilih TPK/grade A untuk tampilan premium; grade di bawahnya cocok untuk rangka tersembunyi.</p>
+          <h2 id="kadar-air">2. Cek kadar air (MC)</h2>
+          <p>Idealnya 8–12% untuk indoor. Minta bukti kiln-dry agar stabil.</p>
+          <h2 id="serat">3. Lihat pola serat & cacat</h2>
+          <p>Serat rapat & konsisten → lebih stabil. Hindari mata kayu besar, retak rambut, blue stain.</p>
+          <h2 id="finishing">4. Sesuaikan finishing</h2>
+          <p>Minyak/PU doff menonjolkan serat; melamik gloss untuk tampilan mewah. Uji sampel kecil lebih dulu.</p>
+          <h2 id="budget">5. Sesuaikan anggaran</h2>
+          <p>Kombinasikan solid jati pada area terlihat + veneer/engineered untuk bagian sekunder.</p>
+        </article>
+
+        <!-- Pos terkait -->
+        <section class="related" aria-label="Pos terkait">
+          <h3>Pos terkait</h3>
+          <div id="relatedWrap"></div>
+        </section>
+
+        <!-- Komentar Disqus (one-click) -->
+        <section aria-label="Komentar" class="disqus-box">
+          <button class="btn-primary" id="loadComments"><span class="iconify" data-icon="mdi:comment-text"></span> Tampilkan komentar</button>
+          <div id="disqus_thread" style="margin-top:12px"></div>
+        </section>
+      </main>
+
+      <!-- NAV sticky (sama dengan beranda) -->
+      <nav class="in-card-nav" aria-label="Navigasi utama">
+        <div class="nav-content">
+          <a href="/" class="nav-item" title="Home" aria-label="Home">
+            <span class="iconify" data-icon="mdi:home-outline"></span>
+          </a>
+
+          <button class="menu-button" id="menuButton" title="Menu" aria-label="Menu" aria-expanded="false">
+            <span class="iconify" data-icon="mdi:view-grid-outline"></span>
+          </button>
+
+          <!-- cart berfungsi; badge diupdate oleh cart.js -->
+          <a href="/keranjang" class="nav-item js-cart-btn" title="Keranjang" aria-label="Keranjang">
+            <span class="iconify" data-icon="mdi:cart-outline"></span>
+            <span class="cart-badge" data-cart-count>0</span>
+          </a>
+        </div>
+      </nav>
     </div>
+  </div>
 
-    <header>
-      <h1 class="title">Panduan Memilih Kayu Jati untuk Furniture Custom</h1>
-      <div class="meta"><span>2 Jul 2025</span><span>•</span><span>6 menit baca</span></div>
-      <div class="chips"><span class="chip">Panduan</span><span class="chip">Bahan</span></div>
-      <div class="cover"><img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=1200&q=80" alt=""></div>
-    </header>
-
-    <section class="toc" aria-label="Daftar isi">
-      <h3>Daftar isi</h3>
-      <ol>
-        <li><a href="#grade">Pahami grade kayu jati</a></li>
-        <li><a href="#kadar-air">Cek kadar air (MC)</a></li>
-        <li><a href="#serat">Lihat pola serat & cacat</a></li>
-        <li><a href="#finishing">Sesuaikan finishing</a></li>
-        <li><a href="#budget">Sesuaikan anggaran</a></li>
-      </ol>
-    </section>
-
-    <article>
-      <h2 id="grade">1. Pahami grade kayu jati</h2>
-      <p>Singkatnya: pilih TPK/grade A untuk tampilan premium; grade bawah bisa dipakai untuk rangka tersembunyi.</p>
-      <h2 id="kadar-air">2. Cek kadar air (MC)</h2>
-      <p>Idealnya 8–12% untuk penggunaan indoor. Mintalah bukti pengeringan (kiln-dry).</p>
-      <h2 id="serat">3. Lihat pola serat & cacat</h2>
-      <p>Serat rapat dan konsisten → stabil. Hindari mata kayu besar, retak rambut, atau blue stain.</p>
-      <h2 id="finishing">4. Sesuaikan finishing</h2>
-      <p>Minyak/PU doff menonjolkan serat; melamik gloss untuk tampilan mewah. Uji sampel kecil dulu.</p>
-      <h2 id="budget">5. Sesuaikan anggaran</h2>
-      <p>Gabungkan solid jati pada area terlihat + veneer/engineered pada bagian sekunder untuk efisiensi.</p>
-    </article>
-
-    <!-- Related posts -->
-    <section class="related" aria-label="Pos terkait">
-      <h3>Pos terkait</h3>
-      <div id="relatedWrap"></div>
-    </section>
-
-    <!-- Komentar (Disqus one-click) -->
-    <section class="comments" aria-label="Komentar">
-      <div class="disqus-wrap">
-        <button class="btn-primary" id="loadComments"><span class="iconify" data-icon="mdi:comment-text"></span> Tampilkan komentar</button>
-        <div id="disqus_thread" style="margin-top:12px"></div>
-      </div>
-    </section>
-  </main>
-
-  <!-- Bottom nav -->
-  <nav class="bottom-nav" aria-label="Navigasi">
-    <div class="wrap">
-      <a class="nav-item" href="/"><span class="iconify" data-icon="mdi:home-outline"></span></a>
-      <button class="menu-btn" aria-label="Menu"><span class="iconify" data-icon="mdi:view-grid-outline"></span></button>
-      <a class="nav-item cart" href="/keranjang" id="cartLink" aria-label="Keranjang">
-        <span class="iconify" data-icon="mdi:cart-outline"></span>
-        <span class="badge" id="cartBadge">0</span>
-      </a>
-    </div>
-  </nav>
+  <div class="popup-menu" id="popupMenu"></div>
 
   <script>
-    // Back & Share
-    btnBack.addEventListener('click', ()=>history.length>1?history.back():location.href='/blog/');
-    btnShare.addEventListener('click', async ()=>{
-      const shareData={title:document.title,text:'Cek artikel Customin.co',url:location.href};
-      if(navigator.share){ try{ await navigator.share(shareData);}catch(e){} }
+    // tombol back & share
+    const btnBack = document.getElementById('btnBack');
+    btnBack.addEventListener('click',()=> history.length>1 ? history.back() : (location.href='/blog/'));
+
+    document.getElementById('btnShare').addEventListener('click', async ()=>{
+      const payload = { title: document.title, text: 'Cek artikel Customin.co', url: location.href };
+      if(navigator.share){ try{ await navigator.share(payload);}catch(e){} }
       else{ await navigator.clipboard.writeText(location.href); alert('Link disalin ✅'); }
     });
 
-    // Related (dummy)
+    // breadcrumb current dari H1
+    document.getElementById('crumbCurrent').textContent =
+      document.querySelector('.post-title')?.textContent?.trim() || 'Artikel';
+
+    // related posts sederhana (filter by tag)
+    const CURRENT_TAGS = ['Panduan','Bahan'];
     const POSTS = [
       {title:"Cara Merawat Sofa Kain agar Tidak Cepat Pudar", url:"/blog/", img:"https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1200&q=80", tags:["Perawatan","Sofa"]},
       {title:"Panduan Memilih Kayu Jati untuk Furniture Custom", url:"/blog/panduan-kayu-jati.html", img:"https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=1200&q=80", tags:["Panduan","Bahan"]}
     ];
-    const currentTags = ["Panduan","Bahan"];
-    const rel = POSTS.filter(p => p.url !== location.pathname && p.tags.some(t=>currentTags.includes(t))).slice(0,3);
-    relatedWrap.innerHTML = rel.map(p=>`
+    const rel = POSTS.filter(p => p.url !== location.pathname && p.tags.some(t=>CURRENT_TAGS.includes(t))).slice(0,3);
+    document.getElementById('relatedWrap').innerHTML = rel.map(p=>`
       <a class="post-card" href="${p.url}">
         <img src="${p.img}" alt="" loading="lazy">
         <div class="body"><div class="title">${p.title}</div>
-          <div class="chips">${p.tags.map(t=>`<span class="chip">${t}</span>`).join('')}</div>
+          <div class="tag-row">${p.tags.map(t=>`<span class="chip">${t}</span>`).join('')}</div>
         </div>
       </a>`).join('');
 
-    // Disqus one-click
+    // popup menu (reuse)
+    const menuBtn=document.getElementById('menuButton'); const popup=document.getElementById('popupMenu');
+    if(popup){ popup.innerHTML = `
+      <ul>
+        <li><a href="/kategori/kursi"><span class="iconify" data-icon="mdi:seat-outline"></span>Kategori Kursi</a></li>
+        <li><a href="/kategori/meja"><span class="iconify" data-icon="mdi:table-furniture"></span>Kategori Meja</a></li>
+        <li><a href="/promo"><span class="iconify" data-icon="mdi:tag-outline"></span>Promo</a></li>
+        <li><a href="/kontak.html"><span class="iconify" data-icon="mdi:phone-outline"></span>Kontak</a></li>
+      </ul>`;}
+    function closePopup(){ popup?.classList.remove('show'); menuBtn?.setAttribute('aria-expanded','false'); }
+    menuBtn?.addEventListener('click',(e)=>{e.stopPropagation();popup?.classList.toggle('show');menuBtn?.setAttribute('aria-expanded', popup?.classList.contains('show')?'true':'false');});
+    document.addEventListener('click',(e)=>{ if(popup?.classList.contains('show') && !popup.contains(e.target) && !menuBtn.contains(e.target)) closePopup(); });
+    document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closePopup(); });
+
+    // Disqus one-click (ganti shortname)
     const DISQUS_SHORTNAME = 'ganti-shortname-kamu';
     document.getElementById('loadComments').addEventListener('click', ()=>{
       if(window.DISQUS) return;
@@ -161,17 +187,8 @@
       (document.head || document.body).appendChild(s);
       document.getElementById('loadComments').style.display='none';
     });
-
-    // Cart badge
-    function getCartCount(){
-      const a = +localStorage.getItem('cart_count') || 0;
-      const b = JSON.parse(localStorage.getItem('cart')||'{}');
-      const c = Array.isArray(b.items) ? b.items.length : 0;
-      return Math.max(a,c);
-    }
-    const badge = document.getElementById('cartBadge');
-    function updateBadge(){ badge.textContent = getCartCount(); }
-    updateBadge(); window.addEventListener('storage', updateBadge);
   </script>
+
+  <script src="/assets/cart.js" defer></script>
 </body>
 </html>
