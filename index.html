@@ -2,11 +2,12 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <title>Furniture Custom Unik & Berkualitas | Customin.co</title>
   <meta name="description" content="Pesan furniture custom sesuai kebutuhan & gaya Anda. Bahan premium, desain eksklusif, langsung dari pengrajin. Custom mudah di Customin.co!">
   <link rel="canonical" href="https://customin.co/" />
+  <meta name="theme-color" content="#FF6002" />
 
   <!-- Open Graph -->
   <meta property="og:title" content="Furniture Custom Unik & Berkualitas | Customin.co" />
@@ -24,19 +25,19 @@
   <meta name="twitter:description" content="Pesan furniture custom sesuai kebutuhan & gaya Anda. Custom mudah di Customin.co!" />
   <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/twotworial/customin@main/OG/Cover-Furniture-Custom-by-Customin.webp" />
 
+  <!-- Icons & Fonts -->
   <link rel="icon" href="OG/favicon-customin-furniture-custom.ico" />
   <link rel="apple-touch-icon" href="OG/favicon-customin-furniture-custom.ico">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&display=swap" rel="stylesheet">
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+  <!-- Styles -->
   <link rel="stylesheet" href="style.css"/>
-  <!-- cart.css kamu -->
   <link rel="stylesheet" href="assets/cart.css"/>
 
+  <!-- Icons -->
   <script src="https://code.iconify.design/3/3.1.1/iconify.min.js" defer></script>
 
-  <!-- Schema -->
+  <!-- Schema (Organization) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -78,10 +79,8 @@
   </script>
 </head>
 <body>
-
   <div class="main-wrapper">
     <div class="bio-card">
-
       <!-- Header / Profil -->
       <header class="profile-card">
         <div class="profile-main-info">
@@ -101,30 +100,47 @@
       </header>
 
       <main class="card-content">
+        <!-- ===== Slider vanilla (aksesibel) ===== -->
+        <div class="ig-slider" id="igSlider">
+          <button class="ig-nav ig-prev" aria-label="Slide sebelumnya">‹</button>
 
-        <!-- Slider -->
-        <div class="swiper main-slider">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <a href="/produk/nama-produk-1">
-                <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1200&q=80"
-                     alt="Sofa Minimalis" fetchpriority="high">
-              </a>
-            </div>
-            <div class="swiper-slide">
-              <a href="/kategori/kursi">
-                <img src="https://images.unsplash.com/photo-1592078615290-033ee584e267?w=1200&q=80"
-                     alt="Kursi Kayu Modern" loading="lazy" decoding="async">
-              </a>
-            </div>
-            <div class="swiper-slide">
-              <a href="/promo/diskon-agustus">
-                <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=1200&q=80"
-                     alt="Lemari Kayu Mewah" loading="lazy" decoding="async">
-              </a>
-            </div>
+          <div class="ig-track" id="igTrack">
+            <!-- Slide 1 -->
+            <a class="ig-slide" href="https://instagram.com/customin_co" target="_blank" rel="noopener"
+               style="--bg: url('/assets/slide1-320x160.jpg');
+                      --overlay: linear-gradient(35deg, rgba(0,0,0,.50), rgba(0,0,0,.18));">
+              <div class="ig-copy">
+                <span class="ig-eyebrow">INTRODUCING A NEW DROP</span>
+                <h3 class="ig-title">Build beautiful customs, faster.</h3>
+                <span class="ig-pill">📸 @customin_co</span>
+              </div>
+            </a>
+
+            <!-- Slide 2 -->
+            <a class="ig-slide" href="https://instagram.com/customin_co" target="_blank" rel="noopener"
+               style="--bg: url('/assets/slide2-320x160.jpg');
+                      --overlay: linear-gradient(35deg, rgba(0,0,0,.46), rgba(0,0,0,.16));">
+              <div class="ig-copy">
+                <span class="ig-eyebrow">SEE THE PROCESS</span>
+                <h3 class="ig-title">Behind-the-scenes & tips mingguan.</h3>
+                <span class="ig-pill">Buka Instagram</span>
+              </div>
+            </a>
+
+            <!-- Slide 3 -->
+            <a class="ig-slide" href="https://instagram.com/customin_co" target="_blank" rel="noopener"
+               style="--bg: url('/assets/slide3-320x160.jpg');
+                      --overlay: linear-gradient(35deg, rgba(0,0,0,.55), rgba(0,0,0,.22));">
+              <div class="ig-copy">
+                <span class="ig-eyebrow">EXCLUSIVE FOR FOLLOWERS</span>
+                <h3 class="ig-title">Rilis & diskon duluan di IG.</h3>
+                <span class="ig-pill">Follow @customin_co</span>
+              </div>
+            </a>
           </div>
-          <div class="swiper-pagination"></div>
+
+          <button class="ig-nav ig-next" aria-label="Slide selanjutnya">›</button>
+          <div class="ig-dots" id="igDots" aria-label="Indikator slide"></div>
         </div>
 
         <!-- CTA Blog -->
@@ -139,7 +155,7 @@
         <!-- Produk -->
         <div class="produk-list">
           <div class="product-card">
-            <div class="product-img"><img src="produk/foto/kursi-lipat.webp" alt="Kursi Lipat Jati" loading="lazy" decoding="async"/></div>
+            <div class="product-img"><img src="produk/foto/kursi-lipat.webp" alt="Kursi Lipat Jati" loading="lazy" decoding="async"></div>
             <div class="product-content">
               <h2 class="product-title">Kursi Lipat Jati</h2>
               <div class="product-footer">
@@ -148,8 +164,9 @@
               </div>
             </div>
           </div>
+
           <div class="product-card">
-            <div class="product-img"><img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?w=600&q=80" alt="Meja Kerja Minimalis" loading="lazy" decoding="async"/></div>
+            <div class="product-img"><img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?w=600&q=80" alt="Meja Kerja Minimalis" loading="lazy" decoding="async"></div>
             <div class="product-content">
               <h2 class="product-title">Meja Kerja Minimalis</h2>
               <div class="product-footer">
@@ -159,24 +176,9 @@
             </div>
           </div>
         </div>
-
-        <!-- Link About & Kontak -->
-        <div class="bio-links">
-          <a href="about.html" class="bio-link">
-            <span class="iconify" data-icon="mdi:account-box-multiple"></span>
-            <span class="link-text">About</span>
-            <span class="iconify arrow" data-icon="fluent:arrow-enter-20-regular"></span>
-          </a>
-          <a href="kontak.html" class="bio-link">
-            <span class="iconify" data-icon="mdi:account-circle"></span>
-            <span class="link-text">Kontak</span>
-            <span class="iconify arrow" data-icon="fluent:arrow-enter-20-regular"></span>
-          </a>
-        </div>
-
       </main>
 
-      <!-- NAVIGASI STICKY DI DALAM CARD -->
+      <!-- NAV sticky di dalam card -->
       <nav class="in-card-nav" aria-label="Navigasi utama">
         <div class="nav-content">
           <a href="/" class="nav-item" title="Home" aria-label="Home">
@@ -187,23 +189,19 @@
             <span class="iconify" data-icon="mdi:view-grid-outline"></span>
           </button>
 
-          <!-- Cart: sudah ada badge + hook -->
           <a href="/keranjang" class="nav-item js-cart-btn" title="Keranjang" aria-label="Keranjang">
             <span class="iconify" data-icon="mdi:cart-outline"></span>
             <span class="cart-badge" data-cart-count>0</span>
           </a>
         </div>
       </nav>
-      <!-- /NAVIGASI -->
+    </div>
+  </div>
 
-    </div><!-- /.bio-card -->
-  </div><!-- /.main-wrapper -->
-
+  <!-- Popup menu -->
   <div class="popup-menu" id="popupMenu"></div>
 
-  <!-- JS -->
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
-  <!-- cart.js kamu -->
+  <!-- Scripts -->
   <script src="assets/cart.js" defer></script>
   <script src="script.js" defer></script>
 </body>
