@@ -4,8 +4,6 @@
      1) SWIPER (autoplay + loop)
      ------------------------- */
   const sliderEl = document.querySelector('.main-slider');
-
-  // Hormati setting prefers-reduced-motion
   const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
 
   if (sliderEl && window.Swiper) {
@@ -15,8 +13,14 @@
       loop: true,
       speed: 600,
       autoplay: reduceMotion ? false : { delay: 3000, disableOnInteraction: false, pauseOnMouseEnter: true },
-      pagination: { el: paginationEl, clickable: true },
-      a11y: { enabled: true }
+      a11y: { enabled: true },
+      pagination: {
+        el: paginationEl,
+        clickable: true,
+        // bullets -> <button> agar aksesibel & mudah diukur audit
+        renderBullet: (index, className) =>
+          `<button type="button" class="${className}" aria-label="Slide ${index + 1}"></button>`
+      }
     });
   }
 
@@ -45,7 +49,7 @@
   menuBtn?.addEventListener('click', (e) => {
     e.stopPropagation();
     popup?.classList.toggle('show');
-    menuBtn.setAttribute('aria-expanded', popup?.classList.contains('show') ? 'true' : 'false');
+    menuBtn?.setAttribute('aria-expanded', popup?.classList.contains('show') ? 'true' : 'false');
   }, { passive:true });
 
   // Klik di luar -> tutup
