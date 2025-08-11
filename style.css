@@ -17,10 +17,9 @@
   --fab-size:48px;        /* tombol tengah */
   --in-card-offset:6px;   /* jarak nav ke bawah */
 
-  /* Slider bullets */
-  --bullet-touch-size:48px; /* area sentuh (>=48px biar lolos audit) */
-  --bullet-dot-size:8px;    /* titik yang terlihat */
-  --bullet-gap:8px;
+  /* Dots slider (hit area 44x) */
+  --dot-hit:44px;
+  --dot-size:8px;
 }
 
 /* ---------- Base ---------- */
@@ -41,13 +40,13 @@ img{ display:block; max-width:100%; height:auto; }
 /* Fokus keyboard (A11y) */
 a:focus-visible, button:focus-visible,
 .nav-item:focus-visible, .order-btn:focus-visible,
-.popup-menu li a:focus-visible, .swiper-pagination-bullet:focus-visible{
+.popup-menu li a:focus-visible{
   outline:2px solid var(--accent);
   outline-offset:2px;
   border-radius:12px;
 }
 
-/* ---------- Layout shell ---------- */
+/* ---------- Shell ---------- */
 .main-wrapper{ max-width:420px; margin:0 auto; padding:24px 24px 12px; }
 .bio-card{
   background:var(--bg);
@@ -63,7 +62,7 @@ a:focus-visible, button:focus-visible,
    ========================================================= */
 .profile-card{
   display:grid;
-  grid-template-columns:50px 1fr;  /* avatar | text */
+  grid-template-columns:50px 1fr;
   column-gap:16px; row-gap:6px; align-items:start;
 
   background:#fff;
@@ -74,13 +73,11 @@ a:focus-visible, button:focus-visible,
   border:1px solid #eee;
 }
 .profile-main-info{ display:contents; }
-
 .profile-avatar{
   grid-column:1; grid-row:1 / span 2;
   width:50px; height:50px; border-radius:50%; overflow:hidden;
 }
 .profile-avatar img{ width:100%; height:100%; object-fit:cover; }
-
 .profile-info{ grid-column:2; grid-row:1; }
 .profile-info h1{ margin:0 0 2px; font-size:18px; font-weight:600; color:#111; }
 .profile-info .profile-slug{ margin:0; font-size:14px; color:#666; }
@@ -98,59 +95,67 @@ a:focus-visible, button:focus-visible,
 .profile-socials a:hover{ transform:scale(1.06); filter:brightness(1.1); }
 
 /* =========================================================
-   Main slider (Swiper)
+   IG-style Slider (vanilla)
    ========================================================= */
-.main-slider{
-  width:100%; aspect-ratio:16/10; margin-bottom:24px;
-  border-radius:var(--card-radius);
-  overflow:hidden; border:1px solid #eee;
-  box-shadow:0 4px 10px rgba(0,0,0,.05);
+.ig-slider{
+  width:100%;
+  aspect-ratio: 2 / 1;        /* ~320x160 */
+  border-radius:14px;
+  overflow:hidden;
+  background:#fff;
+  border:1px solid #eee;
+  box-shadow:0 8px 28px rgba(10,10,10,.08);
   position:relative;
+  margin-bottom:24px;
 }
-.main-slider .swiper-slide{
-  display:flex; justify-content:center; align-items:center; background:#fff;
+.ig-track{
+  display:flex; height:100%;
+  overflow-x:auto; scroll-snap-type:x mandatory; scroll-behavior:smooth;
 }
-.main-slider .swiper-slide a{ display:block; width:100%; height:100%; }
-.main-slider .swiper-slide img{ width:100%; height:100%; object-fit:cover; }
+.ig-track::-webkit-scrollbar{ display:none; }
 
-/* bayangan tipis agar dot kebaca */
-.main-slider::after{
-  content:""; position:absolute; inset:auto 0 0 0; height:42px;
-  background:linear-gradient(to top, rgba(0,0,0,.08), rgba(0,0,0,0));
-  pointer-events:none;
+.ig-slide{
+  flex:0 0 100%; height:100%; position:relative; color:#fff; text-decoration:none;
+  padding:12px; box-sizing:border-box; scroll-snap-align:start;
+  background-image: var(--overlay, linear-gradient(35deg, rgba(0,0,0,.5), rgba(0,0,0,.2))), var(--bg, none);
+  background-size: 100% 100%, cover; background-position:center; background-repeat:no-repeat;
+  text-shadow:0 1px 2px rgba(0,0,0,.35);
+}
+.ig-copy{ display:flex; flex-direction:column; gap:6px; justify-content:center; height:100%; }
+.ig-eyebrow{ font-size:10px; letter-spacing:.12em; text-transform:uppercase; line-height:1; font-weight:800; color:#10b981; }
+.ig-title{ margin:0; font-weight:900; line-height:1.05; font-size:18px; }
+.ig-pill{
+  display:inline-flex; align-items:center; gap:8px; width:max-content;
+  border-radius:999px; padding:8px 12px;
+  background:#fff; color:#0b0b0b; font-weight:700; font-size:12px;
+  box-shadow:0 8px 22px rgba(0,0,0,.12);
 }
 
-/* Clean + big-touch dots */
-.main-slider .swiper-pagination{
-  bottom:12px !important;
-  display:flex; justify-content:center; gap:var(--bullet-gap);
-  pointer-events:auto; z-index:5;
+/* arrows */
+.ig-nav{
+  position:absolute; top:50%; transform:translateY(-50%);
+  width:36px; height:36px; border:none; border-radius:999px;
+  background:#fff; box-shadow:0 6px 18px rgba(0,0,0,.18);
+  display:grid; place-items:center;
+  font-size:18px; line-height:1; cursor:pointer; color:#111;
 }
-.main-slider .swiper-pagination-bullet{
-  /* area sentuh besar tapi transparan */
-  width:var(--bullet-touch-size);
-  height:var(--bullet-touch-size);
-  background:transparent !important;
-  opacity:1 !important;
-  position:relative;
-  margin:0 2px !important;
-  border-radius:999px;
+.ig-prev{ left:8px; } .ig-next{ right:8px; }
+.ig-nav:focus-visible{ outline:2px solid #111; }
+
+/* dots — hit area besar, visual kecil */
+.ig-dots{ position:absolute; bottom:8px; left:0; right:0; display:flex; gap:8px; justify-content:center; }
+.ig-dots button{
+  width:var(--dot-hit); height:var(--dot-hit); border:0; background:transparent; cursor:pointer;
+  border-radius:999px; position:relative;
 }
-.main-slider .swiper-pagination-bullet::before{
-  /* titik kecil yang terlihat */
-  content:"";
-  position:absolute; top:50%; left:50%;
-  transform:translate(-50%,-50%);
-  width:var(--bullet-dot-size); height:var(--bullet-dot-size);
-  border-radius:50%;
-  background:rgba(255,255,255,.9);
-  box-shadow:0 0 0 1px rgba(0,0,0,.06) inset, 0 1px 2px rgba(0,0,0,.06);
-  transition:transform .2s, background .2s, width .2s, height .2s;
+.ig-dots button::before{
+  content:""; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  width:var(--dot-size); height:var(--dot-size); border-radius:999px; background:#cfd3d8;
+  box-shadow:0 0 0 1px rgba(0,0,0,.05) inset;
+  transition:width .18s, height .18s, background .18s;
 }
-.main-slider .swiper-pagination-bullet-active::before{
-  background:var(--accent);
-  transform:translate(-50%,-50%) scale(1.2);
-  width:14px; height:14px;
+.ig-dots button[aria-current="true"]::before{
+  background:#111; width:18px; height:8px; border-radius:6px;
 }
 
 /* =========================================================
@@ -264,8 +269,6 @@ a:focus-visible, button:focus-visible,
   .bio-card{ border-radius:0; padding:16px; padding-bottom:calc(18px + env(safe-area-inset-bottom)); }
   .profile-card{ column-gap:12px; }
 }
-
-/* Safe-area iPhone */
 @supports (padding: max(0px)){
   .in-card-nav{ bottom:max(var(--in-card-offset), 4px); }
 }
