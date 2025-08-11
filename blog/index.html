@@ -1,81 +1,71 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Blog | Customin.co — Tips, proses, inspirasi furniture custom</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <title>Blog | Customin.co — Tips & Proses Furniture Custom</title>
   <meta name="description" content="Tips, proses, dan inspirasi furniture custom dari workshop Customin.co.">
   <link rel="canonical" href="https://customin.co/blog/">
   <meta name="theme-color" content="#FF6002">
 
-  <!-- OG/Twitter -->
-  <meta property="og:type" content="website">
+  <!-- OG -->
   <meta property="og:title" content="Blog | Customin.co">
-  <meta property="og:description" content="Tips, proses, dan inspirasi furniture custom.">
+  <meta property="og:description" content="Tips, proses, dan inspirasi furniture custom dari workshop Customin.co.">
+  <meta property="og:type" content="website">
   <meta property="og:url" content="https://customin.co/blog/">
-  <meta property="og:image" content="https://images.unsplash.com/photo-1549187774-b4e9b0445b41?w=1200&q=80">
-  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/twotworial/customin@main/OG/Cover-Furniture-Custom-by-Customin.webp">
 
-  <!-- Fonts + Icons -->
+  <!-- Fonts & Iconify -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&display=swap" rel="stylesheet">
-  <script defer src="https://code.iconify.design/3/3.1.1/iconify.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+  <script src="https://code.iconify.design/3/3.1.1/iconify.min.js" defer></script>
 
-  <!-- Core styles from site -->
+  <!-- Styles -->
   <link rel="stylesheet" href="/style.css">
-  <link rel="stylesheet" href="/assets/cart.css">
+  <link rel="stylesheet" href="/blog/assets/blog.css">
 
-  <!-- Blog-only tweaks (selaras gaya beranda) -->
-  <style>
-    .blog-hero h1{margin:0 0 6px;font-size:28px;line-height:1.15;font-weight:900}
-    .blog-hero p{margin:0 0 12px;color:#6b7280}
-    .blog-search{position:relative;margin:0 0 14px}
-    .blog-search .icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#9ca3af}
-    .blog-search input{
-      width:100%;height:46px;border:1px solid #eee;border-radius:14px;padding:0 16px 0 42px;background:#fff;outline:none
+  <!-- Schema: Blog -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Blog",
+    "url":"https://customin.co/blog/",
+    "name":"Blog Customin.co",
+    "description":"Tips, proses, dan inspirasi furniture custom.",
+    "publisher":{
+      "@type":"Organization",
+      "name":"Customin.co",
+      "logo":{"@type":"ImageObject","url":"https://customin.co/OG/avatar-customin-furniture-custom.svg"}
     }
-    /* daftar selalu 1 kolom di semua viewport */
-    .blog-list{display:grid;grid-template-columns:1fr;gap:16px}
-    .blog-card{
-      background:#fff;border:1px solid #eee;border-radius:16px;overflow:hidden;
-      box-shadow:0 4px 12px rgba(0,0,0,.05)
-    }
-    .blog-card .thumb{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
-    .blog-card .body{padding:12px 14px 14px}
-    .blog-card .title{font:900 22px/1.18 Inter;margin:4px 0 6px;color:#0b0b0b;display:block}
-    .blog-card .excerpt{margin:0 0 10px;color:#6b7280}
-    .blog-meta{display:flex;gap:10px;color:#6b7280;font-size:14px}
-    .blog-chips{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
-    .chip{background:#111827;color:#fff;border-radius:999px;padding:6px 10px;font:700 12px/1 Inter}
-    /* kecilkan shadow nav bawah supaya nyatu */
-    .in-card-nav .nav-content{box-shadow:0 10px 28px rgba(0,0,0,.12)}
-  </style>
+  }
+  </script>
 </head>
 <body>
   <div class="main-wrapper">
     <div class="bio-card">
       <main class="card-content">
 
-        <section class="blog-hero">
-          <h1>Blog</h1>
+        <!-- Hero -->
+        <section class="blog-hero" aria-labelledby="blogTitle">
+          <h1 id="blogTitle">Blog</h1>
           <p>Tips, proses, dan inspirasi furniture custom dari workshop kami.</p>
 
+          <!-- Pencarian -->
           <div class="blog-search">
             <span class="icon iconify" data-icon="mdi:magnify"></span>
-            <input id="searchInput" type="search" placeholder="Cari artikel, misal: finishing, jati, perawatan">
+            <input id="blogSearch" type="search" inputmode="search" placeholder="Cari artikel, misal: finishing, jati, perawatan" aria-label="Cari artikel">
           </div>
 
-          <!-- profil mini (selaras About di beranda) -->
-          <div class="profile-card" style="margin-top:0;">
-            <div class="profile-main-info">
-              <div class="profile-avatar"><img src="/OG/avatar-customin-furniture-custom.svg" alt="" width="50" height="50"></div>
-              <div class="profile-info">
-                <h2 style="font-size:18px;margin:0 0 2px">Customin.co</h2>
-                <p class="profile-slug">Jual Furniture Custom</p>
-              </div>
+          <!-- Kartu profil mini -->
+          <div class="profile-card" style="display:flex;align-items:center;gap:12px;border:1px solid #eee;border-radius:16px;padding:14px;background:#fff;box-shadow:0 4px 16px rgba(0,0,0,.06);">
+            <img src="/OG/avatar-customin-furniture-custom.svg" alt="Customin.co" width="48" height="48" style="border-radius:50%;">
+            <div style="flex:1 1 auto;">
+              <div style="font-weight:800;">Customin.co</div>
+              <div style="color:#6b7280;">Jual Furniture Custom</div>
             </div>
-            <div class="profile-socials" aria-label="Ikuti kami">
+            <div class="social-inline" style="margin:0;">
               <a href="https://instagram.com/customin_co" aria-label="Instagram"><span class="iconify" data-icon="mdi:instagram"></span></a>
               <a href="https://wa.me/628888085772" aria-label="WhatsApp"><span class="iconify" data-icon="mdi:whatsapp"></span></a>
               <a href="https://linkedin.com/company/custominco" aria-label="LinkedIn"><span class="iconify" data-icon="mdi:linkedin"></span></a>
@@ -83,11 +73,53 @@
           </div>
         </section>
 
-        <!-- LIST 1 kolom -->
-        <section id="postList" class="blog-list" aria-live="polite"></section>
+        <!-- Daftar artikel (selalu 1 kolom) -->
+        <section class="blog-list" id="blogList">
+
+          <!-- Post 1 -->
+          <article class="blog-card" data-search="panduan kayu jati grade kadar air finishing mebel awet">
+            <a href="/blog/panduan-kayu-jati.html" aria-label="Buka artikel Panduan Kayu Jati">
+              <img class="thumb" src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=1600&q=80" alt="Sofa hijau di ruang tamu minimalis">
+            </a>
+            <div class="body">
+              <a class="title" href="/blog/panduan-kayu-jati.html">Panduan Memilih Kayu Jati untuk Furniture Custom</a>
+              <p class="excerpt">Kenali grade jati, kadar air, hingga finishing yang cocok supaya mebel awet puluhan tahun.</p>
+              <div class="blog-meta">
+                <time datetime="2025-07-02">2 Jul 2025</time>
+                <span aria-hidden="true">•</span>
+                <span>6 menit baca</span>
+              </div>
+              <div class="blog-chips" style="margin-top:8px">
+                <span class="chip">Panduan</span>
+                <span class="chip">Bahan</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Post 2 -->
+          <article class="blog-card" data-search="cara merawat sofa kain tidak cepat pudar perawatan">
+            <a href="/blog/cara-merawat-sofa.html" aria-label="Buka artikel Cara Merawat Sofa">
+              <img class="thumb" src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1600&q=80" alt="Kursi hitam di latar biru">
+            </a>
+            <div class="body">
+              <a class="title" href="/blog/cara-merawat-sofa.html">Cara Merawat Sofa Kain agar Tidak Cepat Pudar</a>
+              <p class="excerpt">Langkah sederhana mingguan dan bulanan agar warna tetap segar dan serat kain tidak getas.</p>
+              <div class="blog-meta">
+                <time datetime="2025-06-18">18 Jun 2025</time>
+                <span aria-hidden="true">•</span>
+                <span>5 menit baca</span>
+              </div>
+              <div class="blog-chips" style="margin-top:8px">
+                <span class="chip">Perawatan</span>
+                <span class="chip">Sofa</span>
+              </div>
+            </div>
+          </article>
+
+        </section>
       </main>
 
-      <!-- NAV sticky di dalam card (reuse gaya beranda) -->
+      <!-- NAV bawah -->
       <nav class="in-card-nav" aria-label="Navigasi utama">
         <div class="nav-content">
           <a href="/" class="nav-item" title="Home" aria-label="Home">
@@ -107,76 +139,46 @@
     </div>
   </div>
 
+  <!-- Popup menu -->
   <div class="popup-menu" id="popupMenu"></div>
 
   <script>
-  // data contoh
-  const POSTS = [
-    {
-      title:"Panduan Memilih Kayu Jati untuk Furniture Custom",
-      slug:"panduan-kayu-jati",
-      url:"/blog/panduan-kayu-jati.html",
-      date:"2025-07-02",
-      read:"6 menit baca",
-      tags:["Panduan","Bahan"],
-      excerpt:"Kenali grade jati, kadar air, hingga finishing yang cocok supaya mebel awet puluhan tahun.",
-      img:"https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=1200&q=80"
-    },
-    {
-      title:"Cara Merawat Sofa Kain agar Tidak Cepat Pudar",
-      slug:"rawat-sofa-kain",
-      url:"#",
-      date:"2025-06-18",
-      read:"5 menit baca",
-      tags:["Perawatan","Sofa"],
-      excerpt:"Langkah mingguan & bulanan agar warna tetap segar dan serat kain tidak getas.",
-      img:"https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1200&q=80"
-    }
-  ];
-
-  const $list = document.getElementById('postList');
-  function fmtDate(iso){ return new Date(iso).toLocaleDateString('id-ID',{day:'2-digit',month:'short',year:'numeric'}); }
-  function render(items){
-    $list.innerHTML = items.map(p => `
-      <article class="blog-card">
-        <a href="${p.url}"><img class="thumb" src="${p.img}" alt="" loading="lazy" decoding="async"></a>
-        <div class="body">
-          <a class="title" href="${p.url}">${p.title}</a>
-          <p class="excerpt">${p.excerpt}</p>
-          <div class="blog-meta"><span>${fmtDate(p.date)}</span><span>•</span><span>${p.read}</span></div>
-          <div class="blog-chips">${p.tags.map(t=>`<span class="chip">${t}</span>`).join('')}</div>
-        </div>
-      </article>
-    `).join('');
-  }
-  render(POSTS);
-
-  // search
-  document.getElementById('searchInput').addEventListener('input',(e)=>{
-    const q = e.target.value.toLowerCase();
-    const filtered = POSTS.filter(p =>
-      p.title.toLowerCase().includes(q) ||
-      p.excerpt.toLowerCase().includes(q) ||
-      p.tags.join(' ').toLowerCase().includes(q)
-    );
-    render(filtered);
+  // filter pencarian
+  const q = document.getElementById('blogSearch');
+  const list = document.getElementById('blogList');
+  q?.addEventListener('input', () => {
+    const term = q.value.trim().toLowerCase();
+    [...list.children].forEach(card => {
+      const hay = card.dataset.search || '';
+      card.style.display = hay.includes(term) ? '' : 'none';
+    });
   });
 
-  // popup menu basic (reuse gaya beranda)
-  const menuBtn=document.getElementById('menuButton'); const popup=document.getElementById('popupMenu');
-  if(popup){ popup.innerHTML = `
-    <ul>
-      <li><a href="/kategori/kursi"><span class="iconify" data-icon="mdi:seat-outline"></span>Kategori Kursi</a></li>
-      <li><a href="/kategori/meja"><span class="iconify" data-icon="mdi:table-furniture"></span>Kategori Meja</a></li>
-      <li><a href="/promo"><span class="iconify" data-icon="mdi:tag-outline"></span>Promo</a></li>
-      <li><a href="/kontak.html"><span class="iconify" data-icon="mdi:phone-outline"></span>Kontak</a></li>
-    </ul>`;}
-  function closePopup(){ popup?.classList.remove('show'); menuBtn?.setAttribute('aria-expanded','false'); }
-  menuBtn?.addEventListener('click',(e)=>{e.stopPropagation();popup?.classList.toggle('show');menuBtn?.setAttribute('aria-expanded', popup?.classList.contains('show')?'true':'false');});
-  document.addEventListener('click',(e)=>{ if(popup?.classList.contains('show') && !popup.contains(e.target) && !menuBtn.contains(e.target)) closePopup(); });
-  document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closePopup(); });
-  </script>
+  // popup menu isi
+  (function(){
+    const menuBtn = document.getElementById('menuButton');
+    const popup = document.getElementById('popupMenu');
+    if (popup) {
+      popup.innerHTML = `
+        <ul>
+          <li><a href="/kategori/kursi"><span class="iconify" data-icon="mdi:seat-outline"></span>Kategori Kursi</a></li>
+          <li><a href="/kategori/meja"><span class="iconify" data-icon="mdi:table-furniture"></span>Kategori Meja</a></li>
+          <li><a href="/promo"><span class="iconify" data-icon="mdi:tag-outline"></span>Promo</a></li>
+          <li><a href="/kontak.html"><span class="iconify" data-icon="mdi:phone-outline"></span>Kontak</a></li>
+        </ul>`;
+    }
+    function closePopup(){ popup?.classList.remove('show'); menuBtn?.setAttribute('aria-expanded','false'); }
+    menuBtn?.addEventListener('click', (e)=>{ e.stopPropagation(); popup?.classList.toggle('show'); menuBtn?.setAttribute('aria-expanded', popup?.classList.contains('show')?'true':'false'); }, {passive:true});
+    document.addEventListener('click', (e)=>{ if (!popup?.classList.contains('show')) return; if (!popup.contains(e.target) && !menuBtn?.contains(e.target)) closePopup(); }, {passive:true});
+    document.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') closePopup(); });
+  })();
 
-  <script src="/assets/cart.js" defer></script>
+  // contoh update badge keranjang dari localStorage (opsional)
+  (function(){
+    const el = document.querySelector('[data-cart-count]');
+    const num = Number(localStorage.getItem('CART_COUNT') || 0);
+    if (el) el.textContent = num;
+  })();
+  </script>
 </body>
 </html>
