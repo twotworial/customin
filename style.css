@@ -14,8 +14,13 @@
   --button-radius:12px;
 
   /* In-card bottom nav */
-  --fab-size:46px;        /* tombol tengah */
-  --in-card-offset:4px;   /* jarak nav ke bawah */
+  --fab-size:48px;        /* tombol tengah */
+  --in-card-offset:6px;   /* jarak nav ke bawah */
+
+  /* Slider bullets */
+  --bullet-touch-size:48px; /* area sentuh (>=48px biar lolos audit) */
+  --bullet-dot-size:8px;    /* titik yang terlihat */
+  --bullet-gap:8px;
 }
 
 /* ---------- Base ---------- */
@@ -43,13 +48,14 @@ a:focus-visible, button:focus-visible,
 }
 
 /* ---------- Layout shell ---------- */
-.main-wrapper{ max-width:420px; margin:0 auto; padding:24px 24px 10px; }
+.main-wrapper{ max-width:420px; margin:0 auto; padding:24px 24px 12px; }
 .bio-card{
   background:var(--bg);
   border-radius:var(--radius);
   box-shadow:0 8px 40px rgba(0,0,0,.08);
   padding:24px;
   padding-bottom:calc(18px + env(safe-area-inset-bottom)); /* ruang nav */
+  border:1px solid #eee;
 }
 
 /* =========================================================
@@ -85,8 +91,8 @@ a:focus-visible, button:focus-visible,
 }
 .profile-socials a{
   display:flex; align-items:center; justify-content:center;
-  width:30px; height:30px; border-radius:50%;
-  background:#0c0c0c; color:#fff; font-size:15px;
+  width:32px; height:32px; border-radius:50%;
+  background:#0c0c0c; color:#fff; font-size:16px;
   text-decoration:none; transition:transform .18s, filter .18s;
 }
 .profile-socials a:hover{ transform:scale(1.06); filter:brightness(1.1); }
@@ -107,27 +113,44 @@ a:focus-visible, button:focus-visible,
 .main-slider .swiper-slide a{ display:block; width:100%; height:100%; }
 .main-slider .swiper-slide img{ width:100%; height:100%; object-fit:cover; }
 
-/* bayangan tipis di bawah biar teks dot kebaca */
+/* bayangan tipis agar dot kebaca */
 .main-slider::after{
   content:""; position:absolute; inset:auto 0 0 0; height:42px;
   background:linear-gradient(to top, rgba(0,0,0,.08), rgba(0,0,0,0));
   pointer-events:none;
 }
 
-/* Clean dots */
+/* Clean + big-touch dots */
 .main-slider .swiper-pagination{
-  bottom:10px !important;
-  display:flex; justify-content:center; gap:6px;
+  bottom:12px !important;
+  display:flex; justify-content:center; gap:var(--bullet-gap);
+  pointer-events:auto; z-index:5;
 }
 .main-slider .swiper-pagination-bullet{
-  width:7px; height:7px; margin:0 4px !important;
-  border-radius:999px; opacity:1;
-  background:rgba(255,255,255,.9);
-  transition:width .22s ease, background .22s ease, transform .22s ease;
-  box-shadow:0 0 0 1px rgba(0,0,0,.06) inset, 0 1px 2px rgba(0,0,0,.06);
+  /* area sentuh besar tapi transparan */
+  width:var(--bullet-touch-size);
+  height:var(--bullet-touch-size);
+  background:transparent !important;
+  opacity:1 !important;
+  position:relative;
+  margin:0 2px !important;
+  border-radius:999px;
 }
-.main-slider .swiper-pagination-bullet-active{
-  width:18px; background:var(--accent); transform:translateY(-0.5px);
+.main-slider .swiper-pagination-bullet::before{
+  /* titik kecil yang terlihat */
+  content:"";
+  position:absolute; top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  width:var(--bullet-dot-size); height:var(--bullet-dot-size);
+  border-radius:50%;
+  background:rgba(255,255,255,.9);
+  box-shadow:0 0 0 1px rgba(0,0,0,.06) inset, 0 1px 2px rgba(0,0,0,.06);
+  transition:transform .2s, background .2s, width .2s, height .2s;
+}
+.main-slider .swiper-pagination-bullet-active::before{
+  background:var(--accent);
+  transform:translate(-50%,-50%) scale(1.2);
+  width:14px; height:14px;
 }
 
 /* =========================================================
@@ -164,8 +187,9 @@ a:focus-visible, button:focus-visible,
 .product-footer{ display:flex; align-items:center; justify-content:space-between; }
 .product-price{ color:var(--accent); font-weight:700; font-size:14px; }
 .order-btn{
+  min-height:44px; /* target sentuh aman */
   background:#fff; color:#111; border-radius:var(--button-radius);
-  padding:6px 14px; font-size:12px; font-weight:600;
+  padding:0 16px; font-size:12px; font-weight:600;
   border:1px solid #ddd; text-decoration:none; cursor:pointer;
   box-shadow:0 2px 4px rgba(0,0,0,.05);
 }
@@ -183,18 +207,18 @@ a:focus-visible, button:focus-visible,
   background:var(--bg); border:1px solid #eee; border-radius:18px;
   box-shadow:0 8px 18px rgba(0,0,0,.10);
   display:grid; grid-template-columns:1fr auto 1fr; align-items:center;
-  padding:10px 14px; gap:8px;
+  padding:12px 16px; gap:8px;
 }
 .in-card-nav .nav-content::before{
-  content:""; position:absolute; left:14px; right:14px; top:0; height:1px;
+  content:""; position:absolute; left:16px; right:16px; top:0; height:1px;
   background:linear-gradient(90deg, rgba(0,0,0,.04), rgba(0,0,0,.08), rgba(0,0,0,.04));
   pointer-events:none;
 }
 .nav-item{
   justify-self:start;
-  width:40px; height:40px; border-radius:10px;
+  width:44px; height:44px; border-radius:12px; /* >=44px */
   display:flex; align-items:center; justify-content:center;
-  color:#555; font-size:20px; text-decoration:none;
+  color:#555; font-size:22px; text-decoration:none;
   transition:background-color .18s;
   position:relative; /* utk badge cart */
 }
@@ -204,8 +228,8 @@ a:focus-visible, button:focus-visible,
   width:var(--fab-size); height:var(--fab-size);
   border-radius:999px; background:#2c2c2c; color:#fff;
   display:flex; align-items:center; justify-content:center;
-  font-size:22px; border:4px solid var(--bg);
-  box-shadow:0 8px 16px rgba(0,0,0,.12); cursor:pointer;
+  font-size:24px; border:6px solid var(--bg);
+  box-shadow:0 10px 20px rgba(0,0,0,.14); cursor:pointer;
 }
 
 /* =========================================================
@@ -213,7 +237,7 @@ a:focus-visible, button:focus-visible,
    ========================================================= */
 .popup-menu{
   position:fixed;
-  bottom:calc(var(--in-card-offset) + var(--fab-size) + 18px);
+  bottom:calc(var(--in-card-offset) + var(--fab-size) + 20px);
   left:50%; transform:translateX(-50%);
   z-index:1100;
   background:#fff; border-radius:16px; border:1px solid #eee;
@@ -236,12 +260,12 @@ a:focus-visible, button:focus-visible,
    Responsive
    ========================================================= */
 @media (max-width:460px){
-  .main-wrapper{ padding:0 0 10px; }
+  .main-wrapper{ padding:0 0 12px; }
   .bio-card{ border-radius:0; padding:16px; padding-bottom:calc(18px + env(safe-area-inset-bottom)); }
   .profile-card{ column-gap:12px; }
 }
 
 /* Safe-area iPhone */
 @supports (padding: max(0px)){
-  .in-card-nav{ bottom:max(var(--in-card-offset), 2px); }
+  .in-card-nav{ bottom:max(var(--in-card-offset), 4px); }
 }
