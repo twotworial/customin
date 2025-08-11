@@ -185,5 +185,12 @@
 
   <script src="assets/cart.js" defer></script>
   <script src="script.js" defer></script>
+  <script>
+if ('serviceWorker' in navigator) {
+  // kalau pakai project pages (domain.github.io/nama-repo), pakai './sw.js'
+  navigator.serviceWorker.register('./sw.js').catch(console.error);
+}
+</script>
 </body>
 </html>
+
