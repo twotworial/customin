@@ -81,31 +81,11 @@
 <body>
   <div class="main-wrapper">
     <div class="bio-card">
-      <!-- Header / Profil -->
-      <header class="profile-card">
-        <div class="profile-main-info">
-          <div class="profile-avatar">
-            <img src="OG/avatar-customin-furniture-custom.svg" alt="Avatar Customin.co" width="50" height="50" decoding="async">
-          </div>
-          <div class="profile-info">
-            <h1>Customin.co</h1>
-            <p class="profile-slug">Jual Furniture Custom</p>
-          </div>
-        </div>
-        <div class="profile-socials" aria-label="Ikuti kami">
-          <a href="https://instagram.com/customin_co" title="Instagram" aria-label="Instagram"><span class="iconify" data-icon="mdi:instagram"></span></a>
-          <a href="https://wa.me/628888085772" title="WhatsApp" aria-label="WhatsApp"><span class="iconify" data-icon="mdi:whatsapp"></span></a>
-          <a href="https://linkedin.com/company/custominco" title="LinkedIn" aria-label="LinkedIn"><span class="iconify" data-icon="mdi:linkedin"></span></a>
-        </div>
-      </header>
 
       <main class="card-content">
-        <!-- ===== Slider vanilla (aksesibel) ===== -->
+        <!-- ===== Slider swipe (no arrows) ===== -->
         <div class="ig-slider" id="igSlider">
-          <button class="ig-nav ig-prev" aria-label="Slide sebelumnya">‹</button>
-
           <div class="ig-track" id="igTrack">
-            <!-- Slide 1 -->
             <a class="ig-slide" href="https://instagram.com/customin_co" target="_blank" rel="noopener"
                style="--bg: url('OG/Cover-Furniture-Custom-by-Customin.webp');
                       --overlay: linear-gradient(35deg, rgba(0,0,0,.50), rgba(0,0,0,.18));">
@@ -116,7 +96,6 @@
               </div>
             </a>
 
-            <!-- Slide 2 -->
             <a class="ig-slide" href="https://instagram.com/customin_co" target="_blank" rel="noopener"
                style="--bg: url('OG/Cover-Furniture-Custom-by-Customin.webp');
                       --overlay: linear-gradient(35deg, rgba(0,0,0,.46), rgba(0,0,0,.16));">
@@ -127,7 +106,6 @@
               </div>
             </a>
 
-            <!-- Slide 3 -->
             <a class="ig-slide" href="https://instagram.com/customin_co" target="_blank" rel="noopener"
                style="--bg: url('OG/Cover-Furniture-Custom-by-Customin.webp');
                       --overlay: linear-gradient(35deg, rgba(0,0,0,.55), rgba(0,0,0,.22));">
@@ -138,9 +116,14 @@
               </div>
             </a>
           </div>
-
-          <button class="ig-nav ig-next" aria-label="Slide selanjutnya">›</button>
           <div class="ig-dots" id="igDots" aria-label="Indikator slide"></div>
+        </div>
+
+        <!-- Sosial bawah slider -->
+        <div class="social-inline" aria-label="Ikuti kami">
+          <a href="https://instagram.com/customin_co" title="Instagram" aria-label="Instagram"><span class="iconify" data-icon="mdi:instagram"></span></a>
+          <a href="https://wa.me/628888085772" title="WhatsApp" aria-label="WhatsApp"><span class="iconify" data-icon="mdi:whatsapp"></span></a>
+          <a href="https://linkedin.com/company/custominco" title="LinkedIn" aria-label="LinkedIn"><span class="iconify" data-icon="mdi:linkedin"></span></a>
         </div>
 
         <!-- CTA Blog -->
@@ -198,12 +181,9 @@
     </div>
   </div>
 
-  <!-- Popup menu -->
   <div class="popup-menu" id="popupMenu"></div>
 
-  <!-- Scripts -->
   <script src="assets/cart.js" defer></script>
   <script src="script.js" defer></script>
 </body>
 </html>
-
