@@ -12,14 +12,21 @@
   <!-- Referrer policy -->
   <meta name="referrer" content="strict-origin-when-cross-origin">
 
-  <!-- Content Security Policy (versi <meta>) -->
+  <!-- Content Security Policy (via <meta>).
+       Catatan: 'frame-ancestors' diabaikan kalau via <meta>. Untuk header server/CDN boleh tambahkan X-Frame-Options / frame-ancestors. -->
   <meta http-equiv="Content-Security-Policy"
         content="default-src 'self';
                  img-src 'self' https: data:;
                  script-src 'self' https://code.iconify.design https://cloud.umami.is 'unsafe-inline';
                  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
                  font-src 'self' https://fonts.gstatic.com;
-                 connect-src 'self' https://api.iconify.design https://api.simplesvg.com https://cloud.umami.is;
+                 connect-src 'self'
+                              https://api.iconify.design
+                              https://api.simplesvg.com
+                              https://cloud.umami.is
+                              https://api-gateway.umami.dev
+                              https://*.umami.is
+                              https://*.umami.dev;
                  base-uri 'self';
                  form-action 'self';
                  upgrade-insecure-requests">
@@ -50,6 +57,7 @@
   <link rel="preconnect" href="https://code.iconify.design" crossorigin>
   <link rel="preconnect" href="https://api.iconify.design" crossorigin>
   <link rel="preconnect" href="https://cloud.umami.is" crossorigin>
+  <link rel="preconnect" href="https://api-gateway.umami.dev" crossorigin>
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&display=swap" rel="stylesheet">
 
@@ -63,8 +71,9 @@
   <!-- Iconify -->
   <script src="https://code.iconify.design/3/3.1.1/iconify.min.js" defer></script>
 
-  <!-- Umami analytics -->
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="60976a45-9ae8-40bf-a8bc-99c152ba5288"></script>
+  <!-- Umami (analytics) -->
+  <script defer src="https://cloud.umami.is/script.js"
+          data-website-id="60976a45-9ae8-40bf-a8bc-99c152ba5288"></script>
 
   <!-- Schema (Organization) -->
   <script type="application/ld+json">
@@ -256,8 +265,10 @@
   <script src="script.js" defer></script>
   <script>
   if ('serviceWorker' in navigator) {
+    // custom domain:
     navigator.serviceWorker.register('/sw.js').catch(console.error);
-    // Untuk Project Pages: navigator.serviceWorker.register('./sw.js').catch(console.error);
+    // kalau pakai Project Pages (username.github.io/repo/):
+    // navigator.serviceWorker.register('./sw.js').catch(console.error);
   }
   </script>
 </body>
