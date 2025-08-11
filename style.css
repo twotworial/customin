@@ -1,7 +1,7 @@
 /* ============ Variables ============ */
 :root{
   /* kontras aman untuk teks harga */
-  --accent:#E65100; /* ganti dari #FF6002 */
+  --accent:#C2410C;
   --bg:#ffffff;
   --text:#0c0c0c;
   --grey:#f6f6f6;
@@ -204,3 +204,4 @@ a:focus-visible, button:focus-visible,
 @supports (padding: max(0px)){
   .in-card-nav{ bottom:max(var(--in-card-offset), 4px); }
 }
+
