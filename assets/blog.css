@@ -1,0 +1,52 @@
+/* ---- Blog shared styles (ringan, nyambung style.css) ---- */
+.page-title{ font-size:24px; font-weight:800; margin:0 0 4px; }
+.page-subtitle{ margin:0 0 16px; color:#666; }
+
+.search-wrap{
+  display:flex; align-items:center; gap:8px;
+  background:#fff; border:1px solid #eee; border-radius:12px;
+  padding:10px 12px; margin:0 0 16px;
+  box-shadow:0 4px 10px rgba(0,0,0,.05);
+}
+.search-wrap input{ border:0; outline:0; flex:1; font:inherit; }
+
+.post-grid{
+  display:grid; grid-template-columns:1fr; gap:16px;
+}
+.post-card{
+  background:#fff; border:1px solid #eee; border-radius:14px; overflow:hidden;
+  box-shadow:0 4px 12px rgba(0,0,0,.05); display:grid; grid-template-rows:auto 1fr;
+}
+.post-thumb{ display:block; aspect-ratio:16/9; background:#f6f6f6; }
+.post-thumb img{ width:100%; height:100%; object-fit:cover; }
+.post-body{ padding:14px; display:flex; flex-direction:column; gap:8px; }
+.post-title{ margin:0; font-size:18px; line-height:1.2; }
+.post-title a{ color:inherit; text-decoration:none; }
+.post-excerpt{ color:#555; margin:0; }
+.post-meta{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; color:#666; font-size:13px; }
+.chips{ display:flex; gap:6px; margin-left:auto; }
+.chip{ background:#111; color:#fff; border-radius:999px; padding:4px 8px; font-size:11px; }
+
+/* Artikel */
+.breadcrumbs{ font-size:13px; color:#666; margin-bottom:10px; display:flex; gap:8px; align-items:center; }
+.breadcrumbs a{ color:inherit; }
+.article-title{ margin:0 0 6px; font-size:24px; font-weight:800; }
+.article-meta{ color:#666; display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+.article-hero{ margin:12px 0 0; border-radius:12px; overflow:hidden; border:1px solid #eee; box-shadow:0 4px 10px rgba(0,0,0,.05); }
+.article-hero img{ width:100%; height:auto; display:block; }
+
+.toc{ background:#fff; border:1px solid #eee; border-radius:12px; padding:12px; margin:16px 0; box-shadow:0 4px 10px rgba(0,0,0,.05); }
+.toc-title{ font-weight:700; margin-bottom:8px; }
+.toc nav ul{ margin:0; padding-left:16px; }
+.toc nav a{ color:#111; text-decoration:none; }
+
+.prose{ line-height:1.65; color:#222; }
+.prose h2{ margin-top:18px; font-size:20px; }
+.prose p{ margin:10px 0; }
+
+.back-link{ display:inline-flex; align-items:center; gap:8px; text-decoration:none; margin-top:16px; }
+
+/* Responsive */
+@media (min-width:560px){
+  .post-grid{ grid-template-columns:1fr 1fr; }
+}
