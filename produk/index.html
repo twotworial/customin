@@ -21,8 +21,7 @@
 
     .product-footer{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
     .product-price{ color:var(--accent); font-weight:700; font-size:14px; flex:1 1 auto; min-width:0; }
-    .product-footer .cta-group{ display:flex; gap:8px; flex:0 0 auto; white-space:nowrap; }
-    .order-btn{ display:inline-flex; align-items:center; justify-content:center; height:34px; padding:0 12px; border:1px solid #ddd; border-radius:12px; background:#fff; font-size:12px; font-weight:600; text-decoration:none; box-shadow:0 2px 4px rgba(0,0,0,.05); cursor:pointer; }
+    .order-btn{ display:inline-flex; align-items:center; justify-content:center; height:34px; padding:0 12px; border:1px solid #ddd; border-radius:12px; background:#fff; font-size:12px; font-weight:600; text-decoration:none; box-shadow:0 2px 4px rgba(0,0,0,.05); cursor:pointer; white-space:nowrap; }
     .order-btn:active{ transform:translateY(1px); }
     .nav-item{ position:relative; }
   </style>
@@ -76,9 +75,8 @@
           <p class="hint">Tip: tahan <b>Ctrl/Cmd</b> untuk pilih banyak tag.</p>
         </section>
 
-        <!-- Grid -->
+        <!-- Grid (tanpa tombol +Keranjang) -->
         <section class="produk-grid" id="grid">
-          <!-- 1 -->
           <article class="product-card" data-kategori="Kursi" data-tags="Minimalis,Jati Solid,Natural">
             <a class="product-img" href="/produk/kursi-lipat-jati.html">
               <img src="/produk/foto/kursi-lipat.webp" alt="Kursi Lipat Jati">
@@ -88,19 +86,11 @@
               <h2 class="product-title"><a href="/produk/kursi-lipat-jati.html">Kursi Lipat Jati</a></h2>
               <div class="product-footer">
                 <div class="product-price">Rp 183.000</div>
-                <div class="cta-group">
-                  <button type="button" class="order-btn add-to-cart"
-                          data-id="SKU-KURSI-LIPAT"
-                          data-name="Kursi Lipat Jati"
-                          data-price="183000"
-                          data-image="/produk/foto/kursi-lipat.webp">+ Keranjang</button>
-                  <a href="/produk/kursi-lipat-jati.html" class="order-btn">Detail</a>
-                </div>
+                <a href="/produk/kursi-lipat-jati.html" class="order-btn">Detail</a>
               </div>
             </div>
           </article>
 
-          <!-- 2 -->
           <article class="product-card" data-kategori="Meja" data-tags="Minimalis,Natural">
             <a class="product-img" href="#">
               <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?w=600&q=80" alt="Meja Kerja Minimalis">
@@ -109,19 +99,11 @@
               <h2 class="product-title"><a href="#">Meja Kerja Minimalis</a></h2>
               <div class="product-footer">
                 <div class="product-price">Rp 1.250.000</div>
-                <div class="cta-group">
-                  <button type="button" class="order-btn add-to-cart"
-                          data-id="SKU-MEJA-KERJA-01"
-                          data-name="Meja Kerja Minimalis"
-                          data-price="1250000"
-                          data-image="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?w=600&q=80">+ Keranjang</button>
-                  <a href="#" class="order-btn">Detail</a>
-                </div>
+                <a href="#" class="order-btn">Detail</a>
               </div>
             </div>
           </article>
 
-          <!-- 3 -->
           <article class="product-card" data-kategori="Lemari" data-tags="Jati Solid,Natural">
             <a class="product-img" href="#">
               <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=600&q=80" alt="Lemari Pakaian Jati">
@@ -131,19 +113,11 @@
               <h2 class="product-title"><a href="#">Lemari Pakaian Jati</a></h2>
               <div class="product-footer">
                 <div class="product-price">Rp 3.800.000</div>
-                <div class="cta-group">
-                  <button type="button" class="order-btn add-to-cart"
-                          data-id="SKU-LEMARI-JATI-01"
-                          data-name="Lemari Pakaian Jati"
-                          data-price="3800000"
-                          data-image="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=600&q=80">+ Keranjang</button>
-                  <a href="#" class="order-btn">Detail</a>
-                </div>
+                <a href="#" class="order-btn">Detail</a>
               </div>
             </div>
           </article>
 
-          <!-- 4 -->
           <article class="product-card" data-kategori="Rak" data-tags="Minimalis,Natural">
             <a class="product-img" href="#">
               <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=600&q=80" alt="Rak Buku Minimalis">
@@ -152,19 +126,11 @@
               <h2 class="product-title"><a href="#">Rak Buku Minimalis</a></h2>
               <div class="product-footer">
                 <div class="product-price">Rp 690.000</div>
-                <div class="cta-group">
-                  <button type="button" class="order-btn add-to-cart"
-                          data-id="SKU-RAK-BUKU-01"
-                          data-name="Rak Buku Minimalis"
-                          data-price="690000"
-                          data-image="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=600&q=80">+ Keranjang</button>
-                  <a href="#" class="order-btn">Detail</a>
-                </div>
+                <a href="#" class="order-btn">Detail</a>
               </div>
             </div>
           </article>
 
-          <!-- 5 -->
           <article class="product-card" data-kategori="Kursi" data-tags="Outdoor,Jati Solid">
             <a class="product-img" href="#">
               <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" alt="Kursi Teras Outdoor">
@@ -173,19 +139,11 @@
               <h2 class="product-title"><a href="#">Kursi Teras Outdoor</a></h2>
               <div class="product-footer">
                 <div class="product-price">Rp 480.000</div>
-                <div class="cta-group">
-                  <button type="button" class="order-btn add-to-cart"
-                          data-id="SKU-KURSI-OUTDOOR-01"
-                          data-name="Kursi Teras Outdoor"
-                          data-price="480000"
-                          data-image="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80">+ Keranjang</button>
-                  <a href="#" class="order-btn">Detail</a>
-                </div>
+                <a href="#" class="order-btn">Detail</a>
               </div>
             </div>
           </article>
 
-          <!-- 6 -->
           <article class="product-card" data-kategori="Meja" data-tags="Minimalis,Natural">
             <a class="product-img" href="#">
               <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80" alt="Meja Konsol Kayu">
@@ -194,14 +152,7 @@
               <h2 class="product-title"><a href="#">Meja Konsol Kayu</a></h2>
               <div class="product-footer">
                 <div class="product-price">Rp 1.450.000</div>
-                <div class="cta-group">
-                  <button type="button" class="order-btn add-to-cart"
-                          data-id="SKU-MEJA-KONSOL-01"
-                          data-name="Meja Konsol Kayu"
-                          data-price="1450000"
-                          data-image="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80">+ Keranjang</button>
-                  <a href="#" class="order-btn">Detail</a>
-                </div>
+                <a href="#" class="order-btn">Detail</a>
               </div>
             </div>
           </article>
@@ -225,6 +176,7 @@
 
   <div class="popup-menu" id="popupMenu"></div>
 
+  <!-- Cart untuk ikon & halaman detail saja -->
   <script src="/assets/cart.js" defer></script>
 
   <script>
