@@ -1,16 +1,22 @@
-// script.js
+// script.js — slider + popup menu (rapih & a11y)
 (() => {
   /* -------------------------
      1) SWIPER (autoplay + loop)
      ------------------------- */
   const sliderEl = document.querySelector('.main-slider');
+
+  // Hormati setting prefers-reduced-motion
+  const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+
   if (sliderEl && window.Swiper) {
     const paginationEl = sliderEl.querySelector('.swiper-pagination');
+
     new Swiper(sliderEl, {
       loop: true,
       speed: 600,
-      autoplay: { delay: 3000, disableOnInteraction: false, pauseOnMouseEnter: true },
-      pagination: { el: paginationEl, clickable: true }
+      autoplay: reduceMotion ? false : { delay: 3000, disableOnInteraction: false, pauseOnMouseEnter: true },
+      pagination: { el: paginationEl, clickable: true },
+      a11y: { enabled: true }
     });
   }
 
@@ -20,7 +26,6 @@
   const menuBtn = document.getElementById('menuButton');
   const popup = document.getElementById('popupMenu');
 
-  // Isi menu (ubah sesuai kebutuhan)
   if (popup) {
     popup.innerHTML = `
       <ul>
@@ -34,22 +39,22 @@
   function closePopup() {
     if (!popup) return;
     popup.classList.remove('show');
-    if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false');
+    menuBtn?.setAttribute('aria-expanded', 'false');
   }
 
   menuBtn?.addEventListener('click', (e) => {
     e.stopPropagation();
     popup?.classList.toggle('show');
     menuBtn.setAttribute('aria-expanded', popup?.classList.contains('show') ? 'true' : 'false');
-  });
+  }, { passive:true });
 
-  // Klik di luar, tutup
+  // Klik di luar -> tutup
   document.addEventListener('click', (e) => {
     if (!popup?.classList.contains('show')) return;
     if (!popup.contains(e.target) && !menuBtn?.contains(e.target)) closePopup();
-  });
+  }, { passive:true });
 
-  // Esc untuk tutup
+  // Esc -> tutup
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closePopup();
   });
