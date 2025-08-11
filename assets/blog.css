@@ -1,52 +1,148 @@
-/* ---- Blog shared styles (ringan, nyambung style.css) ---- */
-.page-title{ font-size:24px; font-weight:800; margin:0 0 4px; }
-.page-subtitle{ margin:0 0 16px; color:#666; }
+/* =========================================================
+   blog.css — gaya blog & halaman pos (match beranda)
+   ========================================================= */
 
-.search-wrap{
-  display:flex; align-items:center; gap:8px;
-  background:#fff; border:1px solid #eee; border-radius:12px;
-  padding:10px 12px; margin:0 0 16px;
-  box-shadow:0 4px 10px rgba(0,0,0,.05);
+/* pakai var global kalau ada, kasih fallback kalau nggak ada */
+:root{
+  --accent: var(--accent, #FF6002);
+  --bg: var(--bg, #ffffff);
+  --text: var(--text, #0b0b0b);
+  --grey: var(--grey, #f6f6f6);
+  --card-radius: var(--card-radius, 16px);
 }
-.search-wrap input{ border:0; outline:0; flex:1; font:inherit; }
 
-.post-grid{
+/* ---------------- Blog List (index) ---------------- */
+
+.blog-hero h1{
+  margin:0 0 6px;
+  font-size:28px;
+  line-height:1.15;
+  font-weight:900;
+  letter-spacing:-.01em;
+  color:var(--text);
+}
+.blog-hero p{
+  margin:0 0 12px;
+  color:#6b7280;
+}
+
+/* search */
+.blog-search{ position:relative; margin:0 0 14px; }
+.blog-search .icon{
+  position:absolute; left:14px; top:50%; transform:translateY(-50%);
+  color:#9ca3af; font-size:20px;
+}
+.blog-search input{
+  width:100%; height:46px; border:1px solid #eee;
+  border-radius:14px; padding:0 16px 0 42px; background:#fff;
+  outline:none; font:500 14px/1.2 Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+/* list selalu 1 kolom */
+.blog-list{
   display:grid; grid-template-columns:1fr; gap:16px;
 }
-.post-card{
-  background:#fff; border:1px solid #eee; border-radius:14px; overflow:hidden;
-  box-shadow:0 4px 12px rgba(0,0,0,.05); display:grid; grid-template-rows:auto 1fr;
+
+/* kartu pos (list) */
+.blog-card{
+  background:#fff; border:1px solid #eee; border-radius:var(--card-radius);
+  overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,.05);
 }
-.post-thumb{ display:block; aspect-ratio:16/9; background:#f6f6f6; }
-.post-thumb img{ width:100%; height:100%; object-fit:cover; }
-.post-body{ padding:14px; display:flex; flex-direction:column; gap:8px; }
-.post-title{ margin:0; font-size:18px; line-height:1.2; }
-.post-title a{ color:inherit; text-decoration:none; }
-.post-excerpt{ color:#555; margin:0; }
-.post-meta{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; color:#666; font-size:13px; }
-.chips{ display:flex; gap:6px; margin-left:auto; }
-.chip{ background:#111; color:#fff; border-radius:999px; padding:4px 8px; font-size:11px; }
+.blog-card .thumb{
+  width:100%; aspect-ratio:16/9; object-fit:cover; display:block;
+  background:#f3f4f6;
+}
+.blog-card .body{ padding:12px 14px 14px; }
+.blog-card .title{
+  display:block; margin:4px 0 6px;
+  font:900 22px/1.18 Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color:var(--text); text-decoration:none;
+}
+.blog-card .title:hover{ text-decoration:underline; }
+.blog-card .excerpt{ margin:0 0 10px; color:#6b7280; }
+.blog-meta{ display:flex; gap:10px; color:#6b7280; font-size:14px; align-items:center; }
 
-/* Artikel */
-.breadcrumbs{ font-size:13px; color:#666; margin-bottom:10px; display:flex; gap:8px; align-items:center; }
-.breadcrumbs a{ color:inherit; }
-.article-title{ margin:0 0 6px; font-size:24px; font-weight:800; }
-.article-meta{ color:#666; display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
-.article-hero{ margin:12px 0 0; border-radius:12px; overflow:hidden; border:1px solid #eee; box-shadow:0 4px 10px rgba(0,0,0,.05); }
-.article-hero img{ width:100%; height:auto; display:block; }
+/* chips/tags */
+.blog-chips,.tag-row{ display:flex; gap:8px; flex-wrap:wrap; }
+.chip{
+  background:#111827; color:#fff; border-radius:999px; padding:6px 10px;
+  font:700 12px/1 Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
 
-.toc{ background:#fff; border:1px solid #eee; border-radius:12px; padding:12px; margin:16px 0; box-shadow:0 4px 10px rgba(0,0,0,.05); }
-.toc-title{ font-weight:700; margin-bottom:8px; }
-.toc nav ul{ margin:0; padding-left:16px; }
-.toc nav a{ color:#111; text-decoration:none; }
+/* profil mini di atas list (reuse .profile-card global), cuma rapihin margin */
+.profile-card{ margin-top:0; }
 
-.prose{ line-height:1.65; color:#222; }
-.prose h2{ margin-top:18px; font-size:20px; }
-.prose p{ margin:10px 0; }
+/* ---------------- Post Page ---------------- */
 
-.back-link{ display:inline-flex; align-items:center; gap:8px; text-decoration:none; margin-top:16px; }
+.post-header{
+  position:sticky; top:6px; z-index:5;
+  background:#fff; border:1px solid #eee; border-radius:999px;
+  box-shadow:0 10px 28px rgba(0,0,0,.08);
+  padding:8px 10px; margin-bottom:10px;
+  display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:8px;
+}
+.pill-btn{
+  width:42px; height:42px; border-radius:999px; border:1px solid #eee;
+  background:#fff; display:grid; place-items:center; cursor:pointer;
+}
+.pill-btn:active{ transform:translateY(1px); }
+.crumb{
+  font-size:14px; color:#6b7280; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.crumb a{ color:#374151; text-decoration:none; }
+.crumb a:hover{ text-decoration:underline; }
 
-/* Responsive */
-@media (min-width:560px){
-  .post-grid{ grid-template-columns:1fr 1fr; }
+.post-title{
+  margin:12px 0 6px;
+  font:900 26px/1.15 Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color:var(--text);
+}
+.post-meta{ color:#6b7280; display:flex; gap:10px; align-items:center; }
+
+.cover{
+  margin:12px 0; border:1px solid #eee; border-radius:var(--card-radius);
+  overflow:hidden; box-shadow:0 4px 14px rgba(0,0,0,.06); background:#f3f4f6;
+}
+.cover img{ width:100%; display:block; aspect-ratio:16/9; object-fit:cover; }
+
+/* daftar isi */
+.toc{
+  background:#fff; border:1px solid #eee; border-radius:var(--card-radius);
+  box-shadow:0 4px 14px rgba(0,0,0,.06); padding:12px 14px; margin:8px 0 16px;
+}
+.toc h3{ margin:0 0 8px; font-weight:800; }
+.toc a{ color:#111827; text-decoration:none; }
+.toc a:hover{ text-decoration:underline; }
+
+/* related posts */
+.related h3{ margin:8px 0 10px; font-weight:800; }
+.post-card{
+  display:block; background:#fff; border:1px solid #eee; border-radius:var(--card-radius);
+  box-shadow:0 4px 12px rgba(0,0,0,.05); overflow:hidden; margin-bottom:12px; text-decoration:none; color:inherit;
+}
+.post-card img{ width:100%; aspect-ratio:16/9; object-fit:cover; background:#f3f4f6; }
+.post-card .body{ padding:12px 14px; }
+.post-card .title{ font:800 18px/1.25 Inter; margin:4px 0; }
+
+/* Disqus one-click */
+.disqus-box{
+  background:#fff; border:1px solid #eee; border-radius:var(--card-radius);
+  box-shadow:0 4px 14px rgba(0,0,0,.06); padding:14px;
+}
+.btn-primary{
+  display:inline-flex; align-items:center; gap:8px;
+  background:#111827; color:#fff; border:none; border-radius:12px; padding:10px 14px; cursor:pointer;
+}
+.btn-primary:active{ transform:translateY(1px); }
+
+/* ---------------- Small UX tweaks ---------------- */
+
+/* biar bottom nav nggak terlalu berat bayangannya di blog */
+.in-card-nav .nav-content{ box-shadow:0 10px 28px rgba(0,0,0,.12); }
+
+/* safe focus */
+a:focus-visible, button:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:2px;
+  border-radius:12px;
 }
