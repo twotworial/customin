@@ -1,6 +1,7 @@
 /* ============ Variables ============ */
 :root{
-  --accent:#FF6002;
+  /* kontras aman untuk teks harga */
+  --accent:#E65100; /* ganti dari #FF6002 */
   --bg:#ffffff;
   --text:#0c0c0c;
   --grey:#f6f6f6;
@@ -74,7 +75,7 @@ a:focus-visible, button:focus-visible,
   box-shadow:0 8px 22px rgba(0,0,0,.12);
 }
 
-/* dots (besar hit area, visual kecil) */
+/* dots */
 .ig-dots{ position:absolute; bottom:8px; left:0; right:0; display:flex; gap:8px; justify-content:center; }
 .ig-dots button{
   width:var(--dot-hit); height:var(--dot-hit); border:0; background:transparent; cursor:pointer;
@@ -112,6 +113,11 @@ a:focus-visible, button:focus-visible,
 }
 .bio-link:hover{ transform:translateY(-2px); box-shadow:0 6px 16px rgba(0,0,0,.08); }
 .bio-link .arrow{ margin-left:auto; color:#888; }
+
+/* Judul seksi */
+.section-title{
+  font-size:16px; font-weight:700; margin:8px 2px 12px; color:#0b0b0b;
+}
 
 /* ============ Product list ============ */
 .produk-list{
@@ -167,7 +173,7 @@ a:focus-visible, button:focus-visible,
   width:var(--fab-size); height:var(--fab-size);
   border-radius:999px; background:#2c2c2c; color:#fff;
   display:flex; align-items:center; justify-content:center;
-  font-size:24px; border:6px solid var(--bg);
+  font-size:24px; border:6px solid #fff;
   box-shadow:0 10px 20px rgba(0,0,0,.14); cursor:pointer;
 }
 
