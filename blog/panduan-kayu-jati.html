@@ -178,11 +178,11 @@
     document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closePopup(); });
 
     // Disqus one-click (ganti shortname)
-    const DISQUS_SHORTNAME = 'ganti-shortname-kamu';
+    const DISQUS_SHORTNAME = 'custominco';
     document.getElementById('loadComments').addEventListener('click', ()=>{
       if(window.DISQUS) return;
       const s = document.createElement('script');
-      s.src = 'https://' + DISQUS_SHORTNAME + '.disqus.com/embed.js';
+      s.src = 'https://' + custominco + '.disqus.com/embed.js';
       s.setAttribute('data-timestamp', +new Date());
       (document.head || document.body).appendChild(s);
       document.getElementById('loadComments').style.display='none';
