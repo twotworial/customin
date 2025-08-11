@@ -12,14 +12,14 @@
   <!-- (11) Referrer policy -->
   <meta name="referrer" content="strict-origin-when-cross-origin">
 
-  <!-- (10) Content Security Policy – sesuaikan jika nambah analytics/CDN lain -->
+  <!-- (10) Content Security Policy — sudah mengizinkan Iconify API -->
   <meta http-equiv="Content-Security-Policy"
         content="default-src 'self';
                  img-src 'self' https: data:;
                  script-src 'self' https://code.iconify.design 'unsafe-inline';
                  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
                  font-src 'self' https://fonts.gstatic.com;
-                 connect-src 'self';
+                 connect-src 'self' https://api.iconify.design https://api.simplesvg.com;
                  base-uri 'self';
                  form-action 'self';
                  frame-ancestors 'none';
@@ -48,6 +48,9 @@
   <!-- (5) Preconnect font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- (Iconify) Preconnect agar ikon cepat muncul -->
+  <link rel="preconnect" href="https://api.iconify.design" crossorigin>
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&display=swap" rel="stylesheet">
 
@@ -141,7 +144,7 @@
     <div class="bio-card">
 
       <main class="card-content">
-        <!-- (3) H1 SEO (visually hidden, tetap dibaca mesin pencari & screen reader) -->
+        <!-- (3) H1 SEO (visually hidden) -->
         <h1 class="sr-only">Furniture Custom Unik & Berkualitas – Customin.co</h1>
 
         <!-- ===== Slider swipe (no arrows) ===== -->
@@ -246,15 +249,13 @@
 
   <script src="assets/cart.js" defer></script>
   <script src="script.js" defer></script>
-<script>
-if ('serviceWorker' in navigator) {
-  // custom domain:
-  navigator.serviceWorker.register('/sw.js').catch(console.error);
-
-  // kalau pakai Project Pages (username.github.io/repo/), dari halaman dalam repo gunakan:
-  // navigator.serviceWorker.register('./sw.js').catch(console.error);
-}
-</script>
+  <script>
+  if ('serviceWorker' in navigator) {
+    // custom domain:
+    navigator.serviceWorker.register('/sw.js').catch(console.error);
+    // kalau pakai Project Pages (username.github.io/repo/), dari halaman dalam repo gunakan:
+    // navigator.serviceWorker.register('./sw.js').catch(console.error);
+  }
+  </script>
 </body>
 </html>
-
