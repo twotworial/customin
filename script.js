@@ -1,11 +1,9 @@
-// script.js — IG slider (vanilla) + popup menu
+// IG slider (swipe only) + popup menu
 (() => {
-  /* ========== 1) IG slider (vanilla) ========== */
+  /* ===== 1) IG slider ===== */
   const slider = document.getElementById('igSlider');
   const track  = document.getElementById('igTrack');
   const slides = track ? Array.from(track.children) : [];
-  const prev   = slider?.querySelector('.ig-prev');
-  const next   = slider?.querySelector('.ig-next');
   const dotsEl = document.getElementById('igDots');
   const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
   let index = 0, timer;
@@ -30,16 +28,13 @@
       updateDots();
     }
 
-    prev?.addEventListener('click', ()=> goTo(index-1), { passive:true });
-    next?.addEventListener('click', ()=> goTo(index+1), { passive:true });
-
     // sync saat geser manual
-    track.addEventListener('scroll', ()=>{
+    track.addEventListener('scroll', ()=> {
       const i = Math.round(track.scrollLeft / slideWidth());
       if(i !== index){ index = i; updateDots(); }
     }, { passive:true });
 
-    // resize menjaga index tetap benar
+    // jaga posisi saat resize
     window.addEventListener('resize', ()=> goTo(index));
 
     // autoplay (pause saat hover/focus)
@@ -54,7 +49,7 @@
     updateDots();
   }
 
-  /* ========== 2) POPUP MENU ========== */
+  /* ===== 2) Popup menu ===== */
   const menuBtn = document.getElementById('menuButton');
   const popup = document.getElementById('popupMenu');
 
