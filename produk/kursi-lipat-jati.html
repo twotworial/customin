@@ -15,7 +15,7 @@
   <div class="main-wrapper">
     <div class="product-detail-modern">
 
-      <!-- HEADER: Back + Breadcrumb (center) + Share dalam 1 card -->
+      <!-- HEADER -->
       <div class="pd-header">
         <div class="pd-bar">
           <a href="/produk/" class="pd-icon-btn" aria-label="Kembali ke Produk" title="Kembali ke Produk">
@@ -54,12 +54,12 @@
       <div class="pd-info">
         <div class="pd-info-main">
           <div>
-            <div class="pd-title" id="pdName">Kursi Lipat Jati</div>
+            <div class="pd-title">Kursi Lipat Jati</div>
             <a class="pd-chip pd-cat" href="/produk/?kategori=Kursi" title="Lihat kategori Kursi">
               <span class="iconify" data-icon="mdi:seat-outline"></span> Kursi
             </a>
           </div>
-          <div class="pd-price" id="pdPrice">Rp 183.000</div>
+          <div class="pd-price">Rp 183.000</div>
         </div>
         <div class="pd-rating">
           <span class="iconify" data-icon="mdi:star" style="color:#FFD700"></span>
@@ -93,7 +93,7 @@
         </div>
       </div>
 
-      <!-- BOTTOM BAR: Home kecil • Qty • Order • Cart kecil (badge) -->
+      <!-- BOTTOM BAR -->
       <div class="pd-bottombar">
         <a href="/" class="mini-nav-btn" title="Home" aria-label="Home">
           <span class="iconify" data-icon="mdi:home-outline"></span>
@@ -105,7 +105,8 @@
           <button class="qty-btn" type="button" aria-label="Tambah">+</button>
         </div>
 
-        <button id="orderBtn" class="pd-addcart-btn" type="button">Order</button>
+        <!-- Penting: class .pd-addcart-btn biar ditangani cart.js -->
+        <button class="pd-addcart-btn" type="button">Order</button>
 
         <button class="mini-nav-btn js-cart-btn" title="Keranjang" aria-label="Keranjang">
           <span class="iconify" data-icon="mdi:cart-outline"></span>
@@ -115,7 +116,7 @@
     </div>
   </div>
 
-  <!-- Drawer Keranjang akan di-inject oleh cart.js -->
+  <!-- Script ringan halaman: tabs, galeri, qty -->
   <script>
     // Tabs
     document.querySelectorAll('.pd-tab').forEach((tab, idx) => {
@@ -130,35 +131,20 @@
     document.querySelectorAll('.pd-gallery-thumbs .thumb').forEach((b,_,arr)=>{
       b.addEventListener('click',()=>{ mainImg.src=b.querySelector('img').src; arr.forEach(x=>x.classList.remove('active')); b.classList.add('active'); });
     });
-  </script>
-  <script src="/assets/cart.js"></script>
-  <script>
-    // Tambah ke cart
-    document.getElementById('orderBtn').addEventListener('click', () => {
-      const name = document.getElementById('pdName').textContent.trim();
-      const priceText = document.getElementById('pdPrice').textContent.trim(); // Rp 183.000
-      const price = window.Cart.formatToNumber(priceText); // 183000
-      const qty = parseInt(document.getElementById('qtyVal').textContent,10) || 1;
-      const item = {
-        id: 'kursi-lipat-jati',
-        name, price, qty,
-        image: document.getElementById('mainProductImg').src,
-        url: location.pathname
-      };
-      window.Cart.add(item);
-      window.Cart.open(); // buka drawer setelah tambah
-    });
 
-    // Qty control sinkron dengan WA nanti
+    // Qty
     document.querySelectorAll('.qty-btn').forEach(btn=>{
       btn.onclick = ()=> {
         const vEl = document.getElementById('qtyVal');
-        let v = parseInt(vEl.textContent,10);
+        let v = parseInt(vEl.textContent,10) || 1;
         if(btn.textContent==='-' && v>1) v--;
         if(btn.textContent==='+') v++;
         vEl.textContent = v;
       };
     });
   </script>
+
+  <!-- Biarkan cart.js yang bind tombol Order dan buka drawer -->
+  <script src="/assets/cart.js"></script>
 </body>
 </html>
