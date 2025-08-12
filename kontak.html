@@ -2,36 +2,83 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <title>Kontak Kami | Customin.co</title>
   <meta name="description" content="Hubungi Customin.co untuk konsultasi, pemesanan, atau info legalitas. Respon cepat via WhatsApp, Email, atau Instagram.">
+  <link rel="canonical" href="https://customin.co/kontak.html" />
+  <meta name="theme-color" content="#FF6002" />
+  <meta name="referrer" content="strict-origin-when-cross-origin">
 
+  <!-- CSP (match index) -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self';
+                 img-src 'self' https: data:;
+                 script-src 'self' https://code.iconify.design https://cloud.umami.is 'unsafe-inline';
+                 style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+                 font-src 'self' https://fonts.gstatic.com;
+                 connect-src 'self'
+                              https://api.iconify.design
+                              https://api.simplesvg.com
+                              https://cloud.umami.is
+                              https://api-gateway.umami.dev
+                              https://*.umami.is
+                              https://*.umami.dev;
+                 base-uri 'self';
+                 form-action 'self';
+                 upgrade-insecure-requests">
+
+  <!-- Open Graph / Twitter (seragam) -->
+  <meta property="og:title" content="Kontak Kami | Customin.co" />
+  <meta property="og:description" content="Konsultasi desain & order furniture custom. Respon cepat via WhatsApp, Email, Instagram." />
+  <meta property="og:url" content="https://customin.co/kontak.html" />
+  <meta property="og:site_name" content="Customin.co" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/twotworial/customin@main/OG/Cover-Furniture-Custom-by-Customin.webp" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Kontak Kami | Customin.co" />
+  <meta name="twitter:description" content="Konsultasi desain & order furniture custom. Respon cepat via WhatsApp, Email, Instagram." />
+  <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/twotworial/customin@main/OG/Cover-Furniture-Custom-by-Customin.webp" />
+
+  <!-- Icons & Fonts -->
   <link rel="icon" href="OG/favicon-customin-furniture-custom.ico" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="apple-touch-icon" href="OG/favicon-customin-furniture-custom.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://code.iconify.design" crossorigin>
+  <link rel="preconnect" href="https://api.iconify.design" crossorigin>
+  <link rel="preconnect" href="https://cloud.umami.is" crossorigin>
+  <link rel="preconnect" href="https://api-gateway.umami.dev" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&display=swap" rel="stylesheet">
 
-  <!-- Styles halaman -->
+  <!-- Styles -->
   <link rel="stylesheet" href="kontak.css"/>
-
-  <!-- Styles & JS cart (badge + drawer) -->
   <link rel="stylesheet" href="assets/cart.css" />
 
-  <!-- Iconify -->
+  <!-- Iconify & Umami -->
   <script src="https://code.iconify.design/3/3.1.1/iconify.min.js" defer></script>
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="60976a45-9ae8-40bf-a8bc-99c152ba5288"></script>
+
+  <!-- util kecil -->
+  <style>.sr-only{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}</style>
 </head>
-<body>
-
+<body class="compact-nav">
   <div class="main-wrapper">
-    <div class="bio-card"><!-- biar konsisten dengan index/about -->
+    <div class="bio-card">
+      <!-- H1 SEO (visually hidden) -->
+      <h1 class="sr-only">Kontak Customin.co – Konsultasi & Pemesanan Furniture Custom</h1>
 
-      <!-- HEADER -->
+      <!-- HEADER (konsisten dengan index/about) -->
       <header class="profile-card">
         <div class="profile-main-info">
           <div class="profile-avatar">
             <img src="OG/avatar-customin-furniture-custom.svg" alt="Avatar Customin.co" width="50" height="50" decoding="async">
           </div>
           <div class="profile-info">
-            <h1>Customin.co</h1>
-            <p class="profile-slug">Jual Furniture Custom</p>
+            <h2 class="brand">Customin.co <span class="brand-dot" aria-hidden="true">•</span> <span class="profile-slug">Jual Furniture Custom</span></h2>
+            <p class="profile-sub">Respon cepat · Sen–Sab 08.00–17.00 WIB</p>
           </div>
         </div>
         <div class="profile-socials" aria-label="Ikuti kami">
@@ -42,31 +89,27 @@
       </header>
 
       <main class="card-content" id="main">
-
         <section class="kontak-intro">
           <h2>Konsultasi & Order</h2>
-          <p>Kami siap bantu diskusi desain, estimasi biaya, dan jadwal produksi. Kirim pesan cepat via WhatsApp atau isi form di bawah ini.</p>
+          <p>Kami bantu diskusi desain, estimasi biaya, dan jadwal produksi. Kirim pesan cepat via WhatsApp atau isi form di bawah ini.</p>
         </section>
 
-        <section class="kontak-cta">
+        <section class="kontak-cta" aria-label="Pilihan kontak cepat">
           <a class="cta-pill" href="https://wa.me/628888085772" target="_blank" rel="noopener" aria-label="Chat WhatsApp">
-            <span class="iconify" data-icon="mdi:whatsapp"></span>
-            WhatsApp Langsung
+            <span class="iconify" data-icon="mdi:whatsapp"></span> WhatsApp Langsung
           </a>
           <a class="cta-pill" href="mailto:hi@customin.co" aria-label="Kirim email">
-            <span class="iconify" data-icon="mdi:email-outline"></span>
-            Email
+            <span class="iconify" data-icon="mdi:email-outline"></span> Email
           </a>
           <a class="cta-pill" href="https://instagram.com/customin_co" target="_blank" rel="noopener" aria-label="DM Instagram">
-            <span class="iconify" data-icon="mdi:instagram"></span>
-            DM Instagram
+            <span class="iconify" data-icon="mdi:instagram"></span> DM Instagram
           </a>
         </section>
 
         <section class="kontak-form-wrap" aria-labelledby="form-title">
           <h2 id="form-title">Form Cepat (Kirim ke WA)</h2>
 
-          <form id="wa-form" class="kontak-form" autocomplete="off">
+          <form id="wa-form" class="kontak-form" autocomplete="off" novalidate>
             <label>
               <span>Nama</span>
               <input type="text" name="name" placeholder="Nama Anda" required>
@@ -83,6 +126,7 @@
             </label>
 
             <button type="submit" class="order-btn">Kirim ke WhatsApp</button>
+            <p class="privacy-hint">Dengan mengirim pesan, Anda menyetujui kami menghubungi kembali via WhatsApp atau email.</p>
           </form>
         </section>
 
@@ -95,74 +139,61 @@
             <li><b>SK:</b> AHU-023861.AH.01.30.Tahun 2024</li>
           </ul>
         </section>
-
       </main>
 
-      <!-- NAV sticky di dalam card + badge cart -->
-      <nav class="in-card-nav" aria-label="Navigasi utama">
+      <!-- NAV sticky (compact) -->
+      <nav class="in-card-nav nav-compact" aria-label="Navigasi utama">
         <div class="nav-content">
           <a href="/" class="nav-item" title="Home" aria-label="Home">
             <span class="iconify" data-icon="mdi:home-outline"></span>
           </a>
 
-          <button type="button" class="menu-button" id="menuButton" aria-controls="popupMenu" aria-expanded="false" aria-label="Menu">
+          <button type="button"
+                  class="menu-button"
+                  id="menuButton"
+                  aria-controls="popupMenu"
+                  aria-expanded="false"
+                  aria-label="Menu">
             <span class="iconify" data-icon="mdi:view-grid-outline"></span>
           </button>
 
-          <!-- Cart pakai hook .js-cart-btn + badge -->
           <a href="/keranjang" class="nav-item js-cart-btn" title="Keranjang" aria-label="Keranjang">
             <span class="iconify" data-icon="mdi:cart-outline"></span>
             <span class="cart-badge" data-cart-count>0</span>
           </a>
         </div>
       </nav>
+    </div>
+  </div>
 
-    </div><!-- /.bio-card -->
-  </div><!-- /.main-wrapper -->
+  <!-- Popup menu (diisi oleh script.js) -->
+  <div class="popup-menu" id="popupMenu" role="menu" aria-hidden="true"></div>
 
-  <!-- Popup menu (shared) -->
-  <div class="popup-menu" id="popupMenu"></div>
+  <!-- JS -->
+  <script src="assets/cart.js" defer></script>
+  <script src="script.js" defer></script>
 
-  <!-- Script WA form + popup menu -->
+  <!-- WA form (ringan) -->
   <script>
-    // Kirim ke WhatsApp
-    document.getElementById('wa-form').addEventListener('submit', function(e){
+    document.getElementById('wa-form')?.addEventListener('submit', function(e){
       e.preventDefault();
       const waNumber = "628888085772";
       const nama  = encodeURIComponent(this.name.value.trim());
       const email = encodeURIComponent(this.email.value.trim());
       const pesan = encodeURIComponent(this.pesan.value.trim());
+
+      if(!nama || !email || !pesan){ alert('Lengkapi semua kolom ya 🙏'); return; }
+
       const waText = `Halo Customin.co,%0A%0ANama: ${nama}%0AEmail: ${email}%0APesan: ${pesan}`;
       const waURL  = `https://wa.me/${waNumber}?text=${waText}`;
-      window.open(waURL, '_blank');
+      window.open(waURL, '_blank', 'noopener');
     });
 
-    // Popup menu minimal
-    (function(){
-      const menuBtn = document.getElementById('menuButton');
-      const popup   = document.getElementById('popupMenu');
-      if (!menuBtn || !popup) return;
-
-      popup.innerHTML = `
-        <ul>
-          <li><a href="/kategori/kursi"><span class="iconify" data-icon="mdi:seat-outline"></span>Kategori Kursi</a></li>
-          <li><a href="/kategori/meja"><span class="iconify" data-icon="mdi:table-furniture"></span>Kategori Meja</a></li>
-          <li><a href="/promo"><span class="iconify" data-icon="mdi:tag-outline"></span>Promo</a></li>
-          <li><a href="/kontak.html"><span class="iconify" data-icon="mdi:phone-outline"></span>Kontak</a></li>
-        </ul>`;
-
-      menuBtn.addEventListener('click', (e)=>{
-        e.stopPropagation();
-        popup.classList.toggle('show');
-        menuBtn.setAttribute('aria-expanded', popup.classList.contains('show'));
-      });
-      document.addEventListener('click', (e)=>{
-        if (!popup.contains(e.target)) popup.classList.remove('show');
-      });
-    })();
+    // Service worker (opsional)
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch(console.error);
+      // Untuk GitHub Project Pages: navigator.serviceWorker.register('./sw.js').catch(console.error);
+    }
   </script>
-
-  <!-- Cart logic (pakai file kamu sendiri) -->
-  <script src="assets/cart.js" defer></script>
 </body>
 </html>
