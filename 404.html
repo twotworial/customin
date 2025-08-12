@@ -8,62 +8,19 @@
   <link rel="icon" href="/OG/favicon-customin-furniture-custom.ico" />
 
   <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
   <script src="https://code.iconify.design/3/3.1.1/iconify.min.js" defer></script>
 
-  <!-- Styles (re-use gaya utama + cart) -->
+  <!-- Styles (reuse utama + cart + halaman ini) -->
   <link rel="stylesheet" href="/style.css" />
   <link rel="stylesheet" href="/assets/cart.css" />
-
-  <style>
-    /* Tambahan styling khusus 404 (ringan, mengikuti variabel yang sudah ada) */
-    .page-head{
-      background:#fff; border:1px solid #eee; border-radius:16px;
-      padding:14px 16px; margin-bottom:14px; box-shadow:0 4px 12px rgba(0,0,0,.06);
-      text-align:center;
-    }
-    .crumbs ol{ list-style:none; padding:0; margin:0; display:flex; justify-content:center; gap:8px; color:#7a7a7a; font-size:12px; }
-    .crumbs a{ color:#7a7a7a; text-decoration:none; }
-    .crumbs a:hover{ color:#111; text-decoration:underline; }
-    .crumbs .sep{ opacity:.4; }
-    .page-title{ margin:6px 0 0; font-size:18px; font-weight:700; color:#111; }
-
-    .notfound{
-      background:#fff; border:1px solid #eee; border-radius:16px;
-      padding:22px 16px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,.06);
-    }
-    .notfound .big{
-      font-size:56px; font-weight:800; letter-spacing:2px; margin:4px 0; color:#111;
-    }
-    .notfound p{ margin:8px 0 16px; color:#5c5c5c; }
-    .nf-actions{
-      display:flex; gap:10px; justify-content:center; flex-wrap:wrap;
-    }
-    .btn{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:10px 14px; border-radius:12px; text-decoration:none; font-weight:600; font-size:14px;
-      border:1px solid #eee; background:#fff; color:#111; box-shadow:0 2px 6px rgba(0,0,0,.05);
-    }
-    .btn-primary{
-      background:var(--accent); color:#fff; border-color:transparent; box-shadow:0 2px 10px rgba(255,96,2,.12);
-    }
-
-    .search-wrap{
-      display:flex; align-items:center; gap:8px; background:#fff; border:1px solid #eee; border-radius:12px;
-      padding:10px 12px; box-shadow:0 2px 8px rgba(0,0,0,.05); margin:14px auto 0; max-width:320px;
-    }
-    .search-wrap .iconify{ font-size:20px; color:#777; }
-    .search-wrap input{ border:0; outline:0; width:100%; font-size:14px; background:transparent; color:#111; }
-
-    @media (max-width:460px){
-      .page-head{ background:transparent; border:0; box-shadow:none; padding:0 0 8px 0; }
-    }
-  </style>
+  <link rel="stylesheet" href="/404.css" />
 </head>
 <body>
   <div class="main-wrapper">
     <div class="bio-card">
-
       <!-- Header ringkas -->
       <header class="page-head">
         <nav class="crumbs" aria-label="Breadcrumb">
@@ -77,29 +34,41 @@
       </header>
 
       <main class="card-content" id="main">
-        <section class="notfound">
-          <div class="big">404</div>
+        <section class="notfound" aria-labelledby="nf-title">
+          <div class="big" id="nf-title">404</div>
           <p>Maaf, halaman yang kamu cari tidak tersedia atau sudah dipindah.</p>
 
           <div class="nf-actions">
-            <a href="/" class="btn"><span class="iconify" data-icon="mdi:home-outline"></span>Ke Beranda</a>
-            <a href="/produk/" class="btn btn-primary"><span class="iconify" data-icon="mdi:view-grid-plus-outline"></span>Lihat Produk</a>
+            <a href="/" class="btn">
+              <span class="iconify" data-icon="mdi:home-outline" aria-hidden="true"></span>
+              Ke Beranda
+            </a>
+            <a href="/produk/" class="btn btn-primary">
+              <span class="iconify" data-icon="mdi:view-grid-plus-outline" aria-hidden="true"></span>
+              Lihat Produk
+            </a>
           </div>
 
           <!-- Pencarian cepat ke /produk/?q= -->
-          <div class="search-wrap">
-            <span class="iconify" data-icon="mdi:magnify"></span>
-            <input id="nf-q" type="search" placeholder="Cari produk… (mis. kursi, meja)" autocomplete="off">
-          </div>
+          <form class="nf-search" action="/produk/" method="get" role="search">
+            <label class="visually-hidden" for="nf-q">Cari produk</label>
+            <div class="search-wrap">
+              <span class="iconify" data-icon="mdi:magnify" aria-hidden="true"></span>
+              <input id="nf-q" name="q" type="search" placeholder="Cari produk… (mis. kursi, meja)" autocomplete="off" />
+            </div>
+          </form>
         </section>
       </main>
 
       <!-- NAV sticky (serasi + badge cart) -->
       <nav class="in-card-nav" aria-label="Navigasi utama">
         <div class="nav-content">
-          <a href="/" class="nav-item" title="Home" aria-label="Home"><span class="iconify" data-icon="mdi:home-outline"></span></a>
+          <a href="/" class="nav-item" title="Home" aria-label="Home">
+            <span class="iconify" data-icon="mdi:home-outline"></span>
+          </a>
 
-          <button type="button" class="menu-button" id="menuButton" aria-controls="popupMenu" aria-expanded="false" aria-label="Menu">
+          <button type="button" class="menu-button" id="menuButton"
+                  aria-controls="popupMenu" aria-expanded="false" aria-label="Menu">
             <span class="iconify" data-icon="mdi:view-grid-outline"></span>
           </button>
 
@@ -118,27 +87,41 @@
   <!-- Cart core -->
   <script src="/assets/cart.js" defer></script>
 
+  <!-- Popup menu (match pola index) -->
   <script>
-    // Pencarian cepat => redirect ke katalog
-    document.getElementById('nf-q')?.addEventListener('keydown', e=>{
-      if(e.key==='Enter'){
-        const q = encodeURIComponent(e.target.value.trim());
-        location.href = q ? `/produk/?q=${q}` : '/produk/';
-      }
-    });
+    (() => {
+      const btn = document.getElementById('menuButton');
+      const pop = document.getElementById('popupMenu');
 
-    // Popup menu ringkas
-    (function(){
-      const btn=document.getElementById('menuButton'), pop=document.getElementById('popupMenu');
-      if(!btn||!pop) return;
-      pop.innerHTML=`<ul>
-        <li><a href="/produk/"><span class="iconify" data-icon="mdi:view-grid-plus-outline"></span>Semua Produk</a></li>
-        <li><a href="/kategori/"><span class="iconify" data-icon="mdi:shape-outline"></span>Kategori</a></li>
-        <li><a href="/tag/"><span class="iconify" data-icon="mdi:tag-outline"></span>Tag</a></li>
-        <li><a href="/kontak.html"><span class="iconify" data-icon="mdi:phone-outline"></span>Kontak</a></li>
-      </ul>`;
-      btn.addEventListener('click',e=>{e.stopPropagation();pop.classList.toggle('show');btn.setAttribute('aria-expanded',pop.classList.contains('show'))});
-      document.addEventListener('click',e=>{if(!pop.contains(e.target)) pop.classList.remove('show')});
+      if (btn && pop) {
+        pop.innerHTML = `
+          <ul>
+            <li><a href="/produk/"><span class="iconify" data-icon="mdi:view-grid-plus-outline"></span>Semua Produk</a></li>
+            <li><a href="/kategori/"><span class="iconify" data-icon="mdi:shape-outline"></span>Kategori</a></li>
+            <li><a href="/tag/"><span class="iconify" data-icon="mdi:tag-outline"></span>Tag</a></li>
+            <li><a href="/kontak.html"><span class="iconify" data-icon="mdi:phone-outline"></span>Kontak</a></li>
+          </ul>`;
+
+        function closeMenu() {
+          pop.classList.remove('show');
+          btn.setAttribute('aria-expanded', 'false');
+        }
+
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const willShow = !pop.classList.contains('show');
+          pop.classList.toggle('show', willShow);
+          btn.setAttribute('aria-expanded', willShow ? 'true' : 'false');
+        });
+
+        document.addEventListener('click', (e) => {
+          if (!pop.contains(e.target) && !btn.contains(e.target)) closeMenu();
+        });
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeMenu();
+        });
+      }
     })();
   </script>
 </body>
