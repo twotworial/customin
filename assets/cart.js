@@ -1,130 +1,217 @@
-// /assets/cart.js
-(() => {
-  const KEY = 'customin_cart';
-  const WA_NUMBER = '628888085772';
+/* assets/cart.js â€“ keranjang + badge + WA checkout + hook tombol Order */
+(function(){
+  const STORAGE_KEY = 'customin_cart_v1';
 
-  const $badges  = () => document.querySelectorAll('[data-cart-count]');
-  const $buttons = () => document.querySelectorAll('.js-cart-btn');
   const fmtIDR = n => new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(n);
+  const parseIDR = s => Number(String(s||'').replace(/[^0-9]/g,'')||0);
 
-  const read  = () => { try { return JSON.parse(localStorage.getItem(KEY)||'[]'); } catch { return []; } };
-  const write = (items) => {
-    localStorage.setItem(KEY, JSON.stringify(items));
-    const count = items.reduce((n,i)=> n + (i.qty||1), 0);
+  const Cart = {
+    _subscribers: [],
+    _load(){
+      try{ return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
+      catch{ return []; }
+    },
+    _save(items){
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+      this._emit();
+    },
+    _emit(){
+      const count = this.count();
+      document.querySelectorAll('[data-cart-count]').forEach(el=>{
+        el.textContent = count;
+        el.closest('.js-cart-btn, .mini-nav-btn, .nav-item, a, button')
+          ?.classList.toggle('has-items', count>0);
+      });
+      this._subscribers.forEach(fn=>fn(this.items()));
+    },
+    subscribe(fn){ this._subscribers.push(fn); fn(this.items()); },
 
-    // update angka
-    $badges().forEach(b => b.textContent = count);
+    items(){ return this._load(); },
+    count(){ return this._load().reduce((a,b)=>a+(b.qty||0),0); },
+    total(){ return this._load().reduce((a,b)=>a + (b.qty||0)*(b.price||0), 0); },
 
-    // tampilkan badge (dua cara: di body & di tombol, supaya kompatibel)
-    document.body.classList.toggle('has-items', count > 0);
-    $buttons().forEach(btn => btn.classList.toggle('has-items', count > 0));
+    add(item){
+      const items = this._load();
+      const idx = items.findIndex(i => i.id === item.id);
+      if(idx>-1){ items[idx].qty += item.qty||1; }
+      else { items.push({...item, qty:item.qty||1}); }
+      this._save(items);
+    },
+    update(id, qty){
+      const items = this._load().map(i => i.id===id ? {...i, qty:Math.max(1, qty)} : i);
+      this._save(items);
+    },
+    remove(id){
+      const items = this._load().filter(i=>i.id!==id);
+      this._save(items);
+    },
+    clear(){
+      localStorage.removeItem(STORAGE_KEY);
+      this._emit();
+    },
 
-    document.dispatchEvent(new CustomEvent('cart:update',{detail:{items,count}}));
+    // biar bisa dipakai di bridge internal
+    formatToNumber: parseIDR,
+
+    open(){ ensureDrawer(); render(); showDrawer(true); },
+    close(){ showDrawer(false); },
+    checkoutWA(){
+      const items = this.items();
+      if(!items.length) return;
+      const lines = items.map(i=>`â€¢ ${i.name} x${i.qty} â€” ${fmtIDR(i.qty*i.price)}`);
+      const text = `Halo Customin.co,%0ASaya ingin order:%0A${lines.join('%0A')}%0A%0ATotal: ${fmtIDR(this.total())}%0A%0AAlamat: %0AMetode Bayar: `;
+      const url = `https://wa.me/628888085772?text=${text}`;
+      window.open(url,'_blank');
+    }
   };
+  window.Cart = Cart;
 
-  const add    = (item) => {
-    const items = read();
-    const idx = items.findIndex(x=>x.slug===item.slug);
-    const delta = Math.max(1, (item.qty|0) || 1); // <- rename dari inc -> delta
-    if (idx>-1) items[idx].qty = (items[idx].qty||1) + delta;
-    else items.push({slug:item.slug,title:item.title,price:item.price,cover:item.cover,qty:delta});
-    write(items);
-  };
-  const update = (slug, qty) => write(read().map(it => it.slug===slug ? {...it, qty:Math.max(1, qty)} : it));
-  const inc    = (slug) => { const it=read(); const i=it.findIndex(x=>x.slug===slug); if(i>-1){ it[i].qty=(it[i].qty||1)+1; write(it);} };
-  const dec    = (slug) => { const it=read(); const i=it.findIndex(x=>x.slug===slug); if(i>-1){ it[i].qty=Math.max(1,(it[i].qty||1)-1); write(it);} };
-  const remove = (slug) => write(read().filter(i=>i.slug!==slug));
-  const clear  = () => write([]);
+  // ---------- Drawer ----------
+  function ensureDrawer(){
+    if(document.getElementById('cartDrawer')) return;
 
-  /* ---------- Drawer UI ---------- */
-  function ensureDOM(){
-    if (document.getElementById('cartDrawer')) return;
-    const overlay = document.createElement('div'); overlay.id='cartDrawerOverlay';
-    const drawer  = document.createElement('aside'); drawer.id='cartDrawer';
-    drawer.setAttribute('role','dialog'); drawer.setAttribute('aria-modal','true');
-    drawer.innerHTML = `
+    const overlay = document.createElement('div');
+    overlay.id='cartDrawerOverlay';
+    overlay.addEventListener('click', ()=>Cart.close());
+    document.body.appendChild(overlay);
+
+    const box = document.createElement('div');
+    box.id='cartDrawer';
+    box.innerHTML = `
       <div class="cart-head">
         <h3>Keranjang</h3>
-        <button class="cart-close" aria-label="Tutup">&times;</button>
+        <button class="cart-close" aria-label="Tutup">
+          <span class="iconify" data-icon="mdi:close"></span>
+        </button>
       </div>
       <div class="cart-body" id="cartBody"></div>
       <div class="cart-foot">
-        <div class="cart-total"><span>Total</span><span id="cartTotal">Rp 0</span></div>
+        <div class="cart-total">
+          <span>Total</span>
+          <strong id="cartTotal">Rp 0</strong>
+        </div>
         <div class="cart-actions">
-          <button class="btn" id="cartClear">Hapus Semua</button>
-          <button class="btn btn-primary" id="cartCheckout">Checkout via WhatsApp</button>
+          <button class="btn" id="clearCart">Hapus Semua</button>
+          <button class="btn btn-primary" id="checkoutWA">Checkout via WhatsApp</button>
         </div>
       </div>`;
-    document.body.append(overlay, drawer);
+    document.body.appendChild(box);
+
+    box.querySelector('.cart-close').addEventListener('click', ()=>Cart.close());
+    document.getElementById('clearCart').addEventListener('click', ()=>{ Cart.clear(); render(); });
+    document.getElementById('checkoutWA').addEventListener('click', ()=>Cart.checkoutWA());
   }
-  function openDrawer(){ ensureDOM(); render(); document.getElementById('cartDrawer').classList.add('show'); document.getElementById('cartDrawerOverlay').classList.add('show'); }
-  function closeDrawer(){ document.getElementById('cartDrawer')?.classList.remove('show'); document.getElementById('cartDrawerOverlay')?.classList.remove('show'); }
+
+  function showDrawer(show){
+    document.getElementById('cartDrawer')?.classList.toggle('show', show);
+    document.getElementById('cartDrawerOverlay')?.classList.toggle('show', show);
+  }
 
   function render(){
-    const items = read();
-    const body  = document.getElementById('cartBody');
-    if (!body) return;
-    const total = items.reduce((s,i)=> s + (i.price||0)*(i.qty||1), 0);
-    const totalEl = document.getElementById('cartTotal'); if (totalEl) totalEl.textContent = fmtIDR(total);
+    const body = document.getElementById('cartBody');
+    const totalEl = document.getElementById('cartTotal');
+    if(!body || !totalEl) return;
 
-    if (!items.length){ body.innerHTML = `<div class="cart-empty">Keranjang kosong.</div>`; return; }
-    body.innerHTML = items.map(i=>`
-      <div class="cart-item" data-slug="${i.slug}">
-        <img src="${i.cover||''}" alt="">
-        <div>
-          <div class="ci-name">${i.title||i.slug}</div>
-          <div class="ci-price">${fmtIDR(i.price||0)}</div>
-          <div class="ci-qty">
-            <button type="button" data-act="dec">-</button>
-            <span>${i.qty||1}</span>
-            <button type="button" data-act="inc">+</button>
-            <button type="button" class="ci-remove" data-act="remove" title="Hapus">Hapus</button>
+    const items = Cart.items();
+    if(!items.length){
+      body.innerHTML = `<div class="cart-empty">Keranjang kosong.</div>`;
+    }else{
+      body.innerHTML = items.map(i=>`
+        <div class="cart-item" data-id="${i.id}">
+          <img src="${i.image || ''}" alt="${i.name}">
+          <div>
+            <div class="ci-name">${i.name}</div>
+            <div class="ci-qty">
+              <button class="ci-dec" aria-label="Kurangi">âˆ’</button>
+              <span class="ci-val">${i.qty}</span>
+              <button class="ci-inc" aria-label="Tambah">+</button>
+            </div>
           </div>
-        </div>
-        <div class="ci-sub">${fmtIDR((i.price||0)*(i.qty||1))}</div>
-      </div>`).join('');
-  }
-
-  function checkoutWA(){
-    const items = read();
-    if(!items.length) return alert('Keranjang masih kosong.');
-    const lines = items.map(i=>`• ${i.title} x${i.qty} — ${fmtIDR(i.price)} = ${fmtIDR(i.price*i.qty)}`);
-    const total = items.reduce((s,i)=> s + i.price*i.qty, 0);
-    const text = encodeURIComponent(
-      `Halo Customin.co,\nSaya ingin order:\n\n${lines.join('\n')}\n\nTotal: ${fmtIDR(total)}\n\n(From: ${location.href})`
-    );
-    window.open(`https://wa.me/${WA_NUMBER}?text=${text}`, '_blank');
-  }
-
-  /* ---------- Events ---------- */
-  document.addEventListener('click', (e)=>{
-    const openBtn = e.target.closest('.js-cart-btn');
-    if (openBtn){ e.preventDefault(); openDrawer(); return; }
-
-    if (e.target.id === 'cartDrawerOverlay') { closeDrawer(); }
-    if (e.target.closest('.cart-close')) { closeDrawer(); }
-
-    const row = e.target.closest('.cart-item');
-    if (row){
-      const slug = row.dataset.slug;
-      const act  = e.target.getAttribute('data-act');
-      if (act==='inc'){ inc(slug); render(); }
-      if (act==='dec'){ dec(slug); render(); }
-      if (act==='remove'){ remove(slug); render(); }
+          <div class="ci-price">${fmtIDR(i.price * i.qty)}</div>
+        </div>`).join('');
     }
+    totalEl.textContent = fmtIDR(Cart.total());
 
-    if (e.target.id==='cartClear'){ clear(); render(); }
-    if (e.target.id==='cartCheckout'){ checkoutWA(); }
+    body.querySelectorAll('.cart-item').forEach(row=>{
+      const id = row.dataset.id;
+      row.querySelector('.ci-dec').addEventListener('click', ()=>{
+        const cur = Number(row.querySelector('.ci-val').textContent); 
+        Cart.update(id, Math.max(1, cur-1)); render();
+      });
+      row.querySelector('.ci-inc').addEventListener('click', ()=>{
+        const cur = Number(row.querySelector('.ci-val').textContent);
+        Cart.update(id, cur+1); render();
+      });
+      // Hapus cepat: double click harga
+      row.querySelector('.ci-price').addEventListener('dblclick', ()=>{
+        Cart.remove(id); render();
+      });
+    });
+  }
+
+  // ---------- Tombol global (ikon cart) ----------
+  function bindGlobalButtons(){
+    document.querySelectorAll('.js-cart-btn').forEach(btn=>{
+      btn.addEventListener('click', (e)=>{
+        e.preventDefault();
+        ensureDrawer(); render(); showDrawer(true);
+      });
+    });
+  }
+
+  // ---------- ADD-TO-CART dari tombol "Order" ----------
+  const toNumber = t => Cart.formatToNumber ? Cart.formatToNumber(t) : parseIDR(t);
+
+  function addFromCard(btn){
+    const card  = btn.closest('.product-card');
+    if(!card) return;
+    const name  = (card.querySelector('.product-title')?.textContent || 'Produk').trim();
+    const price = toNumber(card.querySelector('.product-price')?.textContent || '0');
+    const img   = card.querySelector('.product-img img')?.getAttribute('src') || '';
+    const id    = (name+'|'+price).toLowerCase().replace(/[^a-z0-9]+/g,'-');
+    Cart.add({ id, name, price, image: img, qty: 1 });
+  }
+
+  function addFromDetail(btn){
+    const name  = (document.querySelector('.pd-title')?.textContent || 'Produk').trim();
+    const price = toNumber(document.querySelector('.pd-price')?.textContent || '0');
+
+    // Qty dari .qty-value (span) atau <input name="qty">
+    const qtyEl = document.querySelector('.qty-value') || document.querySelector('input[name="qty"]');
+    const qty   = Number(qtyEl?.textContent || qtyEl?.value || 1) || 1;
+
+    const img   = document.getElementById('mainProductImg')?.getAttribute('src') || '';
+    const id    = (name+'|'+price).toLowerCase().replace(/[^a-z0-9]+/g,'-');
+    Cart.add({ id, name, price, image: img, qty });
+  }
+
+  function bindOrderButtons(){
+    // Listing (kartu produk)
+    document.querySelectorAll('.product-card .order-btn').forEach(btn=>{
+      btn.addEventListener('click', (e)=>{
+        e.preventDefault();
+        addFromCard(btn);
+        ensureDrawer(); render(); showDrawer(true);
+      });
+    });
+
+    // Detail produk (pakai selector yang ada di halaman detail kamu)
+    document.querySelectorAll('.pd-addcart-btn, .pd .order-btn').forEach(btn=>{
+      btn.addEventListener('click', (e)=>{
+        e.preventDefault();
+        addFromDetail(btn);
+        ensureDrawer(); render(); showDrawer(true);
+      });
+    });
+  }
+
+  // ---------- Bootstrap ----------
+  Cart.subscribe(()=>{ /* badge dihandle di _emit */ });
+
+  document.addEventListener('DOMContentLoaded', ()=>{
+    bindGlobalButtons();
+    bindOrderButtons();     // penting!
+    ensureDrawer();
+    Cart._emit();           // refresh badge di awal
   });
-
-  document.addEventListener('cart:update', ()=>{
-    const d = document.getElementById('cartDrawer');
-    if (d?.classList.contains('show')) render();
-  });
-
-  // expose API
-  window.Cart = { read, write, add, update, inc, dec, remove, clear, open: openDrawer, close: closeDrawer };
-
-  // set badge awal
-  write(read());
 })();
