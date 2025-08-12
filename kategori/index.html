@@ -4,59 +4,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Kategori Produk | Customin.co</title>
-  <meta name="description" content="Jelajahi kategori produk: Kursi, Meja, Lemari, dan Rak.">
-  <link rel="canonical" href="https://customin.co/kategori/" />
+  <meta name="description" content="Jelajahi kategori produk: Kursi, Meja, Lemari, Rak, dan lainnya.">
   <link rel="icon" href="/OG/favicon-customin-furniture-custom.ico" />
-  <meta name="theme-color" content="#FF6002" />
-  <meta name="referrer" content="strict-origin-when-cross-origin" />
-
-  <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self';
-                 img-src 'self' https: data:;
-                 script-src 'self' https://code.iconify.design https://cloud.umami.is 'unsafe-inline';
-                 style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-                 font-src 'self' https://fonts.gstatic.com;
-                 connect-src 'self'
-                              https://api.iconify.design
-                              https://api.simplesvg.com
-                              https://cloud.umami.is
-                              https://api-gateway.umami.dev
-                              https://*.umami.is
-                              https://*.umami.dev;
-                 base-uri 'self';
-                 form-action 'self';
-                 upgrade-insecure-requests">
-
-  <!-- OG/Twitter -->
-  <meta property="og:title" content="Kategori Produk | Customin.co" />
-  <meta property="og:description" content="Jelajahi kategori produk furniture custom." />
-  <meta property="og:url" content="https://customin.co/kategori/" />
-  <meta property="og:site_name" content="Customin.co" />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/twotworial/customin@main/OG/Cover-Furniture-Custom-by-Customin.webp" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Kategori Produk | Customin.co" />
-  <meta name="twitter:description" content="Jelajahi kategori produk furniture custom." />
-  <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/twotworial/customin@main/OG/Cover-Furniture-Custom-by-Customin.webp" />
 
   <!-- Fonts & Icons -->
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://code.iconify.design" crossorigin><link rel="preconnect" href="https://api.iconify.design" crossorigin>
-  <link rel="preconnect" href="https://cloud.umami.is" crossorigin><link rel="preconnect" href="https://api-gateway.umami.dev" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://code.iconify.design/3/3.1.1/iconify.min.js" defer></script>
 
   <!-- Styles -->
   <link rel="stylesheet" href="/katalog.css" />
   <link rel="stylesheet" href="/assets/cart.css" />
 
-  <script src="https://code.iconify.design/3/3.1.1/iconify.min.js" defer></script>
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="60976a45-9ae8-40bf-a8bc-99c152ba5288"></script>
+  <!-- Tambahan kecil untuk badge jumlah -->
+  <style>
+    .kategori-card .count-badge{
+      font-size:11px; font-weight:700; padding:4px 8px; border-radius:999px;
+      background:#111; color:#fff; box-shadow:0 2px 6px rgba(0,0,0,.08);
+    }
+  </style>
 </head>
 <body>
   <div class="main-wrapper">
     <div class="bio-card">
+
       <header class="page-head">
         <nav class="crumbs" aria-label="Breadcrumb">
           <ol>
@@ -69,47 +39,108 @@
       </header>
 
       <main class="card-content" id="main">
-        <div class="kategori-grid">
-          <a class="kategori-card" href="/produk/?kategori=Kursi">
-            <span class="iconify" data-icon="mdi:seat-outline" aria-hidden="true"></span><div>Kursi</div>
-          </a>
-          <a class="kategori-card" href="/produk/?kategori=Meja">
-            <span class="iconify" data-icon="mdi:table-furniture" aria-hidden="true"></span><div>Meja</div>
-          </a>
-          <a class="kategori-card" href="/produk/?kategori=Lemari">
-            <span class="iconify" data-icon="mdi:wardrobe-outline" aria-hidden="true"></span><div>Lemari</div>
-          </a>
-          <a class="kategori-card" href="/produk/?kategori=Rak">
-            <span class="iconify" data-icon="mdi:bookshelf" aria-hidden="true"></span><div>Rak</div>
-          </a>
-        </div>
+        <section class="kategori-grid" id="catGrid" aria-live="polite"></section>
+
+        <!-- Empty -->
+        <template id="emptyTpl">
+          <div class="empty">
+            <div class="empty-emoji">📂</div>
+            <p>Kategori belum tersedia.</p>
+          </div>
+        </template>
       </main>
 
+      <!-- NAV (Home | Menu | Cart) -->
       <nav class="in-card-nav" aria-label="Navigasi utama">
         <div class="nav-content">
           <a href="/" class="nav-item" title="Home" aria-label="Home">
             <span class="iconify" data-icon="mdi:home-outline"></span>
           </a>
+
           <button type="button" class="menu-button" id="menuButton" aria-controls="popupMenu" aria-expanded="false" aria-label="Menu">
             <span class="iconify" data-icon="mdi:view-grid-outline"></span>
           </button>
+
           <a href="/keranjang" class="nav-item js-cart-btn" title="Keranjang" aria-label="Keranjang">
             <span class="iconify" data-icon="mdi:cart-outline"></span>
             <span class="cart-badge" data-cart-count>0</span>
           </a>
         </div>
       </nav>
+
     </div>
   </div>
 
-  <div class="popup-menu" id="popupMenu" role="menu" aria-hidden="true"></div>
+  <!-- Popup menu -->
+  <div class="popup-menu" id="popupMenu"></div>
 
+  <!-- Cart core -->
   <script src="/assets/cart.js" defer></script>
-  <script src="/script.js" defer></script>
+
   <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js').catch(console.error);
+  (function(){
+    const grid = document.getElementById('catGrid');
+    const emptyTpl = document.getElementById('emptyTpl');
+
+    // map ikon per kategori (fallback ke shape-outline)
+    const ICONS = {
+      "Kursi":"mdi:seat-outline",
+      "Meja":"mdi:table-furniture",
+      "Lemari":"mdi:wardrobe-outline",
+      "Rak":"mdi:bookshelf"
+    };
+
+    function card({name,count}){
+      const icon = ICONS[name] || "mdi:shape-outline";
+      const href = `/produk/?kategori=${encodeURIComponent(name)}`;
+      return `
+        <a class="kategori-card" href="${href}" aria-label="Kategori ${name} (${count})">
+          <span class="iconify" data-icon="${icon}"></span>
+          <div>${name}</div>
+          <span class="count-badge">${count}</span>
+        </a>`;
     }
+
+    fetch('/data/products.json', {cache:'no-store'})
+      .then(r=>{ if(!r.ok) throw new Error('Gagal memuat products.json'); return r.json(); })
+      .then(list=>{
+        const counts = {};
+        (list||[]).forEach(p=>{
+          if(!p?.category) return;
+          counts[p.category] = (counts[p.category]||0) + 1;
+        });
+        const items = Object.keys(counts).sort().map(name=>({name, count:counts[name]}));
+        if(!items.length){
+          grid.appendChild(emptyTpl.content.cloneNode(true));
+          return;
+        }
+        grid.innerHTML = items.map(card).join('');
+      })
+      .catch(_=>{
+        grid.appendChild(emptyTpl.content.cloneNode(true));
+      });
+  })();
+
+  // Popup menu (seragam)
+  (function(){
+    const m=document.getElementById('menuButton'), p=document.getElementById('popupMenu');
+    if(m&&p){
+      p.innerHTML=`<ul>
+        <li><a href="/produk/"><span class="iconify" data-icon="mdi:view-grid-plus-outline"></span>Semua Produk</a></li>
+        <li><a href="/tag/"><span class="iconify" data-icon="mdi:tag-outline"></span>Tag</a></li>
+        <li><a href="/kontak.html"><span class="iconify" data-icon="mdi:phone-outline"></span>Kontak</a></li>
+      </ul>`;
+      function close(){ p.classList.remove('show'); m.setAttribute('aria-expanded','false'); }
+      m.addEventListener('click',e=>{ e.stopPropagation(); p.classList.toggle('show'); m.setAttribute('aria-expanded', p.classList.contains('show')?'true':'false'); });
+      document.addEventListener('click',e=>{ if(!p.contains(e.target) && !m.contains(e.target)) close(); });
+      document.addEventListener('keydown',e=>{ if(e.key==='Escape') close(); });
+    }
+  })();
   </script>
+
+  <noscript>
+    <style>.kategori-grid{display:none}</style>
+    Aktifkan JavaScript untuk melihat daftar kategori.
+  </noscript>
 </body>
 </html>
