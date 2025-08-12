@@ -11,38 +11,33 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
   <script src="https://code.iconify.design/3/3.1.1/iconify.min.js" defer></script>
 
-  <!-- Base styles (pakai punyamu jika sudah ada) -->
+  <!-- Base styles -->
   <link rel="stylesheet" href="/katalog.css" />
   <link rel="stylesheet" href="/assets/cart.css" />
 
-  <!-- Override kecil untuk rasio foto 1:1 + layout harga & tombol -->
+  <!-- Kecilkan/override khusus halaman ini -->
   <style>
     /* foto 1:1 */
-    .product-img{ position:relative; display:block; width:100%; aspect-ratio:1/1; background:#f7f7f7; overflow:hidden; }
+    .product-img{ position:relative; display:block; width:100%; aspect-ratio:1/1; background:#f7f7f7; overflow:hidden; border-radius:12px 12px 0 0; }
     .product-img img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
 
-    /* konten kartu */
     .product-content{ padding:12px; display:flex; flex-direction:column; gap:8px; }
     .product-title{ margin:0; font-size:14px; font-weight:800; line-height:1.35; }
+    .product-title a{ color:inherit; text-decoration:none; }
 
-    /* harga jadi chip sendiri (ganti area rating) */
-    .price-chip{
-      display:inline-flex; align-items:center;
-      padding:6px 10px; border-radius:10px;
-      font-weight:800; font-size:14px; color:var(--accent);
-      background:#fff; border:1px solid #f3e2d8;
-      box-shadow:0 2px 6px rgba(0,0,0,.04); width:max-content;
-    }
+    /* harga biasa (bukan chip) */
+    .price{ font-weight:800; font-size:14px; color:var(--accent); }
 
-    /* footer khusus tombol saja */
-    .product-footer{ display:flex; justify-content:flex-end; }
-    .order-btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      height:34px; padding:0 12px; border:1px solid #ddd; border-radius:12px;
-      background:#fff; font-size:12px; font-weight:700; text-decoration:none;
-      box-shadow:0 2px 4px rgba(0,0,0,.05); cursor:pointer; white-space:nowrap;
+    /* dua tombol kiri–kanan */
+    .product-actions{ display:flex; gap:10px; margin-top:2px; }
+    .btn{
+      flex:1; display:inline-flex; align-items:center; justify-content:center;
+      height:36px; padding:0 12px; border-radius:12px; font-size:12px; font-weight:800;
+      text-decoration:none; white-space:nowrap; box-shadow:0 2px 4px rgba(0,0,0,.05);
     }
-    .order-btn:active{ transform:translateY(1px); }
+    .btn:active{ transform:translateY(1px); }
+    .btn-order{ background:var(--accent); color:#fff; border:1px solid transparent; }
+    .btn-detail{ background:#fff; color:#111; border:1px solid #ddd; }
 
     /* badge */
     .badge{
@@ -78,16 +73,12 @@
           <div class="selects">
             <label class="select" for="catSelect">
               <span class="select-label">Kategori</span>
-              <select id="catSelect">
-                <!-- akan diisi dinamis -->
-              </select>
+              <select id="catSelect"></select>
             </label>
 
             <label class="select" for="tagSelect">
               <span class="select-label">Tag</span>
-              <select id="tagSelect" multiple>
-                <!-- akan diisi dinamis -->
-              </select>
+              <select id="tagSelect" multiple></select>
             </label>
           </div>
 
@@ -98,7 +89,7 @@
         <section class="produk-grid" id="grid" aria-live="polite"></section>
       </main>
 
-      <!-- NAV (Home | Menu | Cart) -->
+      <!-- NAV -->
       <nav class="in-card-nav" aria-label="Navigasi utama">
         <div class="nav-content">
           <a href="/" class="nav-item" title="Home" aria-label="Home"><span class="iconify" data-icon="mdi:home-outline"></span></a>
@@ -113,14 +104,13 @@
     </div>
   </div>
 
-  <!-- Popup menu -->
   <div class="popup-menu" id="popupMenu"></div>
 
   <!-- Cart core -->
   <script src="/assets/cart.js" defer></script>
 
   <script>
-  // ====== Helper ======
+  /* ===== Helpers ===== */
   const fmtIDR = n => new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(n);
 
   function cardHTML(p){
@@ -128,24 +118,46 @@
     return `
     <article class="product-card" data-kategori="${p.category}" data-tags="${(p.tags||[]).join(',')}">
       <a class="product-img" href="/produk/${p.slug}.html" aria-label="${p.title}">
-        <img src="${p.cover}" alt="${p.title}">
-        ${badge}
+        <img src="${p.cover}" alt="${p.title}">${badge}
       </a>
       <div class="product-content">
-        <h2 class="product-title"><a href="/produk/${p.slug}.html" style="color:inherit;text-decoration:none">${p.title}</a></h2>
-
-        <!-- harga tampil sebagai chip -->
-        <div class="price-chip">${fmtIDR(p.price)}</div>
-
-        <!-- footer: tombol Detail saja -->
-        <div class="product-footer">
-          <a href="/produk/${p.slug}.html" class="order-btn">Detail</a>
+        <h2 class="product-title"><a href="/produk/${p.slug}.html">${p.title}</a></h2>
+        <div class="price">${fmtIDR(p.price)}</div>
+        <div class="product-actions">
+          <button class="btn btn-order" type="button"
+                  data-add="cart" data-slug="${p.slug}">Order</button>
+          <a class="btn btn-detail" href="/produk/${p.slug}.html">Detail</a>
         </div>
       </div>
     </article>`;
   }
 
-  // ====== State ======
+  /* ===== Cart minimal (fallback bila /assets/cart.js tidak expose API) ===== */
+  (function setupCartBridge(){
+    const KEY='customin_cart';
+    const badgeEls = () => document.querySelectorAll('[data-cart-count]');
+
+    function read(){ try{return JSON.parse(localStorage.getItem(KEY)||'[]');}catch{return[];} }
+    function write(items){
+      localStorage.setItem(KEY, JSON.stringify(items));
+      const count = items.reduce((n,i)=> n + (i.qty||1), 0);
+      badgeEls().forEach(el=> el.textContent = count);
+      document.dispatchEvent(new CustomEvent('cart:update',{detail:{items,count}}));
+    }
+    function add(item){
+      const items = read();
+      const i = items.findIndex(x=>x.slug===item.slug);
+      if(i>-1){ items[i].qty = (items[i].qty||1)+1; }
+      else{ items.push({slug:item.slug,title:item.title,price:item.price,cover:item.cover,qty:1}); }
+      write(items);
+    }
+    // Expose kalau belum ada
+    window.CustominCart = window.CustominCart || {read,write,add};
+    // set badge awal
+    write(read());
+  })();
+
+  /* ===== State ===== */
   let DATA = [];
   const grid = document.getElementById('grid');
   const q    = document.getElementById('q');
@@ -153,37 +165,31 @@
   const tag  = document.getElementById('tagSelect');
   const crumb= document.getElementById('crumbCurrent');
 
-  // ====== Fetch data & init ======
+  /* ===== Init ===== */
   fetch('/data/products.json', {cache:'no-store'})
     .then(r => r.ok ? r.json() : Promise.reject('Gagal memuat data'))
     .then(json => {
       DATA = json;
       initFilters(json);
       restoreFromURL();
-      apply(); // render pertama
+      apply();
     })
     .catch(err => {
       console.error(err);
       grid.innerHTML = '<p style="grid-column:1/-1;color:#888">Data produk belum tersedia.</p>';
     });
 
-  // ====== Populate filters dinamis ======
   function initFilters(list){
-    // kategori unik
     const cats = Array.from(new Set(list.map(p => p.category))).sort((a,b)=>a.localeCompare(b,'id'));
     cat.innerHTML = `<option value="*">Semua Kategori</option>` + cats.map(c=>`<option value="${c}">${c}</option>`).join('');
-
-    // tag unik
     const tags = Array.from(new Set(list.flatMap(p=>p.tags||[]))).sort((a,b)=>a.localeCompare(b,'id'));
     tag.innerHTML = tags.map(t=>`<option value="${t}">${t}</option>`).join('');
   }
 
-  // ====== URL sync ======
   function restoreFromURL(){
     const params = new URLSearchParams(location.search);
     if(params.get('q')) q.value = params.get('q');
     if(params.get('kategori')) cat.value = params.get('kategori');
-
     if(params.get('tag')){
       const selected = params.get('tag').split(',').map(decodeURIComponent);
       [...tag.options].forEach(o => { if(selected.includes(o.value)) o.selected = true; });
@@ -197,7 +203,6 @@
     history.replaceState(null,'', p.toString()?`?${p.toString()}`:location.pathname);
   }
 
-  // ====== Filter & render ======
   function apply(){
     const keyword = q.value.trim().toLowerCase();
     const kategori= cat.value;
@@ -214,7 +219,6 @@
     });
 
     grid.innerHTML = filtered.map(cardHTML).join('') || '<p style="grid-column:1/-1;color:#888">Tidak ada produk yang cocok.</p>';
-
     syncURL(kategori, tagsSel, keyword);
   }
 
@@ -222,7 +226,29 @@
   cat.addEventListener('change', apply);
   tag.addEventListener('change', apply);
 
-  // ====== Popup menu ======
+  /* ===== Add to cart (delegation) ===== */
+  document.addEventListener('click', e=>{
+    const btn = e.target.closest('[data-add="cart"]');
+    if(!btn) return;
+    const slug = btn.dataset.slug;
+    const p = DATA.find(x=>x.slug===slug);
+    if(!p) return;
+
+    // Kalau ada API dari /assets/cart.js, pakai itu. Kalau tidak, pakai fallback.
+    if (window.Cart && typeof window.Cart.add === 'function') {
+      window.Cart.add({slug:p.slug,title:p.title,price:p.price,cover:p.cover,qty:1});
+    } else {
+      window.CustominCart.add(p);
+    }
+
+    // feedback kecil
+    const original = btn.textContent;
+    btn.textContent = 'Ditambahkan ✓';
+    btn.disabled = true;
+    setTimeout(()=>{ btn.textContent = original; btn.disabled = false; }, 900);
+  });
+
+  /* ===== Popup menu ===== */
   (function(){
     const btn=document.getElementById('menuButton'), pop=document.getElementById('popupMenu');
     if(!btn||!pop) return;
