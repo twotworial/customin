@@ -1,0 +1,55 @@
+/* Compact Bottom Nav – override kecil & aman
+   Aktif saat: <body class="compact-nav"> dan <nav class="in-card-nav nav-compact"> */
+
+:root{
+  /* default site tokens ada di style.css */
+}
+
+/* Global tweak untuk jarak popup vs tombol tengah */
+body.compact-nav{
+  --fab-size: 44px;     /* default 48px → disesuaikan */
+  --in-card-offset: 4px;
+}
+
+/* Container nav lebih rapat */
+.in-card-nav.nav-compact .nav-content{
+  padding: 8px 12px;
+  border-radius: 14px;
+  box-shadow: 0 6px 14px rgba(0,0,0,.08);
+}
+.in-card-nav.nav-compact .nav-content::before{
+  left: 12px; right: 12px;
+}
+
+/* Tombol kiri/kanan (Home & Cart) */
+.in-card-nav.nav-compact .nav-item{
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  font-size: 18px; /* Iconify size */
+}
+
+/* Tombol tengah (Menu) */
+.in-card-nav.nav-compact .menu-button{
+  width: 44px;
+  height: 44px;
+  font-size: 20px;
+  border-width: 5px;  /* lebih tipis dari 6px */
+  box-shadow: 0 8px 14px rgba(0,0,0,.12);
+}
+
+/* Badge cart tetap proporsional */
+.in-card-nav.nav-compact .cart-badge{
+  transform: scale(.92);
+  transform-origin: top right;
+}
+
+/* Hover hanya di perangkat yang mendukung hover */
+@media (hover:hover){
+  .in-card-nav.nav-compact .nav-item:hover{ background:#f5f5f5; }
+}
+
+/* Responsif kecil */
+@media (max-width:460px){
+  .in-card-nav.nav-compact .nav-content{ padding:8px 12px; }
+}
