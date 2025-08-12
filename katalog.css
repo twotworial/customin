@@ -1,4 +1,4 @@
-/* =============== VARIABEL =============== */
+/* Katalog – konsisten dengan index (tokens, card, nav, popup) */
 :root{
   --accent:#FF6002;
   --bg:#ffffff;
@@ -8,20 +8,19 @@
   --radius:24px;
   --card-radius:16px;
   --button-radius:12px;
-  --nav-height:84px; /* tinggi nav mobile */
+  --in-card-offset:6px;
+  --fab-size:48px;
 }
 
-*,
-*::before,*::after{ box-sizing:border-box; }
+*,*::before,*::after{ box-sizing:border-box; }
 html{ background:var(--grey); }
 body{
   background:var(--bg);
-  font-family:'Inter',sans-serif;
+  font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
   margin:0; color:var(--text);
   -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
 }
 
-/* Container: gaya mobile untuk semua (maks 420px) */
 .main-wrapper{ max-width:420px; margin:0 auto; padding:24px 24px 8px; }
 .bio-card{
   width:100%; background:var(--bg);
@@ -31,7 +30,7 @@ body{
 }
 .card-content{ padding:0; }
 
-/* =============== HEADER =============== */
+/* ===== Header ===== */
 .page-head{
   background:#fff; border:1px solid #eee; border-radius:var(--card-radius);
   padding:14px 16px; margin-bottom:14px; box-shadow:0 4px 12px rgba(0,0,0,.06);
@@ -40,9 +39,9 @@ body{
 .crumbs a{ color:#7a7a7a; text-decoration:none; }
 .crumbs a:hover{ color:#111; text-decoration:underline; }
 .crumbs .sep{ opacity:.4; }
-.page-title{ margin:6px 0 0; font-size:18px; font-weight:700; color:#111; }
+.page-title{ margin:6px 0 0; font-size:18px; font-weight:800; color:#111; }
 
-/* =============== FILTERS =============== */
+/* ===== Filters ===== */
 .filters{ display:flex; flex-direction:column; gap:10px; margin:0 0 14px 0; }
 .search-wrap{
   display:flex; align-items:center; gap:8px; background:#fff; border:1px solid #eee; border-radius:12px;
@@ -61,38 +60,38 @@ body{
 .select select:focus{ outline:2px solid var(--accent); outline-offset:2px; }
 .hint{ margin:0; font-size:12px; color:#8a8a8a; }
 
-/* mobile tweak */
-@media (max-width:420px){
-  .main-wrapper{ padding:16px 16px 8px; }
-  .bio-card{ border-radius:0; border:0; box-shadow:none; padding:16px; }
-  .page-head{ background:transparent; border:0; box-shadow:none; padding:0 0 8px 0; }
-}
-
-/* =============== GRID PRODUK 1:1 =============== */
+/* ===== Grid Produk ===== */
 .produk-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
 .product-card{
   background:#fff; border:1px solid #f0f0f0; border-radius:12px; overflow:hidden;
   display:flex; flex-direction:column; transition:transform .18s, box-shadow .18s;
 }
 .product-card:hover{ transform:translateY(-3px); box-shadow:0 8px 20px rgba(0,0,0,.07); }
-.product-img{ width:100%; aspect-ratio:1/1; position:relative; display:block; }
-.product-img img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+/* Rasio 1:1 */
+.product-img{ position:relative; display:block; width:100%; aspect-ratio:1/1; }
+.product-img img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
+
 .badge{
   position:absolute; left:10px; top:10px; font-size:11px; font-weight:700;
   background:#111; color:#fff; padding:4px 8px; border-radius:999px;
 }
 .badge-sale{ background:var(--accent); }
+
 .product-content{ padding:12px; display:flex; flex-direction:column; gap:8px; }
 .product-title{ font-size:14px; font-weight:700; margin:0; }
 .product-title a{ color:inherit; text-decoration:none; }
-.product-footer{ display:flex; align-items:center; justify-content:space-between; }
-.product-price{ color:var(--accent); font-size:14px; font-weight:700; }
-.order-btn{
-  background:#fff; color:#111; border-radius:12px; padding:6px 14px; font-size:12px; font-weight:600;
-  border:1px solid #ddd; text-decoration:none; box-shadow:0 2px 4px rgba(0,0,0,.05);
-}
 
-/* =============== GRID KATEGORI & TAG (halaman kategori/tag) =============== */
+.product-footer{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
+.product-price{ color:var(--accent); font-weight:700; font-size:14px; flex:1 1 auto; min-width:0; }
+.order-btn{
+  display:inline-flex; align-items:center; justify-content:center; height:34px; padding:0 12px;
+  border:1px solid #ddd; border-radius:12px; background:#fff; font-size:12px; font-weight:600;
+  text-decoration:none; box-shadow:0 2px 4px rgba(0,0,0,.05); cursor:pointer; white-space:nowrap;
+}
+.order-btn:active{ transform:translateY(1px); }
+
+/* ===== Kategori & Tag ===== */
 .kategori-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
 .kategori-card{
   display:flex; flex-direction:column; align-items:center; gap:8px;
@@ -110,11 +109,8 @@ body{
 }
 .tag-card .iconify{ color:var(--accent); }
 
-/* =============== NAV (desktop sticky / mobile fixed) =============== */
-.in-card-nav{
-  position:sticky; position:-webkit-sticky;
-  bottom:var(--in-card-offset); z-index:1001;
-}
+/* ===== Bottom nav ===== */
+.in-card-nav{ position:sticky; bottom:var(--in-card-offset); z-index:1001; }
 .in-card-nav .nav-content{
   position:relative;
   background:var(--bg); border:1px solid #eee; border-radius:18px;
@@ -145,9 +141,7 @@ body{
   box-shadow:0 8px 16px rgba(0,0,0,.12); cursor:pointer;
 }
 
-/* =========================================================
-   Popup menu
-   ========================================================= */
+/* ===== Popup menu ===== */
 .popup-menu{
   position:fixed;
   bottom:calc(var(--in-card-offset) + var(--fab-size) + 18px);
@@ -168,3 +162,10 @@ body{
 }
 .popup-menu li a:hover{ background:#f5f5f5; }
 .popup-menu .iconify{ font-size:22px; color:var(--accent); }
+
+/* ===== Responsive ===== */
+@media (max-width:420px){
+  .main-wrapper{ padding:16px 16px 8px; }
+  .bio-card{ border-radius:0; border:0; box-shadow:none; padding:16px; }
+  .page-head{ background:transparent; border:0; box-shadow:none; padding:0 0 8px 0; }
+}
