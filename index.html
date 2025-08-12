@@ -24,11 +24,12 @@
                               https://api-gateway.umami.dev
                               https://*.umami.is
                               https://*.umami.dev;
+                 frame-src 'self';
                  base-uri 'self';
                  form-action 'self';
                  upgrade-insecure-requests">
 
-  <!-- OG / Twitter -->
+  <!-- Open Graph / Twitter -->
   <meta property="og:title" content="Furniture Custom Unik & Berkualitas | Customin.co" />
   <meta property="og:description" content="Pesan furniture custom sesuai kebutuhan & gaya Anda. Bahan premium, desain eksklusif, langsung dari pengrajin." />
   <meta property="og:url" content="https://customin.co/" />
@@ -53,59 +54,30 @@
   <link rel="preconnect" href="https://api-gateway.umami.dev" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&display=swap" rel="stylesheet">
 
-  <!-- Preload hero -->
+  <!-- Preload hero/LCP -->
   <link rel="preload" as="image" href="OG/Cover-Furniture-Custom-by-Customin.webp" fetchpriority="high">
 
   <!-- Styles -->
   <link rel="stylesheet" href="style.css"/>
-  <!-- Compact nav override -->
-  <link rel="stylesheet" href="assets/nav-compact.css"/>
   <link rel="stylesheet" href="assets/cart.css"/>
 
   <!-- Iconify & Umami -->
   <script src="https://code.iconify.design/3/3.1.1/iconify.min.js" defer></script>
   <script defer src="https://cloud.umami.is/script.js" data-website-id="60976a45-9ae8-40bf-a8bc-99c152ba5288"></script>
 
-  <!-- Schema (Organization) -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org","@type":"Organization",
-    "name":"Customin.co","alternateName":"PT JATI DESAIN SEJAHTERA",
-    "url":"https://customin.co/","logo":"https://customin.co/OG/avatar-customin-furniture-custom.svg",
-    "image":"https://cdn.jsdelivr.net/gh/twotworial/customin@main/OG/Cover-Furniture-Custom-by-Customin.webp",
-    "description":"Pesan furniture custom sesuai kebutuhan & gaya Anda. Bahan premium, desain eksklusif, langsung dari pengrajin. Custom mudah di Customin.co!",
-    "email":"hi@customin.co",
-    "contactPoint":{"@type":"ContactPoint","telephone":"+62-888-8085-772","contactType":"customer service","areaServed":"ID","availableLanguage":["Indonesian","English"]},
-    "address":{"@type":"PostalAddress","streetAddress":"Rt XII, Bantrung, Batealit","addressLocality":"Jepara","addressRegion":"Central Java","postalCode":"59461","addressCountry":"ID"},
-    "founder":{"@type":"Organization","name":"PT JATI DESAIN SEJAHTERA"},
-    "identifier":[{"@type":"PropertyValue","propertyID":"NIB","value":"0305240087774"},{"@type":"PropertyValue","propertyID":"NPWP","value":"0202 6362 2151 6000"}],
-    "sameAs":["https://instagram.com/customin_co","https://wa.me/628888085772","https://www.threads.com/@customin_co","https://linkedin.com/company/custominco"]
-  }
-  </script>
-
-  <!-- Schema WebSite + FAQ -->
-  <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"WebSite","url":"https://customin.co/","name":"Customin.co",
-   "potentialAction":{"@type":"SearchAction","target":"https://customin.co/produk/?q={search_term_string}","query-input":"required name=search_term_string"}}
-  </script>
-  <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-    {"@type":"Question","name":"Bisa custom ukuran & warna?","acceptedAnswer":{"@type":"Answer","text":"Bisa. Kirim referensi & ukuran, kami bantu estimasi bahan, finishing, dan harga."}},
-    {"@type":"Question","name":"Pengiriman ke luar kota?","acceptedAnswer":{"@type":"Answer","text":"Bisa. Kami kirim via cargo/trucking, packing aman & rapi."}}
-  ]}
-  </script>
-
+  <!-- util kecil untuk H1 sr-only -->
   <style>.sr-only{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}</style>
 </head>
 
-<!-- aktifkan mode compact di seluruh halaman -->
 <body class="compact-nav">
   <div class="main-wrapper">
     <div class="bio-card">
+
       <main class="card-content">
+        <!-- H1 SEO (visually hidden) -->
         <h1 class="sr-only">Furniture Custom Unik & Berkualitas – Customin.co</h1>
 
-        <!-- Slider -->
+        <!-- Slider swipe -->
         <div class="ig-slider" id="igSlider" aria-label="Highlight Customin.co">
           <div class="ig-track" id="igTrack">
             <a class="ig-slide" href="https://instagram.com/customin_co" target="_blank" rel="noopener noreferrer"
@@ -116,6 +88,7 @@
                 <span class="ig-pill">📸 @customin_co</span>
               </div>
             </a>
+
             <a class="ig-slide" href="https://instagram.com/customin_co" target="_blank" rel="noopener noreferrer"
                style="--bg: url('OG/Cover-Furniture-Custom-by-Customin.webp'); --overlay: linear-gradient(35deg, rgba(0,0,0,.46), rgba(0,0,0,.16));">
               <div class="ig-copy">
@@ -124,6 +97,7 @@
                 <span class="ig-pill">Buka Instagram</span>
               </div>
             </a>
+
             <a class="ig-slide" href="https://instagram.com/customin_co" target="_blank" rel="noopener noreferrer"
                style="--bg: url('OG/Cover-Furniture-Custom-by-Customin.webp'); --overlay: linear-gradient(35deg, rgba(0,0,0,.60), rgba(0,0,0,.24));">
               <div class="ig-copy">
@@ -183,14 +157,19 @@
         </div>
       </main>
 
-      <!-- NAV sticky (COMPACT) -->
+      <!-- NAV sticky (compact) -->
       <nav class="in-card-nav nav-compact" aria-label="Navigasi utama">
         <div class="nav-content">
           <a href="/" class="nav-item" title="Home" aria-label="Home">
             <span class="iconify" data-icon="mdi:home-outline"></span>
           </a>
 
-          <button class="menu-button" id="menuButton" title="Menu" aria-label="Menu" aria-expanded="false">
+          <button type="button"
+                  class="menu-button"
+                  id="menuButton"
+                  aria-controls="popupMenu"
+                  aria-expanded="false"
+                  aria-label="Menu">
             <span class="iconify" data-icon="mdi:view-grid-outline"></span>
           </button>
 
@@ -203,28 +182,19 @@
     </div>
   </div>
 
-  <div class="popup-menu" id="popupMenu"></div>
+  <!-- Popup menu (shared) -->
+  <div class="popup-menu" id="popupMenu" role="menu" aria-hidden="true"></div>
 
+  <!-- JS -->
   <script src="assets/cart.js" defer></script>
   <script src="script.js" defer></script>
-  <script>
-    // Popup menu minimal (kalau belum ada di script.js)
-    (function(){
-      const btn=document.getElementById('menuButton'), pop=document.getElementById('popupMenu');
-      if(!btn||!pop) return;
-      pop.innerHTML=`<ul>
-        <li><a href="/produk/"><span class="iconify" data-icon="mdi:table-furniture"></span>Produk</a></li>
-        <li><a href="/blog/"><span class="iconify" data-icon="mdi:newspaper-variant-outline"></span>Blog</a></li>
-        <li><a href="/kontak.html"><span class="iconify" data-icon="mdi:phone-outline"></span>Kontak</a></li>
-      </ul>`;
-      btn.addEventListener('click',e=>{e.stopPropagation();pop.classList.toggle('show');btn.setAttribute('aria-expanded',pop.classList.contains('show'))});
-      document.addEventListener('click',e=>{ if(!pop.contains(e.target)) pop.classList.remove('show')});
-    })();
 
-    // Service worker
+  <!-- Service worker -->
+  <script>
     if ('serviceWorker' in navigator) {
+      // custom domain:
       navigator.serviceWorker.register('/sw.js').catch(console.error);
-      // navigator.serviceWorker.register('./sw.js').catch(console.error); // GitHub Project Pages
+      // Project Pages: navigator.serviceWorker.register('./sw.js').catch(console.error);
     }
   </script>
 </body>
