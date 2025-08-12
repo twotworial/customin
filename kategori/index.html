@@ -3,23 +3,60 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>Kategori | Customin.co</title>
+  <title>Kategori Produk | Customin.co</title>
   <meta name="description" content="Jelajahi kategori produk: Kursi, Meja, Lemari, dan Rak.">
+  <link rel="canonical" href="https://customin.co/kategori/" />
   <link rel="icon" href="/OG/favicon-customin-furniture-custom.ico" />
+  <meta name="theme-color" content="#FF6002" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self';
+                 img-src 'self' https: data:;
+                 script-src 'self' https://code.iconify.design https://cloud.umami.is 'unsafe-inline';
+                 style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+                 font-src 'self' https://fonts.gstatic.com;
+                 connect-src 'self'
+                              https://api.iconify.design
+                              https://api.simplesvg.com
+                              https://cloud.umami.is
+                              https://api-gateway.umami.dev
+                              https://*.umami.is
+                              https://*.umami.dev;
+                 base-uri 'self';
+                 form-action 'self';
+                 upgrade-insecure-requests">
+
+  <!-- OG/Twitter -->
+  <meta property="og:title" content="Kategori Produk | Customin.co" />
+  <meta property="og:description" content="Jelajahi kategori produk furniture custom." />
+  <meta property="og:url" content="https://customin.co/kategori/" />
+  <meta property="og:site_name" content="Customin.co" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/twotworial/customin@main/OG/Cover-Furniture-Custom-by-Customin.webp" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Kategori Produk | Customin.co" />
+  <meta name="twitter:description" content="Jelajahi kategori produk furniture custom." />
+  <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/twotworial/customin@main/OG/Cover-Furniture-Custom-by-Customin.webp" />
 
   <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <script src="https://code.iconify.design/3/3.1.1/iconify.min.js" defer></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://code.iconify.design" crossorigin><link rel="preconnect" href="https://api.iconify.design" crossorigin>
+  <link rel="preconnect" href="https://cloud.umami.is" crossorigin><link rel="preconnect" href="https://api-gateway.umami.dev" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&display=swap" rel="stylesheet">
 
   <!-- Styles -->
   <link rel="stylesheet" href="/katalog.css" />
-  <!-- Cart styles (badge + drawer) -->
   <link rel="stylesheet" href="/assets/cart.css" />
+
+  <script src="https://code.iconify.design/3/3.1.1/iconify.min.js" defer></script>
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="60976a45-9ae8-40bf-a8bc-99c152ba5288"></script>
 </head>
 <body>
   <div class="main-wrapper">
     <div class="bio-card">
-
       <header class="page-head">
         <nav class="crumbs" aria-label="Breadcrumb">
           <ol>
@@ -34,62 +71,45 @@
       <main class="card-content" id="main">
         <div class="kategori-grid">
           <a class="kategori-card" href="/produk/?kategori=Kursi">
-            <span class="iconify" data-icon="mdi:seat-outline"></span><div>Kursi</div>
+            <span class="iconify" data-icon="mdi:seat-outline" aria-hidden="true"></span><div>Kursi</div>
           </a>
           <a class="kategori-card" href="/produk/?kategori=Meja">
-            <span class="iconify" data-icon="mdi:table-furniture"></span><div>Meja</div>
+            <span class="iconify" data-icon="mdi:table-furniture" aria-hidden="true"></span><div>Meja</div>
           </a>
           <a class="kategori-card" href="/produk/?kategori=Lemari">
-            <span class="iconify" data-icon="mdi:wardrobe-outline"></span><div>Lemari</div>
+            <span class="iconify" data-icon="mdi:wardrobe-outline" aria-hidden="true"></span><div>Lemari</div>
           </a>
           <a class="kategori-card" href="/produk/?kategori=Rak">
-            <span class="iconify" data-icon="mdi:bookshelf"></span><div>Rak</div>
+            <span class="iconify" data-icon="mdi:bookshelf" aria-hidden="true"></span><div>Rak</div>
           </a>
         </div>
       </main>
 
-      <!-- NAV (Home | Menu | Cart) -->
       <nav class="in-card-nav" aria-label="Navigasi utama">
         <div class="nav-content">
           <a href="/" class="nav-item" title="Home" aria-label="Home">
             <span class="iconify" data-icon="mdi:home-outline"></span>
           </a>
-
           <button type="button" class="menu-button" id="menuButton" aria-controls="popupMenu" aria-expanded="false" aria-label="Menu">
             <span class="iconify" data-icon="mdi:view-grid-outline"></span>
           </button>
-
-          <!-- Tombol Cart dengan badge + hook js-cart-btn -->
           <a href="/keranjang" class="nav-item js-cart-btn" title="Keranjang" aria-label="Keranjang">
             <span class="iconify" data-icon="mdi:cart-outline"></span>
             <span class="cart-badge" data-cart-count>0</span>
           </a>
         </div>
       </nav>
-
     </div>
   </div>
 
-  <!-- Popup menu -->
-  <div class="popup-menu" id="popupMenu"></div>
+  <div class="popup-menu" id="popupMenu" role="menu" aria-hidden="true"></div>
 
-  <!-- Cart core (sinkron dengan halaman lain) -->
   <script src="/assets/cart.js" defer></script>
-
+  <script src="/script.js" defer></script>
   <script>
-    // Popup menu
-    (function(){
-      const btn=document.getElementById('menuButton'), pop=document.getElementById('popupMenu');
-      if(btn&&pop){
-        pop.innerHTML=`<ul>
-          <li><a href="/produk/"><span class="iconify" data-icon="mdi:view-grid-plus-outline"></span>Semua Produk</a></li>
-          <li><a href="/tag/"><span class="iconify" data-icon="mdi:tag-outline"></span>Semua Tag</a></li>
-          <li><a href="/kontak.html"><span class="iconify" data-icon="mdi:phone-outline"></span>Kontak</a></li>
-        </ul>`;
-        btn.addEventListener('click',e=>{e.stopPropagation();pop.classList.toggle('show');btn.setAttribute('aria-expanded',pop.classList.contains('show'))});
-        document.addEventListener('click',e=>{if(!pop.contains(e.target)) pop.classList.remove('show')});
-      }
-    })();
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch(console.error);
+    }
   </script>
 </body>
 </html>
