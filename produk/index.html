@@ -6,9 +6,13 @@
   <title>Katalog Produk | Customin.co</title>
   <meta name="description" content="Katalog produk furniture custom: kursi, meja, lemari, rak, dan lainnya.">
   <link rel="icon" href="/OG/favicon-customin-furniture-custom.ico" />
+
+  <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="https://code.iconify.design/3/3.1.1/iconify.min.js" defer></script>
-  <link rel="stylesheet" href="/katalog.css" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/produk/produk.css" />
   <link rel="stylesheet" href="/assets/cart.css" />
 </head>
 <body>
@@ -39,21 +43,12 @@
               <span class="select-label">Kategori</span>
               <select id="catSelect">
                 <option value="*">Semua Kategori</option>
-                <option value="Kursi">Kursi</option>
-                <option value="Meja">Meja</option>
-                <option value="Lemari">Lemari</option>
-                <option value="Rak">Rak</option>
               </select>
             </label>
 
             <label class="select">
               <span class="select-label">Tag</span>
-              <select id="tagSelect" multiple>
-                <option value="Minimalis">Minimalis</option>
-                <option value="Jati Solid">Jati Solid</option>
-                <option value="Outdoor">Outdoor</option>
-                <option value="Natural">Natural</option>
-              </select>
+              <select id="tagSelect" multiple></select>
             </label>
           </div>
 
@@ -62,6 +57,12 @@
 
         <!-- Grid -->
         <section class="produk-grid" id="grid" aria-live="polite"></section>
+
+        <div class="empty-note" id="emptyNote" hidden>
+          <div class="empty-emoji">🪑</div>
+          <div class="empty-title">Tidak ada produk yang cocok</div>
+          <p class="empty-text">Coba ubah kata kunci, kategori, atau tag.</p>
+        </div>
       </main>
 
       <!-- NAV -->
@@ -81,94 +82,114 @@
 
   <div class="popup-menu" id="popupMenu"></div>
 
+  <!-- Cart -->
   <script src="/assets/cart.js" defer></script>
+
   <script>
-    // Popup menu (singkat)
-    (function(){
-      const btn=document.getElementById('menuButton'), pop=document.getElementById('popupMenu');
-      if(!btn||!pop) return;
-      pop.innerHTML=`<ul>
-        <li><a href="/kategori/"><span class="iconify" data-icon="mdi:shape-outline"></span>Kategori</a></li>
-        <li><a href="/tag/"><span class="iconify" data-icon="mdi:tag-outline"></span>Tag</a></li>
-        <li><a href="/kontak.html"><span class="iconify" data-icon="mdi:phone-outline"></span>Kontak</a></li>
-      </ul>`;
-      btn.addEventListener('click',e=>{e.stopPropagation();pop.classList.toggle('show');btn.setAttribute('aria-expanded',pop.classList.contains('show'));});
-      document.addEventListener('click',e=>{if(!pop.contains(e.target)) pop.classList.remove('show')});
-    })();
+  // Katalog sederhana berbasis /data/products.json
+  // Struktur item minimal: { "slug":"kursi-lipat-jati", "title":"Kursi Lipat Jati", "price":183000, "category":"Kursi", "tags":["Minimalis","Jati Solid"], "cover":"/produk/foto/kursi-lipat.webp" }
+  (async function(){
+    const qEl   = document.getElementById('q');
+    const catEl = document.getElementById('catSelect');
+    const tagEl = document.getElementById('tagSelect');
+    const grid  = document.getElementById('grid');
+    const empty = document.getElementById('emptyNote');
 
-    // Utils
-    const rp = n => new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(n);
+    let items = [];
+    try {
+      const res = await fetch('/data/products.json', {cache:'no-store'});
+      items = await res.json();
+    } catch(e){ console.error('Gagal memuat products.json', e); items = []; }
 
-    // Render dari JSON
-    (async function(){
-      const grid = document.getElementById('grid');
-      const q = document.getElementById('q');
-      const cat = document.getElementById('catSelect');
-      const tag = document.getElementById('tagSelect');
-      const crumbCurrent = document.getElementById('crumbCurrent');
+    // unik kategori & tag
+    const cats = Array.from(new Set(items.map(i=>i.category).filter(Boolean))).sort();
+    cats.forEach(c=>{ const o=document.createElement('option'); o.value=c; o.textContent=c; catEl.appendChild(o); });
+    const tags = Array.from(new Set(items.flatMap(i=>Array.isArray(i.tags)?i.tags:[]))).sort();
+    tags.forEach(t=>{ const o=document.createElement('option'); o.value=t; o.textContent=t; tagEl.appendChild(o); });
 
-      let products = [];
-      try{
-        const res = await fetch('/data/products.json', {cache:'no-store'});
-        products = await res.json();
-      }catch(e){ console.error('Gagal load products.json', e); }
+    // sync dari URL
+    const params = new URLSearchParams(location.search);
+    if(params.get('q')) qEl.value = params.get('q');
+    if(params.get('kategori')) catEl.value = params.get('kategori');
+    if(params.get('tag')){
+      const arr=params.get('tag').split(',').map(decodeURIComponent);
+      [...tagEl.options].forEach(o=>{ if(arr.includes(o.value)) o.selected=true; });
+    }
 
-      // Sync URL -> filter awal
-      const params=new URLSearchParams(location.search);
-      if(params.get('q')) q.value=params.get('q');
-      if(params.get('kategori')) cat.value=params.get('kategori');
-      if(params.get('tag')){
-        const arr=params.get('tag').split(',').map(decodeURIComponent);
-        [...tag.options].forEach(o=>{ if(arr.includes(o.value)) o.selected=true; });
-      }
+    const fmt = (n)=> new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(n||0);
 
-      const syncURL=(kategori,tags,keyword)=>{
-        const p=new URLSearchParams();
-        if(keyword) p.set('q',keyword);
-        if(kategori && kategori!=='*') p.set('kategori',kategori);
-        if(tags.length) p.set('tag',tags.join(','));
-        history.replaceState(null,'', p.toString()?`?${p}`:location.pathname);
-      };
+    function cardHTML(p){
+      const href = `/produk/produk.html?slug=${encodeURIComponent(p.slug)}`;
+      const price = typeof p.price==='number' ? fmt(p.price) : p.price || 'Rp -';
+      const cover = p.cover || (Array.isArray(p.images)&&p.images[0]) || 'https://via.placeholder.com/600x600?text=Foto';
+      return `
+      <article class="product-card" data-kategori="${(p.category||'')}" data-tags="${(p.tags||[]).join(',')}">
+        <a class="product-img" href="${href}">
+          <img src="${cover}" alt="${p.title||'Produk'}">
+          ${p.badge?`<span class="badge">${p.badge}</span>`:''}
+        </a>
+        <div class="product-content">
+          <h2 class="product-title"><a href="${href}">${p.title||'Produk'}</a></h2>
+          <div class="product-footer">
+            <div class="product-price">${price}</div>
+            <a href="${href}" class="order-btn">Detail</a>
+          </div>
+        </div>
+      </article>`;
+    }
 
-      const apply=()=>{
-        const keyword=(q.value||'').trim().toLowerCase();
-        const kategori=cat.value;
-        const tags=[...tag.selectedOptions].map(o=>o.value);
+    function syncURL(kategori,tags,keyword){
+      const p=new URLSearchParams();
+      if(keyword) p.set('q',keyword);
+      if(kategori && kategori!=='*') p.set('kategori',kategori);
+      if(tags.length) p.set('tag',tags.join(','));
+      history.replaceState(null,'', p.toString()?`?${p.toString()}`:location.pathname);
+    }
 
-        const tagTrail=tags.length?' · '+tags.map(t=>`#${t}`).join(', '):'';
-        crumbCurrent.textContent=(kategori==='*'?'Produk':`Produk › ${kategori}`)+tagTrail;
+    function apply(){
+      const keyword = qEl.value.trim().toLowerCase();
+      const kategori = catEl.value;
+      const selTags = [...tagEl.selectedOptions].map(o=>o.value);
 
-        const filtered = products.filter(p=>{
-          const matchQ = !keyword || (p.title+p.excerpt).toLowerCase().includes(keyword);
-          const matchK = kategori==='*' || p.category===kategori;
-          const matchT = !tags.length || tags.some(t=> (p.tags||[]).includes(t));
-          return matchQ && matchK && matchT;
-        });
+      const filtered = items.filter(p=>{
+        const matchQ = !keyword || (p.title||'').toLowerCase().includes(keyword);
+        const matchK = kategori==='*' || (p.category===kategori);
+        const pTags = Array.isArray(p.tags)?p.tags:[];
+        const matchT = selTags.length===0 || selTags.some(x=>pTags.includes(x));
+        return matchQ && matchK && matchT;
+      });
 
-        grid.innerHTML = filtered.map(p=>`
-          <article class="product-card" data-kategori="${p.category}" data-tags="${(p.tags||[]).join(',')}">
-            <a class="product-img" href="/produk/detail.html?slug=${encodeURIComponent(p.slug)}" title="${p.title}">
-              <img src="${p.cover}" alt="${p.title}">
-              ${p.badge ? `<span class="badge ${p.badge==='Promo'?'badge-sale':''}">${p.badge}</span>`:''}
-            </a>
-            <div class="product-content">
-              <h2 class="product-title"><a href="/produk/detail.html?slug=${encodeURIComponent(p.slug)}">${p.title}</a></h2>
-              <div class="product-footer">
-                <div class="product-price">${rp(p.price)}</div>
-                <a href="/produk/detail.html?slug=${encodeURIComponent(p.slug)}" class="order-btn">Detail</a>
-              </div>
-            </div>
-          </article>
-        `).join('');
+      grid.innerHTML = filtered.map(cardHTML).join('');
+      empty.hidden = filtered.length>0;
 
-        syncURL(kategori,tags,keyword);
-      };
+      const trail = selTags.length ? ' · '+selTags.map(t=>'#'+t).join(', ') : '';
+      document.getElementById('crumbCurrent').textContent = (kategori==='*'?'Produk':`Produk › ${kategori}`)+trail;
 
-      q.addEventListener('input',apply);
-      cat.addEventListener('change',apply);
-      tag.addEventListener('change',apply);
-      apply();
-    })();
+      syncURL(kategori, selTags, keyword);
+    }
+
+    qEl.addEventListener('input', apply);
+    catEl.addEventListener('change', apply);
+    tagEl.addEventListener('change', apply);
+
+    // render awal
+    grid.innerHTML = items.map(cardHTML).join('');
+    empty.hidden = items.length>0;
+    apply();
+  })();
+
+  // Popup menu
+  (function(){
+    const btn=document.getElementById('menuButton'), pop=document.getElementById('popupMenu');
+    if(!btn||!pop) return;
+    pop.innerHTML=`<ul>
+      <li><a href="/kategori/"><span class="iconify" data-icon="mdi:shape-outline"></span>Kategori</a></li>
+      <li><a href="/tag/"><span class="iconify" data-icon="mdi:tag-outline"></span>Tag</a></li>
+      <li><a href="/kontak.html"><span class="iconify" data-icon="mdi:phone-outline"></span>Kontak</a></li>
+    </ul>`;
+    btn.addEventListener('click',e=>{e.stopPropagation();pop.classList.toggle('show');btn.setAttribute('aria-expanded',pop.classList.contains('show'))});
+    document.addEventListener('click',e=>{if(!pop.contains(e.target)) pop.classList.remove('show')});
+  })();
   </script>
 </body>
 </html>
