@@ -134,4 +134,74 @@ a:focus-visible, button:focus-visible,
   border:1px solid #ddd; text-decoration:none; cursor:pointer;
   box-shadow:0 2px 4px rgba(0,0,0,.05);
 }
-@media (hover:hover){ .order-btn:hover{ background:#f
+@media (hover:hover){ .order-btn:hover{ background:#f5f5f5; } }
+.order-btn:active{ transform:translateY(1px); }
+
+/* ============ Bottom nav ============ */
+.in-card-nav{ position:sticky; bottom:var(--in-card-offset); z-index:1001; }
+.in-card-nav .nav-content{
+  position:relative; background:var(--bg); border:1px solid #eee; border-radius:18px;
+  box-shadow:0 8px 18px rgba(0,0,0,.10);
+  display:grid; grid-template-columns:1fr auto 1fr; align-items:center;
+  padding:12px 16px; gap:8px;
+}
+.in-card-nav .nav-content::before{
+  content:""; position:absolute; left:16px; right:16px; top:0; height:1px;
+  background:linear-gradient(90deg, rgba(0,0,0,.04), rgba(0,0,0,.08), rgba(0,0,0,.04));
+  pointer-events:none;
+}
+.nav-item{
+  justify-self:start; width:44px; height:44px; border-radius:12px;
+  display:flex; align-items:center; justify-content:center;
+  color:#555; font-size:22px; text-decoration:none; transition:background-color .18s;
+}
+.nav-item:last-child{ justify-self:end; }
+@media (hover:hover){ .nav-item:hover{ background:#f5f5f5; } }
+.menu-button{
+  width:var(--fab-size); height:var(--fab-size);
+  border-radius:999px; background:#2c2c2c; color:#fff;
+  display:flex; align-items:center; justify-content:center;
+  font-size:24px; border:6px solid #fff;
+  box-shadow:0 10px 20px rgba(0,0,0,.14); cursor:pointer;
+}
+
+/* ============ Compact nav (aktif via <body class="compact-nav"> dan .nav-compact) ============ */
+body.compact-nav{ --fab-size:44px; --in-card-offset:4px; }
+.in-card-nav.nav-compact .nav-content{ padding:8px 12px; border-radius:14px; box-shadow:0 6px 14px rgba(0,0,0,.08); }
+.in-card-nav.nav-compact .nav-content::before{ left:12px; right:12px; }
+.in-card-nav.nav-compact .nav-item{ width:40px; height:40px; border-radius:10px; font-size:18px; }
+.in-card-nav.nav-compact .menu-button{ width:44px; height:44px; font-size:20px; border-width:5px; box-shadow:0 8px 14px rgba(0,0,0,.12); }
+.in-card-nav.nav-compact .cart-badge{ transform:scale(.92); transform-origin:top right; }
+
+/* ============ Popup menu ============ */
+.popup-menu{
+  position:fixed; bottom:calc(var(--in-card-offset) + var(--fab-size) + 20px);
+  left:50%; transform:translateX(-50%); z-index:1100;
+  background:#fff; border-radius:16px; border:1px solid #eee;
+  box-shadow:0 8px 25px rgba(0,0,0,.15);
+  padding:8px; width:250px; opacity:0; visibility:hidden; transform-origin:bottom center;
+  transition:opacity .25s ease, transform .25s ease, visibility .25s;
+}
+.popup-menu.show{ opacity:1; visibility:visible; transform:translateX(-50%) translateY(-4px); }
+.popup-menu ul{ margin:0; padding:0; list-style:none; }
+.popup-menu li a{
+  display:flex; align-items:center; gap:12px;
+  padding:12px 14px; color:#333; text-decoration:none; font-weight:500; font-size:16px;
+  border-radius:12px; transition:background-color .18s;
+}
+@media (hover:hover){ .popup-menu li a:hover{ background:#f5f5f5; } }
+.popup-menu .iconify{ font-size:22px; color:var(--accent); }
+
+/* ============ Responsive ============ */
+@media (max-width:460px){
+  .main-wrapper{ padding:0 0 12px; }
+  .bio-card{ border-radius:0; padding:16px; padding-bottom:calc(18px + env(safe-area-inset-bottom)); }
+}
+@supports (padding: max(0px)){
+  .in-card-nav{ bottom:max(var(--in-card-offset), 4px); }
+}
+
+/* reduce motion */
+@media (prefers-reduced-motion: reduce){
+  .bio-link, .product-card, .ig-dots button::before{ transition:none; }
+}
