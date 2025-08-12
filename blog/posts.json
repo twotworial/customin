@@ -1,0 +1,40 @@
+{
+  "posts": [
+    {
+      "slug": "cara-memilih-kayu-jati",
+      "title": "Cara Memilih Kayu Jati untuk Furnitur Tahan Lama",
+      "description": "Kenali grade jati, kadar air, dan ciri serat yang bagus agar hasil custom awet bertahun-tahun.",
+      "cover": "/blog/covers/kayu-jati-1.webp",
+      "coverAlt": "Ilustrasi kayu jati",
+      "date": "2025-02-02",
+      "readMin": 6,
+      "category": "Material",
+      "tags": ["Jati", "Finishing"],
+      "draft": false
+    },
+    {
+      "slug": "ukuran-ideal-meja-kerja",
+      "title": "Ukuran Ideal Meja Kerja: Tinggi, Lebar, dan Kedalaman",
+      "description": "Panduan ergonomi cepat supaya kerja harian lebih nyaman dan minim pegal.",
+      "cover": "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?w=1200&q=80",
+      "coverAlt": "Meja kerja minimalis",
+      "date": "2025-04-10",
+      "readMin": 4,
+      "category": "Tips",
+      "tags": ["Minimalis"],
+      "draft": false
+    },
+    {
+      "slug": "merawat-furnitur-outdoor",
+      "title": "Cara Merawat Furnitur Kayu untuk Outdoor",
+      "description": "Tips coating UV, pilihan finishing, dan rutinitas pembersihan agar tahan panas & hujan.",
+      "cover": "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=1200&q=80",
+      "coverAlt": "Kursi outdoor kayu",
+      "date": "2025-05-22",
+      "readMin": 5,
+      "category": "Perawatan",
+      "tags": ["Outdoor", "Finishing"],
+      "draft": false
+    }
+  ]
+}
