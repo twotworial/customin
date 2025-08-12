@@ -4,53 +4,32 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Katalog Produk | Customin.co</title>
-  <meta name="description" content="Katalog produk furniture custom: kursi, meja, lemari, rak, dan lainnya." />
+  <meta name="description" content="Katalog produk furniture custom: kursi, meja, lemari, rak, dan lainnya.">
   <link rel="icon" href="/OG/favicon-customin-furniture-custom.ico" />
-
-  <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
   <script src="https://code.iconify.design/3/3.1.1/iconify.min.js" defer></script>
-
-  <!-- Base styles -->
   <link rel="stylesheet" href="/katalog.css" />
   <link rel="stylesheet" href="/assets/cart.css" />
-
-  <!-- Kecilkan/override khusus halaman ini -->
   <style>
-    /* foto 1:1 */
-    .product-img{ position:relative; display:block; width:100%; aspect-ratio:1/1; background:#f7f7f7; overflow:hidden; border-radius:12px 12px 0 0; }
-    .product-img img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
-
-    .product-content{ padding:12px; display:flex; flex-direction:column; gap:8px; }
-    .product-title{ margin:0; font-size:14px; font-weight:800; line-height:1.35; }
-    .product-title a{ color:inherit; text-decoration:none; }
-
-    /* harga biasa (bukan chip) */
-    .price{ font-weight:800; font-size:14px; color:var(--accent); }
-
-    /* dua tombol kiri–kanan */
-    .product-actions{ display:flex; gap:10px; margin-top:2px; }
-    .btn{
-      flex:1; display:inline-flex; align-items:center; justify-content:center;
-      height:36px; padding:0 12px; border-radius:12px; font-size:12px; font-weight:800;
-      text-decoration:none; white-space:nowrap; box-shadow:0 2px 4px rgba(0,0,0,.05);
-    }
-    .btn:active{ transform:translateY(1px); }
-    .btn-order{ background:var(--accent); color:#fff; border:1px solid transparent; }
-    .btn-detail{ background:#fff; color:#111; border:1px solid #ddd; }
-
-    /* badge */
-    .badge{
-      position:absolute; left:10px; top:10px; font-size:11px; font-weight:800;
-      background:#111; color:#fff; padding:4px 8px; border-radius:999px;
-    }
-    .badge-sale{ background:var(--accent); }
+    /* Foto 1:1 + tombol ganda */
+    .product-img{position:relative;display:block;width:100%;aspect-ratio:1/1;background:#f7f7f7;border-radius:12px 12px 0 0;overflow:hidden}
+    .product-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+    .badge{position:absolute;left:10px;top:10px;font-size:11px;font-weight:800;background:#111;color:#fff;padding:4px 8px;border-radius:999px}
+    .badge-sale{background:var(--accent)}
+    .product-content{padding:12px;display:flex;flex-direction:column;gap:8px}
+    .product-title{margin:0;font-size:14px;font-weight:800;line-height:1.35}
+    .product-title a{color:inherit;text-decoration:none}
+    .price{font-weight:800;font-size:14px;color:var(--accent)}
+    .product-actions{display:flex;gap:10px}
+    .btn{flex:1;display:inline-flex;align-items:center;justify-content:center;height:36px;padding:0 12px;border-radius:12px;font-size:12px;font-weight:800;text-decoration:none;white-space:nowrap;box-shadow:0 2px 4px rgba(0,0,0,.05)}
+    .btn:active{transform:translateY(1px)}
+    .btn-order{background:var(--accent);color:#fff;border:1px solid transparent}
+    .btn-detail{background:#fff;color:#111;border:1px solid #ddd}
   </style>
 </head>
 <body>
   <div class="main-wrapper">
     <div class="bio-card">
-
       <header class="page-head">
         <nav class="crumbs" aria-label="Breadcrumb">
           <ol>
@@ -62,8 +41,7 @@
         <h1 class="page-title">Katalog Produk</h1>
       </header>
 
-      <main class="card-content" id="main">
-        <!-- Filter -->
+      <main class="card-content">
         <section class="filters">
           <div class="search-wrap">
             <span class="iconify" data-icon="mdi:magnify"></span>
@@ -71,12 +49,11 @@
           </div>
 
           <div class="selects">
-            <label class="select" for="catSelect">
+            <label class="select">
               <span class="select-label">Kategori</span>
               <select id="catSelect"></select>
             </label>
-
-            <label class="select" for="tagSelect">
+            <label class="select">
               <span class="select-label">Tag</span>
               <select id="tagSelect" multiple></select>
             </label>
@@ -85,11 +62,9 @@
           <p class="hint">Tip: tahan <b>Ctrl/Cmd</b> untuk pilih banyak tag.</p>
         </section>
 
-        <!-- Grid -->
         <section class="produk-grid" id="grid" aria-live="polite"></section>
       </main>
 
-      <!-- NAV -->
       <nav class="in-card-nav" aria-label="Navigasi utama">
         <div class="nav-content">
           <a href="/" class="nav-item" title="Home" aria-label="Home"><span class="iconify" data-icon="mdi:home-outline"></span></a>
@@ -100,87 +75,60 @@
           </a>
         </div>
       </nav>
-
     </div>
   </div>
 
   <div class="popup-menu" id="popupMenu"></div>
-
-  <!-- Cart core -->
   <script src="/assets/cart.js" defer></script>
 
   <script>
-  /* ===== Helpers ===== */
+  /* ===== Utils ===== */
   const fmtIDR = n => new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(n);
+  const grid = document.getElementById('grid');
+  const q = document.getElementById('q');
+  const cat = document.getElementById('catSelect');
+  const tag = document.getElementById('tagSelect');
+  const crumb = document.getElementById('crumbCurrent');
+  let DATA = [];
+
+  // Loader JSON yang robust (coba beberapa path)
+  const DIR = location.pathname.replace(/[^/]*$/, ''); // "/produk/"
+  const CANDIDATES = ['/data/products.json', DIR + 'data/products.json', '/produk/data/products.json'];
+
+  async function loadProducts(){
+    let last;
+    for(const url of CANDIDATES){
+      try{
+        const r = await fetch(url,{cache:'no-store'});
+        if(!r.ok) throw new Error(`HTTP ${r.status}`);
+        const j = await r.json();
+        console.info('✓ products.json dari', url);
+        return j;
+      }catch(e){ last=e; console.warn('gagal:', url, e); }
+    }
+    throw last || new Error('products.json tidak ditemukan');
+  }
 
   function cardHTML(p){
     const badge = p.badge ? `<span class="badge ${p.badge==='Promo'?'badge-sale':''}">${p.badge}</span>` : '';
     return `
     <article class="product-card" data-kategori="${p.category}" data-tags="${(p.tags||[]).join(',')}">
-      <a class="product-img" href="/produk/${p.slug}.html" aria-label="${p.title}">
+      <a class="product-img" href="/produk/${p.slug}.html">
         <img src="${p.cover}" alt="${p.title}">${badge}
       </a>
       <div class="product-content">
         <h2 class="product-title"><a href="/produk/${p.slug}.html">${p.title}</a></h2>
         <div class="price">${fmtIDR(p.price)}</div>
         <div class="product-actions">
-          <button class="btn btn-order" type="button"
-                  data-add="cart" data-slug="${p.slug}">Order</button>
+          <button class="btn btn-order" type="button" data-add="cart" data-slug="${p.slug}">Order</button>
           <a class="btn btn-detail" href="/produk/${p.slug}.html">Detail</a>
         </div>
       </div>
     </article>`;
   }
 
-  /* ===== Cart minimal (fallback bila /assets/cart.js tidak expose API) ===== */
-  (function setupCartBridge(){
-    const KEY='customin_cart';
-    const badgeEls = () => document.querySelectorAll('[data-cart-count]');
-
-    function read(){ try{return JSON.parse(localStorage.getItem(KEY)||'[]');}catch{return[];} }
-    function write(items){
-      localStorage.setItem(KEY, JSON.stringify(items));
-      const count = items.reduce((n,i)=> n + (i.qty||1), 0);
-      badgeEls().forEach(el=> el.textContent = count);
-      document.dispatchEvent(new CustomEvent('cart:update',{detail:{items,count}}));
-    }
-    function add(item){
-      const items = read();
-      const i = items.findIndex(x=>x.slug===item.slug);
-      if(i>-1){ items[i].qty = (items[i].qty||1)+1; }
-      else{ items.push({slug:item.slug,title:item.title,price:item.price,cover:item.cover,qty:1}); }
-      write(items);
-    }
-    // Expose kalau belum ada
-    window.CustominCart = window.CustominCart || {read,write,add};
-    // set badge awal
-    write(read());
-  })();
-
-  /* ===== State ===== */
-  let DATA = [];
-  const grid = document.getElementById('grid');
-  const q    = document.getElementById('q');
-  const cat  = document.getElementById('catSelect');
-  const tag  = document.getElementById('tagSelect');
-  const crumb= document.getElementById('crumbCurrent');
-
-  /* ===== Init ===== */
-  fetch('/data/products.json', {cache:'no-store'})
-    .then(r => r.ok ? r.json() : Promise.reject('Gagal memuat data'))
-    .then(json => {
-      DATA = json;
-      initFilters(json);
-      restoreFromURL();
-      apply();
-    })
-    .catch(err => {
-      console.error(err);
-      grid.innerHTML = '<p style="grid-column:1/-1;color:#888">Data produk belum tersedia.</p>';
-    });
-
   function initFilters(list){
-    const cats = Array.from(new Set(list.map(p => p.category))).sort((a,b)=>a.localeCompare(b,'id'));
+    const cats = Array.from(new Set(list.map(p=>p.category))).sort((a,b)=>a.localeCompare(b,'id'));
     cat.innerHTML = `<option value="*">Semua Kategori</option>` + cats.map(c=>`<option value="${c}">${c}</option>`).join('');
     const tags = Array.from(new Set(list.flatMap(p=>p.tags||[]))).sort((a,b)=>a.localeCompare(b,'id'));
     tag.innerHTML = tags.map(t=>`<option value="${t}">${t}</option>`).join('');
@@ -192,24 +140,23 @@
     if(params.get('kategori')) cat.value = params.get('kategori');
     if(params.get('tag')){
       const selected = params.get('tag').split(',').map(decodeURIComponent);
-      [...tag.options].forEach(o => { if(selected.includes(o.value)) o.selected = true; });
+      [...tag.options].forEach(o=>o.selected = selected.includes(o.value));
     }
   }
-  function syncURL(kategori, tags, keyword){
+  function syncURL(kategori, tagsSel, keyword){
     const p = new URLSearchParams();
     if(keyword) p.set('q', keyword);
     if(kategori && kategori!=='*') p.set('kategori', kategori);
-    if(tags.length) p.set('tag', tags.join(','));
-    history.replaceState(null,'', p.toString()?`?${p.toString()}`:location.pathname);
+    if(tagsSel.length) p.set('tag', tagsSel.join(','));
+    history.replaceState(null,'', p.toString()?`?${p}`:location.pathname);
   }
 
   function apply(){
     const keyword = q.value.trim().toLowerCase();
-    const kategori= cat.value;
+    const kategori = cat.value;
     const tagsSel = [...tag.selectedOptions].map(o=>o.value);
-
     const tagTrail = tagsSel.length ? ' · '+tagsSel.map(t=>'#'+t).join(', ') : '';
-    crumb.textContent = (kategori==='*' || !kategori ? 'Produk' : `Produk › ${kategori}`) + tagTrail;
+    crumb.textContent = (kategori==='*'||!kategori?'Produk':`Produk › ${kategori}`) + tagTrail;
 
     const filtered = DATA.filter(p=>{
       const matchQ = !keyword || p.title.toLowerCase().includes(keyword);
@@ -217,8 +164,7 @@
       const matchT = !tagsSel.length || tagsSel.some(t => (p.tags||[]).includes(t));
       return matchQ && matchK && matchT;
     });
-
-    grid.innerHTML = filtered.map(cardHTML).join('') || '<p style="grid-column:1/-1;color:#888">Tidak ada produk yang cocok.</p>';
+    grid.innerHTML = filtered.map(cardHTML).join('') || '<p class="empty-note"><span class="empty-emoji">🪑</span><div class="empty-title">Produk tidak ditemukan</div><div class="empty-text">Coba kata kunci lain atau ubah filter.</div></p>';
     syncURL(kategori, tagsSel, keyword);
   }
 
@@ -226,29 +172,39 @@
   cat.addEventListener('change', apply);
   tag.addEventListener('change', apply);
 
-  /* ===== Add to cart (delegation) ===== */
-  document.addEventListener('click', e=>{
-    const btn = e.target.closest('[data-add="cart"]');
-    if(!btn) return;
-    const slug = btn.dataset.slug;
-    const p = DATA.find(x=>x.slug===slug);
-    if(!p) return;
-
-    // Kalau ada API dari /assets/cart.js, pakai itu. Kalau tidak, pakai fallback.
-    if (window.Cart && typeof window.Cart.add === 'function') {
-      window.Cart.add({slug:p.slug,title:p.title,price:p.price,cover:p.cover,qty:1});
-    } else {
-      window.CustominCart.add(p);
+  // Cart fallback (jaga-jaga bila /assets/cart.js tidak expose window.Cart.add)
+  (function cartFallback(){
+    const KEY='customin_cart';
+    const badgeEls = () => document.querySelectorAll('[data-cart-count]');
+    function read(){ try{return JSON.parse(localStorage.getItem(KEY)||'[]');}catch{return[];} }
+    function write(items){
+      localStorage.setItem(KEY, JSON.stringify(items));
+      const count = items.reduce((n,i)=>n+(i.qty||1),0);
+      badgeEls().forEach(el=> el.textContent = count);
+      document.dispatchEvent(new CustomEvent('cart:update',{detail:{items,count}}));
     }
+    function add(item){
+      const items=read();
+      const i=items.findIndex(x=>x.slug===item.slug);
+      if(i>-1) items[i].qty=(items[i].qty||1)+1; else items.push({...item,qty:1});
+      write(items);
+    }
+    window.CustominCart = window.CustominCart || {read,write,add};
+    write(read());
+  })();
 
-    // feedback kecil
-    const original = btn.textContent;
-    btn.textContent = 'Ditambahkan ✓';
-    btn.disabled = true;
-    setTimeout(()=>{ btn.textContent = original; btn.disabled = false; }, 900);
+  // Delegasi tombol Order
+  document.addEventListener('click', e=>{
+    const btn = e.target.closest('[data-add="cart"]'); if(!btn) return;
+    const slug = btn.dataset.slug;
+    const p = DATA.find(x=>x.slug===slug); if(!p) return;
+    if(window.Cart?.add) window.Cart.add({slug:p.slug,title:p.title,price:p.price,cover:p.cover,qty:1});
+    else window.CustominCart.add(p);
+    const t=btn.textContent; btn.textContent='Ditambahkan ✓'; btn.disabled=true;
+    setTimeout(()=>{btn.textContent=t; btn.disabled=false;},900);
   });
 
-  /* ===== Popup menu ===== */
+  // Popup menu
   (function(){
     const btn=document.getElementById('menuButton'), pop=document.getElementById('popupMenu');
     if(!btn||!pop) return;
@@ -260,6 +216,10 @@
     btn.addEventListener('click',e=>{e.stopPropagation();pop.classList.toggle('show');btn.setAttribute('aria-expanded',pop.classList.contains('show'))});
     document.addEventListener('click',e=>{if(!pop.contains(e.target)) pop.classList.remove('show')});
   })();
+
+  // GO!
+  loadProducts().then(json=>{ DATA=json; initFilters(json); restoreFromURL(); apply(); })
+               .catch(err=>{ console.error(err); grid.innerHTML='<p class="empty-note">Gagal memuat data produk.</p>'; });
   </script>
 </body>
 </html>
