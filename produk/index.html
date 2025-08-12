@@ -12,13 +12,14 @@
   <script src="https://code.iconify.design/3/3.1.1/iconify.min.js" defer></script>
 
   <!-- Styles -->
-  <link rel="stylesheet" href="/produk/produk.css" />
+  <link rel="stylesheet" href="/katalog.css" />
   <link rel="stylesheet" href="/assets/cart.css" />
 </head>
 <body>
   <div class="main-wrapper">
     <div class="bio-card">
 
+      <!-- Header -->
       <header class="page-head">
         <nav class="crumbs" aria-label="Breadcrumb">
           <ol>
@@ -58,18 +59,26 @@
         <!-- Grid -->
         <section class="produk-grid" id="grid" aria-live="polite"></section>
 
-        <div class="empty-note" id="emptyNote" hidden>
-          <div class="empty-emoji">🪑</div>
-          <div class="empty-title">Tidak ada produk yang cocok</div>
-          <p class="empty-text">Coba ubah kata kunci, kategori, atau tag.</p>
-        </div>
+        <!-- Empty state -->
+        <template id="emptyTpl">
+          <div class="empty">
+            <div class="empty-emoji">🤔</div>
+            <p>Tidak ada produk yang cocok dengan filter kamu.</p>
+          </div>
+        </template>
       </main>
 
       <!-- NAV -->
       <nav class="in-card-nav" aria-label="Navigasi utama">
         <div class="nav-content">
-          <a href="/" class="nav-item" title="Home" aria-label="Home"><span class="iconify" data-icon="mdi:home-outline"></span></a>
-          <button type="button" class="menu-button" id="menuButton" aria-controls="popupMenu" aria-expanded="false" aria-label="Menu"><span class="iconify" data-icon="mdi:view-grid-outline"></span></button>
+          <a href="/" class="nav-item" title="Home" aria-label="Home">
+            <span class="iconify" data-icon="mdi:home-outline"></span>
+          </a>
+
+          <button type="button" class="menu-button" id="menuButton" aria-controls="popupMenu" aria-expanded="false" aria-label="Menu">
+            <span class="iconify" data-icon="mdi:view-grid-outline"></span>
+          </button>
+
           <a href="/keranjang" class="nav-item js-cart-btn" title="Keranjang" aria-label="Keranjang">
             <span class="iconify" data-icon="mdi:cart-outline"></span>
             <span class="cart-badge" data-cart-count>0</span>
@@ -80,62 +89,58 @@
     </div>
   </div>
 
+  <!-- Popup menu -->
   <div class="popup-menu" id="popupMenu"></div>
 
-  <!-- Cart -->
+  <!-- Cart core -->
   <script src="/assets/cart.js" defer></script>
 
   <script>
-  // Katalog sederhana berbasis /data/products.json
-  // Struktur item minimal: { "slug":"kursi-lipat-jati", "title":"Kursi Lipat Jati", "price":183000, "category":"Kursi", "tags":["Minimalis","Jati Solid"], "cover":"/produk/foto/kursi-lipat.webp" }
-  (async function(){
-    const qEl   = document.getElementById('q');
-    const catEl = document.getElementById('catSelect');
-    const tagEl = document.getElementById('tagSelect');
-    const grid  = document.getElementById('grid');
-    const empty = document.getElementById('emptyNote');
+  (function(){
+    const grid = document.getElementById('grid');
+    const qEl  = document.getElementById('q');
+    const cat  = document.getElementById('catSelect');
+    const tag  = document.getElementById('tagSelect');
+    const crumbCurrent = document.getElementById('crumbCurrent');
+    const emptyTpl = document.getElementById('emptyTpl');
 
-    let items = [];
-    try {
-      const res = await fetch('/data/products.json', {cache:'no-store'});
-      items = await res.json();
-    } catch(e){ console.error('Gagal memuat products.json', e); items = []; }
+    const WA_NUM = '628888085772'; // ganti kalau perlu
 
-    // unik kategori & tag
-    const cats = Array.from(new Set(items.map(i=>i.category).filter(Boolean))).sort();
-    cats.forEach(c=>{ const o=document.createElement('option'); o.value=c; o.textContent=c; catEl.appendChild(o); });
-    const tags = Array.from(new Set(items.flatMap(i=>Array.isArray(i.tags)?i.tags:[]))).sort();
-    tags.forEach(t=>{ const o=document.createElement('option'); o.value=t; o.textContent=t; tagEl.appendChild(o); });
+    let PRODUCTS = [];
+    let ALL_TAGS = new Set();
+    let ALL_CATS = new Set();
 
-    // sync dari URL
-    const params = new URLSearchParams(location.search);
-    if(params.get('q')) qEl.value = params.get('q');
-    if(params.get('kategori')) catEl.value = params.get('kategori');
-    if(params.get('tag')){
-      const arr=params.get('tag').split(',').map(decodeURIComponent);
-      [...tagEl.options].forEach(o=>{ if(arr.includes(o.value)) o.selected=true; });
+    const fmtIDR = v => new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(v);
+
+    function waLink(p){
+      const text = encodeURIComponent(`Halo Customin.co, saya tertarik dengan produk: ${p.title} (${location.origin}/produk/${p.slug}.html)`);
+      return `https://wa.me/${WA_NUM}?text=${text}`;
     }
 
-    const fmt = (n)=> new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(n||0);
-
     function cardHTML(p){
-      const href = `/produk/produk.html?slug=${encodeURIComponent(p.slug)}`;
-      const price = typeof p.price==='number' ? fmt(p.price) : p.price || 'Rp -';
-      const cover = p.cover || (Array.isArray(p.images)&&p.images[0]) || 'https://via.placeholder.com/600x600?text=Foto';
+      const badge = p.badge ? `<span class="badge ${p.badge==='Promo'?'badge-sale':''}">${p.badge}</span>` : '';
       return `
-      <article class="product-card" data-kategori="${(p.category||'')}" data-tags="${(p.tags||[]).join(',')}">
-        <a class="product-img" href="${href}">
-          <img src="${cover}" alt="${p.title||'Produk'}">
-          ${p.badge?`<span class="badge">${p.badge}</span>`:''}
+      <article class="product-card" data-kategori="${p.category}" data-tags="${(p.tags||[]).join(',')}">
+        <a class="product-img" href="/produk/${p.slug}.html" aria-label="${p.title}">
+          <img src="${p.cover}" alt="${p.title}" loading="lazy" decoding="async">
+          ${badge}
         </a>
         <div class="product-content">
-          <h2 class="product-title"><a href="${href}">${p.title||'Produk'}</a></h2>
+          <h2 class="product-title"><a href="/produk/${p.slug}.html">${p.title}</a></h2>
           <div class="product-footer">
-            <div class="product-price">${price}</div>
-            <a href="${href}" class="order-btn">Detail</a>
+            <div class="product-price">${fmtIDR(p.price)}</div>
+            <a href="${waLink(p)}" class="order-btn" target="_blank" rel="noopener">Order</a>
           </div>
         </div>
       </article>`;
+    }
+
+    function render(list){
+      grid.innerHTML = list.map(cardHTML).join('');
+      if(!list.length){
+        grid.innerHTML = '';
+        grid.appendChild(emptyTpl.content.cloneNode(true));
+      }
     }
 
     function syncURL(kategori,tags,keyword){
@@ -147,38 +152,75 @@
     }
 
     function apply(){
-      const keyword = qEl.value.trim().toLowerCase();
-      const kategori = catEl.value;
-      const selTags = [...tagEl.selectedOptions].map(o=>o.value);
+      const keyword=qEl.value.trim().toLowerCase();
+      const kategori=cat.value;
+      const tags=[...tag.selectedOptions].map(o=>o.value);
 
-      const filtered = items.filter(p=>{
+      const tagTrail=tags.length?' · '+tags.map(t=>`#${t}`).join(', '):'';
+      crumbCurrent.textContent=(kategori==='*'?'Produk':`Produk › ${kategori}`)+tagTrail;
+
+      const filtered = PRODUCTS.filter(p=>{
         const matchQ = !keyword || (p.title||'').toLowerCase().includes(keyword);
-        const matchK = kategori==='*' || (p.category===kategori);
-        const pTags = Array.isArray(p.tags)?p.tags:[];
-        const matchT = selTags.length===0 || selTags.some(x=>pTags.includes(x));
+        const matchK = kategori==='*' || p.category===kategori;
+        const matchT = !tags.length || tags.some(t=> (p.tags||[]).includes(t));
         return matchQ && matchK && matchT;
       });
-
-      grid.innerHTML = filtered.map(cardHTML).join('');
-      empty.hidden = filtered.length>0;
-
-      const trail = selTags.length ? ' · '+selTags.map(t=>'#'+t).join(', ') : '';
-      document.getElementById('crumbCurrent').textContent = (kategori==='*'?'Produk':`Produk › ${kategori}`)+trail;
-
-      syncURL(kategori, selTags, keyword);
+      render(filtered);
+      syncURL(kategori,tags,keyword);
     }
 
-    qEl.addEventListener('input', apply);
-    catEl.addEventListener('change', apply);
-    tagEl.addEventListener('change', apply);
+    function hydrateFilters(){
+      // kategori
+      [...ALL_CATS].sort().forEach(c=>{
+        const opt=document.createElement('option');
+        opt.value=c; opt.textContent=c;
+        cat.appendChild(opt);
+      });
+      // tags (multiple)
+      [...ALL_TAGS].sort().forEach(tg=>{
+        const opt=document.createElement('option');
+        opt.value=tg; opt.textContent=tg;
+        tag.appendChild(opt);
+      });
 
-    // render awal
-    grid.innerHTML = items.map(cardHTML).join('');
-    empty.hidden = items.length>0;
-    apply();
+      // seed dari URL
+      const params=new URLSearchParams(location.search);
+      if(params.get('q')) qEl.value=params.get('q');
+      if(params.get('kategori') && ALL_CATS.has(params.get('kategori'))) cat.value=params.get('kategori');
+      if(params.get('tag')){
+        const arr=params.get('tag').split(',').map(decodeURIComponent);
+        [...tag.options].forEach(o=>{ if(arr.includes(o.value)) o.selected=true; });
+      }
+    }
+
+    // ===== Load data =====
+    fetch('/data/products.json', {cache:'no-store'})
+      .then(r=>{
+        if(!r.ok) throw new Error('Gagal load products.json ('+r.status+')');
+        return r.json();
+      })
+      .then(list=>{
+        PRODUCTS = Array.isArray(list)? list : [];
+        // kumpulkan kategori & tag
+        PRODUCTS.forEach(p=>{
+          if(p.category) ALL_CATS.add(p.category);
+          (p.tags||[]).forEach(t=>ALL_TAGS.add(t));
+        });
+        hydrateFilters();
+        apply();
+      })
+      .catch(err=>{
+        console.error(err);
+        grid.innerHTML = `<div class="empty"><div class="empty-emoji">⚠️</div><p>Tidak bisa memuat data produk.<br><small>Pastikan file <code>/data/products.json</code> ada & valid.</small></p></div>`;
+      });
+
+    // events
+    qEl.addEventListener('input', apply);
+    cat.addEventListener('change', apply);
+    tag.addEventListener('change', apply);
   })();
 
-  // Popup menu
+  // ===== Popup menu (seragam) =====
   (function(){
     const btn=document.getElementById('menuButton'), pop=document.getElementById('popupMenu');
     if(!btn||!pop) return;
@@ -187,9 +229,16 @@
       <li><a href="/tag/"><span class="iconify" data-icon="mdi:tag-outline"></span>Tag</a></li>
       <li><a href="/kontak.html"><span class="iconify" data-icon="mdi:phone-outline"></span>Kontak</a></li>
     </ul>`;
-    btn.addEventListener('click',e=>{e.stopPropagation();pop.classList.toggle('show');btn.setAttribute('aria-expanded',pop.classList.contains('show'))});
-    document.addEventListener('click',e=>{if(!pop.contains(e.target)) pop.classList.remove('show')});
+    function close(){ pop.classList.remove('show'); btn.setAttribute('aria-expanded','false'); }
+    btn.addEventListener('click',e=>{ e.stopPropagation(); pop.classList.toggle('show'); btn.setAttribute('aria-expanded', pop.classList.contains('show')?'true':'false'); });
+    document.addEventListener('click',e=>{ if(!pop.contains(e.target) && !btn.contains(e.target)) close(); });
+    document.addEventListener('keydown',e=>{ if(e.key==='Escape') close(); });
   })();
   </script>
+
+  <noscript>
+    <style>.produk-grid{display:none}</style>
+    Data tidak bisa ditampilkan karena JavaScript nonaktif.
+  </noscript>
 </body>
 </html>
