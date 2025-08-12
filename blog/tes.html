@@ -31,7 +31,7 @@
                  form-action 'self';
                  upgrade-insecure-requests">
 
-  <!-- Open Graph / Twitter -->
+  <!-- OG / Twitter -->
   <meta property="og:title" content="{{TITLE}} | Customin.co" />
   <meta property="og:description" content="{{DESCRIPTION}}" />
   <meta property="og:type" content="article" />
@@ -62,11 +62,10 @@
 
   <!-- Iconify -->
   <script src="https://code.iconify.design/3/3.1.1/iconify.min.js" defer></script>
-
   <!-- Umami -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="60976a45-9ae8-40bf-a8bc-99c152ba5288"></script>
 
-  <!-- Schema.org: Article -->
+  <!-- JSON-LD Article -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -85,7 +84,6 @@
   }
   </script>
 
-  <!-- util kecil untuk sr-only -->
   <style>.sr-only{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}</style>
 </head>
 <body>
@@ -107,8 +105,19 @@
           <span class="dot"></span>
           <span id="readingTime">— menit</span>
           <span class="dot"></span>
-          <a class="pd-chip pd-cat" href="/blog/?kategori={{CATEGORY}}"><span class="iconify" data-icon="mdi:bookmark-outline"></span> {{CATEGORY}}</a>
-          <button class="share-btn" id="shareBtn" title="Bagikan" aria-label="Bagikan"><span class="iconify" data-icon="mdi:share-variant"></span></button>
+          <a class="pd-chip pd-cat" href="/blog/?kategori={{CATEGORY}}">
+            <span class="iconify" data-icon="mdi:bookmark-outline"></span> {{CATEGORY}}
+          </a>
+          <span class="dot"></span>
+          <!-- DISQUS COUNT LINK -->
+          <a href="#comments"
+             class="disqus-comment-count"
+             data-disqus-identifier="{{SLUG}}">
+            0 komentar
+          </a>
+          <button class="share-btn" id="shareBtn" title="Bagikan" aria-label="Bagikan">
+            <span class="iconify" data-icon="mdi:share-variant"></span>
+          </button>
         </div>
       </header>
 
@@ -130,7 +139,7 @@
         <ol id="tocList"></ol>
       </nav>
 
-      <!-- Article body -->
+      <!-- Article -->
       <article id="postContent" class="post-content">
         <p class="lead">{{LEAD}} Contoh: pengantar singkat tentang topik, manfaat untuk pembaca, dan ringkasan isi.</p>
 
@@ -270,6 +279,13 @@
         (d.head||d.body).appendChild(s);
       }
       btn.addEventListener('click',loadDisqus);
+
+      // Klik pada count juga memicu loader
+      document.addEventListener('click', (e)=>{
+        const a=e.target.closest('.disqus-comment-count');
+        if(a){ e.preventDefault(); loadDisqus(); document.getElementById('comments')?.scrollIntoView({behavior:'smooth'}); }
+      });
+
       if(location.hash==='#comments' || new URLSearchParams(location.search).get('comments')==='1'){
         loadDisqus();
         setTimeout(()=>thread.scrollIntoView({behavior:'smooth'}),300);
@@ -279,5 +295,8 @@
     // Service worker
     if('serviceWorker' in navigator){ navigator.serviceWorker.register('/sw.js').catch(()=>{}); }
   </script>
+
+  <!-- Disqus COUNT (taruh PALING AKHIR body) -->
+  <script id="dsq-count-scr" src="https://custominco.disqus.com/count.js" async></script>
 </body>
 </html>
