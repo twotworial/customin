@@ -3,288 +3,166 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Blog & Artikel | Customin.co</title>
+  <meta name="description" content="Artikel seputar furniture custom, tips perawatan, dan behind-the-scenes produksi dari Customin.co.">
 
-  <title>Blog | Customin.co</title>
-  <meta name="description" content="Artikel tips, panduan material, studi kasus, dan inspirasi interior dari Customin.co." />
-  <link rel="canonical" href="https://customin.co/blog/" />
-  <meta name="theme-color" content="#FF6002" />
-  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <link rel="icon" href="/OG/favicon-customin-furniture-custom.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&display=swap" rel="stylesheet">
 
-  <!-- CSP -->
+  <!-- CSP (tambahan untuk Disqus count) -->
   <meta http-equiv="Content-Security-Policy"
         content="default-src 'self';
                  img-src 'self' https: data:;
-                 script-src 'self' https://code.iconify.design https://cloud.umami.is 'unsafe-inline';
+                 script-src 'self' https://code.iconify.design https://cloud.umami.is https://*.disqus.com 'unsafe-inline';
                  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
                  font-src 'self' https://fonts.gstatic.com;
-                 connect-src 'self'
-                              https://api.iconify.design
-                              https://api.simplesvg.com
-                              https://cloud.umami.is
-                              https://api-gateway.umami.dev
-                              https://*.umami.is
-                              https://*.umami.dev;
+                 connect-src 'self';
+                 frame-src https://disqus.com https://*.disqus.com;
                  base-uri 'self';
                  form-action 'self';
                  upgrade-insecure-requests">
 
-  <!-- Open Graph / Twitter -->
-  <meta property="og:title" content="Blog | Customin.co" />
-  <meta property="og:description" content="Artikel tips, panduan material, studi kasus, dan inspirasi interior dari Customin.co." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://customin.co/blog/" />
-  <meta property="og:site_name" content="Customin.co" />
-  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/twotworial/customin@main/OG/Cover-Furniture-Custom-by-Customin.webp" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Blog | Customin.co" />
-  <meta name="twitter:description" content="Artikel tips, panduan material, studi kasus, dan inspirasi interior dari Customin.co." />
-  <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/twotworial/customin@main/OG/Cover-Furniture-Custom-by-Customin.webp" />
+  <link rel="stylesheet" href="/assets/cart.css">
+  <link rel="stylesheet" href="/blog/blog.css">
 
-  <!-- Icons & Fonts -->
-  <link rel="icon" href="/OG/favicon-customin-furniture-custom.ico" />
-  <link rel="apple-touch-icon" href="/OG/favicon-customin-furniture-custom.ico" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://code.iconify.design" crossorigin>
-  <link rel="preconnect" href="https://api.iconify.design" crossorigin>
-  <link rel="preconnect" href="https://cloud.umami.is" crossorigin>
-  <link rel="preconnect" href="https://api-gateway.umami.dev" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&display=swap" rel="stylesheet">
-
-  <!-- Styles -->
-  <link rel="stylesheet" href="/assets/blog.css" />
-  <link rel="stylesheet" href="/assets/cart.css" />
-
-  <!-- Iconify -->
   <script src="https://code.iconify.design/3/3.1.1/iconify.min.js" defer></script>
 
   <!-- Umami -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="60976a45-9ae8-40bf-a8bc-99c152ba5288"></script>
-
-  <!-- Schema.org: Blog + SearchAction -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":["Blog","CollectionPage"],
-    "name":"Blog Customin.co",
-    "url":"https://customin.co/blog/",
-    "description":"Artikel tips, panduan material, studi kasus, dan inspirasi interior.",
-    "publisher":{"@type":"Organization","name":"Customin.co"},
-    "potentialAction":{
-      "@type":"SearchAction",
-      "target":"https://customin.co/blog/?q={search_term_string}",
-      "query-input":"required name=search_term_string"
-    }
-  }
-  </script>
 </head>
 <body>
   <div class="main-wrapper">
     <div class="bio-card">
-
-      <!-- HEADER -->
       <header class="page-head">
         <nav class="crumbs" aria-label="Breadcrumb">
           <ol>
             <li><a href="/">Home</a></li>
             <li class="sep" aria-hidden="true">›</li>
-            <li aria-current="page" id="crumbCurrent">Blog</li>
+            <li aria-current="page">Blog</li>
           </ol>
         </nav>
-        <h1 class="page-title">Blog</h1>
+        <h1 class="page-title">Blog & Artikel</h1>
       </header>
 
-      <main class="card-content" id="main">
-        <!-- FILTERS -->
-        <section class="controls">
+      <main class="card-content">
+        <!-- Search optional -->
+        <section class="filters">
           <div class="search-wrap">
             <span class="iconify" data-icon="mdi:magnify"></span>
-            <input id="q" type="search" placeholder="Cari artikel… (mis. jati, finishing)" autocomplete="off">
+            <input id="q" type="search" placeholder="Cari artikel… (mis. jati, perawatan)" autocomplete="off" />
           </div>
-
-          <div class="selects">
-            <label class="select">
-              <span class="select-label">Kategori</span>
-              <select id="catSelect">
-                <option value="*">Semua Kategori</option>
-                <!-- opsi kategori diisi otomatis dari JSON -->
-              </select>
-            </label>
-
-            <label class="select">
-              <span class="select-label">Tag</span>
-              <select id="tagSelect" multiple>
-                <!-- opsi tag diisi otomatis dari JSON -->
-              </select>
-            </label>
-          </div>
-
-          <p class="hint">Tip: tahan <b>Ctrl/Cmd</b> untuk pilih banyak tag.</p>
         </section>
 
-        <!-- GRID (1 kolom, isi dari JSON) -->
-        <section class="post-grid" id="grid"></section>
+        <!-- List 1 kolom, cover 2:1 -->
+        <section id="postsList" class="posts-list" aria-live="polite"></section>
+
+        <!-- Fallback kosong -->
+        <template id="postCardTmpl">
+          <article class="post-card">
+            <a class="post-cover" href="#">
+              <img src="" alt="">
+            </a>
+            <div class="post-content">
+              <h2 class="post-title"><a href="#"></a></h2>
+              <div class="post-meta">
+                <time class="post-date"></time>
+                <span class="dot"></span>
+                <a class="post-comments" href="#" data-disqus-identifier="">Komentar</a>
+                <span class="dot"></span>
+                <a class="pd-chip" href="#"><span class="iconify" data-icon="mdi:label-outline"></span><span class="chip-text"></span></a>
+              </div>
+              <p class="post-excerpt"></p>
+            </div>
+          </article>
+        </template>
       </main>
 
-      <!-- NAV -->
+      <!-- NAV (Home | Menu | Cart) -->
       <nav class="in-card-nav" aria-label="Navigasi utama">
         <div class="nav-content">
-          <a href="/" class="nav-item" title="Home" aria-label="Home">
-            <span class="iconify" data-icon="mdi:home-outline"></span>
-          </a>
-          <button type="button" class="menu-button" id="menuButton" aria-controls="popupMenu" aria-expanded="false" aria-label="Menu">
-            <span class="iconify" data-icon="mdi:view-grid-outline"></span>
-          </button>
+          <a href="/" class="nav-item" title="Home" aria-label="Home"><span class="iconify" data-icon="mdi:home-outline"></span></a>
+          <button type="button" class="menu-button" id="menuButton" aria-controls="popupMenu" aria-expanded="false" aria-label="Menu"><span class="iconify" data-icon="mdi:view-grid-outline"></span></button>
           <a href="/keranjang" class="nav-item js-cart-btn" title="Keranjang" aria-label="Keranjang">
             <span class="iconify" data-icon="mdi:cart-outline"></span>
             <span class="cart-badge" data-cart-count>0</span>
           </a>
         </div>
       </nav>
-
     </div>
   </div>
 
-  <!-- Popup -->
   <div class="popup-menu" id="popupMenu"></div>
 
-  <!-- Blog JSON renderer -->
+  <!-- Cart + menu -->
+  <script src="/assets/cart.js" defer></script>
   <script>
-  // ===== Helpers =====
-  const ID = (s) => document.getElementById(s);
-  const qsa = (s, el=document) => [...el.querySelectorAll(s)];
-  const monthID = ["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des"];
-  const fmtDate = iso => { const d=new Date(iso.replace(/-/g,'/')); return `${String(d.getDate()).padStart(2,'0')} ${monthID[d.getMonth()]} ${d.getFullYear()}`; };
-
-  (async function initBlog(){
-    const grid = ID('grid');
-    const q = ID('q');
-    const cat = ID('catSelect');
-    const tag = ID('tagSelect');
-    const crumbCurrent = ID('crumbCurrent');
-
-    try {
-      const res = await fetch('/blog/posts.json', { cache: 'no-store' });
-      if (!res.ok) throw new Error('Gagal memuat posts.json');
-      const data = await res.json();
-      let posts = (data.posts||[]).filter(p => !p.draft);
-
-      // sort terbaru
-      posts.sort((a,b)=> new Date(b.date) - new Date(a.date));
-
-      // isi kategori & tag
-      if (cat && cat.options.length <= 1) {
-        const cats = Array.from(new Set(posts.map(p=>p.category))).filter(Boolean).sort();
-        cats.forEach(c => cat.insertAdjacentHTML('beforeend', `<option value="${c}">${c}</option>`));
-      }
-      if (tag && tag.options.length === 0) {
-        const tags = Array.from(new Set(posts.flatMap(p=>p.tags||[]))).sort();
-        tags.forEach(t => tag.insertAdjacentHTML('beforeend', `<option value="${t}">${t}</option>`));
-      }
-
-      // baca URL params
-      const params = new URLSearchParams(location.search);
-      if (q && params.get('q')) q.value = params.get('q');
-      if (cat && params.get('kategori')) cat.value = params.get('kategori');
-      if (tag && params.get('tag')) {
-        const arr = params.get('tag').split(',').map(decodeURIComponent);
-        qsa('option', tag).forEach(o => { if (arr.includes(o.value)) o.selected = true; });
-      }
-
-      const syncURL = (kategori, tags, keyword) => {
-        const p = new URLSearchParams();
-        if (keyword) p.set('q', keyword);
-        if (kategori && kategori !== '*') p.set('kategori', kategori);
-        if (tags.length) p.set('tag', tags.join(','));
-        history.replaceState(null,'', p.toString()?`?${p.toString()}`:location.pathname);
-      };
-
-      const render = (list) => {
-        if (!grid) return;
-        grid.innerHTML = list.map(p => {
-          const href = `/blog/${p.slug}.html`;
-          const tags = (p.tags||[]).map(t=>`<span class="tag"><span class="iconify" data-icon="mdi:tag-outline"></span>${t}</span>`).join('');
-          const dateHuman = fmtDate(p.date);
-          return `
-            <article class="post-card" data-kategori="${p.category||''}" data-tags="${(p.tags||[]).join(',')}">
-              <a class="post-img" href="${href}" title="${p.title}">
-                <img src="${p.cover}" alt="${p.coverAlt||p.title}" width="320" height="160" loading="lazy" decoding="async">
-              </a>
-              <div class="post-content">
-                <h2 class="post-title"><a href="${href}">${p.title}</a></h2>
-                <div class="post-meta">
-                  <time datetime="${p.date}">${dateHuman}</time>
-                  <span class="dot"></span><span>${p.readMin||3} menit</span>
-                  <span class="dot"></span><span>${p.category||''}</span>
-                </div>
-                <p class="post-excerpt">${p.description||''}</p>
-                <div class="post-tags">${tags}</div>
-              </div>
-            </article>`;
-        }).join('');
-      };
-
-      const apply = () => {
-        const keyword = (q?.value||'').trim().toLowerCase();
-        const kategori = cat ? cat.value : '*';
-        const tags = tag ? [...tag.selectedOptions].map(o=>o.value) : [];
-        const filtered = posts.filter(p => {
-          const title = (p.title||'').toLowerCase();
-          const matchQ = !keyword || title.includes(keyword);
-          const matchK = (kategori==='*') || p.category===kategori;
-          const matchT = tags.length===0 || tags.some(x => (p.tags||[]).includes(x));
-          return matchQ && matchK && matchT;
-        });
-        if (crumbCurrent) {
-          const tagTrail = tags.length ? ' · ' + tags.map(t=>`#${t}`).join(', ') : '';
-          crumbCurrent.textContent = (kategori==='*' ? 'Blog' : `Blog › ${kategori}`) + tagTrail;
-        }
-        render(filtered);
-        syncURL(kategori, tags, keyword);
-      };
-
-      // initial
-      render(posts);
-      apply();
-
-      q && q.addEventListener('input', apply);
-      cat && cat.addEventListener('change', apply);
-      tag && tag.addEventListener('change', apply);
-
-    } catch (e) {
-      console.error(e);
-      if (grid) {
-        grid.innerHTML = `<div style="padding:12px;border:1px solid #eee;border-radius:12px;background:#fff;">Tidak bisa memuat daftar artikel. Coba refresh.</div>`;
-      }
-    }
-  })();
-  </script>
-
-  <!-- Popup menu + SW + Cart -->
-  <script>
-    // Popup menu
-    (function(){
-      const btn=document.getElementById('menuButton'), pop=document.getElementById('popupMenu');
-      if(!btn||!pop) return;
-      pop.innerHTML=`<ul>
-        <li><a href="/produk/"><span class="iconify" data-icon="mdi:table-furniture"></span>Produk</a></li>
-        <li><a href="/blog/"><span class="iconify" data-icon="mdi:newspaper-variant-outline"></span>Blog</a></li>
+    // Menu popup (singkat)
+    (()=>{const b=document.getElementById('menuButton'),p=document.getElementById('popupMenu');
+      if(!b||!p) return;
+      p.innerHTML=`<ul>
+        <li><a href="/produk/"><span class="iconify" data-icon="mdi:view-grid-plus-outline"></span>Produk</a></li>
+        <li><a href="/kategori/"><span class="iconify" data-icon="mdi:shape-outline"></span>Kategori</a></li>
+        <li><a href="/tag/"><span class="iconify" data-icon="mdi:tag-outline"></span>Tag</a></li>
         <li><a href="/kontak.html"><span class="iconify" data-icon="mdi:phone-outline"></span>Kontak</a></li>
       </ul>`;
-      btn.addEventListener('click',e=>{e.stopPropagation();pop.classList.toggle('show');btn.setAttribute('aria-expanded',pop.classList.contains('show'))});
-      document.addEventListener('click',e=>{ if(!pop.contains(e.target)) pop.classList.remove('show')});
+      b.addEventListener('click',e=>{e.stopPropagation();p.classList.toggle('show');b.setAttribute('aria-expanded',p.classList.contains('show'));});
+      document.addEventListener('click',e=>{if(!p.contains(e.target)) p.classList.remove('show')});
     })();
 
-    // Service worker (domain root). Untuk project pages pakai './sw.js'
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js').catch(()=>{});
-      // navigator.serviceWorker.register('./sw.js').catch(()=>{});
-    }
-  </script>
+    // Render posts dari /blog/posts.json
+    (async ()=>{
+      const list = document.getElementById('postsList');
+      const tmpl = document.getElementById('postCardTmpl');
+      const q = document.getElementById('q');
 
-  <!-- Cart -->
-  <script src="/assets/cart.js" defer></script>
+      let posts = [];
+      try {
+        const res = await fetch('/blog/posts.json', {cache:'no-store'});
+        posts = await res.json();
+      } catch(e){ console.error('Gagal load posts.json', e); }
+
+      const render = ()=>{
+        const keyword = (q.value||'').toLowerCase().trim();
+        list.innerHTML = '';
+        posts
+          .filter(p => !keyword || (p.title+p.excerpt+p.category).toLowerCase().includes(keyword))
+          .sort((a,b)=> new Date(b.date)-new Date(a.date))
+          .forEach(p=>{
+            const card = tmpl.content.cloneNode(true);
+            const url  = p.url || `/blog/${p.slug}.html`;
+            card.querySelector('.post-cover').href = url;
+            const img = card.querySelector('.post-cover img');
+            img.src = p.cover || '/OG/Cover-Furniture-Custom-by-Customin.webp';
+            img.alt = p.coverAlt || p.title;
+
+            card.querySelector('.post-title a').textContent = p.title;
+            card.querySelector('.post-title a').href = url;
+            card.querySelector('.post-date').textContent = new Date(p.date).toLocaleDateString('id-ID',{day:'2-digit',month:'short',year:'numeric'});
+            const cmt = card.querySelector('.post-comments');
+            cmt.href = `${url}#disqus_thread`;
+            cmt.setAttribute('data-disqus-identifier', p.id || p.slug);
+
+            const chip = card.querySelector('.pd-chip');
+            chip.href = `/blog/?q=${encodeURIComponent(p.category)}`;
+            chip.querySelector('.chip-text').textContent = p.category||'Umum';
+
+            card.querySelector('.post-excerpt').textContent = p.excerpt||'';
+            list.appendChild(card);
+          });
+      };
+
+      q?.addEventListener('input', render);
+      render();
+
+      // Disqus count
+      const s = document.createElement('script');
+      s.id = 'dsq-count-scr';
+      s.src = '//custominco.disqus.com/count.js';
+      s.async = true;
+      document.body.appendChild(s);
+    })();
+  </script>
 </body>
 </html>
