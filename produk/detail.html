@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Produk | Customin.co</title>
+  <meta name="description" content="Detail produk furniture custom dari Customin.co">
+  <link rel="icon" href="/OG/favicon-customin-furniture-custom.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+  <script src="https://code.iconify.design/3/3.1.1/iconify.min.js" defer></script>
+  <link rel="stylesheet" href="/produk/produk.css">
+  <link rel="stylesheet" href="/assets/cart.css">
+</head>
+<body>
+  <div class="main-wrapper">
+    <div class="product-detail-modern">
+
+      <!-- Header -->
+      <div class="pd-header">
+        <div class="pd-bar">
+          <a href="/produk/" class="pd-icon-btn" aria-label="Kembali">
+            <span class="iconify" data-icon="mdi:arrow-left"></span>
+          </a>
+          <nav class="pd-crumbs" aria-label="Breadcrumb">
+            <ol>
+              <li><a href="/">Home</a></li>
+              <li class="sep" aria-hidden="true">›</li>
+              <li><a href="/produk/">Produk</a></li>
+              <li class="sep" aria-hidden="true">›</li>
+              <li aria-current="page" class="current" id="crumbTitle">Produk</li>
+            </ol>
+          </nav>
+          <button class="pd-icon-btn" aria-label="Bagikan" title="Bagikan"
+           onclick="navigator.share?navigator.share({title:document.title,url:location.href}):navigator.clipboard.writeText(location.href)">
+            <span class="iconify" data-icon="mdi:share-outline"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Gambar -->
+      <div class="pd-imgbox">
+        <img id="mainProductImg" src="" alt="">
+      </div>
+      <div class="pd-gallery-thumbs" id="thumbs"></div>
+
+      <!-- Info -->
+      <div class="pd-info">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:6px">
+          <div>
+            <div class="pd-title" id="pdTitle">Produk</div>
+            <a class="pd-cat" id="pdCat" href="#"><span class="iconify" data-icon="mdi:shape-outline"></span> Kategori</a>
+          </div>
+          <div class="pd-price" id="pdPrice">Rp -</div>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="pd-tabs" role="tablist">
+        <button class="pd-tab active" role="tab">Deskripsi</button>
+        <button class="pd-tab" role="tab">Detail</button>
+        <button class="pd-tab" role="tab">Pemesanan</button>
+      </div>
+      <div class="pd-tab-content">
+        <div class="pd-tab-panel active" id="tabDesc"></div>
+        <div class="pd-tab-panel"><ul class="pd-detail-list" id="tabDetails"></ul></div>
+        <div class="pd-tab-panel">
+          <ol>
+            <li>Atur jumlah.</li>
+            <li>Tekan <b>Order</b> untuk masuk keranjang.</li>
+            <li>Buka halaman keranjang untuk checkout via WhatsApp.</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="pd-bottombar">
+        <a href="/" class="mini-nav-btn" title="Home" aria-label="Home"><span class="iconify" data-icon="mdi:home-outline"></span></a>
+        <div class="pd-qtybox">
+          <button class="qty-btn" type="button" aria-label="Kurangi">-</button>
+          <span class="qty-value" id="qtyVal">1</span>
+          <button class="qty-btn" type="button" aria-label="Tambah">+</button>
+        </div>
+        <button class="pd-addcart-btn" type="button" id="btnAdd">Order</button>
+        <a href="/keranjang" class="mini-nav-btn js-cart-btn" title="Keranjang" aria-label="Keranjang">
+          <span class="iconify" data-icon="mdi:cart-outline"></span>
+          <span class="cart-badge" data-cart-count>0</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cart core -->
+  <script src="/assets/cart.js"></script>
+
+  <!-- Tabs & qty -->
+  <script>
+    document.querySelectorAll('.pd-tab').forEach((tab, idx) => {
+      tab.onclick = () => {
+        document.querySelectorAll('.pd-tab').forEach((t,i)=>t.classList.toggle('active',i===idx));
+        document.querySelectorAll('.pd-tab-panel').forEach((p,i)=>p.classList.toggle('active',i===idx));
+      };
+    });
+    document.querySelectorAll('.qty-btn').forEach(btn=>{
+      btn.onclick = () => {
+        const vEl = document.getElementById('qtyVal');
+        let v = parseInt(vEl.textContent,10) || 1;
+        if(btn.textContent==='-' && v>1) v--; if(btn.textContent==='+') v++;
+        vEl.textContent = v;
+      };
+    });
+  </script>
+
+  <!-- Loader dari JSON -->
+  <script>
+  (async function(){
+    const formatRp = n => new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(n);
+    const params = new URLSearchParams(location.search);
+    const slug = params.get('slug') || '';
+    if(!slug){ location.href='/404.html'; return; }
+
+    // ambil json
+    let data;
+    try{
+      const r = await fetch('/data/products.json',{cache:'no-store'});
+      data = await r.json();
+    }catch(e){
+      console.error(e);
+      alert('Gagal memuat data produk.');
+      return;
+    }
+    const p = data.find(x=>x.slug===slug);
+    if(!p){ location.href='/404.html'; return; }
+
+    // isi basic
+    document.title = `${p.title} | Customin.co`;
+    document.getElementById('crumbTitle').textContent = p.title;
+    document.getElementById('pdTitle').textContent = p.title;
+    document.getElementById('pdPrice').textContent = formatRp(p.price);
+    const catEl = document.getElementById('pdCat');
+    catEl.href = `/produk/?kategori=${encodeURIComponent(p.category)}`;
+    catEl.innerHTML = `<span class="iconify" data-icon="mdi:shape-outline"></span> ${p.category}`;
+
+    // deskripsi & detail
+    document.getElementById('tabDesc').innerHTML = p.description || p.excerpt || '';
+    const ul = document.getElementById('tabDetails'); ul.innerHTML='';
+    Object.entries(p.details||{}).forEach(([k,v])=>{
+      const li=document.createElement('li'); li.innerHTML=`<b>${k}:</b> ${v}`; ul.appendChild(li);
+    });
+
+    // galeri
+    const imgs = (p.images && p.images.length) ? p.images : [p.cover];
+    const main = document.getElementById('mainProductImg');
+    const thumbs = document.getElementById('thumbs');
+    main.src = imgs[0]; main.alt = p.title;
+    imgs.forEach((src,i)=>{
+      const t=document.createElement('button'); t.className='thumb'+(i===0?' active':''); t.setAttribute('aria-label','Foto '+(i+1));
+      t.innerHTML = `<img src="${src}" alt="">`;
+      t.onclick = ()=>{ main.src=src; thumbs.querySelectorAll('.thumb').forEach(el=>el.classList.remove('active')); t.classList.add('active'); };
+      thumbs.appendChild(t);
+    });
+
+    // add to cart
+    document.getElementById('btnAdd').onclick = ()=>{
+      const qty = parseInt(document.getElementById('qtyVal').textContent,10)||1;
+      (window.Cart?.add||(()=>{}))({slug:p.slug,title:p.title,price:p.price,cover:p.cover,qty});
+      const b=document.getElementById('btnAdd'); const t=b.textContent; b.textContent='Ditambahkan ✓'; b.disabled=true;
+      setTimeout(()=>{b.textContent=t; b.disabled=false;},1000);
+    };
+  })();
+  </script>
+</body>
+</html>
