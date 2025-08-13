@@ -3,9 +3,9 @@
   --accent:#C35616;
   --bg:#ffffff; --text:#0c0c0c; --grey:#f6f6f6;
 
-  --radius:20px;
-  --card-radius:14px;
-  --button-radius:10px;
+  --radius:18px;
+  --card-radius:12px;
+  --button-radius:8px;
 
   --fab-size:48px;
   --in-card-offset:6px;
@@ -23,7 +23,7 @@ body{
   font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
   -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
   -webkit-tap-highlight-color:transparent;
-  font-size:15px; line-height:1.55; letter-spacing:.1px;
+  font-size:14px; line-height:1.2; letter-spacing:.1px;
 }
 img{ display:block; max-width:100%; height:auto; }
 
@@ -34,11 +34,11 @@ a:focus-visible, button:focus-visible,
 }
 
 /* ============ Layout ============ */
-.main-wrapper{ max-width:420px; margin:0 auto; padding:24px 24px 12px; }
+.main-wrapper{ max-width:420px; margin:0 auto; padding:18px 18px 8px; }
 .bio-card{
   background:var(--bg); border-radius:var(--radius);
   box-shadow:0 8px 40px rgba(0,0,0,.08);
-  padding:24px; border:1px solid #eee;
+  padding:18px; border:1px solid #eee;
   padding-bottom:calc(18px + env(safe-area-inset-bottom));
 }
 .card-content{ padding:0; }
@@ -47,7 +47,7 @@ a:focus-visible, button:focus-visible,
 .ig-slider{
   width:100%;
   aspect-ratio:16/9;
-  border-radius:14px; overflow:hidden; background:#fff;
+  border-radius:12px; overflow:hidden; background:#fff;
   border:1px solid #eee; box-shadow:0 6px 18px rgba(10,10,10,.08);
   position:relative; margin-bottom:10px;
 }
@@ -72,7 +72,7 @@ a:focus-visible, button:focus-visible,
 }
 .ig-eyebrow{
   margin:0 0 2px;
-  font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+  font-size:12px; letter-spacing:2px; text-transform:uppercase;
   font-weight:600; color:rgba(255,255,255,.78);
 }
 .ig-title{
@@ -83,8 +83,8 @@ a:focus-visible, button:focus-visible,
 .ig-pill{
   margin-top:2px;
   display:inline-flex; align-items:center; gap:6px; width:max-content;
-  border-radius:10px; padding:6px 6px;
-  background:rgba(255,255,255,.94); color:#0b0b0b; font-weight:600; font-size:12px;
+  border-radius:8px; padding:4px 8px;
+  background:rgba(255,255,255,.94); color:#0b0b0b; font-weight:400; font-size:12px;
   border:1px solid rgba(0,0,0,.06);
   box-shadow:0 4px 14px rgba(0,0,0,.08);
 }
@@ -110,9 +110,9 @@ a:focus-visible, button:focus-visible,
 }
 
 /* ============ Social row ============ */
-.social-inline{ display:flex; gap:10px; margin:6px 0 24px; justify-content:flex-start; }
+.social-inline{ display:flex; gap:12px; margin:6px 0 18px; justify-content:flex-start; }
 .social-inline a{
-  width:30px; height:30px; border-radius:50%;
+  width:28px; height:28px; border-radius:50%;
   display:flex; align-items:center; justify-content:center;
   background:#0c0c0c; color:#fff; font-size:16px; text-decoration:none;
   box-shadow:0 2px 8px rgba(0,0,0,.06); transition:transform .16s;
@@ -120,7 +120,7 @@ a:focus-visible, button:focus-visible,
 @media (hover:hover){ .social-inline a:hover{ transform:translateY(-2px); } }
 
 /* ============ Bio links ============ */
-.bio-links{ display:flex; flex-direction:column; gap:16px; margin:0 0 24px; }
+.bio-links{ display:flex; flex-direction:column; gap:12px; margin:0 0 18px; }
 .bio-link{
   display:flex; align-items:center; gap:12px;
   background:#fff; color:var(--text); text-decoration:none;
@@ -132,14 +132,14 @@ a:focus-visible, button:focus-visible,
 .bio-link .arrow{ margin-left:auto; color:#888; }
 
 /* Judul seksi */
-.section-title{ font-size:16px; font-weight:800; margin:8px 2px 12px; color:#0b0b0b; }
+.section-title{ font-size:16px; font-weight:600; margin:8px 2px 12px; color:#0b0b0b; }
 
 /* ============ Product list ============ */
 .produk-list{
-  display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px;
+  display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:18px;
 }
 .product-card{
-  background:#fff; border:1px solid #f0f0f0; border-radius:14px; overflow:hidden;
+  background:#fff; border:1px solid #f0f0f0; border-radius:12px; overflow:hidden;
   display:flex; flex-direction:column; transition:transform .18s, box-shadow .18s;
   box-shadow:0 4px 12px rgba(0,0,0,.05);
   min-height:100%;
@@ -147,19 +147,19 @@ a:focus-visible, button:focus-visible,
 @media (hover:hover){ .product-card:hover{ transform:translateY(-3px); box-shadow:0 8px 20px rgba(0,0,0,.07); } }
 .product-img{ width:100%; aspect-ratio:1/1; background:#fafafa; }
 .product-img img{ width:100%; height:100%; object-fit:cover; }
-.product-content{ padding:12px; display:flex; flex-direction:column; gap:8px; }
+.product-content{ padding:8px; display:flex; flex-direction:column; gap:8px; }
 .product-title{
-  margin:0; font-size:14px; font-weight:700; line-height:1.3;
+  margin:0; font-size:14px; font-weight:600; line-height:1.2;
   display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
 }
-.product-footer{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:auto; }
-.product-price{ color:var(--accent); font-weight:800; font-size:14px; letter-spacing:.2px; }
+.product-footer{ display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:auto; }
+.product-price{ color:var(--accent); font-weight:500; font-size:13px; letter-spacing:.2px; }
 
 /* Tombol */
 .order-btn{
   display:inline-flex; align-items:center; justify-content:center;
-  height:36px; padding:0 8px; border-radius:10px;
-  background:#fff; color:#111; font-size:14px; font-weight:700;
+  height:36px; padding:0 8px; border-radius:8px;
+  background:#fff; color:#111; font-size:13px; font-weight:400;
   border:1px solid #ddd; text-decoration:none; cursor:pointer;
   box-shadow:0 2px 4px rgba(0,0,0,.05);
 }
@@ -236,3 +236,4 @@ body.compact-nav{ --fab-size:44px; --in-card-offset:4px; }
 @media (prefers-reduced-motion: reduce){
   .bio-link, .product-card, .ig-dots button::before{ transition:none; }
 }
+
