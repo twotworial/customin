@@ -10,6 +10,12 @@
   <script src="https://code.iconify.design/3/3.1.1/iconify.min.js" defer></script>
   <link rel="stylesheet" href="/produk/produk.css">
   <link rel="stylesheet" href="/assets/cart.css">
+  <style>
+    /* pastikan breadcrumb tidak biru/underline */
+    .pd-crumbs a, .pd-crumbs a:visited { color:#7a7a7a; text-decoration:none; }
+    .pd-crumbs a:hover { color:#111; text-decoration:underline; }
+    .pd-gallery-thumbs .thumb{ aspect-ratio:1/1; overflow:hidden; }
+  </style>
 </head>
 <body>
   <div class="main-wrapper">
@@ -67,7 +73,7 @@
           <ol>
             <li>Atur jumlah.</li>
             <li>Tekan <b>Order</b> untuk masuk keranjang.</li>
-            <li>Buka halaman keranjang untuk checkout via WhatsApp.</li>
+            <li>Buka keranjang untuk checkout via WhatsApp.</li>
           </ol>
         </div>
       </div>
@@ -89,7 +95,6 @@
     </div>
   </div>
 
-  <!-- Cart core -->
   <script src="/assets/cart.js"></script>
 
   <!-- Tabs & qty -->
@@ -110,13 +115,16 @@
     });
   </script>
 
-  <!-- Loader dari JSON -->
+  <!-- Loader dari JSON + prettify URL -->
   <script>
   (async function(){
     const formatRp = n => new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(n);
     const params = new URLSearchParams(location.search);
     const slug = params.get('slug') || '';
     if(!slug){ location.href='/404.html'; return; }
+
+    // Ubah URL yang tampil jadi /produk?furniture=slug (tanpa reload)
+    history.replaceState(null, '', '/produk/?furniture=' + encodeURIComponent(slug));
 
     // ambil json
     let data;
@@ -163,6 +171,7 @@
     document.getElementById('btnAdd').onclick = ()=>{
       const qty = parseInt(document.getElementById('qtyVal').textContent,10)||1;
       (window.Cart?.add||(()=>{}))({slug:p.slug,title:p.title,price:p.price,cover:p.cover,qty});
+      if (window.Cart?.open) window.Cart.open();
       const b=document.getElementById('btnAdd'); const t=b.textContent; b.textContent='Ditambahkan ✓'; b.disabled=true;
       setTimeout(()=>{b.textContent=t; b.disabled=false;},1000);
     };
