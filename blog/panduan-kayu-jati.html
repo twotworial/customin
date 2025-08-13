@@ -11,14 +11,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&display=swap" rel="stylesheet">
 
-  <!-- CSP (tambahan untuk Disqus embed) -->
+  <!-- CSP (Disqus perlu *.disqus.com & *.disquscdn.com di script/frame/connect) -->
   <meta http-equiv="Content-Security-Policy"
         content="default-src 'self';
                  img-src 'self' https: data:;
                  script-src 'self' https://code.iconify.design https://cloud.umami.is https://*.disqus.com https://*.disquscdn.com 'unsafe-inline';
                  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
                  font-src 'self' https://fonts.gstatic.com;
-                 connect-src 'self';
+                 connect-src 'self' https://*.disqus.com https://*.disquscdn.com;
                  frame-src https://disqus.com https://*.disqus.com https://*.disquscdn.com;
                  base-uri 'self';
                  form-action 'self';
@@ -121,7 +121,7 @@ function hello(){ console.log('hi'); }</code></pre>
         </div>
       </section>
 
-      <!-- Komentar (lazy, one-click) -->
+      <!-- Komentar (lazy, klik sekali) -->
       <section aria-labelledby="komentarTitle" style="margin-top:12px">
         <h2 id="komentarTitle" class="related-title">Komentar</h2>
         <button id="loadComments" class="share-btn" type="button" aria-controls="disqus_thread">
@@ -173,7 +173,7 @@ function hello(){ console.log('hi'); }</code></pre>
       }catch(_){}
     });
 
-    // Disqus one-click (shortname: custominco)
+    // Disqus one-click (shortname: customin)
     (function(){
       const btn = document.getElementById('loadComments');
       if(!btn) return;
@@ -181,18 +181,21 @@ function hello(){ console.log('hi'); }</code></pre>
       btn.addEventListener('click', ()=>{
         if(loaded) return;
         loaded = true;
-        const identifier = document.body.dataset.slug || location.pathname; // konsisten dengan blog index
-        const url = location.origin + location.pathname;
+
+        const identifier = document.body.dataset.slug || location.pathname.replace(/\/$/,'');
+        const url = (document.querySelector('link[rel="canonical"]')?.href) || (location.origin + location.pathname);
 
         window.disqus_config = function () {
           this.page.url = url;
           this.page.identifier = identifier;
           this.page.title = document.title;
         };
+
         const d = document, s = d.createElement('script');
-        s.src = 'https://custominco.disqus.com/embed.js';
+        s.src = 'https://customin.disqus.com/embed.js'; // shortname
         s.setAttribute('data-timestamp', Date.now().toString());
         (d.head || d.body).appendChild(s);
+
         btn.style.display='none';
       });
     })();
