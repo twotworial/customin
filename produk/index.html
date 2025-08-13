@@ -62,16 +62,10 @@
 
   <div class="popup-menu" id="popupMenu"></div>
 
-  <!-- Cart core -->
+  <!-- Cart core (wajib versi normalisasi yang kuberi) -->
   <script src="/assets/cart.js"></script>
 
   <script>
-  // ====== Redirect bila akses /produk?furniture=slug langsung ======
-  (function(){
-    const s = new URLSearchParams(location.search).get('furniture');
-    if (s) { location.replace('/produk/detail.html?slug=' + encodeURIComponent(s)); }
-  })();
-
   // ====== Utils ======
   const fmtIDR = n => new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(n);
   const grid = document.getElementById('grid');
@@ -102,19 +96,25 @@
   // ====== Render ======
   function cardHTML(p){
     const badge = p.badge ? `<span class="badge ${p.badge==='Promo'?'badge-sale':''}">${p.badge}</span>` : '';
-    // HREF gunakan /produk?furniture=slug (cantik)
-    const pretty = `/produk/?furniture=${encodeURIComponent(p.slug)}`;
+    // Link langsung ke file detail (nanti dihalaman detail URL akan dipretty jadi /produk/?furniture=slug)
+    const detailHref = `/produk/detail.html?slug=${encodeURIComponent(p.slug)}`;
     return `
     <article class="product-card" data-kategori="${p.category}" data-tags="${(p.tags||[]).join(',')}">
-      <a class="product-img" href="${pretty}" aria-label="${p.title}">
+      <a class="product-img" href="${detailHref}" aria-label="${p.title}">
         <img src="${p.cover}" alt="${p.title}">${badge}
       </a>
       <div class="product-content">
-        <h2 class="product-title"><a href="${pretty}">${p.title}</a></h2>
+        <h2 class="product-title"><a href="${detailHref}">${p.title}</a></h2>
         <div class="price">${fmtIDR(p.price)}</div>
         <div class="product-actions">
-          <button class="btn btn-order" type="button" data-add="cart" data-slug="${p.slug}">Order</button>
-          <a class="btn btn-detail" href="${pretty}">Detail</a>
+          <!-- tombol order: cukup atribut data-*; /assets/cart.js yang handle -->
+          <button class="btn btn-order" type="button"
+                  data-add="cart"
+                  data-id="${p.slug}"
+                  data-name="${p.title.replace(/"/g,'&quot;')}"
+                  data-price="${p.price}"
+                  data-image="${p.cover}">Order</button>
+          <a class="btn btn-detail" href="${detailHref}">Detail</a>
         </div>
       </div>
     </article>`;
@@ -139,7 +139,7 @@
     const p=new URLSearchParams();
     if(keyword) p.set('q',keyword);
     if(kategori && kategori!=='*') p.set('kategori',kategori);
-    if(tags.length) p.set('tag',tags.join(','));
+    if(tags.length) p.set('tag',tags.join(',')); 
     history.replaceState(null,'', p.toString()?`?${p}`:location.pathname);
   }
   function apply(){
@@ -163,16 +163,6 @@
   q.addEventListener('input',apply);
   cat.addEventListener('change',apply);
   tag.addEventListener('change',apply);
-
-  // add-to-cart + buka drawer supaya terasa
-  document.addEventListener('click',e=>{
-    const btn=e.target.closest('[data-add="cart"]'); if(!btn) return;
-    const p=DATA.find(x=>x.slug===btn.dataset.slug); if(!p) return;
-    (window.Cart?.add||(()=>{}))({slug:p.slug,title:p.title,price:p.price,cover:p.cover,qty:1});
-    if (window.Cart?.open) window.Cart.open(); // tampilkan drawer
-    const t=btn.textContent; btn.textContent='Ditambahkan ✓'; btn.disabled=true;
-    setTimeout(()=>{btn.textContent=t; btn.disabled=false;},900);
-  });
 
   // popup menu
   (function(){
