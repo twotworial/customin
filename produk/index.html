@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="/produk/katalog.css" />
   <link rel="stylesheet" href="/assets/cart.css" />
 
-  <!-- override kecil sesuai request -->
+  <!-- override kecil sesuai request (harga + tombol detail 12px) -->
   <style>
     .product-footer{display:flex;align-items:center;justify-content:space-between;margin-top:6px}
     .product-price{font-weight:800;font-size:12px;color:var(--accent)}
@@ -35,7 +35,6 @@
       </header>
 
       <main class="card-content" id="main">
-        <!-- Filter -->
         <section class="filters">
           <div class="search-wrap">
             <span class="iconify" data-icon="mdi:magnify"></span>
@@ -54,11 +53,9 @@
           <p class="hint">Tip: tahan <b>Ctrl/Cmd</b> untuk pilih banyak tag.</p>
         </section>
 
-        <!-- Grid -->
         <section class="produk-grid" id="grid" aria-live="polite"></section>
       </main>
 
-      <!-- NAV -->
       <nav class="in-card-nav" aria-label="Navigasi utama">
         <div class="nav-content">
           <a href="/" class="nav-item" title="Home" aria-label="Home"><span class="iconify" data-icon="mdi:home-outline"></span></a>
@@ -75,16 +72,9 @@
 
   <div class="popup-menu" id="popupMenu"></div>
 
-  <!-- Cart core -->
   <script src="/assets/cart.js"></script>
 
   <script>
-  // Redirect cantik kalau /produk/?furniture=slug
-  (function(){
-    const f = new URLSearchParams(location.search).get('furniture');
-    if (f) location.replace('/produk/detail.html?slug=' + encodeURIComponent(f));
-  })();
-
   // ===== Utils & state
   const fmtIDR = n => new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(n);
   const grid = document.getElementById('grid');
@@ -112,10 +102,10 @@
     throw lastErr || new Error('products.json tidak ditemukan');
   }
 
-  // ===== Kartu produk (tanpa tombol Order)
+  // ===== Kartu produk (tanpa tombol Order) — link ke /produk/<slug>.html
   function cardHTML(p){
     const badge = p.badge ? `<span class="badge ${p.badge==='Promo'?'badge-sale':''}">${p.badge}</span>` : '';
-    const href  = `/produk/detail.html?slug=${encodeURIComponent(p.slug)}`;
+    const href  = `/produk/${p.slug}.html`;
     return `
       <article class="product-card" data-kategori="${p.category}" data-tags="${(p.tags||[]).join(',')}">
         <a class="product-img" href="${href}" aria-label="${p.title}">
