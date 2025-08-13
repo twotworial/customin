@@ -66,7 +66,7 @@ a:focus-visible, button:focus-visible,
   background-size:100% 100%, cover; background-position:center; background-repeat:no-repeat;
   text-shadow:none;                 /* hilangkan shadow teks biar crisp */
 }
-.ig-copy{ display:flex; flex-direction:column; gap:8px; justify-content:center; height:100%; }
+.ig-copy{ display:flex; flex-direction:column; gap:6px; justify-content:center; height:100%; }
 .ig-eyebrow{
   font-size:14px;
   font-weight:600; color:rgba(255,255,255,.78);
@@ -76,9 +76,9 @@ a:focus-visible, button:focus-visible,
   font-size:clamp(18px,3.6vw,22px); color:#fff;
 }
 .ig-pill{
-  display:inline-flex; align-items:center; gap:8px; width:max-content;
-  border-radius:10px; padding:8px 8px;
-  background:rgba(255,255,255,.94); color:#0b0b0b; font-weight:600; font-size:13px;
+  display:inline-flex; align-items:center; gap:6px; width:max-content;
+  border-radius:10px; padding:4px 8px;
+  background:rgba(255,255,255,.94); color:#0b0b0b; font-weight:400; font-size:13px;
   border:1px solid rgba(0,0,0,.06);
   box-shadow:0 4px 14px rgba(0,0,0,.08);
 }
@@ -230,6 +230,7 @@ body.compact-nav{ --fab-size:44px; --in-card-offset:4px; }
 @media (prefers-reduced-motion: reduce){
   .bio-link, .product-card, .ig-dots button::before{ transition:none; }
 }
+
 
 
 
