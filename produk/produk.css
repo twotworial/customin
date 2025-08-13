@@ -7,7 +7,9 @@
 .pd-header{position:sticky;top:0;z-index:20;padding:10px 12px;background:linear-gradient(#ffffff,#ffffff00)}
 .pd-bar{display:grid;grid-template-columns:44px 1fr 44px;gap:8px;align-items:center;background:#fff;border:1px solid #eee;border-radius:16px;box-shadow:0 6px 22px rgba(0,0,0,.08);padding:6px}
 .pd-icon-btn{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1.3px solid #f3f3f3;color:var(--accent);background:#fff;cursor:pointer}
-.pd-crumbs ol{margin:0;padding:0;list-style:none;display:inline-flex;gap:6px;color:#777;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pd-crumbs ol{margin:0;padding:0;list-style:none;display:inline-flex;gap:6px;color:#7a7a7a;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pd-crumbs a, .pd-crumbs a:visited{color:#7a7a7a;text-decoration:none}
+.pd-crumbs a:hover{color:#111;text-decoration:underline}
 .pd-imgbox{padding:0 12px 12px}
 .pd-imgbox img{width:100%;aspect-ratio:1/1;border-radius:18px;object-fit:contain;background:var(--grey)}
 .pd-gallery-thumbs{display:flex;gap:10px;padding:0 12px 8px}
