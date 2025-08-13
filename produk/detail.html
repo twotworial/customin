@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="/produk/produk.css">
   <link rel="stylesheet" href="/assets/cart.css">
   <style>
-    /* breadcrumb nggak biru */
+    /* Pastikan breadcrumb tidak biru/underline */
     .pd-crumbs a, .pd-crumbs a:visited { color:#7a7a7a; text-decoration:none; }
     .pd-crumbs a:hover { color:#111; text-decoration:underline; }
     .pd-gallery-thumbs .thumb{ aspect-ratio:1/1; overflow:hidden; }
@@ -37,7 +37,7 @@
             </ol>
           </nav>
           <button class="pd-icon-btn" aria-label="Bagikan" title="Bagikan"
-           onclick="navigator.share?navigator.share({title:document.title,url:location.href}):navigator.clipboard.writeText(location.href)">
+            onclick="navigator.share ? navigator.share({title:document.title,url:location.href}) : navigator.clipboard.writeText(location.href)">
             <span class="iconify" data-icon="mdi:share-outline"></span>
           </button>
         </div>
@@ -81,12 +81,15 @@
       <!-- Bottom bar -->
       <div class="pd-bottombar">
         <a href="/" class="mini-nav-btn" title="Home" aria-label="Home"><span class="iconify" data-icon="mdi:home-outline"></span></a>
+
         <div class="pd-qtybox">
           <button class="qty-btn" type="button" aria-label="Kurangi">-</button>
           <span class="qty-value" id="qtyVal">1</span>
           <button class="qty-btn" type="button" aria-label="Tambah">+</button>
         </div>
+
         <button class="pd-addcart-btn" type="button" id="btnAdd">Order</button>
+
         <a href="/keranjang" class="mini-nav-btn js-cart-btn" title="Keranjang" aria-label="Keranjang">
           <span class="iconify" data-icon="mdi:cart-outline"></span>
           <span class="cart-badge" data-cart-count>0</span>
@@ -98,7 +101,7 @@
   <!-- Cart core -->
   <script src="/assets/cart.js"></script>
 
-  <!-- Tabs & qty -->
+  <!-- Tabs & qty kecil -->
   <script>
     document.querySelectorAll('.pd-tab').forEach((tab, idx) => {
       tab.onclick = () => {
@@ -121,13 +124,14 @@
   (async function(){
     const formatRp = n => new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(n);
     const params = new URLSearchParams(location.search);
-    const slug = params.get('slug') || '';
+    // Terima ?slug=... atau ?furniture=...
+    const slug = params.get('slug') || params.get('furniture') || '';
     if(!slug){ location.href='/404.html'; return; }
 
-    // tampilkan URL cantik tanpa reload
+    // Tampilkan URL cantik di address bar
     history.replaceState(null, '', '/produk/?furniture=' + encodeURIComponent(slug));
 
-    // ambil json
+    // Ambil JSON
     let data;
     try{
       const r = await fetch('/data/products.json',{cache:'no-store'});
@@ -140,42 +144,54 @@
     const p = data.find(x=>x.slug===slug);
     if(!p){ location.href='/404.html'; return; }
 
-    // isi basic
+    // Title + breadcrumb
     document.title = `${p.title} | Customin.co`;
     document.getElementById('crumbTitle').textContent = p.title;
+
+    // Harga, judul, kategori
     document.getElementById('pdTitle').textContent = p.title;
     document.getElementById('pdPrice').textContent = formatRp(p.price);
     const catEl = document.getElementById('pdCat');
     catEl.href = `/produk/?kategori=${encodeURIComponent(p.category)}`;
     catEl.innerHTML = `<span class="iconify" data-icon="mdi:shape-outline"></span> ${p.category}`;
 
-    // deskripsi & detail
+    // Deskripsi
     document.getElementById('tabDesc').innerHTML = p.description || p.excerpt || '';
-    const ul = document.getElementById('tabDetails'); ul.innerHTML='';
+
+    // Detail list
+    const ul = document.getElementById('tabDetails');
+    ul.innerHTML = '';
     Object.entries(p.details||{}).forEach(([k,v])=>{
-      const li=document.createElement('li'); li.innerHTML=`<b>${k}:</b> ${v}`; ul.appendChild(li);
+      const li = document.createElement('li');
+      li.innerHTML = `<b>${k}:</b> ${v}`;
+      ul.appendChild(li);
     });
 
-    // galeri
-    const imgs = (p.images && p.images.length) ? p.images : [p.cover];
+    // Galeri
+    const images = (p.images && p.images.length) ? p.images : [p.cover];
     const main = document.getElementById('mainProductImg');
     const thumbs = document.getElementById('thumbs');
-    main.src = imgs[0]; main.alt = p.title;
-    imgs.forEach((src,i)=>{
-      const t=document.createElement('button'); t.className='thumb'+(i===0?' active':''); t.setAttribute('aria-label','Foto '+(i+1));
+    main.src = images[0]; main.alt = p.title;
+    images.forEach((src,i)=>{
+      const t=document.createElement('button');
+      t.className='thumb'+(i===0?' active':'');
+      t.setAttribute('aria-label','Foto '+(i+1));
       t.innerHTML = `<img src="${src}" alt="">`;
       t.onclick = ()=>{ main.src=src; thumbs.querySelectorAll('.thumb').forEach(el=>el.classList.remove('active')); t.classList.add('active'); };
       thumbs.appendChild(t);
     });
 
-    // Order: langsung pakai API Cart (biar qty kepakai)
-    document.getElementById('btnAdd').onclick = ()=>{
-      const qty = parseInt(document.getElementById('qtyVal').textContent,10)||1;
-      window.Cart.add({ slug:p.slug, title:p.title, price:p.price, cover:p.cover, qty });
-      window.Cart.open();
-      const b=document.getElementById('btnAdd'); const t=b.textContent; b.textContent='Ditambahkan ✓'; b.disabled=true;
-      setTimeout(()=>{b.textContent=t; b.disabled=false;},1000);
-    };
+    // Siapkan tombol Order agar dibaca cart.js (delegated)
+    const btn = document.getElementById('btnAdd');
+    btn.setAttribute('data-add','cart');
+    btn.dataset.id    = p.slug;
+    btn.dataset.slug  = p.slug;
+    btn.dataset.name  = p.title;
+    btn.dataset.title = p.title;
+    btn.dataset.price = String(p.price);
+    btn.dataset.image = p.cover;
+    btn.dataset.cover = p.cover;
+
   })();
   </script>
 </body>
