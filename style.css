@@ -49,7 +49,7 @@ a:focus-visible, button:focus-visible,
   aspect-ratio:16/9;                /* lebih modern ketimbang 2:1 */
   border-radius:14px; overflow:hidden; background:#fff;
   border:1px solid #eee; box-shadow:0 6px 18px rgba(10,10,10,.08);
-  position:relative; margin-bottom:14px;
+  position:relative; margin-bottom:10px;
 }
 .ig-track{
   display:flex; height:100%;
@@ -230,5 +230,6 @@ body.compact-nav{ --fab-size:44px; --in-card-offset:4px; }
 @media (prefers-reduced-motion: reduce){
   .bio-link, .product-card, .ig-dots button::before{ transition:none; }
 }
+
 
 
