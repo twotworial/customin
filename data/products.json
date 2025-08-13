@@ -1,6 +1,7 @@
 [
   {
     "slug": "kursi-lipat-jati",
+    "url": "/produk/kursi-lipat-jati.html",
     "title": "Kursi Lipat Jati",
     "price": 183000,
     "category": "Kursi",
@@ -24,6 +25,7 @@
   },
   {
     "slug": "meja-kerja-minimalis",
+    "url": "/produk/meja-kerja-minimalis.html",
     "title": "Meja Kerja Minimalis",
     "price": 1250000,
     "category": "Meja",
@@ -46,6 +48,7 @@
   },
   {
     "slug": "lemari-pakaian-jati",
+    "url": "/produk/lemari-pakaian-jati.html",
     "title": "Lemari Pakaian Jati",
     "price": 3800000,
     "category": "Lemari",
@@ -69,6 +72,7 @@
   },
   {
     "slug": "rak-buku-minimalis",
+    "url": "/produk/rak-buku-minimalis.html",
     "title": "Rak Buku Minimalis",
     "price": 690000,
     "category": "Rak",
@@ -91,6 +95,7 @@
   },
   {
     "slug": "kursi-teras-outdoor",
+    "url": "/produk/kursi-teras-outdoor.html",
     "title": "Kursi Teras Outdoor",
     "price": 480000,
     "category": "Kursi",
@@ -113,6 +118,7 @@
   },
   {
     "slug": "meja-konsol-kayu",
+    "url": "/produk/meja-konsol-kayu.html",
     "title": "Meja Konsol Kayu",
     "price": 1450000,
     "category": "Meja",
@@ -135,6 +141,7 @@
   },
   {
     "slug": "meja-makan-6-kursi",
+    "url": "/produk/meja-makan-6-kursi.html",
     "title": "Meja Makan 6 Kursi",
     "price": 7200000,
     "category": "Meja",
@@ -157,6 +164,7 @@
   },
   {
     "slug": "lemari-tv-minimalis",
+    "url": "/produk/lemari-tv-minimalis.html",
     "title": "Lemari TV Minimalis",
     "price": 2750000,
     "category": "Lemari",
