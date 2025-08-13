@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="/produk/produk.css">
   <link rel="stylesheet" href="/assets/cart.css">
   <style>
-    /* pastikan breadcrumb tidak biru/underline */
+    /* breadcrumb nggak biru */
     .pd-crumbs a, .pd-crumbs a:visited { color:#7a7a7a; text-decoration:none; }
     .pd-crumbs a:hover { color:#111; text-decoration:underline; }
     .pd-gallery-thumbs .thumb{ aspect-ratio:1/1; overflow:hidden; }
@@ -95,6 +95,7 @@
     </div>
   </div>
 
+  <!-- Cart core -->
   <script src="/assets/cart.js"></script>
 
   <!-- Tabs & qty -->
@@ -123,7 +124,7 @@
     const slug = params.get('slug') || '';
     if(!slug){ location.href='/404.html'; return; }
 
-    // Ubah URL yang tampil jadi /produk?furniture=slug (tanpa reload)
+    // tampilkan URL cantik tanpa reload
     history.replaceState(null, '', '/produk/?furniture=' + encodeURIComponent(slug));
 
     // ambil json
@@ -167,11 +168,11 @@
       thumbs.appendChild(t);
     });
 
-    // add to cart
+    // Order: langsung pakai API Cart (biar qty kepakai)
     document.getElementById('btnAdd').onclick = ()=>{
       const qty = parseInt(document.getElementById('qtyVal').textContent,10)||1;
-      (window.Cart?.add||(()=>{}))({slug:p.slug,title:p.title,price:p.price,cover:p.cover,qty});
-      if (window.Cart?.open) window.Cart.open();
+      window.Cart.add({ slug:p.slug, title:p.title, price:p.price, cover:p.cover, qty });
+      window.Cart.open();
       const b=document.getElementById('btnAdd'); const t=b.textContent; b.textContent='Ditambahkan ✓'; b.disabled=true;
       setTimeout(()=>{b.textContent=t; b.disabled=false;},1000);
     };
