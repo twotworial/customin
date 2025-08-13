@@ -1,6 +1,6 @@
 /* ============ Tokens ============ */
 :root{
-  --accent:#FF6002;
+  --accent:#C35616;
   --bg:#ffffff; --text:#0c0c0c; --grey:#f6f6f6;
 
   --radius:24px;
@@ -205,3 +205,4 @@ body.compact-nav{ --fab-size:44px; --in-card-offset:4px; }
 @media (prefers-reduced-motion: reduce){
   .bio-link, .product-card, .ig-dots button::before{ transition:none; }
 }
+
