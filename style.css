@@ -43,7 +43,7 @@ a:focus-visible, button:focus-visible,
 }
 .card-content{ padding:0; }
 
-/* ============ Slider (clean & compact) ============ */
+/* ============ Slider (clean & compact, LCP-friendly) ============ */
 .ig-slider{
   width:100%;
   aspect-ratio:16/9;
@@ -56,18 +56,26 @@ a:focus-visible, button:focus-visible,
   overflow-x:auto; scroll-snap-type:x mandatory; scroll-behavior:smooth;
 }
 .ig-track::-webkit-scrollbar{ display:none; }
+
+/* Slide now uses an <img> as background */
 .ig-slide{
-  flex:0 0 100%; height:100%; position:relative; color:#fff; text-decoration:none;
-  padding:14px 14px 30px;            /* lebih rapat + ruang bawah untuk dots */
-  scroll-snap-align:start;
-  background-image:
-    linear-gradient(24deg, rgba(0,0,0,.40), rgba(0,0,0,.18)),
-    var(--bg, none);
-  background-size:100% 100%, cover; background-position:center; background-repeat:no-repeat;
+  position:relative; flex:0 0 100%; height:100%;
+  color:#fff; text-decoration:none; scroll-snap-align:start;
+  padding:14px 14px 30px; /* ruang bawah untuk dots */
   text-shadow:none;
 }
+.ig-slide::before{
+  content:""; position:absolute; inset:0; z-index:0;
+  background:linear-gradient(24deg, rgba(0,0,0,.40), rgba(0,0,0,.18));
+}
+.ig-bg{
+  position:absolute; inset:0; z-index:-1;
+  width:100%; height:100%; object-fit:cover; background:#ddd;
+}
+
 .ig-copy{
-  display:flex; flex-direction:column; gap:4px;  /* ↓ gap agar teks lebih dekat */
+  position:relative; z-index:1;
+  display:flex; flex-direction:column; gap:4px;   /* teks lebih dekat */
   justify-content:center; height:100%; max-width:92%;
 }
 .ig-eyebrow{
@@ -236,4 +244,3 @@ body.compact-nav{ --fab-size:44px; --in-card-offset:4px; }
 @media (prefers-reduced-motion: reduce){
   .bio-link, .product-card, .ig-dots button::before{ transition:none; }
 }
-
