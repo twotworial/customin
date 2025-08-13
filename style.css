@@ -83,9 +83,9 @@ a:focus-visible, button:focus-visible,
 /* ============ Social row ============ */
 .social-inline{ display:flex; gap:10px; margin:6px 0 24px; justify-content:flex-start; }
 .social-inline a{
-  width:34px; height:34px; border-radius:50%;
+  width:30px; height:30px; border-radius:50%;
   display:flex; align-items:center; justify-content:center;
-  background:#0c0c0c; color:#fff; font-size:18px; text-decoration:none;
+  background:#0c0c0c; color:#fff; font-size:16px; text-decoration:none;
   box-shadow:0 2px 8px rgba(0,0,0,.06); transition:transform .16s;
 }
 @media (hover:hover){ .social-inline a:hover{ transform:translateY(-2px); } }
@@ -205,5 +205,6 @@ body.compact-nav{ --fab-size:44px; --in-card-offset:4px; }
 @media (prefers-reduced-motion: reduce){
   .bio-link, .product-card, .ig-dots button::before{ transition:none; }
 }
+
 
 
