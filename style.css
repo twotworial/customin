@@ -60,11 +60,11 @@ a:focus-visible, button:focus-visible,
   text-shadow:0 1px 2px rgba(0,0,0,.35);
 }
 .ig-copy{ display:flex; flex-direction:column; gap:6px; justify-content:center; height:100%; }
-.ig-eyebrow{ font-size:10px; letter-spacing:.12em; text-transform:uppercase; font-weight:800; color:#10b981; }
-.ig-title{ margin:0; font-weight:900; line-height:1.05; font-size:18px; }
+.ig-eyebrow{ font-size:10px; letter-spacing:.12em; text-transform:uppercase; font-weight:600; color:#FF6002; }
+.ig-title{ margin:0; font-weight:600; line-height:1.05; font-size:16px; }
 .ig-pill{
   display:inline-flex; align-items:center; gap:8px; width:max-content;
-  border-radius:999px; padding:8px 12px; background:#fff; color:#0b0b0b; font-weight:700; font-size:12px;
+  border-radius:999px; padding:4px 8px; background:#fff; color:#0b0b0b; font-weight:500; font-size:12px;
   box-shadow:0 8px 22px rgba(0,0,0,.12);
 }
 
@@ -205,4 +205,5 @@ body.compact-nav{ --fab-size:44px; --in-card-offset:4px; }
 @media (prefers-reduced-motion: reduce){
   .bio-link, .product-card, .ig-dots button::before{ transition:none; }
 }
+
 
