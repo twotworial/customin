@@ -14,6 +14,7 @@
 <body>
   <div class="main-wrapper">
     <div class="bio-card">
+
       <header class="page-head">
         <nav class="crumbs" aria-label="Breadcrumb">
           <ol>
@@ -26,27 +27,33 @@
       </header>
 
       <main class="card-content" id="main">
+        <!-- Filters -->
         <section class="filters">
           <div class="search-wrap">
             <span class="iconify" data-icon="mdi:magnify"></span>
             <input id="q" type="search" placeholder="Cari produk… (mis. kursi, meja)" autocomplete="off">
           </div>
+
           <div class="selects">
             <label class="select">
               <span class="select-label">Kategori</span>
               <select id="catSelect"></select>
             </label>
+
             <label class="select">
               <span class="select-label">Tag</span>
               <select id="tagSelect" multiple></select>
             </label>
           </div>
+
           <p class="hint">Tip: tahan <b>Ctrl/Cmd</b> untuk pilih banyak tag.</p>
         </section>
 
+        <!-- Grid -->
         <section class="produk-grid" id="grid" aria-live="polite"></section>
       </main>
 
+      <!-- NAV -->
       <nav class="in-card-nav" aria-label="Navigasi utama">
         <div class="nav-content">
           <a href="/" class="nav-item" title="Home" aria-label="Home"><span class="iconify" data-icon="mdi:home-outline"></span></a>
@@ -57,16 +64,24 @@
           </a>
         </div>
       </nav>
+
     </div>
   </div>
 
+  <!-- Popup menu -->
   <div class="popup-menu" id="popupMenu"></div>
 
-  <!-- Cart core (wajib versi normalisasi yang kuberi) -->
+  <!-- Cart (delegated handlers & drawer) -->
   <script src="/assets/cart.js"></script>
 
   <script>
-  // ====== Utils ======
+  // Redirect kalau user buka /produk/?furniture=slug langsung
+  (function(){
+    const f = new URLSearchParams(location.search).get('furniture');
+    if (f) { location.replace('/produk/detail.html?slug=' + encodeURIComponent(f)); }
+  })();
+
+  // ===== Utils & state =====
   const fmtIDR = n => new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(n);
   const grid = document.getElementById('grid');
   const q    = document.getElementById('q');
@@ -75,29 +90,28 @@
   const crumb= document.getElementById('crumbCurrent');
   let DATA = [];
 
-  // ====== Loader robust ======
-  const TS = Date.now();
-  const CANDIDATES = [
-    `/data/products.json?v=${TS}`,
-    `./data/products.json?v=${TS}`
-  ];
+  // ===== Load JSON (robust) =====
   async function loadProducts(){
+    const ts = Date.now();
+    const urls = [
+      `/data/products.json?v=${ts}`,
+      `./data/products.json?v=${ts}`
+    ];
     let lastErr;
-    for (const url of CANDIDATES){
+    for (const u of urls){
       try{
-        const r = await fetch(url,{cache:'no-store'});
-        if(!r.ok) throw new Error(`HTTP ${r.status}`);
+        const r = await fetch(u, {cache:'no-store'});
+        if(!r.ok) throw new Error('HTTP '+r.status);
         return await r.json();
-      }catch(e){ lastErr=e; }
+      }catch(e){ lastErr = e; }
     }
     throw lastErr || new Error('products.json tidak ditemukan');
   }
 
-  // ====== Render ======
+  // ===== Render =====
   function cardHTML(p){
     const badge = p.badge ? `<span class="badge ${p.badge==='Promo'?'badge-sale':''}">${p.badge}</span>` : '';
-    // Link langsung ke file detail (nanti dihalaman detail URL akan dipretty jadi /produk/?furniture=slug)
-    const detailHref = `/produk/detail.html?slug=${encodeURIComponent(p.slug)}`;
+    const detailHref = `/produk/detail.html?slug=${encodeURIComponent(p.slug)}`; // nanti di detail akan dipretty jadi ?furniture=
     return `
     <article class="product-card" data-kategori="${p.category}" data-tags="${(p.tags||[]).join(',')}">
       <a class="product-img" href="${detailHref}" aria-label="${p.title}">
@@ -107,13 +121,13 @@
         <h2 class="product-title"><a href="${detailHref}">${p.title}</a></h2>
         <div class="price">${fmtIDR(p.price)}</div>
         <div class="product-actions">
-          <!-- tombol order: cukup atribut data-*; /assets/cart.js yang handle -->
           <button class="btn btn-order" type="button"
                   data-add="cart"
-                  data-id="${p.slug}"
-                  data-name="${p.title.replace(/"/g,'&quot;')}"
-                  data-price="${p.price}"
-                  data-image="${p.cover}">Order</button>
+                  data-id="${p.slug}" data-name="${p.title.replace(/"/g,'&quot;')}"
+                  data-price="${p.price}" data-image="${p.cover}"
+                  data-slug="${p.slug}" data-title="${p.title.replace(/"/g,'&quot;')}" data-cover="${p.cover}">
+            Order
+          </button>
           <a class="btn btn-detail" href="${detailHref}">Detail</a>
         </div>
       </div>
@@ -126,6 +140,7 @@
     const tags = Array.from(new Set(list.flatMap(p=>p.tags||[]))).sort((a,b)=>a.localeCompare(b,'id'));
     tag.innerHTML = tags.map(t=>`<option value="${t}">${t}</option>`).join('');
   }
+
   function restoreFromURL(){
     const params=new URLSearchParams(location.search);
     if(params.get('q')) q.value=params.get('q');
@@ -135,13 +150,15 @@
       [...tag.options].forEach(o=>o.selected=arr.includes(o.value));
     }
   }
+
   function syncURL(kategori,tags,keyword){
     const p=new URLSearchParams();
     if(keyword) p.set('q',keyword);
     if(kategori && kategori!=='*') p.set('kategori',kategori);
-    if(tags.length) p.set('tag',tags.join(',')); 
+    if(tags.length) p.set('tag',tags.join(','));
     history.replaceState(null,'', p.toString()?`?${p}`:location.pathname);
   }
+
   function apply(){
     const keyword=q.value.trim().toLowerCase();
     const kategori=cat.value;
@@ -155,8 +172,10 @@
       const matchT=!tagsSel.length||tagsSel.some(t=>(p.tags||[]).includes(t));
       return matchQ&&matchK&&matchT;
     });
+
     grid.innerHTML = filtered.length ? filtered.map(cardHTML).join('')
       : '<p style="grid-column:1/-1;color:#777;text-align:center">Tidak ada produk yang cocok.</p>';
+
     syncURL(kategori,tagsSel,keyword);
   }
 
@@ -164,7 +183,7 @@
   cat.addEventListener('change',apply);
   tag.addEventListener('change',apply);
 
-  // popup menu
+  // Popup menu
   (function(){
     const btn=document.getElementById('menuButton'), pop=document.getElementById('popupMenu');
     if(!btn||!pop) return;
@@ -177,9 +196,10 @@
     document.addEventListener('click',e=>{if(!pop.contains(e.target)) pop.classList.remove('show')});
   })();
 
-  // go
-  loadProducts().then(json=>{ DATA=json; initFilters(json); restoreFromURL(); apply(); })
-               .catch(err=>{ console.error(err); grid.innerHTML='<p style="color:#c00">Gagal memuat data produk.</p>'; });
+  // GO
+  loadProducts()
+    .then(json=>{ DATA=json; initFilters(json); restoreFromURL(); apply(); })
+    .catch(err=>{ console.error(err); grid.innerHTML='<p style="color:#c00">Gagal memuat data produk.</p>'; });
   </script>
 </body>
 </html>
