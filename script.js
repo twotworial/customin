@@ -96,3 +96,69 @@
   });
 
 })();
+
+/* ===== 3) Home: render 3 pos blog terbaru (match gaya halaman Blog) ===== */
+(() => {
+  const wrap = document.getElementById('homePosts');       // <section id="homePosts" class="posts-list"></section>
+  if (!wrap) return;
+
+  const fmt = (d) => {
+    const dd = new Date(d);
+    return isNaN(dd) ? '' : dd.toLocaleDateString('id-ID', { day:'2-digit', month:'short', year:'numeric' });
+  };
+
+  (async () => {
+    wrap.setAttribute('aria-busy', 'true');
+
+    let posts = [];
+    try {
+      const res = await fetch('/blog/posts.json', { cache: 'no-store' });
+      posts = await res.json();      // Array of post objects
+    } catch (e) {
+      console.error('Gagal load posts.json', e);
+    }
+
+    const top3 = posts
+      .filter(p => p && (p.title || p.slug))
+      .sort((a,b)=> new Date(b.date) - new Date(a.date))
+      .slice(0, 3);
+
+    wrap.innerHTML = top3.map(p => {
+      const url   = p.url || `/blog/${p.slug}.html`;
+      const tag   = p.category || 'Umum';
+      const cover = p.cover || '/OG/Cover-Furniture-Custom-by-Customin.webp';
+      const id    = p.id || p.slug || p.title;
+
+      return `
+        <article class="post-card">
+          <a class="post-cover" href="${url}">
+            <img src="${cover}" alt="${p.coverAlt || p.title || ''}" loading="lazy" decoding="async">
+          </a>
+          <div class="post-content">
+            <h2 class="post-title"><a href="${url}">${p.title || '(Tanpa judul)'}</a></h2>
+            <div class="post-meta">
+              ${p.date ? `<time datetime="${p.date}">${fmt(p.date)}</time>` : ''}
+              <span class="dot"></span>
+              <a class="post-comments" href="${url}#disqus_thread" data-disqus-identifier="${id}">Komentar</a>
+              <span class="dot"></span>
+              <a class="pd-chip" href="/blog/?q=${encodeURIComponent(tag)}">
+                <span class="iconify" data-icon="mdi:label-outline"></span><span class="chip-text">${tag}</span>
+              </a>
+            </div>
+            ${p.excerpt ? `<p class="post-excerpt">${p.excerpt}</p>` : ''}
+          </div>
+        </article>`;
+    }).join('');
+
+    wrap.removeAttribute('aria-busy');
+
+    // Disqus count (load sekali saja)
+    if (!document.getElementById('dsq-count-scr')) {
+      const s = document.createElement('script');
+      s.id = 'dsq-count-scr';
+      s.src = '//custominco.disqus.com/count.js';
+      s.async = true;
+      document.body.appendChild(s);
+    }
+  })();
+})();
