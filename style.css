@@ -182,7 +182,7 @@ a:focus-visible, button:focus-visible,
   width:100%; aspect-ratio: 2 / 1; object-fit:cover; background:#f7f7f7;
 }
 .home-blog .post-content{ padding:12px; display:flex; flex-direction:column; gap:8px; }
-.home-blog .post-title{ margin:0; font-size:16px; font-weight:800; }
+.home-blog .post-title{ margin:0; font-size:16px; font-weight:600; }
 .home-blog .post-title a{ color:#111; text-decoration:none; }
 @media (hover:hover){ .home-blog .post-title a:hover{ text-decoration:underline; } }
 
@@ -192,8 +192,8 @@ a:focus-visible, button:focus-visible,
 
 .home-blog .pd-chip{
   display:inline-flex; align-items:center; gap:6px;
-  padding:4px 10px; border-radius:999px; font-size:12px; font-weight:600; text-decoration:none;
-  border:1px solid #ffd5bb; background:#fff6f0; color:#d64b00;
+  padding:4px 10px; border-radius:999px; font-size:12px; font-weight:500; text-decoration:none;
+  border:1px solid #ffd5bb; background:#fff6f0; color:#C35616;
 }
 .home-blog .pd-chip .iconify{ font-size:14px; }
 @media (hover:hover){ .home-blog .pd-chip:hover{ background:#ffe8db; } }
@@ -283,6 +283,7 @@ body.compact-nav{ --fab-size:44px; --in-card-offset:4px; }
 @media (prefers-reduced-motion: reduce){
   .bio-link, .product-card, .ig-dots button::before{ transition:none; }
 }
+
 
 
 
