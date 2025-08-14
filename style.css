@@ -72,7 +72,7 @@ a:focus-visible, button:focus-visible,
 }
 .ig-eyebrow{
   margin:0 0 2px;
-  font-size:12px; letter-spacing:2px; text-transform:uppercase;
+  font-size:12px; letter-spacing:1px; text-transform:uppercase;
   font-weight:600; color:rgba(255,255,255,.78);
 }
 .ig-title{
@@ -236,4 +236,5 @@ body.compact-nav{ --fab-size:44px; --in-card-offset:4px; }
 @media (prefers-reduced-motion: reduce){
   .bio-link, .product-card, .ig-dots button::before{ transition:none; }
 }
+
 
