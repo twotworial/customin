@@ -10,23 +10,23 @@
   <meta name="theme-color" content="#C35616" />
   <meta name="referrer" content="strict-origin-when-cross-origin">
 
-  <!-- CSP: full lokal untuk Iconify & Font -->
+  <!-- CSP: Iconify via CDN, Inter lokal -->
   <meta http-equiv="Content-Security-Policy"
-  content="
-    default-src 'self';
-    script-src 'self' 'unsafe-inline' https://cloud.umami.is https://*.disqus.com;
-    connect-src 'self' https://cloud.umami.is https://api-gateway.umami.dev https://*.umami.is https://*.umami.dev;
-    style-src 'self' 'unsafe-inline';
-    font-src 'self' data:;
-    img-src 'self' https: data:;
-    worker-src 'self';
-    frame-src 'self' https://*.disqus.com;
-    object-src 'none';
-    base-uri 'self';
-    frame-ancestors 'self';
-    form-action 'self';
-    upgrade-insecure-requests
-  ">
+        content="
+          default-src 'self';
+          script-src 'self' 'unsafe-inline' https://code.iconify.design https://cloud.umami.is https://*.disqus.com;
+          connect-src 'self' https://api.iconify.design https://api.simplesvg.com https://api.unisvg.com https://cloud.umami.is https://api-gateway.umami.dev https://*.umami.is https://*.umami.dev;
+          style-src 'self' 'unsafe-inline';
+          font-src 'self' data:;
+          img-src 'self' https: data:;
+          worker-src 'self';
+          frame-src 'self' https://*.disqus.com;
+          object-src 'none';
+          base-uri 'self';
+          frame-ancestors 'self';
+          form-action 'self';
+          upgrade-insecure-requests
+        ">
 
   <!-- Open Graph / Twitter -->
   <meta property="og:title" content="Konsultasi Gratis: Custom Furniture & Furniture Jepara | Customin.co" />
@@ -46,6 +46,11 @@
   <link rel="icon" href="OG/favicon-customin-furniture-custom.ico" />
   <link rel="apple-touch-icon" href="OG/favicon-customin-furniture-custom.ico">
 
+  <!-- Preconnect (perf) -->
+  <link rel="preconnect" href="https://code.iconify.design" crossorigin>
+  <link rel="preconnect" href="https://api.iconify.design" crossorigin>
+  <link rel="preconnect" href="https://cloud.umami.is" crossorigin>
+
   <!-- Preload hero/LCP -->
   <link rel="preload" as="image" href="OG/Cover-Furniture-Custom-by-Customin.webp" fetchpriority="high">
 
@@ -57,9 +62,8 @@
   <link rel="stylesheet" href="style.css"/>
   <link rel="stylesheet" href="assets/cart.css"/>
 
-  <!-- Iconify full lokal -->
-  <script src="/assets/vendor/iconify.min.js" defer></script>
-  <script src="/assets/icons/register-icons.js" defer></script>
+  <!-- Iconify (CDN) -->
+  <script src="https://code.iconify.design/3/3.1.1/iconify.min.js" defer></script>
 
   <!-- Umami -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="60976a45-9ae8-40bf-a8bc-99c152ba5288"></script>
@@ -207,4 +211,3 @@
   </script>
 </body>
 </html>
-
