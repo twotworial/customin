@@ -9,7 +9,6 @@
   let index = 0, timer;
 
   if (slider && track && slides.length && dotsEl) {
-    // dots
     slides.forEach((_, i) => {
       const d = document.createElement('button');
       d.setAttribute('aria-label', 'Ke slide ' + (i + 1));
@@ -77,29 +76,26 @@
   }
   function closePopup(){ setOpen(false); }
 
-  // toggle via click
   menuBtn?.addEventListener('click', (e) => {
     e.preventDefault();
     e.stopPropagation();
     setOpen();
   });
 
-  // klik di luar -> tutup
   document.addEventListener('click', (e) => {
     if (!open || !popup) return;
     if (!popup.contains(e.target) && !menuBtn?.contains(e.target)) closePopup();
   }, { passive:true });
 
-  // ESC -> tutup
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && open) closePopup();
   });
 
 })();
 
-/* ===== 3) Home: render 3 pos blog terbaru (match gaya halaman Blog) ===== */
+/* ===== 3) Home: render 2 pos blog terbaru (tanpa excerpt & komentar) ===== */
 (() => {
-  const wrap = document.getElementById('homePosts');       // <section id="homePosts" class="posts-list"></section>
+  const wrap = document.getElementById('homePosts'); // <div id="homePosts" class="posts-list"></div>
   if (!wrap) return;
 
   const fmt = (d) => {
@@ -113,21 +109,20 @@
     let posts = [];
     try {
       const res = await fetch('/blog/posts.json', { cache: 'no-store' });
-      posts = await res.json();      // Array of post objects
+      posts = await res.json();
     } catch (e) {
       console.error('Gagal load posts.json', e);
     }
 
-    const top3 = posts
+    const top2 = posts
       .filter(p => p && (p.title || p.slug))
       .sort((a,b)=> new Date(b.date) - new Date(a.date))
-      .slice(0, 3);
+      .slice(0, 2);
 
-    wrap.innerHTML = top3.map(p => {
+    wrap.innerHTML = top2.map(p => {
       const url   = p.url || `/blog/${p.slug}.html`;
       const tag   = p.category || 'Umum';
       const cover = p.cover || '/OG/Cover-Furniture-Custom-by-Customin.webp';
-      const id    = p.id || p.slug || p.title;
 
       return `
         <article class="post-card">
@@ -139,26 +134,15 @@
             <div class="post-meta">
               ${p.date ? `<time datetime="${p.date}">${fmt(p.date)}</time>` : ''}
               <span class="dot"></span>
-              <a class="post-comments" href="${url}#disqus_thread" data-disqus-identifier="${id}">Komentar</a>
-              <span class="dot"></span>
               <a class="pd-chip" href="/blog/?q=${encodeURIComponent(tag)}">
                 <span class="iconify" data-icon="mdi:label-outline"></span><span class="chip-text">${tag}</span>
               </a>
             </div>
-            ${p.excerpt ? `<p class="post-excerpt">${p.excerpt}</p>` : ''}
           </div>
         </article>`;
     }).join('');
 
     wrap.removeAttribute('aria-busy');
-
-    // Disqus count (load sekali saja)
-    if (!document.getElementById('dsq-count-scr')) {
-      const s = document.createElement('script');
-      s.id = 'dsq-count-scr';
-      s.src = '//custominco.disqus.com/count.js';
-      s.async = true;
-      document.body.appendChild(s);
-    }
+    // Tidak memuat Disqus count karena komentar disembunyikan
   })();
 })();
