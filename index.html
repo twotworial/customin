@@ -10,16 +10,14 @@
   <meta name="theme-color" content="#C35616" />
   <meta name="referrer" content="strict-origin-when-cross-origin">
 
-  <!-- CSP -->
+  <!-- CSP: full lokal untuk Iconify & Font -->
   <meta http-equiv="Content-Security-Policy"
       content="default-src 'self';
                img-src 'self' https: data:;
-               script-src 'self' https://cloud.umami.is https://*.disqus.com 'unsafe-inline' https://code.iconify.design;
+               script-src 'self' https://cloud.umami.is https://*.disqus.com 'unsafe-inline';
                style-src 'self' 'unsafe-inline';
                font-src 'self' data:;
                connect-src 'self'
-                            https://api.iconify.design
-                            https://api.simplesvg.com
                             https://cloud.umami.is
                             https://api-gateway.umami.dev
                             https://*.umami.is
@@ -58,11 +56,9 @@
   <link rel="stylesheet" href="style.css"/>
   <link rel="stylesheet" href="assets/cart.css"/>
 
-  <!-- Iconify lokal + fallback CDN bila file lokal belum ada -->
+  <!-- Iconify full lokal -->
   <script src="/assets/vendor/iconify.min.js" defer></script>
-  <script>
-    window.Iconify || document.write('<script src="https://code.iconify.design/3/3.1.1/iconify.min.js" defer><\/script>');
-  </script>
+  <script src="/assets/icons/register-icons.js" defer></script>
 
   <!-- Umami -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="60976a45-9ae8-40bf-a8bc-99c152ba5288"></script>
