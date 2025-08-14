@@ -12,22 +12,22 @@
 
   <!-- CSP -->
   <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self';
-                 img-src 'self' https: data:;
-                 script-src 'self' https://code.iconify.design https://cloud.umami.is 'unsafe-inline';
-                 style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-                 font-src 'self' https://fonts.gstatic.com;
-                 connect-src 'self'
-                              https://api.iconify.design
-                              https://api.simplesvg.com
-                              https://cloud.umami.is
-                              https://api-gateway.umami.dev
-                              https://*.umami.is
-                              https://*.umami.dev;
-                 frame-src 'self';
-                 base-uri 'self';
-                 form-action 'self';
-                 upgrade-insecure-requests">
+      content="default-src 'self';
+               img-src 'self' https: data:;
+               script-src 'self' https://code.iconify.design https://cloud.umami.is https://*.disqus.com 'unsafe-inline';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src 'self' https://fonts.gstatic.com;
+               connect-src 'self'
+                            https://api.iconify.design
+                            https://api.simplesvg.com
+                            https://cloud.umami.is
+                            https://api-gateway.umami.dev
+                            https://*.umami.is
+                            https://*.umami.dev;
+               frame-src 'self';
+               base-uri 'self';
+               form-action 'self';
+               upgrade-insecure-requests">
 
   <!-- Open Graph / Twitter -->
   <meta property="og:title" content="Konsultasi Gratis: Custom Furniture & Furniture Jepara | Customin.co" />
@@ -155,6 +155,16 @@
             </div>
           </div>
         </div>
+        <!-- ===== Blog Terbaru (match halaman Blog) ===== -->
+<h2 class="section-title">Blog Terbaru</h2>
+<section class="home-blog">
+  <div id="homePosts" class="posts-list" aria-live="polite"></div>
+  <a class="blog-more" href="/blog/">
+    <span class="iconify" data-icon="mdi:book-open-page-variant-outline"></span>
+    Lihat semua artikel
+  </a>
+</section>
+<!-- ===== End Blog Terbaru ===== -->
       </main>
 
       <!-- NAV sticky (compact) -->
@@ -199,5 +209,6 @@
   </script>
 </body>
 </html>
+
 
 
