@@ -12,20 +12,21 @@
 
   <!-- CSP: full lokal untuk Iconify & Font -->
   <meta http-equiv="Content-Security-Policy"
-      content="default-src 'self';
-               img-src 'self' https: data:;
-               script-src 'self' https://cloud.umami.is https://*.disqus.com 'unsafe-inline';
-               style-src 'self' 'unsafe-inline';
-               font-src 'self' data:;
-               connect-src 'self'
-                            https://cloud.umami.is
-                            https://api-gateway.umami.dev
-                            https://*.umami.is
-                            https://*.umami.dev;
-               frame-src 'self';
-               base-uri 'self';
-               form-action 'self';
-               upgrade-insecure-requests">
+  content="
+    default-src 'self';
+    script-src 'self' 'unsafe-inline' https://cloud.umami.is https://*.disqus.com;
+    connect-src 'self' https://cloud.umami.is https://api-gateway.umami.dev https://*.umami.is https://*.umami.dev;
+    style-src 'self' 'unsafe-inline';
+    font-src 'self' data:;
+    img-src 'self' https: data:;
+    worker-src 'self';
+    frame-src 'self' https://*.disqus.com;
+    object-src 'none';
+    base-uri 'self';
+    frame-ancestors 'self';
+    form-action 'self';
+    upgrade-insecure-requests
+  ">
 
   <!-- Open Graph / Twitter -->
   <meta property="og:title" content="Konsultasi Gratis: Custom Furniture & Furniture Jepara | Customin.co" />
@@ -206,3 +207,4 @@
   </script>
 </body>
 </html>
+
