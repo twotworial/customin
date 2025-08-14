@@ -186,14 +186,14 @@ a:focus-visible, button:focus-visible,
 .home-blog .post-title a{ color:#111; text-decoration:none; }
 @media (hover:hover){ .home-blog .post-title a:hover{ text-decoration:underline; } }
 
-.home-blog .post-meta{ display:flex; align-items:center; flex-wrap:wrap; gap:8px; color:#777; font-size:12px; }
+.home-blog .post-meta{ display:flex; align-items:center; flex-wrap:wrap; gap:8px; color:#0c0c0c; font-size:12px; }
 .home-blog .dot{ width:3px; height:3px; background:#bbb; border-radius:999px; display:inline-block; }
 .home-blog .post-excerpt{ margin:0; color:#444; font-size:14px; }
 
 .home-blog .pd-chip{
   display:inline-flex; align-items:center; gap:6px;
   padding:4px 10px; border-radius:999px; font-size:12px; font-weight:500; text-decoration:none;
-  border:1px solid #ffd5bb; background:#fff6f0; color:#C35616;
+  border:1px solid #ffd5bb; background:#fff; color:#C35616;
 }
 .home-blog .pd-chip .iconify{ font-size:14px; }
 @media (hover:hover){ .home-blog .pd-chip:hover{ background:#ffe8db; } }
@@ -283,6 +283,7 @@ body.compact-nav{ --fab-size:44px; --in-card-offset:4px; }
 @media (prefers-reduced-motion: reduce){
   .bio-link, .product-card, .ig-dots button::before{ transition:none; }
 }
+
 
 
 
