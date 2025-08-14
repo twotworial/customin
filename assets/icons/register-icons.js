@@ -1,48 +1,46 @@
-// file: /assets/icons/register-icons.js
+<!-- file: /assets/icons/register-icons.js -->
+<script>
 (() => {
-  const ICON_COLLECTIONS = [
+  // 0) Matikan network loader Iconify (jaga-jaga kalau ada ikon yg belum terdaftar)
+  //    Semua request ke provider "" akan langsung di-abort (tidak ada fetch eksternal).
+  if (window.Iconify && Iconify._api && typeof Iconify._api.setAPIModule === 'function') {
+    Iconify._api.setAPIModule('', {
+      prepare: () => [],                                 // tidak ada request yang disiapkan
+      send: (_host, _payload, done) => done('abort', 424) // selalu abort
+    });
+  }
+
+  // 1) Pause observer supaya Iconify tidak scan DOM & memicu loader sebelum koleksi lokal siap
+  try { Iconify.pauseObserver(); } catch(_) {}
+
+  const FILES = [
     '/assets/icons/mdi.json',
     '/assets/icons/fluent.json'
   ];
 
-  function fetchJson(path) {
-    return fetch(path, { cache: 'no-store' }).then(r => {
-      if (!r.ok) throw new Error(`HTTP ${r.status} saat load ${path}`);
-      return r.json();
-    });
-  }
+  const fetchJson = (path) =>
+    fetch(path, { cache: 'no-store' })
+      .then(r => {
+        if (!r.ok) throw new Error(`HTTP ${r.status} saat load ${path}`);
+        return r.json();
+      });
 
-  function addAll(collections) {
-    // Iconify mungkin belum siap (walau <script> di-defer), jadi tunggu sebentar
-    const ready = () => window.Iconify && typeof Iconify.addCollection === 'function';
-
-    if (ready()) {
-      collections.forEach(json => {
+  Promise.all(FILES.map(fetchJson))
+    .then(jsons => {
+      jsons.forEach(json => {
         try { Iconify.addCollection(json); }
         catch (e) { console.error('Iconify.addCollection gagal:', e); }
       });
-      return;
-    }
-
-    let waited = 0;
-    const step = 30;   // ms
-    const max  = 3000; // ms
-    const t = setInterval(() => {
-      waited += step;
-      if (ready()) {
-        clearInterval(t);
-        collections.forEach(json => {
-          try { Iconify.addCollection(json); }
-          catch (e) { console.error('Iconify.addCollection gagal:', e); }
-        });
-      } else if (waited >= max) {
-        clearInterval(t);
-        console.warn('Iconify belum siap setelah 3s; koleksi ikon belum terdaftar.');
-      }
-    }, step);
-  }
-
-  Promise.all(ICON_COLLECTIONS.map(fetchJson))
-    .then(addAll)
-    .catch(err => console.error('Gagal memuat koleksi ikon:', err));
+    })
+    .catch(err => {
+      console.error('Gagal memuat koleksi ikon lokal:', err);
+    })
+    .finally(() => {
+      // 2) Lanjutkan observer & paksa scan setelah koleksi sudah ditambahkan
+      try {
+        Iconify.resumeObserver();
+        Iconify.scan();
+      } catch(_) {}
+    });
 })();
+</script>
