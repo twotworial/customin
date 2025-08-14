@@ -14,9 +14,9 @@
   <meta http-equiv="Content-Security-Policy"
       content="default-src 'self';
                img-src 'self' https: data:;
-               script-src 'self' https://code.iconify.design https://cloud.umami.is https://*.disqus.com 'unsafe-inline';
-               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-               font-src 'self' https://fonts.gstatic.com;
+               script-src 'self' https://cloud.umami.is https://*.disqus.com 'unsafe-inline' https://code.iconify.design;
+               style-src 'self' 'unsafe-inline';
+               font-src 'self' data:;
                connect-src 'self'
                             https://api.iconify.design
                             https://api.simplesvg.com
@@ -43,26 +43,28 @@
   <meta name="twitter:description" content="Custom furniture & furniture Jepara langsung dari ahli. Customin.co menawarkan desain sesuai kebutuhan, material terbaik, finishing halus. Konsultasi gratis." />
   <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/twotworial/customin@main/OG/Cover-Furniture-Custom-by-Customin.webp" />
 
-  <!-- Icons & Fonts -->
+  <!-- Icons -->
   <link rel="icon" href="OG/favicon-customin-furniture-custom.ico" />
   <link rel="apple-touch-icon" href="OG/favicon-customin-furniture-custom.ico">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://code.iconify.design" crossorigin>
-  <link rel="preconnect" href="https://api.iconify.design" crossorigin>
-  <link rel="preconnect" href="https://cloud.umami.is" crossorigin>
-  <link rel="preconnect" href="https://api-gateway.umami.dev" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&display=swap" rel="stylesheet">
 
   <!-- Preload hero/LCP -->
   <link rel="preload" as="image" href="OG/Cover-Furniture-Custom-by-Customin.webp" fetchpriority="high">
 
-  <!-- Styles -->
+  <!-- Preload font lokal (Inter Variable) -->
+  <link rel="preload" href="assets/fonts/InterVariable.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- Fonts lokal + styles -->
+  <link rel="stylesheet" href="assets/fonts/inter.css"/>
   <link rel="stylesheet" href="style.css"/>
   <link rel="stylesheet" href="assets/cart.css"/>
 
-  <!-- Iconify & Umami -->
-  <script src="https://code.iconify.design/3/3.1.1/iconify.min.js" defer></script>
+  <!-- Iconify lokal + fallback CDN bila file lokal belum ada -->
+  <script src="/assets/vendor/iconify.min.js" defer></script>
+  <script>
+    window.Iconify || document.write('<script src="https://code.iconify.design/3/3.1.1/iconify.min.js" defer><\/script>');
+  </script>
+
+  <!-- Umami -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="60976a45-9ae8-40bf-a8bc-99c152ba5288"></script>
 
   <!-- util kecil untuk H1 sr-only -->
@@ -155,16 +157,17 @@
             </div>
           </div>
         </div>
-        <!-- ===== Blog Terbaru (match halaman Blog) ===== -->
-<h2 class="section-title">Blog Terbaru</h2>
-<section class="home-blog">
-  <div id="homePosts" class="posts-list" aria-live="polite"></div>
-  <a class="blog-more" href="/blog/">
-    <span class="iconify" data-icon="mdi:book-open-page-variant-outline"></span>
-    Lihat semua artikel
-  </a>
-</section>
-<!-- ===== End Blog Terbaru ===== -->
+
+        <!-- ===== Blog Terbaru ===== -->
+        <h2 class="section-title">Blog Terbaru</h2>
+        <section class="home-blog">
+          <div id="homePosts" class="posts-list" aria-live="polite"></div>
+          <a class="blog-more" href="/blog/">
+            <span class="iconify" data-icon="mdi:book-open-page-variant-outline"></span>
+            Lihat semua artikel
+          </a>
+        </section>
+        <!-- ===== End Blog Terbaru ===== -->
       </main>
 
       <!-- NAV sticky (compact) -->
@@ -202,13 +205,8 @@
   <!-- Service worker -->
   <script>
     if ('serviceWorker' in navigator) {
-      // custom domain:
       navigator.serviceWorker.register('/sw.js').catch(console.error);
-      // Project Pages: navigator.serviceWorker.register('./sw.js').catch(console.error);
     }
   </script>
 </body>
 </html>
-
-
-
