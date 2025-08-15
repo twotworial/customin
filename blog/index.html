@@ -8,35 +8,44 @@
 
   <link rel="icon" href="/OG/favicon-customin-furniture-custom.ico" />
 
-  <!-- CSP (font & CSS lokal; Iconify/Umami/Disqus via CDN) -->
+  <!-- CSP: izinkan Iconify + Disqus Count -->
   <meta http-equiv="Content-Security-Policy" content="
     default-src 'self';
-    script-src 'self' 'unsafe-inline' https://code.iconify.design https://cloud.umami.is https://*.disqus.com;
-    connect-src 'self' https://cloud.umami.is https://api-gateway.umami.dev https://*.umami.is https://*.umami.dev;
+    script-src 'self' 'unsafe-inline'
+               https://code.iconify.design
+               https://cloud.umami.is
+               https://*.disqus.com;
+    connect-src 'self'
+                https://api.iconify.design
+                https://api.simplesvg.com
+                https://api.unisvg.com
+                https://cloud.umami.is
+                https://api-gateway.umami.dev
+                https://*.umami.is
+                https://*.umami.dev
+                https://*.disqus.com;
     style-src 'self' 'unsafe-inline';
     font-src 'self' data:;
     img-src 'self' https: data:;
-    frame-src https://*.disqus.com;
+    frame-src 'self' https://disqus.com https://*.disqus.com;
+    worker-src 'self';
     object-src 'none';
     base-uri 'self';
     form-action 'self';
     upgrade-insecure-requests
   ">
 
-  <!-- Preconnect (maks 3 origin eksternal) -->
+  <!-- Preconnect (perf) -->
   <link rel="preconnect" href="https://code.iconify.design" crossorigin>
+  <link rel="preconnect" href="https://api.iconify.design" crossorigin>
   <link rel="preconnect" href="https://cloud.umami.is" crossorigin>
-  <link rel="preconnect" href="//custominco.disqus.com" crossorigin>
 
-  <!-- Preload hero LCP (kalau ada di halaman ini) -->
-  <!-- <link rel="preload" as="image" href="/OG/cover.webp" fetchpriority="high"> -->
-
-  <!-- Font Inter Variable LOKAL -->
+  <!-- Inter Variable lokal -->
   <link rel="preload" href="/assets/fonts/InterVariable.woff2" as="font" type="font/woff2" crossorigin>
   <style>
-    :root{font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+    :root{font-family:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
     @supports (font-variation-settings: normal){
-      :root{font-family:"InterVariable",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;font-optical-sizing:auto}
+      :root{font-family:"InterVariable",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-optical-sizing:auto}
     }
     @font-face{
       font-family:InterVariable;
@@ -45,23 +54,21 @@
       font-display:swap;
       src:url("/assets/fonts/InterVariable.woff2") format("woff2");
     }
-    .sr-only{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
   </style>
 
   <!-- CSS: non-blocking -->
-  <link rel="preload" href="/blog/blog.css" as="style">
-  <link rel="stylesheet" href="/blog/blog.css" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="/blog/blog.css"></noscript>
-
   <link rel="preload" href="/assets/cart.css" as="style">
   <link rel="stylesheet" href="/assets/cart.css" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="/assets/cart.css"></noscript>
 
-  <!-- Preload data agar potong rantai jaringan -->
-  <link rel="preload" href="/blog/posts.json" as="fetch" crossorigin>
+  <link rel="preload" href="/blog/blog.css" as="style">
+  <link rel="stylesheet" href="/blog/blog.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="/blog/blog.css"></noscript>
 
-  <!-- Iconify (CDN) + Umami (defer) -->
+  <!-- Iconify (online) -->
   <script src="https://code.iconify.design/3/3.1.1/iconify.min.js" defer></script>
+
+  <!-- Umami -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="60976a45-9ae8-40bf-a8bc-99c152ba5288"></script>
 </head>
 <body>
@@ -87,13 +94,13 @@
           </div>
         </section>
 
-        <!-- List -->
+        <!-- List 1 kolom, cover 2:1 -->
         <section id="postsList" class="posts-list" aria-live="polite"></section>
 
         <!-- Pagination -->
-        <nav class="pager" id="pager" aria-label="Pagination"></nav>
+        <nav id="pager" class="pagination" aria-label="Pagination"></nav>
 
-        <!-- Template -->
+        <!-- Template kartu -->
         <template id="postCardTmpl">
           <article class="post-card">
             <a class="post-cover" href="#"><img src="" alt=""></a>
@@ -102,13 +109,17 @@
               <div class="post-meta">
                 <time class="post-date"></time>
                 <span class="dot"></span>
-                <!-- icon komentar + counter (hanya angka merah) -->
-                <a class="post-comments" href="#" data-disqus-identifier="" aria-label="Komentar">
-                  <span class="iconify" data-icon="mdi:message-outline"></span>
-                  <span class="cmt-count" data-cnt>0</span>
+                <!-- Komentar: ikon + angka merah -->
+                <a class="post-comments" href="#" data-count
+                   title="Komentar">
+                  <span class="iconify" data-icon="mdi:message-outline" aria-hidden="true"></span>
+                  <span class="count">0</span>
                 </a>
                 <span class="dot"></span>
-                <a class="pd-chip" href="#"><span class="iconify" data-icon="mdi:label-outline"></span><span class="chip-text"></span></a>
+                <a class="pd-chip" href="#">
+                  <span class="iconify" data-icon="mdi:label-outline"></span>
+                  <span class="chip-text"></span>
+                </a>
               </div>
               <p class="post-excerpt"></p>
             </div>
@@ -116,7 +127,7 @@
         </template>
       </main>
 
-      <!-- NAV -->
+      <!-- NAV (Home | Menu | Cart) -->
       <nav class="in-card-nav" aria-label="Navigasi utama">
         <div class="nav-content">
           <a href="/" class="nav-item" title="Home" aria-label="Home"><span class="iconify" data-icon="mdi:home-outline"></span></a>
@@ -132,126 +143,176 @@
 
   <div class="popup-menu" id="popupMenu"></div>
 
-  <!-- Cart -->
+  <!-- Cart + menu -->
   <script src="/assets/cart.js" defer></script>
-
-  <!-- Popup + Posts + Pagination (9/hal) + Disqus idle -->
   <script>
-    // Popup menu
-    (() => {
-      const b = document.getElementById('menuButton'), p = document.getElementById('popupMenu');
-      if (!b || !p) return;
-      p.innerHTML = `<ul>
+    // Popup menu singkat
+    (()=>{const b=document.getElementById('menuButton'),p=document.getElementById('popupMenu');
+      if(!b||!p) return;
+      p.innerHTML=`<ul>
         <li><a href="/produk/"><span class="iconify" data-icon="mdi:view-grid-plus-outline"></span>Produk</a></li>
         <li><a href="/kategori/"><span class="iconify" data-icon="mdi:shape-outline"></span>Kategori</a></li>
         <li><a href="/tag/"><span class="iconify" data-icon="mdi:tag-outline"></span>Tag</a></li>
         <li><a href="/kontak.html"><span class="iconify" data-icon="mdi:phone-outline"></span>Kontak</a></li>
       </ul>`;
-      b.addEventListener('click', e => {
-        e.stopPropagation();
-        p.classList.toggle('show');
-        b.setAttribute('aria-expanded', p.classList.contains('show'));
-      });
-      document.addEventListener('click', e => { if (!p.contains(e.target)) p.classList.remove('show'); });
+      b.addEventListener('click',e=>{e.stopPropagation();p.classList.toggle('show');b.setAttribute('aria-expanded',p.classList.contains('show'));});
+      document.addEventListener('click',e=>{if(!p.contains(e.target)) p.classList.remove('show')});
     })();
 
-    // Posts + pagination
-    (async () => {
-      const list = document.getElementById('postsList');
-      const tmpl = document.getElementById('postCardTmpl');
-      const q = document.getElementById('q');
-      const pager = document.getElementById('pager');
+    // ===== Render posts + pencarian + paginasi (9/halaman) =====
+    (async ()=>{
+      const list   = document.getElementById('postsList');
+      const tmpl   = document.getElementById('postCardTmpl');
+      const qInput = document.getElementById('q');
+      const pager  = document.getElementById('pager');
+      const PAGE_SIZE = 9;
 
-      const PER_PAGE = 9;
-      let posts = [], filtered = [], page = 1;
+      // state dari URL
+      const urlParams = new URLSearchParams(location.search);
+      qInput.value = urlParams.get('q') || '';
+      let page = Math.max(1, parseInt(urlParams.get('page')||'1',10));
 
-      try {
-        const res = await fetch('/blog/posts.json', { cache: 'no-store' });
+      let posts = [];
+      try{
+        const res = await fetch('/blog/posts.json', {cache:'no-store'});
         posts = await res.json();
-      } catch (e) { console.error('Gagal load posts.json', e); }
+      }catch(e){ console.error('Gagal load posts.json', e); }
 
-      const fmt = d => {
-        const dd = new Date(d); if (isNaN(dd)) return '';
-        return dd.toLocaleDateString('id-ID', { day:'2-digit', month:'short', year:'numeric' });
-      };
-
-      function renderPager(total) {
-        const pages = Math.max(1, Math.ceil(total / PER_PAGE));
-        if (page > pages) page = pages;
-        let html = '';
-        const prevDis = page === 1 ? 'disabled' : '';
-        const nextDis = page === pages ? 'disabled' : '';
-        html += `<button class="pg-btn" data-goto="${page-1}" ${prevDis} aria-label="Sebelumnya">‹</button>`;
-        for (let i = 1; i <= pages; i++) {
-          const cur = i === page ? 'aria-current="page"' : '';
-          html += `<button class="pg-btn" data-goto="${i}" ${cur}>${i}</button>`;
-        }
-        html += `<button class="pg-btn" data-goto="${page+1}" ${nextDis} aria-label="Berikutnya">›</button>`;
-        pager.innerHTML = html;
+      function fmtDate(d){
+        const x = new Date(d); if(isNaN(x)) return '';
+        return x.toLocaleDateString('id-ID',{day:'2-digit',month:'short',year:'numeric'});
       }
 
-      function renderList() {
-        const start = (page - 1) * PER_PAGE;
-        const slice = filtered.slice(start, start + PER_PAGE);
+      function render(){
+        const keyword = (qInput.value||'').toLowerCase().trim();
+
+        const filtered = posts
+          .filter(p => !keyword || ( (p.title||'') + (p.excerpt||'') + (p.category||'') ).toLowerCase().includes(keyword))
+          .sort((a,b)=> new Date(b.date) - new Date(a.date));
+
+        const total = filtered.length;
+        const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+        if (page > totalPages) page = totalPages;
+
+        const start = (page-1)*PAGE_SIZE;
+        const items = filtered.slice(start, start + PAGE_SIZE);
+
         list.innerHTML = '';
-        slice.forEach(p => {
+        items.forEach(p=>{
           const url = p.url || `/blog/${p.slug}.html`;
+          const id  = p.id || p.slug || p.title;
+
           const card = tmpl.content.cloneNode(true);
-          const a = card.querySelector('.post-cover');
-          a.href = url;
-          const img = card.querySelector('.post-cover img');
+          const img  = card.querySelector('.post-cover img');
+          card.querySelector('.post-cover').href = url;
           img.src = p.cover || '/OG/Cover-Furniture-Custom-by-Customin.webp';
           img.alt = p.coverAlt || p.title || '';
 
-          card.querySelector('.post-title a').textContent = p.title;
+          card.querySelector('.post-title a').textContent = p.title || '(Tanpa judul)';
           card.querySelector('.post-title a').href = url;
 
-          card.querySelector('.post-date').textContent = fmt(p.date);
+          card.querySelector('.post-date').textContent = fmtDate(p.date);
 
           const cmt = card.querySelector('.post-comments');
           cmt.href = `${url}#disqus_thread`;
-          cmt.setAttribute('data-disqus-identifier', p.id || p.slug || p.title);
+          cmt.setAttribute('data-disqus-identifier', id);
+          cmt.setAttribute('data-disqus-url', url); // opsional, bantu disqus
 
           const chip = card.querySelector('.pd-chip');
-          chip.href = `/blog/?q=${encodeURIComponent(p.category || 'Umum')}`;
+          chip.href = `/blog/?q=${encodeURIComponent(p.category||'Umum')}`;
           chip.querySelector('.chip-text').textContent = p.category || 'Umum';
 
           card.querySelector('.post-excerpt').textContent = p.excerpt || '';
+
           list.appendChild(card);
         });
+
+        renderPagination(totalPages, total);
+        // re-scan icon (kalau ada elemen baru)
+        window.Iconify && Iconify.scan?.();
       }
 
-      function filterAndRender() {
-        const keyword = (q.value || '').toLowerCase().trim();
-        filtered = posts
-          .filter(p => p && (p.title || p.slug))
-          .filter(p => !keyword || (p.title + ' ' + (p.excerpt||'') + ' ' + (p.category||'')).toLowerCase().includes(keyword))
-          .sort((a,b) => new Date(b.date) - new Date(a.date));
+      function linkFor(n){
+        const sp = new URLSearchParams(location.search);
+        if (qInput.value) sp.set('q', qInput.value); else sp.delete('q');
+        sp.set('page', String(n));
+        return `?${sp.toString()}`;
+      }
+
+      function pageBtn(n, label, active=false, disabled=false){
+        const a = document.createElement(disabled ? 'span' : 'a');
+        a.className = `page-btn${active?' active':''}${disabled?' disabled':''}`;
+        a.textContent = label;
+        if (!disabled) a.href = linkFor(n);
+        return a;
+      }
+
+      function renderPagination(totalPages){
+        pager.innerHTML = '';
+        if (totalPages <= 1){ pager.style.display='none'; return; }
+        pager.style.display='flex';
+
+        // Prev
+        pager.appendChild(pageBtn(page-1,'‹',false,page===1));
+
+        // Range (maks 5 nomor: current ±2)
+        const start = Math.max(1, page-2);
+        const end   = Math.min(totalPages, start+4);
+        for(let i=start;i<=end;i++){
+          pager.appendChild(pageBtn(i,String(i), i===page, false));
+        }
+
+        // Next
+        pager.appendChild(pageBtn(page+1,'›',false,page===totalPages));
+      }
+
+      // input cari -> reset ke page 1, refresh
+      qInput.addEventListener('input', ()=>{
         page = 1;
-        renderPager(filtered.length);
-        renderList();
-      }
-
-      pager.addEventListener('click', e => {
-        const btn = e.target.closest('.pg-btn');
-        if (!btn || btn.disabled) return;
-        const goto = parseInt(btn.dataset.goto, 10);
-        if (!isNaN(goto)) { page = goto; renderPager(filtered.length); renderList(); window.scrollTo({ top:0, behavior:'smooth' }); }
+        const sp = new URLSearchParams(location.search);
+        if (qInput.value) sp.set('q', qInput.value); else sp.delete('q');
+        sp.set('page','1');
+        history.replaceState(null,'',`?${sp.toString()}`);
+        render();
+        // muat ulang count setelah filter
+        scheduleDisqusMorph();
       });
 
-      q?.addEventListener('input', filterAndRender);
-      filterAndRender();
+      render();
 
-      // Disqus count: muat saat idle agar tidak ganggu LCP
-      function loadDisqus(){
+      // ===== Disqus comment count =====
+      window.disqus_shortname = 'custominco'; // ganti jika berbeda
+      (function loadDisqusCount(){
+        if (document.getElementById('dsq-count-scr')) return;
         const s = document.createElement('script');
         s.id = 'dsq-count-scr';
-        s.src = '//custominco.disqus.com/count.js';
-        s.async = true; s.defer = true;
+        s.src = 'https://' + window.disqus_shortname + '.disqus.com/count.js';
+        s.async = true;
         document.body.appendChild(s);
+      })();
+
+      // Ubah output disqus jadi "ikon + angka" (tanpa label), keep ikon
+      function morphCommentAnchors(){
+        document.querySelectorAll('a.post-comments[data-count]').forEach(a=>{
+          const m = (a.textContent||'').match(/\d+/);
+          if (m){
+            const num = m[0];
+            a.innerHTML = '<span class="iconify" data-icon="mdi:message-outline" aria-hidden="true"></span><span class="count">'+num+'</span>';
+          }
+        });
+        window.Iconify && Iconify.scan?.();
       }
-      if ('requestIdleCallback' in window) requestIdleCallback(loadDisqus);
-      else setTimeout(loadDisqus, 1500);
+      function scheduleDisqusMorph(){
+        // beberapa kali untuk mengejar load async dari Disqus
+        setTimeout(morphCommentAnchors, 700);
+        setTimeout(morphCommentAnchors, 1500);
+        setTimeout(morphCommentAnchors, 3000);
+      }
+      scheduleDisqusMorph();
+      // juga observasi perubahan DOM singkat
+      const mo = new MutationObserver(morphCommentAnchors);
+      mo.observe(document.body,{childList:true,subtree:true,characterData:true});
+      setTimeout(()=>mo.disconnect(), 5000);
     })();
   </script>
 </body>
