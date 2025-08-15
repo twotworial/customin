@@ -48,7 +48,13 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--accent); outline-
 .post-comments-icon:hover{ color:#111; }
 .cmt-count{ font-size:12px; font-weight:700; color:#e30606; line-height:1; }
 
-/* nav bawah */
+/* pagination */
+.pager{ display:flex; gap:8px; justify-content:center; align-items:center; margin:10px 0 8px; }
+.pg-btn{ display:inline-flex; align-items:center; justify-content:center; gap:6px; min-width:36px; height:36px; padding:0 12px; border-radius:10px; background:#fff; color:#111; border:1px solid #eee; box-shadow:0 2px 6px rgba(0,0,0,.04); cursor:pointer; font-weight:600; }
+.pg-btn[disabled]{ opacity:.45; cursor:not-allowed; }
+.pg-btn[aria-current="page"]{ border-color:#ffd5bb; background:#fff6f0; }
+.pg-ellipsis{ padding:0 4px; color:#888; user-select:none; }
+
 .in-card-nav{ position:sticky; bottom:var(--in-card-offset); z-index:1001; margin-top:12px; }
 .in-card-nav .nav-content{ position:relative; background:var(--bg); border:1px solid #eee; border-radius:18px; box-shadow:0 8px 18px rgba(0,0,0,.10); display:grid; grid-template-columns:1fr auto 1fr; align-items:center; padding:10px 14px; gap:8px; }
 .nav-item{ justify-self:start; width:40px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center; color:#555; font-size:20px; text-decoration:none; transition:background-color .18s; }
