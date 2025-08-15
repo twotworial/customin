@@ -5,25 +5,29 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Blog & Artikel | Customin.co</title>
   <meta name="description" content="Artikel seputar furniture custom, tips perawatan, dan behind-the-scenes produksi dari Customin.co.">
-
   <link rel="icon" href="/OG/favicon-customin-furniture-custom.ico" />
 
-  <!-- CSP: Iconify tetap dari CDN, tapi tanpa auto-fetch (tidak perlu connect ke api.iconify/uni/simple) -->
+  <!-- CSP: Iconify via CDN (auto-fetch), Disqus (count), Umami -->
   <meta http-equiv="Content-Security-Policy" content="
     default-src 'self';
     script-src 'self' 'unsafe-inline' https://code.iconify.design https://cloud.umami.is https://*.disqus.com;
-    connect-src 'self' https://api.iconify.design https://api.simplesvg.com https://api.unisvg.com https://cloud.umami.is https://api-gateway.umami.dev https://*.umami.is https://*.umami.dev;
+    connect-src 'self' https://api.iconify.design https://api.simplesvg.com https://api.unisvg.com https://cloud.umami.is https://api-gateway.umami.dev;
     style-src 'self' 'unsafe-inline';
     font-src 'self' data:;
     img-src 'self' https: data:;
-    worker-src 'self';
     frame-src 'self' https://*.disqus.com;
     object-src 'none';
     base-uri 'self';
     form-action 'self';
     upgrade-insecure-requests
   ">
-  <!-- Inter Variable lokal (seperti index.html) -->
+
+  <!-- Preconnect yang penting buat TTFB awal -->
+  <link rel="preconnect" href="https://api.iconify.design" crossorigin>
+  <link rel="preconnect" href="https://cloud.umami.is" crossorigin>
+  <link rel="preconnect" href="https://api-gateway.umami.dev" crossorigin>
+
+  <!-- Inter Variable lokal (tanpa preload agar tak nahan LCP) -->
   <style>
     :root{font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
     @supports (font-variation-settings: normal){
@@ -35,22 +39,13 @@
     }
   </style>
 
-  <!-- Preload ringan -->
-  <link rel="preload" href="/blog/blog.css" as="style">
-  <link rel="preload" href="/assets/cart.css" as="style">
-  <link rel="preload" href="/blog/posts.json" as="fetch" crossorigin="anonymous">
-
-  <!-- CSS utama + non-blocking cart.css -->
+  <!-- CSS utama + cart.css non-blocking -->
   <link rel="stylesheet" href="/blog/blog.css">
   <link rel="stylesheet" href="/assets/cart.css" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="/assets/cart.css"></noscript>
 
-  <!-- Iconify (CDN) + matikan auto-fetch + koleksi lokal -->
+  <!-- Iconify via CDN (auto-fetch aktif) -->
   <script src="https://code.iconify.design/3/3.1.1/iconify.min.js" defer></script>
-  <script defer>
-    window.Iconify && Iconify.setConfig({ autoFetch:false, fetch:false });
-  </script>
-  <script src="/assets/icons/register-icons.js" defer></script>
 
   <!-- Umami -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="60976a45-9ae8-40bf-a8bc-99c152ba5288"></script>
@@ -81,10 +76,10 @@
         <!-- List -->
         <section id="postsList" class="posts-list" aria-live="polite"></section>
 
-        <!-- Pagination -->
-        <nav id="pager" class="pagination" aria-label="Pagination"></nav>
+        <!-- Pagination 9/halaman -->
+        <nav id="pager" class="pager" aria-label="Pagination"></nav>
 
-        <!-- Template -->
+        <!-- Template kartu -->
         <template id="postCardTmpl">
           <article class="post-card">
             <a class="post-cover" href="#"><img src="" alt=""></a>
@@ -93,7 +88,7 @@
               <div class="post-meta">
                 <time class="post-date"></time>
                 <span class="dot"></span>
-                <a class="post-comments" href="#" data-disqus-identifier="">
+                <a class="post-comments" href="#" data-disqus-identifier="" aria-label="Komentar">
                   <span class="iconify" data-icon="mdi:message-outline"></span>
                   <span class="count">0</span>
                 </a>
@@ -128,7 +123,7 @@
   <!-- Cart + Menu -->
   <script src="/assets/cart.js" defer></script>
   <script>
-  // Popup menu ringkas
+  // Popup menu singkat
   (()=>{const b=document.getElementById('menuButton'),p=document.getElementById('popupMenu');
     if(!b||!p) return;
     p.innerHTML=`<ul>
@@ -141,7 +136,7 @@
     document.addEventListener('click',e=>{if(!p.contains(e.target)) p.classList.remove('show')});
   })();
 
-  // ===== Blog: fetch + render + pagination + komentar count (ringan) =====
+  // ===== Blog: fetch + render + pagination + komentar (lazy) =====
   (async ()=>{
     const list  = document.getElementById('postsList');
     const pager = document.getElementById('pager');
@@ -166,27 +161,19 @@
       const n = tmpl.content.cloneNode(true);
       const url = p.url || `/blog/${p.slug}.html`;
 
-      // cover
       const coverA = n.querySelector('.post-cover');
       const img = n.querySelector('img');
       coverA.href = url;
       img.src = p.cover || '/OG/Cover-Furniture-Custom-by-Customin.webp';
       img.alt = p.coverAlt || p.title || '';
       img.decoding = 'async';
-      // LCP: hanya untuk kartu pertama pada halaman 1
-      if (curPage===1 && idxGlobal===0) {
-        img.loading = 'eager';
-        img.setAttribute('fetchpriority','high');
-      } else {
-        img.loading = 'lazy';
-      }
+      if (curPage===1 && idxGlobal===0) { img.loading='eager'; img.setAttribute('fetchpriority','high'); }
+      else { img.loading='lazy'; }
 
-      // title
       const t = n.querySelector('.post-title a');
       t.textContent = p.title || '(Tanpa judul)';
       t.href = url;
 
-      // meta
       n.querySelector('.post-date').textContent =
         p.date ? new Date(p.date).toLocaleDateString('id-ID',{day:'2-digit',month:'short',year:'numeric'}) : '';
 
@@ -219,19 +206,16 @@
 
       // pagination
       pager.innerHTML = '';
+      const go = (p)=>{ if(p===curPage) return; curPage=p; history.replaceState(null,'',`?page=${p}`); renderPage(); };
       const mkBtn = (label, page, {active=false, disabled=false}={})=>{
         const a = document.createElement('a');
-        a.className = 'page-btn' + (active?' active':'') + (disabled?' disabled':'');
+        a.className = 'pg-btn' + (active?' active':'') + (disabled?' disabled':'');
         a.textContent = label;
-        if(!disabled){
-          a.href = `?page=${page}`; a.addEventListener('click', e=>{ e.preventDefault(); go(page); });
-        }
+        if(!disabled){ a.href = `?page=${page}`; a.addEventListener('click', e=>{ e.preventDefault(); go(page); }); }
         return a;
       };
-      const go = (p)=>{ if(p===curPage) return; curPage=p; history.replaceState(null,'',`?page=${p}`); renderPage(); };
       pager.appendChild(mkBtn('Prev', curPage-1, {disabled:curPage<=1}));
       for(let i=1;i<=totalPages;i++){
-        // ringkas jika halaman banyak
         if (i===1 || i===totalPages || Math.abs(i-curPage)<=1){
           pager.appendChild(mkBtn(String(i), i, {active:i===curPage}));
         } else if (Math.abs(i-curPage)===2){
@@ -240,15 +224,13 @@
       }
       pager.appendChild(mkBtn('Next', curPage+1, {disabled:curPage>=totalPages}));
 
-      // muat Disqus count setelah render
       lazyLoadDisqus();
-      // sinkronkan angka: tarik angka dari teks yang diisi Disqus
       syncCountsSoon();
     }
 
     q?.addEventListener('input', ()=>{ curPage=1; renderPage(); });
 
-    // Disqus: lazy + sinkron angka
+    // Disqus count: load saat idle + error-safe
     let dsqLoaded = false, syncTimer;
     function lazyLoadDisqus(){
       if (dsqLoaded) return;
@@ -256,29 +238,27 @@
         if (dsqLoaded) return;
         const s = document.createElement('script');
         s.id = 'dsq-count-scr';
-        s.src = '//custominco.disqus.com/count.js';
+        s.src = 'https://custominco.disqus.com/count.js';
         s.async = true;
+        s.onerror = ()=>{ document.querySelectorAll('.post-comments .count').forEach(el=>el.textContent='0'); };
         document.body.appendChild(s);
         dsqLoaded = true;
       };
-      if ('requestIdleCallback' in window) requestIdleCallback(loader, {timeout:1500});
-      else setTimeout(loader, 1200);
+      if ('requestIdleCallback' in window) requestIdleCallback(loader, {timeout:2000});
+      else setTimeout(loader, 1800);
     }
     function syncCountsSoon(){
       clearTimeout(syncTimer);
       syncTimer = setTimeout(()=>{
         document.querySelectorAll('.post-comments').forEach(a=>{
-          const text = a.textContent || '';
+          const text = (a.textContent||'').trim();
           const m = text.match(/\d+/);
           const num = m ? m[0] : '0';
           const span = a.querySelector('.count');
           if (span) span.textContent = num;
-          // kosongkan teks selain ikon & angka agar rapi
-          a.childNodes.forEach(n=>{
-            if (n.nodeType===3) n.textContent='';
-          });
+          a.childNodes.forEach(n=>{ if (n.nodeType===3) n.textContent=''; });
         });
-      }, 1400);
+      }, 1600);
     }
 
     renderPage();
