@@ -12,18 +12,17 @@
   <meta http-equiv="Content-Security-Policy" content="
     default-src 'self';
     script-src 'self' 'unsafe-inline' https://code.iconify.design https://cloud.umami.is https://*.disqus.com;
-    connect-src 'self' https://cloud.umami.is https://api-gateway.umami.dev https://*.umami.is https://*.umami.dev;
+    connect-src 'self' https://api.iconify.design https://api.simplesvg.com https://api.unisvg.com https://cloud.umami.is https://api-gateway.umami.dev https://*.umami.is https://*.umami.dev;
     style-src 'self' 'unsafe-inline';
     font-src 'self' data:;
     img-src 'self' https: data:;
-    frame-src https://*.disqus.com;
+    worker-src 'self';
+    frame-src 'self' https://*.disqus.com;
+    object-src 'none';
     base-uri 'self';
     form-action 'self';
-    worker-src 'self';
-    object-src 'none';
     upgrade-insecure-requests
   ">
-
   <!-- Inter Variable lokal (seperti index.html) -->
   <style>
     :root{font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
