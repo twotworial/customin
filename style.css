@@ -210,6 +210,7 @@ a:focus-visible, button:focus-visible,
   width:100%; padding:10px 12px; border-radius:10px;
   background:#fff; border:1px solid #eee; text-decoration:none; color:#111;
   font-weight:600; box-shadow:0 4px 10px rgba(0,0,0,.04);
+  margin-bottom:12px;
 }
 @media (hover:hover){ .home-blog .blog-more:hover{ background:#f7f7f7; } }
 
@@ -221,6 +222,7 @@ a:focus-visible, button:focus-visible,
 
 /* ============ Bottom nav ============ */
 .in-card-nav{ position:sticky; bottom:var(--in-card-offset); z-index:1001; }
+margin-bottom:12px;
 .in-card-nav .nav-content{
   position:relative; background:var(--bg); border:1px solid #eee; border-radius:18px;
   box-shadow:0 8px 18px rgba(0,0,0,.10);
@@ -290,3 +292,4 @@ body.compact-nav{ --fab-size:44px; --in-card-offset:4px; }
   .bio-link, .product-card, .ig-dots button::before{ transition:none; }
   .ig-track{ scroll-behavior:auto; }
 }
+
