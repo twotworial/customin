@@ -32,7 +32,9 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--accent); outline-
 .post-title{ margin:0; font-size:16px; font-weight:800; }
 .post-title a{ color:#111; text-decoration:none; }
 .post-title a:hover{ text-decoration:underline; }
-.post-meta{ display:flex; align-items:center; flex-wrap:wrap; gap:8px; color:#C35616; font-size:12px; }
+
+/* meta lebih netral biar tanggal/elemen lain gak oranye semua */
+.post-meta{ display:flex; align-items:center; flex-wrap:wrap; gap:8px; color:var(--subtext); font-size:12px; }
 .dot{ width:3px; height:3px; background:#bbb; border-radius:999px; display:inline-block; }
 .post-excerpt{ margin:0; color:#444; font-size:14px; }
 
@@ -42,17 +44,24 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--accent); outline-
 .pd-chip:hover{ background:#ffe8db; }
 
 /* komentar: ikon polos + angka merah */
-.cmt-wrap{ display:inline-flex; align-items:center; gap:4px; }
-.post-comments-icon{ display:inline-flex; align-items:center; color:#C35616; text-decoration:none; line-height:1; }
-.post-comments-icon .iconify{ font-size:18px; }
-.post-comments-icon:hover{ color:#111; }
-.cmt-count{ font-size:12px; font-weight:700; color:#e30606; line-height:1; }
+.post-comments{ display:inline-flex; align-items:center; gap:6px; text-decoration:none; color:var(--subtext); line-height:1; }
+.post-comments .iconify{ font-size:18px; color:var(--accent); }
+.post-comments:hover .iconify{ color:#111; }
+.post-comments .count{ font-size:12px; font-weight:800; color:#e30606; line-height:1; }
 
-/* pagination */
-.pager{ display:flex; gap:8px; justify-content:center; align-items:center; margin:10px 0 8px; }
-.pg-btn{ display:inline-flex; align-items:center; justify-content:center; gap:6px; min-width:36px; height:36px; padding:0 12px; border-radius:10px; background:#fff; color:#111; border:1px solid #eee; box-shadow:0 2px 6px rgba(0,0,0,.04); cursor:pointer; font-weight:600; }
+/* pagination (kelas baru) */
+.pagination{ display:flex; gap:8px; justify-content:center; align-items:center; margin:12px 0 8px; }
+.page-btn{ display:inline-flex; align-items:center; justify-content:center; min-width:36px; height:36px; padding:0 12px; border-radius:10px; background:#fff; color:#111; border:1px solid #eee; box-shadow:0 2px 6px rgba(0,0,0,.04); font-weight:600; text-decoration:none; }
+.page-btn:hover{ background:#f5f5f5; }
+.page-btn.active{ border-color:#ffd5bb; background:#fff6f0; color:#d64b00; }
+.page-btn.disabled{ opacity:.45; pointer-events:none; }
+
+/* alias untuk kelas lama (biar kompatibel) */
+.pager{ display:flex; gap:8px; justify-content:center; align-items:center; margin:12px 0 8px; }
+.pg-btn{ display:inline-flex; align-items:center; justify-content:center; min-width:36px; height:36px; padding:0 12px; border-radius:10px; background:#fff; color:#111; border:1px solid #eee; box-shadow:0 2px 6px rgba(0,0,0,.04); font-weight:600; text-decoration:none; }
+.pg-btn:hover{ background:#f5f5f5; }
+.pg-btn[aria-current="page"]{ border-color:#ffd5bb; background:#fff6f0; color:#d64b00; }
 .pg-btn[disabled]{ opacity:.45; cursor:not-allowed; }
-.pg-btn[aria-current="page"]{ border-color:#ffd5bb; background:#fff6f0; }
 .pg-ellipsis{ padding:0 4px; color:#888; user-select:none; }
 
 .in-card-nav{ position:sticky; bottom:var(--in-card-offset); z-index:1001; margin-top:12px; }
