@@ -3,30 +3,59 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+
   <title>Ciri & Sertifikasi Furniture Jati Jepara Asli | Customin.co</title>
   <meta name="description" content="Kenali ciri jati asli dan sertifikasi yang relevan (SVLK, FSC), cara verifikasi dokumen, hingga checklist QC sebelum membeli furniture Jepara. Hangat, jelas, dan praktis.">
-
+  <link rel="canonical" href="https://customin.co/blog/ciri-dan-sertifikasi-furniture-jati-jepara-asli.html" />
+  <meta name="theme-color" content="#C35616" />
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <link rel="icon" href="/OG/favicon-customin-furniture-custom.ico" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&display=swap" rel="stylesheet">
 
-  <!-- CSP (Disqus perlu *.disqus.com & *.disquscdn.com di script/frame/connect) -->
-  <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self';
-                 img-src 'self' https: data:;
-                 script-src 'self' https://code.iconify.design https://cloud.umami.is https://*.disqus.com https://*.disquscdn.com 'unsafe-inline';
-                 style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-                 font-src 'self' https://fonts.gstatic.com;
-                 connect-src 'self' https://*.disqus.com https://*.disquscdn.com;
-                 frame-src https://disqus.com https://*.disqus.com https://*.disquscdn.com;
-                 base-uri 'self';
-                 form-action 'self';
-                 upgrade-insecure-requests">
+  <!-- CSP: diseragamkan dengan beranda -->
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src 'self' 'unsafe-inline' https://code.iconify.design https://cloud.umami.is https://*.disqus.com;
+    connect-src 'self' https://api.iconify.design https://api.simplesvg.com https://api.unisvg.com https://cloud.umami.is https://api-gateway.umami.dev https://*.umami.is https://*.umami.dev;
+    style-src 'self' 'unsafe-inline';
+    font-src 'self' data:;
+    img-src 'self' https: data:;
+    worker-src 'self';
+    frame-src 'self' https://*.disqus.com;
+    object-src 'none';
+    base-uri 'self';
+    form-action 'self';
+    upgrade-insecure-requests
+  ">
 
+  <!-- Preconnect (perf) -->
+  <link rel="preconnect" href="https://code.iconify.design" crossorigin>
+  <link rel="preconnect" href="https://api.iconify.design" crossorigin>
+  <link rel="preconnect" href="https://cloud.umami.is" crossorigin>
+
+  <!-- Preload LCP cover & font lokal -->
+  <link rel="preload" as="image" href="/blog/cover/ciri-dan-sertifikasi-furniture-002.webp" fetchpriority="high">
+  <link rel="preload" href="/assets/fonts/InterVariable.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- Inter Variable lokal (tanpa Google Fonts) -->
+  <style>
+    :root{font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+    @supports (font-variation-settings: normal){
+      :root{font-family:"InterVariable",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;font-optical-sizing:auto}
+    }
+    @font-face{
+      font-family:InterVariable;
+      font-style:normal;
+      font-weight:100 900;
+      font-display:swap;
+      src:url("/assets/fonts/InterVariable.woff2") format("woff2");
+    }
+  </style>
+
+  <!-- CSS -->
   <link rel="stylesheet" href="/assets/cart.css" />
   <link rel="stylesheet" href="/blog/post.css" />
 
+  <!-- Iconify + Umami -->
   <script src="https://code.iconify.design/3/3.1.1/iconify.min.js" defer></script>
   <script defer src="https://cloud.umami.is/script.js" data-website-id="60976a45-9ae8-40bf-a8bc-99c152ba5288"></script>
 
@@ -36,9 +65,9 @@
   <meta property="og:type" content="article">
   <meta property="og:image" content="/blog/cover/ciri-dan-sertifikasi-furniture-002.webp">
   <meta property="og:url" content="https://customin.co/blog/ciri-dan-sertifikasi-furniture-jati-jepara-asli.html">
-  <link rel="canonical" href="https://customin.co/blog/ciri-dan-sertifikasi-furniture-jati-jepara-asli.html" />
 </head>
-<body data-slug="ciri-dan-sertifikasi-furniture-jati-jepara-asli">
+
+<body class="compact-nav" data-slug="ciri-dan-sertifikasi-furniture-jati-jepara-asli">
   <div class="main-wrapper">
     <div class="bio-card">
       <header class="page-head">
@@ -65,7 +94,9 @@
 
       <!-- Cover 2:1 -->
       <figure class="post-cover">
-        <img src="/blog/cover/ciri-dan-sertifikasi-furniture-002.webp" alt="Close-up serat kayu jati dan detail sambungan pada furniture Jepara">
+        <img src="/blog/cover/ciri-dan-sertifikasi-furniture-002.webp"
+             alt="Close-up serat kayu jati dan detail sambungan pada furniture Jepara"
+             fetchpriority="high" decoding="async">
       </figure>
 
       <!-- Tag -->
@@ -154,7 +185,7 @@
         <h3>Bagaimana bila ingin kombinasi jati + besi?</h3>
         <p>Pastikan ada <em>insert</em>/plat pada titik sambung agar kokoh, serta pelindung karat pada besi.</p>
 
-        <pre><code>// template brief ke vendor (salin & sesuaikan)
+<pre><code>// template brief ke vendor (salin & sesuaikan)
 {
   "gaya": "minimalis hangat, jati natural doff",
   "produk": [{"tipe":"sideboard","ukuran":"160 x 45 x 85 cm"}],
@@ -192,11 +223,22 @@
         <div id="disqus_thread" style="margin-top:10px"></div>
       </section>
 
-      <!-- NAV bawah -->
-      <nav class="in-card-nav" aria-label="Navigasi utama">
+      <!-- NAV bawah — seragam (nav-compact) -->
+      <nav class="in-card-nav nav-compact" aria-label="Navigasi utama">
         <div class="nav-content">
-          <a href="/" class="nav-item" title="Home" aria-label="Home"><span class="iconify" data-icon="mdi:home-outline"></span></a>
-          <button type="button" class="menu-button" id="menuButton" aria-controls="popupMenu" aria-expanded="false" aria-label="Menu"><span class="iconify" data-icon="mdi:view-grid-outline"></span></button>
+          <a href="/" class="nav-item" title="Home" aria-label="Home">
+            <span class="iconify" data-icon="mdi:home-outline"></span>
+          </a>
+
+          <button type="button"
+                  class="menu-button"
+                  id="menuButton"
+                  aria-controls="popupMenu"
+                  aria-expanded="false"
+                  aria-label="Menu">
+            <span class="iconify" data-icon="mdi:view-grid-outline"></span>
+          </button>
+
           <a href="/keranjang" class="nav-item js-cart-btn" title="Keranjang" aria-label="Keranjang">
             <span class="iconify" data-icon="mdi:cart-outline"></span>
             <span class="cart-badge" data-cart-count>0</span>
@@ -206,11 +248,13 @@
     </div>
   </div>
 
-  <div class="popup-menu" id="popupMenu"></div>
+  <!-- Popup menu (shared) -->
+  <div class="popup-menu" id="popupMenu" role="menu" aria-hidden="true"></div>
 
+  <!-- JS -->
   <script src="/assets/cart.js" defer></script>
   <script>
-    // Menu popup
+    // Popup menu (shared)
     (()=>{const b=document.getElementById('menuButton'),p=document.getElementById('popupMenu');
       if(!b||!p) return;
       p.innerHTML=`<ul>
@@ -237,30 +281,34 @@
 
     // Disqus one-click (shortname: customin)
     (function(){
-      const btn = document.getElementById('loadComments');
+      const btn=document.getElementById('loadComments');
       if(!btn) return;
-      let loaded = false;
+      let loaded=false;
       btn.addEventListener('click', ()=>{
-        if(loaded) return;
-        loaded = true;
+        if(loaded) return; loaded=true;
 
-        const identifier = document.body.dataset.slug || location.pathname.replace(/\/$/,'');
-        const url = (document.querySelector('link[rel="canonical"]')?.href) || (location.origin + location.pathname);
+        const identifier=document.body.dataset.slug||location.pathname.replace(/\/$/,'');
+        const url=(document.querySelector('link[rel="canonical"]')?.href)||(location.origin+location.pathname);
 
-        window.disqus_config = function () {
-          this.page.url = url;
-          this.page.identifier = identifier;
-          this.page.title = document.title;
+        window.disqus_config=function(){
+          this.page.url=url;
+          this.page.identifier=identifier;
+          this.page.title=document.title;
         };
 
-        const d = document, s = d.createElement('script');
-        s.src = 'https://customin.disqus.com/embed.js'; // shortname
+        const d=document,s=d.createElement('script');
+        s.src='https://customin.disqus.com/embed.js';
         s.setAttribute('data-timestamp', Date.now().toString());
-        (d.head || d.body).appendChild(s);
+        (d.head||d.body).appendChild(s);
 
         btn.style.display='none';
       });
     })();
+
+    // Service worker (opsional, seperti beranda)
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch(console.error);
+    }
   </script>
 </body>
 </html>
