@@ -32,10 +32,7 @@
       :root{font-family:"InterVariable",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;font-optical-sizing:auto}
     }
     @font-face{
-      font-family:InterVariable;
-      font-style:normal;
-      font-weight:100 900;
-      font-display:swap;
+      font-family:InterVariable; font-style:normal; font-weight:100 900; font-display:swap;
       src:url("/assets/fonts/InterVariable.woff2") format("woff2");
     }
     .sr-only{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
@@ -77,6 +74,9 @@
         <!-- Daftar artikel -->
         <section id="postsList" class="posts-list" aria-live="polite"></section>
 
+        <!-- Pagination -->
+        <nav id="pager" class="pager" aria-label="Navigasi halaman"></nav>
+
         <!-- Template kartu artikel -->
         <template id="postCardTmpl">
           <article class="post-card">
@@ -97,7 +97,7 @@
                   <span class="cmt-count" aria-hidden="true"></span>
                 </span>
 
-                <!-- Anchor tersembunyi untuk Disqus count -->
+                <!-- Anchor tersembunyi utk Disqus count -->
                 <a class="post-comments sr-only" href="#" data-disqus-identifier="">Komentar</a>
 
                 <span class="dot"></span>
@@ -131,7 +131,7 @@
   <!-- Cart + menu -->
   <script src="/assets/cart.js" defer></script>
   <script>
-    // Menu popup (singkat)
+    // Menu popup singkat
     (()=>{const b=document.getElementById('menuButton'),p=document.getElementById('popupMenu');
       if(!b||!p) return;
       p.innerHTML=`<ul>
@@ -144,11 +144,28 @@
       document.addEventListener('click',e=>{if(!p.contains(e.target)) p.classList.remove('show')});
     })();
 
-    // Render posts dari /blog/posts.json + sinkron angka komentar (tanpa badge)
+    // List + Pagination
     (async ()=>{
-      const list = document.getElementById('postsList');
-      const tmpl = document.getElementById('postCardTmpl');
-      const q = document.getElementById('q');
+      const PER_PAGE = 9;
+
+      const list   = document.getElementById('postsList');
+      const pager  = document.getElementById('pager');
+      const tmpl   = document.getElementById('postCardTmpl');
+      const qInput = document.getElementById('q');
+
+      // baca q & page dari URL
+      const params = new URLSearchParams(location.search);
+      let keyword = (params.get('q') || '').trim();
+      let current = Math.max(1, parseInt(params.get('page') || '1', 10) || 1);
+      if(qInput) qInput.value = keyword;
+
+      // helper update URL (tanpa reload)
+      function setQuery(q, page){
+        const sp = new URLSearchParams(location.search);
+        q ? sp.set('q', q) : sp.delete('q');
+        page > 1 ? sp.set('page', page) : sp.delete('page');
+        history.replaceState(null, '', sp.toString() ? ('?'+sp.toString()) : location.pathname);
+      }
 
       let posts = [];
       try{
@@ -156,75 +173,136 @@
         posts = await res.json();
       }catch(e){ console.error('Gagal load posts.json', e); }
 
-      const render = ()=>{
-        const keyword = (q.value||'').toLowerCase().trim();
+      function buildCard(p){
+        const card = tmpl.content.cloneNode(true);
+        const url  = p.url || `/blog/${p.slug}.html`;
+        const id   = p.id || p.slug || p.title;
+
+        // cover
+        card.querySelector('.post-cover').href = url;
+        const img = card.querySelector('.post-cover img');
+        img.src = p.cover || '/OG/Cover-Furniture-Custom-by-Customin.webp';
+        img.alt = p.coverAlt || p.title || 'Cover artikel';
+
+        // judul
+        const t = card.querySelector('.post-title a');
+        t.textContent = p.title || '(Tanpa judul)';
+        t.href = url;
+
+        // tanggal
+        const d = card.querySelector('.post-date');
+        d.textContent = p.date ? new Date(p.date).toLocaleDateString('id-ID',{day:'2-digit',month:'short',year:'numeric'}) : '';
+
+        // komentar ikon + anchor Disqus (hidden)
+        const icon = card.querySelector('.post-comments-icon');
+        const cmtA = card.querySelector('.post-comments');
+        const cnt  = card.querySelector('.cmt-count');
+        const href = `${url}#disqus_thread`;
+        icon.href = href;
+        cmtA.href = href;
+        cmtA.setAttribute('data-disqus-identifier', id);
+
+        // sync angka dari anchor Disqus
+        const sync = ()=>{
+          const m = (cmtA.textContent || '').match(/\d+/);
+          const n = m ? parseInt(m[0],10) : 0;
+          cnt.textContent = n>0 ? (n>999?'999+':String(n)) : '';
+          icon.setAttribute('aria-label', cnt.textContent ? `Komentar (${cnt.textContent})` : 'Komentar');
+        };
+        new MutationObserver(sync).observe(cmtA, {childList:true,subtree:true,characterData:true});
+        setTimeout(sync, 600);
+
+        // kategori
+        const chip = card.querySelector('.pd-chip');
+        const cat  = p.category || 'Umum';
+        chip.href = `/blog/?q=${encodeURIComponent(cat)}`;
+        chip.querySelector('.chip-text').textContent = cat;
+
+        // excerpt
+        card.querySelector('.post-excerpt').textContent = p.excerpt || '';
+
+        return card;
+      }
+
+      function render(){
+        // filter + sort
+        const filtered = posts
+          .filter(p => !keyword || (p.title+p.excerpt+p.category).toLowerCase().includes(keyword.toLowerCase()))
+          .sort((a,b)=> new Date(b.date)-new Date(a.date));
+
+        const totalPages = Math.max(1, Math.ceil(filtered.length / PER_PAGE));
+        current = Math.min(Math.max(1, current), totalPages);
+
+        // slice halaman
+        const start = (current-1)*PER_PAGE;
+        const pageItems = filtered.slice(start, start+PER_PAGE);
+
+        // render list
         list.innerHTML = '';
-        posts
-          .filter(p => !keyword || (p.title+p.excerpt+p.category).toLowerCase().includes(keyword))
-          .sort((a,b)=> new Date(b.date)-new Date(a.date))
-          .forEach(p=>{
-            const card = tmpl.content.cloneNode(true);
-            const url  = p.url || `/blog/${p.slug}.html`;
-            const id   = p.id || p.slug || p.title;
+        pageItems.forEach(p => list.appendChild(buildCard(p)));
 
-            // cover
-            const coverEl = card.querySelector('.post-cover');
-            coverEl.href = url;
-            const img = card.querySelector('.post-cover img');
-            img.src = p.cover || '/OG/Cover-Furniture-Custom-by-Customin.webp';
-            img.alt = p.coverAlt || p.title || 'Cover artikel';
+        // render pager
+        renderPager(totalPages);
+        setQuery(keyword, current);
 
-            // judul
-            const t = card.querySelector('.post-title a');
-            t.textContent = p.title || '(Tanpa judul)';
-            t.href = url;
+        // load Disqus count sekali
+        if(!document.getElementById('dsq-count-scr')){
+          const s = document.createElement('script');
+          s.id = 'dsq-count-scr';
+          s.src = '//custominco.disqus.com/count.js';
+          s.async = true;
+          document.body.appendChild(s);
+        }else{
+          // trigger ulang count
+          if(window.DISQUSWIDGETS && typeof DISQUSWIDGETS.getCount === 'function'){
+            window.DISQUSWIDGETS.getCount({reset:true});
+          }
+        }
+      }
 
-            // meta tanggal
-            card.querySelector('.post-date').textContent =
-              p.date ? new Date(p.date).toLocaleDateString('id-ID',{day:'2-digit',month:'short',year:'numeric'}) : '';
+      function renderPager(total){
+        pager.innerHTML = '';
+        if(total <= 1){ return; }
 
-            // komentar (ikon) + anchor Disqus tersembunyi
-            const icon = card.querySelector('.post-comments-icon');
-            const cmtAnchor = card.querySelector('.post-comments');
-            const countEl = card.querySelector('.cmt-count');
-            const href = `${url}#disqus_thread`;
-            icon.href = href;
-            cmtAnchor.href = href;
-            cmtAnchor.setAttribute('data-disqus-identifier', id);
+        const btn = (label, page, opts={})=>{
+          const el = document.createElement('button');
+          el.type = 'button';
+          el.className = 'pg-btn';
+          el.innerHTML = label;
+          if(opts.disabled){ el.disabled = true; }
+          if(opts.current){ el.setAttribute('aria-current','page'); }
+          el.addEventListener('click', ()=>{ current = page; render(); window.scrollTo({top:0, behavior:'smooth'}); });
+          return el;
+        };
 
-            // kategori chip
-            const chip = card.querySelector('.pd-chip');
-            const cat  = p.category || 'Umum';
-            chip.href = `/blog/?q=${encodeURIComponent(cat)}`;
-            chip.querySelector('.chip-text').textContent = cat;
+        // Prev
+        pager.appendChild(btn('<span class="iconify" data-icon="mdi:chevron-left"></span>', Math.max(1,current-1), {disabled: current===1}));
 
-            // excerpt
-            card.querySelector('.post-excerpt').textContent = p.excerpt || '';
+        // numbers (windowed)
+        const makeNum = p => pager.appendChild(btn(String(p), p, {current: p===current}));
+        const addEll  = () => { const s=document.createElement('span'); s.className='pg-ellipsis'; s.textContent='…'; pager.appendChild(s); };
 
-            // sinkron angka dari anchor Disqus
-            const updateCount = ()=>{
-              const text = (cmtAnchor.textContent || '').trim();
-              const m = text.match(/\d+/);
-              const n = m ? parseInt(m[0],10) : 0;
-              countEl.textContent = n > 0 ? (n > 999 ? '999+' : String(n)) : '';
-              icon.setAttribute('aria-label', countEl.textContent ? `Komentar (${countEl.textContent})` : 'Komentar');
-            };
-            new MutationObserver(updateCount).observe(cmtAnchor, {childList:true,subtree:true,characterData:true});
-            setTimeout(updateCount, 600);
+        const windowSize = 2;
+        let start = Math.max(1, current-windowSize);
+        let end   = Math.min(total, current+windowSize);
 
-            list.appendChild(card);
-          });
-      };
+        if(start > 1){ makeNum(1); if(start>2) addEll(); }
+        for(let p=start; p<=end; p++) makeNum(p);
+        if(end < total){ if(end<total-1) addEll(); makeNum(total); }
 
-      q?.addEventListener('input', render);
+        // Next
+        pager.appendChild(btn('<span class="iconify" data-icon="mdi:chevron-right"></span>', Math.min(total,current+1), {disabled: current===total}));
+      }
+
+      // events
+      qInput?.addEventListener('input', ()=>{
+        keyword = (qInput.value||'').trim();
+        current = 1;
+        render();
+      });
+
+      // first paint
       render();
-
-      // Disqus count
-      const s = document.createElement('script');
-      s.id = 'dsq-count-scr';
-      s.src = '//custominco.disqus.com/count.js';
-      s.async = true;
-      document.body.appendChild(s);
     })();
   </script>
 </body>
