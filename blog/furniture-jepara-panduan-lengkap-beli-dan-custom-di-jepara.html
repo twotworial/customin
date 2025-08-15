@@ -7,26 +7,42 @@
   <meta name="description" content="Panduan komplit dan praktis untuk membeli & custom furniture Jepara: dari memilih kayu jati asli, finishing, konstruksi, proses produksi, QC, hingga pengiriman dan perawatan.">
 
   <link rel="icon" href="/OG/favicon-customin-furniture-custom.ico" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&display=swap" rel="stylesheet">
 
-  <!-- CSP (Disqus perlu *.disqus.com & *.disquscdn.com di script/frame/connect) -->
-  <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self';
-                 img-src 'self' https: data:;
-                 script-src 'self' https://code.iconify.design https://cloud.umami.is https://*.disqus.com https://*.disquscdn.com 'unsafe-inline';
-                 style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-                 font-src 'self' https://fonts.gstatic.com;
-                 connect-src 'self' https://*.disqus.com https://*.disquscdn.com;
-                 frame-src https://disqus.com https://*.disqus.com https://*.disquscdn.com;
-                 base-uri 'self';
-                 form-action 'self';
-                 upgrade-insecure-requests">
+  <!-- CSP: Iconify CDN + Disqus; font lokal saja -->
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src 'self' 'unsafe-inline' https://code.iconify.design https://cloud.umami.is https://*.disqus.com https://c.disquscdn.com;
+    style-src  'self' 'unsafe-inline';
+    img-src    'self' https: data:;
+    font-src   'self' data:;
+    connect-src 'self' https://*.disqus.com https://c.disquscdn.com https://cloud.umami.is https://api-gateway.umami.dev https://*.umami.is https://*.umami.dev;
+    frame-src  'self' https://*.disqus.com https://c.disquscdn.com;
+    object-src 'none';
+    base-uri 'self';
+    form-action 'self';
+    upgrade-insecure-requests
+  ">
+
+  <!-- Inter Variable lokal -->
+  <link rel="preload" href="/assets/fonts/InterVariable.woff2" as="font" type="font/woff2" crossorigin>
+  <style>
+    :root{font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+    @supports (font-variation-settings: normal){
+      :root{font-family:"InterVariable",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;font-optical-sizing:auto}
+    }
+    @font-face{
+      font-family:InterVariable;
+      font-style:normal;
+      font-weight:100 900;
+      font-display:swap;
+      src:url("/assets/fonts/InterVariable.woff2") format("woff2");
+    }
+  </style>
 
   <link rel="stylesheet" href="/assets/cart.css" />
   <link rel="stylesheet" href="/blog/post.css" />
 
+  <!-- Iconify CDN + Umami -->
   <script src="https://code.iconify.design/3/3.1.1/iconify.min.js" defer></script>
   <script defer src="https://cloud.umami.is/script.js" data-website-id="60976a45-9ae8-40bf-a8bc-99c152ba5288"></script>
 
@@ -65,7 +81,9 @@
 
       <!-- Cover 2:1 -->
       <figure class="post-cover">
-        <img src="/blog/cover/Furniture-Jepara-001.webp" alt="Ilustrasi furniture jati Jepara premium">
+        <img src="/blog/cover/Furniture-Jepara-001.webp"
+             alt="Ilustrasi furniture jati Jepara premium"
+             fetchpriority="high" decoding="async">
       </figure>
 
       <!-- Tag -->
