@@ -7,27 +7,26 @@
   <meta name="description" content="Artikel seputar furniture custom, tips perawatan, dan behind-the-scenes produksi dari Customin.co.">
   <link rel="icon" href="/OG/favicon-customin-furniture-custom.ico" />
 
-  <!-- CSP: Iconify via CDN (auto-fetch), Disqus (count), Umami -->
+  <!-- CSP: Iconify CDN + Umami saja (tanpa Disqus) -->
   <meta http-equiv="Content-Security-Policy" content="
     default-src 'self';
-    script-src 'self' 'unsafe-inline' https://code.iconify.design https://cloud.umami.is https://*.disqus.com;
-    connect-src 'self' https://api.iconify.design https://api.simplesvg.com https://api.unisvg.com https://cloud.umami.is https://api-gateway.umami.dev;
+    script-src 'self' 'unsafe-inline' https://code.iconify.design https://cloud.umami.is;
+    connect-src 'self' https://cloud.umami.is https://api-gateway.umami.dev https://*.umami.is https://*.umami.dev;
     style-src 'self' 'unsafe-inline';
     font-src 'self' data:;
     img-src 'self' https: data:;
-    frame-src 'self' https://*.disqus.com;
+    frame-src 'self';
     object-src 'none';
     base-uri 'self';
     form-action 'self';
     upgrade-insecure-requests
   ">
 
-  <!-- Preconnect yang penting buat TTFB awal -->
-  <link rel="preconnect" href="https://api.iconify.design" crossorigin>
+  <!-- Preconnect (perf) -->
+  <link rel="preconnect" href="https://code.iconify.design" crossorigin>
   <link rel="preconnect" href="https://cloud.umami.is" crossorigin>
-  <link rel="preconnect" href="https://api-gateway.umami.dev" crossorigin>
 
-  <!-- Inter Variable lokal (tanpa preload agar tak nahan LCP) -->
+  <!-- Inter Variable lokal -->
   <style>
     :root{font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
     @supports (font-variation-settings: normal){
@@ -39,15 +38,13 @@
     }
   </style>
 
-  <!-- CSS utama + cart.css non-blocking -->
+  <!-- CSS -->
   <link rel="stylesheet" href="/blog/blog.css">
   <link rel="stylesheet" href="/assets/cart.css" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="/assets/cart.css"></noscript>
 
-  <!-- Iconify via CDN (auto-fetch aktif) -->
+  <!-- Iconify + Umami -->
   <script src="https://code.iconify.design/3/3.1.1/iconify.min.js" defer></script>
-
-  <!-- Umami -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="60976a45-9ae8-40bf-a8bc-99c152ba5288"></script>
 </head>
 <body>
@@ -76,7 +73,7 @@
         <!-- List -->
         <section id="postsList" class="posts-list" aria-live="polite"></section>
 
-        <!-- Pagination 9/halaman -->
+        <!-- Pagination (9/halaman) -->
         <nav id="pager" class="pager" aria-label="Pagination"></nav>
 
         <!-- Template kartu -->
@@ -87,11 +84,6 @@
               <h2 class="post-title"><a href="#"></a></h2>
               <div class="post-meta">
                 <time class="post-date"></time>
-                <span class="dot"></span>
-                <a class="post-comments" href="#" data-disqus-identifier="" aria-label="Komentar">
-                  <span class="iconify" data-icon="mdi:message-outline"></span>
-                  <span class="count">0</span>
-                </a>
                 <span class="dot"></span>
                 <a class="pd-chip" href="#">
                   <span class="iconify" data-icon="mdi:label-outline"></span>
@@ -120,10 +112,10 @@
 
   <div class="popup-menu" id="popupMenu"></div>
 
-  <!-- Cart + Menu -->
+  <!-- Cart + Menu + Blog list -->
   <script src="/assets/cart.js" defer></script>
   <script>
-  // Popup menu singkat
+  // Popup menu
   (()=>{const b=document.getElementById('menuButton'),p=document.getElementById('popupMenu');
     if(!b||!p) return;
     p.innerHTML=`<ul>
@@ -136,7 +128,7 @@
     document.addEventListener('click',e=>{if(!p.contains(e.target)) p.classList.remove('show')});
   })();
 
-  // ===== Blog: fetch + render + pagination + komentar (lazy) =====
+  // ===== Blog: fetch + render + pagination (tanpa komentar) =====
   (async ()=>{
     const list  = document.getElementById('postsList');
     const pager = document.getElementById('pager');
@@ -144,8 +136,7 @@
     const q     = document.getElementById('q');
     const PER_PAGE = 9;
 
-    const urlPage = +new URL(location.href).searchParams.get('page') || 1;
-    let curPage = urlPage;
+    let curPage = +(new URL(location.href)).searchParams.get('page') || 1;
 
     let posts = [];
     try{
@@ -177,10 +168,6 @@
       n.querySelector('.post-date').textContent =
         p.date ? new Date(p.date).toLocaleDateString('id-ID',{day:'2-digit',month:'short',year:'numeric'}) : '';
 
-      const cmt = n.querySelector('.post-comments');
-      cmt.href = `${url}#disqus_thread`;
-      cmt.setAttribute('data-disqus-identifier', p.id || p.slug || p.title || url);
-
       const chip = n.querySelector('.pd-chip');
       const tag  = p.category || 'Umum';
       chip.href = `/blog/?q=${encodeURIComponent(tag)}`;
@@ -204,7 +191,7 @@
       list.innerHTML = '';
       slice.forEach((p,i)=> list.appendChild(makeCard(p, start+i)));
 
-      // pagination
+      // Pagination
       pager.innerHTML = '';
       const go = (p)=>{ if(p===curPage) return; curPage=p; history.replaceState(null,'',`?page=${p}`); renderPage(); };
       const mkBtn = (label, page, {active=false, disabled=false}={})=>{
@@ -223,44 +210,9 @@
         }
       }
       pager.appendChild(mkBtn('Next', curPage+1, {disabled:curPage>=totalPages}));
-
-      lazyLoadDisqus();
-      syncCountsSoon();
     }
 
     q?.addEventListener('input', ()=>{ curPage=1; renderPage(); });
-
-    // Disqus count: load saat idle + error-safe
-    let dsqLoaded = false, syncTimer;
-    function lazyLoadDisqus(){
-      if (dsqLoaded) return;
-      const loader = ()=> {
-        if (dsqLoaded) return;
-        const s = document.createElement('script');
-        s.id = 'dsq-count-scr';
-        s.src = 'https://custominco.disqus.com/count.js';
-        s.async = true;
-        s.onerror = ()=>{ document.querySelectorAll('.post-comments .count').forEach(el=>el.textContent='0'); };
-        document.body.appendChild(s);
-        dsqLoaded = true;
-      };
-      if ('requestIdleCallback' in window) requestIdleCallback(loader, {timeout:2000});
-      else setTimeout(loader, 1800);
-    }
-    function syncCountsSoon(){
-      clearTimeout(syncTimer);
-      syncTimer = setTimeout(()=>{
-        document.querySelectorAll('.post-comments').forEach(a=>{
-          const text = (a.textContent||'').trim();
-          const m = text.match(/\d+/);
-          const num = m ? m[0] : '0';
-          const span = a.querySelector('.count');
-          if (span) span.textContent = num;
-          a.childNodes.forEach(n=>{ if (n.nodeType===3) n.textContent=''; });
-        });
-      }, 1600);
-    }
-
     renderPage();
   })();
   </script>
