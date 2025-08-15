@@ -89,11 +89,13 @@
                 <time class="post-date"></time>
                 <span class="dot"></span>
 
-                <!-- Tombol komentar (ikon + badge) -->
-                <a class="post-comments-btn" href="#" aria-label="Komentar">
-                  <span class="iconify" data-icon="mdi:message-text-outline"></span>
-                  <span class="cmt-badge" hidden>0</span>
-                </a>
+                <!-- Ikon komentar (tanpa border/bg) + angka merah -->
+                <span class="cmt-wrap">
+                  <a class="post-comments-icon" href="#" aria-label="Komentar">
+                    <span class="iconify" data-icon="mdi:message-text-outline"></span>
+                  </a>
+                  <span class="cmt-count" aria-hidden="true"></span>
+                </span>
 
                 <!-- Anchor tersembunyi untuk Disqus count -->
                 <a class="post-comments sr-only" href="#" data-disqus-identifier="">Komentar</a>
@@ -142,7 +144,7 @@
       document.addEventListener('click',e=>{if(!p.contains(e.target)) p.classList.remove('show')});
     })();
 
-    // Render posts dari /blog/posts.json + sinkron badge komentar
+    // Render posts dari /blog/posts.json + sinkron angka komentar (tanpa badge)
     (async ()=>{
       const list = document.getElementById('postsList');
       const tmpl = document.getElementById('postCardTmpl');
@@ -181,13 +183,14 @@
             card.querySelector('.post-date').textContent =
               p.date ? new Date(p.date).toLocaleDateString('id-ID',{day:'2-digit',month:'short',year:'numeric'}) : '';
 
-            // komentar (ikon + badge) + anchor Disqus tersembunyi
-            const btn = card.querySelector('.post-comments-btn');
-            const cmt = card.querySelector('.post-comments');
+            // komentar (ikon) + anchor Disqus tersembunyi
+            const icon = card.querySelector('.post-comments-icon');
+            const cmtAnchor = card.querySelector('.post-comments');
+            const countEl = card.querySelector('.cmt-count');
             const href = `${url}#disqus_thread`;
-            btn.href = href;
-            cmt.href = href;
-            cmt.setAttribute('data-disqus-identifier', id);
+            icon.href = href;
+            cmtAnchor.href = href;
+            cmtAnchor.setAttribute('data-disqus-identifier', id);
 
             // kategori chip
             const chip = card.querySelector('.pd-chip');
@@ -198,23 +201,16 @@
             // excerpt
             card.querySelector('.post-excerpt').textContent = p.excerpt || '';
 
-            // sinkron badge dari anchor Disqus
-            const badge = btn.querySelector('.cmt-badge');
-            const updateBadge = ()=>{
-              const text = (cmt.textContent || '').trim();
+            // sinkron angka dari anchor Disqus
+            const updateCount = ()=>{
+              const text = (cmtAnchor.textContent || '').trim();
               const m = text.match(/\d+/);
               const n = m ? parseInt(m[0],10) : 0;
-              if(n>0){
-                badge.textContent = n>99 ? '99+' : String(n);
-                badge.hidden = false;
-                btn.setAttribute('aria-label', `Komentar (${badge.textContent})`);
-              }else{
-                badge.hidden = true;
-                btn.setAttribute('aria-label', 'Komentar');
-              }
+              countEl.textContent = n > 0 ? (n > 999 ? '999+' : String(n)) : '';
+              icon.setAttribute('aria-label', countEl.textContent ? `Komentar (${countEl.textContent})` : 'Komentar');
             };
-            new MutationObserver(updateBadge).observe(cmt, {childList:true,subtree:true,characterData:true});
-            setTimeout(updateBadge, 600);
+            new MutationObserver(updateCount).observe(cmtAnchor, {childList:true,subtree:true,characterData:true});
+            setTimeout(updateCount, 600);
 
             list.appendChild(card);
           });
