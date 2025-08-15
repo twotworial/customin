@@ -1,5 +1,5 @@
 :root{
-  --accent:#C35616; --bg:#ffffff; --text:#0c0c0c; --grey:#f6f6f6; --subtext:#5c5c5c;
+  --accent:#C35616; --bg:#ffffff; --text:#0c0c0c; --grey:#f6f6f6; --subtext:#C35616;
   --radius:24px; --card-radius:16px; --in-card-offset:6px; --fab-size:48px;
   --ff-sans: InterVariable, Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
 }
