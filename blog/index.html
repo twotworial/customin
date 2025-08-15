@@ -8,65 +8,50 @@
 
   <link rel="icon" href="/OG/favicon-customin-furniture-custom.ico" />
 
-  <!-- CSP: izinkan Iconify + Disqus Count -->
+  <!-- CSP: Iconify tetap dari CDN, tapi tanpa auto-fetch (tidak perlu connect ke api.iconify/uni/simple) -->
   <meta http-equiv="Content-Security-Policy" content="
     default-src 'self';
-    script-src 'self' 'unsafe-inline'
-               https://code.iconify.design
-               https://cloud.umami.is
-               https://*.disqus.com;
-    connect-src 'self'
-                https://api.iconify.design
-                https://api.simplesvg.com
-                https://api.unisvg.com
-                https://cloud.umami.is
-                https://api-gateway.umami.dev
-                https://*.umami.is
-                https://*.umami.dev
-                https://*.disqus.com;
+    script-src 'self' 'unsafe-inline' https://code.iconify.design https://cloud.umami.is https://*.disqus.com;
+    connect-src 'self' https://cloud.umami.is https://api-gateway.umami.dev https://*.umami.is https://*.umami.dev;
     style-src 'self' 'unsafe-inline';
     font-src 'self' data:;
     img-src 'self' https: data:;
-    frame-src 'self' https://disqus.com https://*.disqus.com;
-    worker-src 'self';
-    object-src 'none';
+    frame-src https://*.disqus.com;
     base-uri 'self';
     form-action 'self';
+    worker-src 'self';
+    object-src 'none';
     upgrade-insecure-requests
   ">
 
-  <!-- Preconnect (perf) -->
-  <link rel="preconnect" href="https://code.iconify.design" crossorigin>
-  <link rel="preconnect" href="https://api.iconify.design" crossorigin>
-  <link rel="preconnect" href="https://cloud.umami.is" crossorigin>
-
-  <!-- Inter Variable lokal -->
-  <link rel="preload" href="/assets/fonts/InterVariable.woff2" as="font" type="font/woff2" crossorigin>
+  <!-- Inter Variable lokal (seperti index.html) -->
   <style>
-    :root{font-family:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+    :root{font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
     @supports (font-variation-settings: normal){
-      :root{font-family:"InterVariable",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-optical-sizing:auto}
+      :root{font-family:"InterVariable",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;font-optical-sizing:auto}
     }
     @font-face{
-      font-family:InterVariable;
-      font-style:normal;
-      font-weight:100 900;
-      font-display:swap;
+      font-family:InterVariable; font-style:normal; font-weight:100 900; font-display:swap;
       src:url("/assets/fonts/InterVariable.woff2") format("woff2");
     }
   </style>
 
-  <!-- CSS: non-blocking -->
+  <!-- Preload ringan -->
+  <link rel="preload" href="/blog/blog.css" as="style">
   <link rel="preload" href="/assets/cart.css" as="style">
+  <link rel="preload" href="/blog/posts.json" as="fetch" crossorigin="anonymous">
+
+  <!-- CSS utama + non-blocking cart.css -->
+  <link rel="stylesheet" href="/blog/blog.css">
   <link rel="stylesheet" href="/assets/cart.css" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="/assets/cart.css"></noscript>
 
-  <link rel="preload" href="/blog/blog.css" as="style">
-  <link rel="stylesheet" href="/blog/blog.css" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="/blog/blog.css"></noscript>
-
-  <!-- Iconify (online) -->
+  <!-- Iconify (CDN) + matikan auto-fetch + koleksi lokal -->
   <script src="https://code.iconify.design/3/3.1.1/iconify.min.js" defer></script>
+  <script defer>
+    window.Iconify && Iconify.setConfig({ autoFetch:false, fetch:false });
+  </script>
+  <script src="/assets/icons/register-icons.js" defer></script>
 
   <!-- Umami -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="60976a45-9ae8-40bf-a8bc-99c152ba5288"></script>
@@ -94,13 +79,13 @@
           </div>
         </section>
 
-        <!-- List 1 kolom, cover 2:1 -->
+        <!-- List -->
         <section id="postsList" class="posts-list" aria-live="polite"></section>
 
         <!-- Pagination -->
         <nav id="pager" class="pagination" aria-label="Pagination"></nav>
 
-        <!-- Template kartu -->
+        <!-- Template -->
         <template id="postCardTmpl">
           <article class="post-card">
             <a class="post-cover" href="#"><img src="" alt=""></a>
@@ -109,10 +94,8 @@
               <div class="post-meta">
                 <time class="post-date"></time>
                 <span class="dot"></span>
-                <!-- Komentar: ikon + angka merah -->
-                <a class="post-comments" href="#" data-count
-                   title="Komentar">
-                  <span class="iconify" data-icon="mdi:message-outline" aria-hidden="true"></span>
+                <a class="post-comments" href="#" data-disqus-identifier="">
+                  <span class="iconify" data-icon="mdi:message-outline"></span>
                   <span class="count">0</span>
                 </a>
                 <span class="dot"></span>
@@ -143,177 +126,164 @@
 
   <div class="popup-menu" id="popupMenu"></div>
 
-  <!-- Cart + menu -->
+  <!-- Cart + Menu -->
   <script src="/assets/cart.js" defer></script>
   <script>
-    // Popup menu singkat
-    (()=>{const b=document.getElementById('menuButton'),p=document.getElementById('popupMenu');
-      if(!b||!p) return;
-      p.innerHTML=`<ul>
-        <li><a href="/produk/"><span class="iconify" data-icon="mdi:view-grid-plus-outline"></span>Produk</a></li>
-        <li><a href="/kategori/"><span class="iconify" data-icon="mdi:shape-outline"></span>Kategori</a></li>
-        <li><a href="/tag/"><span class="iconify" data-icon="mdi:tag-outline"></span>Tag</a></li>
-        <li><a href="/kontak.html"><span class="iconify" data-icon="mdi:phone-outline"></span>Kontak</a></li>
-      </ul>`;
-      b.addEventListener('click',e=>{e.stopPropagation();p.classList.toggle('show');b.setAttribute('aria-expanded',p.classList.contains('show'));});
-      document.addEventListener('click',e=>{if(!p.contains(e.target)) p.classList.remove('show')});
-    })();
+  // Popup menu ringkas
+  (()=>{const b=document.getElementById('menuButton'),p=document.getElementById('popupMenu');
+    if(!b||!p) return;
+    p.innerHTML=`<ul>
+      <li><a href="/produk/"><span class="iconify" data-icon="mdi:view-grid-plus-outline"></span>Produk</a></li>
+      <li><a href="/kategori/"><span class="iconify" data-icon="mdi:shape-outline"></span>Kategori</a></li>
+      <li><a href="/tag/"><span class="iconify" data-icon="mdi:tag-outline"></span>Tag</a></li>
+      <li><a href="/kontak.html"><span class="iconify" data-icon="mdi:phone-outline"></span>Kontak</a></li>
+    </ul>`;
+    b.addEventListener('click',e=>{e.stopPropagation();p.classList.toggle('show');b.setAttribute('aria-expanded',p.classList.contains('show'));});
+    document.addEventListener('click',e=>{if(!p.contains(e.target)) p.classList.remove('show')});
+  })();
 
-    // ===== Render posts + pencarian + paginasi (9/halaman) =====
-    (async ()=>{
-      const list   = document.getElementById('postsList');
-      const tmpl   = document.getElementById('postCardTmpl');
-      const qInput = document.getElementById('q');
-      const pager  = document.getElementById('pager');
-      const PAGE_SIZE = 9;
+  // ===== Blog: fetch + render + pagination + komentar count (ringan) =====
+  (async ()=>{
+    const list  = document.getElementById('postsList');
+    const pager = document.getElementById('pager');
+    const tmpl  = document.getElementById('postCardTmpl');
+    const q     = document.getElementById('q');
+    const PER_PAGE = 9;
 
-      // state dari URL
-      const urlParams = new URLSearchParams(location.search);
-      qInput.value = urlParams.get('q') || '';
-      let page = Math.max(1, parseInt(urlParams.get('page')||'1',10));
+    const urlPage = +new URL(location.href).searchParams.get('page') || 1;
+    let curPage = urlPage;
 
-      let posts = [];
-      try{
-        const res = await fetch('/blog/posts.json', {cache:'no-store'});
-        posts = await res.json();
-      }catch(e){ console.error('Gagal load posts.json', e); }
+    let posts = [];
+    try{
+      const res = await fetch('/blog/posts.json', {cache:'no-store'});
+      posts = await res.json();
+    }catch(e){ console.error('Gagal load posts.json', e); }
 
-      function fmtDate(d){
-        const x = new Date(d); if(isNaN(x)) return '';
-        return x.toLocaleDateString('id-ID',{day:'2-digit',month:'short',year:'numeric'});
+    posts = posts
+      .filter(p => p && (p.title || p.slug))
+      .sort((a,b)=> new Date(b.date) - new Date(a.date));
+
+    function makeCard(p, idxGlobal){
+      const n = tmpl.content.cloneNode(true);
+      const url = p.url || `/blog/${p.slug}.html`;
+
+      // cover
+      const coverA = n.querySelector('.post-cover');
+      const img = n.querySelector('img');
+      coverA.href = url;
+      img.src = p.cover || '/OG/Cover-Furniture-Custom-by-Customin.webp';
+      img.alt = p.coverAlt || p.title || '';
+      img.decoding = 'async';
+      // LCP: hanya untuk kartu pertama pada halaman 1
+      if (curPage===1 && idxGlobal===0) {
+        img.loading = 'eager';
+        img.setAttribute('fetchpriority','high');
+      } else {
+        img.loading = 'lazy';
       }
 
-      function render(){
-        const keyword = (qInput.value||'').toLowerCase().trim();
+      // title
+      const t = n.querySelector('.post-title a');
+      t.textContent = p.title || '(Tanpa judul)';
+      t.href = url;
 
-        const filtered = posts
-          .filter(p => !keyword || ( (p.title||'') + (p.excerpt||'') + (p.category||'') ).toLowerCase().includes(keyword))
-          .sort((a,b)=> new Date(b.date) - new Date(a.date));
+      // meta
+      n.querySelector('.post-date').textContent =
+        p.date ? new Date(p.date).toLocaleDateString('id-ID',{day:'2-digit',month:'short',year:'numeric'}) : '';
 
-        const total = filtered.length;
-        const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
-        if (page > totalPages) page = totalPages;
+      const cmt = n.querySelector('.post-comments');
+      cmt.href = `${url}#disqus_thread`;
+      cmt.setAttribute('data-disqus-identifier', p.id || p.slug || p.title || url);
 
-        const start = (page-1)*PAGE_SIZE;
-        const items = filtered.slice(start, start + PAGE_SIZE);
+      const chip = n.querySelector('.pd-chip');
+      const tag  = p.category || 'Umum';
+      chip.href = `/blog/?q=${encodeURIComponent(tag)}`;
+      chip.querySelector('.chip-text').textContent = tag;
 
-        list.innerHTML = '';
-        items.forEach(p=>{
-          const url = p.url || `/blog/${p.slug}.html`;
-          const id  = p.id || p.slug || p.title;
+      n.querySelector('.post-excerpt').textContent = p.excerpt || '';
+      return n;
+    }
 
-          const card = tmpl.content.cloneNode(true);
-          const img  = card.querySelector('.post-cover img');
-          card.querySelector('.post-cover').href = url;
-          img.src = p.cover || '/OG/Cover-Furniture-Custom-by-Customin.webp';
-          img.alt = p.coverAlt || p.title || '';
+    function renderPage(){
+      const keyword = (q.value||'').toLowerCase().trim();
+      const filtered = !keyword ? posts :
+        posts.filter(p => (p.title+p.excerpt+p.category).toLowerCase().includes(keyword));
 
-          card.querySelector('.post-title a').textContent = p.title || '(Tanpa judul)';
-          card.querySelector('.post-title a').href = url;
+      const totalPages = Math.max(1, Math.ceil(filtered.length / PER_PAGE));
+      curPage = Math.min(Math.max(1, curPage), totalPages);
 
-          card.querySelector('.post-date').textContent = fmtDate(p.date);
+      const start = (curPage-1)*PER_PAGE;
+      const slice = filtered.slice(start, start+PER_PAGE);
 
-          const cmt = card.querySelector('.post-comments');
-          cmt.href = `${url}#disqus_thread`;
-          cmt.setAttribute('data-disqus-identifier', id);
-          cmt.setAttribute('data-disqus-url', url); // opsional, bantu disqus
+      list.innerHTML = '';
+      slice.forEach((p,i)=> list.appendChild(makeCard(p, start+i)));
 
-          const chip = card.querySelector('.pd-chip');
-          chip.href = `/blog/?q=${encodeURIComponent(p.category||'Umum')}`;
-          chip.querySelector('.chip-text').textContent = p.category || 'Umum';
-
-          card.querySelector('.post-excerpt').textContent = p.excerpt || '';
-
-          list.appendChild(card);
-        });
-
-        renderPagination(totalPages, total);
-        // re-scan icon (kalau ada elemen baru)
-        window.Iconify && Iconify.scan?.();
-      }
-
-      function linkFor(n){
-        const sp = new URLSearchParams(location.search);
-        if (qInput.value) sp.set('q', qInput.value); else sp.delete('q');
-        sp.set('page', String(n));
-        return `?${sp.toString()}`;
-      }
-
-      function pageBtn(n, label, active=false, disabled=false){
-        const a = document.createElement(disabled ? 'span' : 'a');
-        a.className = `page-btn${active?' active':''}${disabled?' disabled':''}`;
+      // pagination
+      pager.innerHTML = '';
+      const mkBtn = (label, page, {active=false, disabled=false}={})=>{
+        const a = document.createElement('a');
+        a.className = 'page-btn' + (active?' active':'') + (disabled?' disabled':'');
         a.textContent = label;
-        if (!disabled) a.href = linkFor(n);
-        return a;
-      }
-
-      function renderPagination(totalPages){
-        pager.innerHTML = '';
-        if (totalPages <= 1){ pager.style.display='none'; return; }
-        pager.style.display='flex';
-
-        // Prev
-        pager.appendChild(pageBtn(page-1,'‹',false,page===1));
-
-        // Range (maks 5 nomor: current ±2)
-        const start = Math.max(1, page-2);
-        const end   = Math.min(totalPages, start+4);
-        for(let i=start;i<=end;i++){
-          pager.appendChild(pageBtn(i,String(i), i===page, false));
+        if(!disabled){
+          a.href = `?page=${page}`; a.addEventListener('click', e=>{ e.preventDefault(); go(page); });
         }
-
-        // Next
-        pager.appendChild(pageBtn(page+1,'›',false,page===totalPages));
+        return a;
+      };
+      const go = (p)=>{ if(p===curPage) return; curPage=p; history.replaceState(null,'',`?page=${p}`); renderPage(); };
+      pager.appendChild(mkBtn('Prev', curPage-1, {disabled:curPage<=1}));
+      for(let i=1;i<=totalPages;i++){
+        // ringkas jika halaman banyak
+        if (i===1 || i===totalPages || Math.abs(i-curPage)<=1){
+          pager.appendChild(mkBtn(String(i), i, {active:i===curPage}));
+        } else if (Math.abs(i-curPage)===2){
+          const s=document.createElement('span'); s.className='pg-ellipsis'; s.textContent='…'; pager.appendChild(s);
+        }
       }
+      pager.appendChild(mkBtn('Next', curPage+1, {disabled:curPage>=totalPages}));
 
-      // input cari -> reset ke page 1, refresh
-      qInput.addEventListener('input', ()=>{
-        page = 1;
-        const sp = new URLSearchParams(location.search);
-        if (qInput.value) sp.set('q', qInput.value); else sp.delete('q');
-        sp.set('page','1');
-        history.replaceState(null,'',`?${sp.toString()}`);
-        render();
-        // muat ulang count setelah filter
-        scheduleDisqusMorph();
-      });
+      // muat Disqus count setelah render
+      lazyLoadDisqus();
+      // sinkronkan angka: tarik angka dari teks yang diisi Disqus
+      syncCountsSoon();
+    }
 
-      render();
+    q?.addEventListener('input', ()=>{ curPage=1; renderPage(); });
 
-      // ===== Disqus comment count =====
-      window.disqus_shortname = 'custominco'; // ganti jika berbeda
-      (function loadDisqusCount(){
-        if (document.getElementById('dsq-count-scr')) return;
+    // Disqus: lazy + sinkron angka
+    let dsqLoaded = false, syncTimer;
+    function lazyLoadDisqus(){
+      if (dsqLoaded) return;
+      const loader = ()=> {
+        if (dsqLoaded) return;
         const s = document.createElement('script');
         s.id = 'dsq-count-scr';
-        s.src = 'https://' + window.disqus_shortname + '.disqus.com/count.js';
+        s.src = '//custominco.disqus.com/count.js';
         s.async = true;
         document.body.appendChild(s);
-      })();
-
-      // Ubah output disqus jadi "ikon + angka" (tanpa label), keep ikon
-      function morphCommentAnchors(){
-        document.querySelectorAll('a.post-comments[data-count]').forEach(a=>{
-          const m = (a.textContent||'').match(/\d+/);
-          if (m){
-            const num = m[0];
-            a.innerHTML = '<span class="iconify" data-icon="mdi:message-outline" aria-hidden="true"></span><span class="count">'+num+'</span>';
-          }
+        dsqLoaded = true;
+      };
+      if ('requestIdleCallback' in window) requestIdleCallback(loader, {timeout:1500});
+      else setTimeout(loader, 1200);
+    }
+    function syncCountsSoon(){
+      clearTimeout(syncTimer);
+      syncTimer = setTimeout(()=>{
+        document.querySelectorAll('.post-comments').forEach(a=>{
+          const text = a.textContent || '';
+          const m = text.match(/\d+/);
+          const num = m ? m[0] : '0';
+          const span = a.querySelector('.count');
+          if (span) span.textContent = num;
+          // kosongkan teks selain ikon & angka agar rapi
+          a.childNodes.forEach(n=>{
+            if (n.nodeType===3) n.textContent='';
+          });
         });
-        window.Iconify && Iconify.scan?.();
-      }
-      function scheduleDisqusMorph(){
-        // beberapa kali untuk mengejar load async dari Disqus
-        setTimeout(morphCommentAnchors, 700);
-        setTimeout(morphCommentAnchors, 1500);
-        setTimeout(morphCommentAnchors, 3000);
-      }
-      scheduleDisqusMorph();
-      // juga observasi perubahan DOM singkat
-      const mo = new MutationObserver(morphCommentAnchors);
-      mo.observe(document.body,{childList:true,subtree:true,characterData:true});
-      setTimeout(()=>mo.disconnect(), 5000);
-    })();
+      }, 1400);
+    }
+
+    renderPage();
+  })();
   </script>
 </body>
 </html>
