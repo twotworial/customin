@@ -7,26 +7,42 @@
   <meta name="description" content="Artikel seputar furniture custom, tips perawatan, dan behind-the-scenes produksi dari Customin.co.">
 
   <link rel="icon" href="/OG/favicon-customin-furniture-custom.ico" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&display=swap" rel="stylesheet">
 
-  <!-- CSP (tambahan untuk Disqus count) -->
+  <!-- CSP (Iconify online, Umami, Disqus) -->
   <meta http-equiv="Content-Security-Policy"
         content="default-src 'self';
                  img-src 'self' https: data:;
                  script-src 'self' https://code.iconify.design https://cloud.umami.is https://*.disqus.com 'unsafe-inline';
-                 style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-                 font-src 'self' https://fonts.gstatic.com;
+                 style-src 'self' 'unsafe-inline';
+                 font-src 'self' data:;
                  connect-src 'self';
                  frame-src https://disqus.com https://*.disqus.com;
                  base-uri 'self';
                  form-action 'self';
                  upgrade-insecure-requests">
 
+  <!-- Inter Variable lokal (match index.html) -->
+  <link rel="preload" href="/assets/fonts/InterVariable.woff2" as="font" type="font/woff2" crossorigin>
+  <style>
+    :root{font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+    @supports (font-variation-settings: normal){
+      :root{font-family:"InterVariable",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;font-optical-sizing:auto}
+    }
+    @font-face{
+      font-family:InterVariable;
+      font-style:normal;
+      font-weight:100 900;
+      font-display:swap;
+      src:url("/assets/fonts/InterVariable.woff2") format("woff2");
+    }
+    .sr-only{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+  </style>
+
+  <!-- Styles -->
   <link rel="stylesheet" href="/assets/cart.css">
   <link rel="stylesheet" href="/blog/blog.css">
 
+  <!-- Iconify (online) -->
   <script src="https://code.iconify.design/3/3.1.1/iconify.min.js" defer></script>
 
   <!-- Umami -->
@@ -58,7 +74,7 @@
         <!-- List 1 kolom, cover 2:1 -->
         <section id="postsList" class="posts-list" aria-live="polite"></section>
 
-        <!-- Fallback kosong -->
+        <!-- Template kartu -->
         <template id="postCardTmpl">
           <article class="post-card">
             <a class="post-cover" href="#">
@@ -69,7 +85,15 @@
               <div class="post-meta">
                 <time class="post-date"></time>
                 <span class="dot"></span>
-                <a class="post-comments" href="#" data-disqus-identifier="">Komentar</a>
+
+                <!-- Ikon komentar (yang terlihat) -->
+                <a class="post-comments-icon" href="#" aria-label="Komentar">
+                  <span class="iconify" data-icon="mdi:comment-outline"></span>
+                </a>
+
+                <!-- Anchor untuk Disqus count (tersembunyi agar tidak mengubah UI) -->
+                <a class="post-comments sr-only" href="#" data-disqus-identifier="">Komentar</a>
+
                 <span class="dot"></span>
                 <a class="pd-chip" href="#"><span class="iconify" data-icon="mdi:label-outline"></span><span class="chip-text"></span></a>
               </div>
@@ -123,6 +147,11 @@
         posts = await res.json();
       } catch(e){ console.error('Gagal load posts.json', e); }
 
+      const fmt = d => {
+        const dd = new Date(d); return isNaN(dd)?'':
+          dd.toLocaleDateString('id-ID',{day:'2-digit',month:'short',year:'numeric'});
+      };
+
       const render = ()=>{
         const keyword = (q.value||'').toLowerCase().trim();
         list.innerHTML = '';
@@ -132,23 +161,37 @@
           .forEach(p=>{
             const card = tmpl.content.cloneNode(true);
             const url  = p.url || `/blog/${p.slug}.html`;
-            card.querySelector('.post-cover').href = url;
+            // cover
+            const cov = card.querySelector('.post-cover');
+            cov.href = url;
             const img = card.querySelector('.post-cover img');
             img.src = p.cover || '/OG/Cover-Furniture-Custom-by-Customin.webp';
-            img.alt = p.coverAlt || p.title;
+            img.alt = p.coverAlt || p.title || '';
 
-            card.querySelector('.post-title a').textContent = p.title;
-            card.querySelector('.post-title a').href = url;
-            card.querySelector('.post-date').textContent = new Date(p.date).toLocaleDateString('id-ID',{day:'2-digit',month:'short',year:'numeric'});
+            // title
+            const a = card.querySelector('.post-title a');
+            a.textContent = p.title || '(Tanpa judul)';
+            a.href = url;
+
+            // date
+            card.querySelector('.post-date').textContent = fmt(p.date);
+
+            // comments (ikon terlihat + anchor tersembunyi untuk Disqus)
+            const cmtIcon = card.querySelector('.post-comments-icon');
             const cmt = card.querySelector('.post-comments');
-            cmt.href = `${url}#disqus_thread`;
-            cmt.setAttribute('data-disqus-identifier', p.id || p.slug);
+            const cmtHref = `${url}#disqus_thread`;
+            cmtIcon.href = cmtHref;
+            cmt.href = cmtHref;
+            cmt.setAttribute('data-disqus-identifier', p.id || p.slug || p.title || '');
 
+            // chip kategori
             const chip = card.querySelector('.pd-chip');
-            chip.href = `/blog/?q=${encodeURIComponent(p.category)}`;
-            chip.querySelector('.chip-text').textContent = p.category||'Umum';
+            chip.href = `/blog/?q=${encodeURIComponent(p.category||'')}`;
+            chip.querySelector('.chip-text').textContent = p.category || 'Umum';
 
-            card.querySelector('.post-excerpt').textContent = p.excerpt||'';
+            // excerpt
+            card.querySelector('.post-excerpt').textContent = p.excerpt || '';
+
             list.appendChild(card);
           });
       };
@@ -157,11 +200,13 @@
       render();
 
       // Disqus count
-      const s = document.createElement('script');
-      s.id = 'dsq-count-scr';
-      s.src = '//custominco.disqus.com/count.js';
-      s.async = true;
-      document.body.appendChild(s);
+      try{
+        const s = document.createElement('script');
+        s.id = 'dsq-count-scr';
+        s.src = '//custominco.disqus.com/count.js';
+        s.async = true;
+        document.body.appendChild(s);
+      }catch(_){}
     })();
   </script>
 </body>
